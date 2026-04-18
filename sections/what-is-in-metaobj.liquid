@@ -1,0 +1,566 @@
+{% style %}
+  
+       .whatis-in {
+       padding: 60px 0;
+       position: relative;
+       z-index: 1;
+  }
+   /* .whatis-in:before {
+       content: '';
+       position: absolute;
+       width: 100%;
+       height: 50%;
+       z-index: -1;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       background: var(--Ginger-01-Highight, #FCE8F1); 
+  } */
+   .whatis-in-box {
+       border-radius: 12px;
+       /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+       color: #fff; 
+       padding: 4rem;
+  }
+   .whatis-in-header {
+       text-align: center;
+       font-size: 18px;
+       font-style: normal;
+       font-weight: 900;
+       line-height: 115%;
+       margin-bottom: 40px;
+  }
+   .whatis-in-header .heading h3 {
+       font-family: Elephant Black!important;
+       font-size: 94px;
+       line-height: 115%;
+       color: {{ product.metafields.custom.secondary_color }};
+       margin: 0;
+       position: absolute;
+       top: -20px;
+       left: 50%;
+       transform: translateX(-50%);
+       width:100%;
+  }
+   .whatis-in-header .heading span {
+       font-size: 40px;
+       font-style: normal;
+       font-weight: 900;
+       line-height: 115%;
+       display: block;
+       z-index: 2;
+       position: relative;
+       margin-bottom: 8px;
+       z-index:2;
+       position:relative;
+  }
+
+   .whatis-in-header .heading {
+       position: relative;
+  }
+   .whatis-in-header p {
+       max-width: 400px;
+       margin: 0 auto;
+       z-index:2;
+       position:relative;
+  }
+   .mobile-only.col-12 {
+       display: none;
+  }
+   li.whatis-in-content-list__item {
+       text-align: center;
+       font-size: 14px;
+       font-weight: 400;
+       line-height: 135%;
+  }
+   .step-icon-img img {
+       width: auto;
+       height: 50px;
+       object-fit: cover;
+       margin-bottom: 20px;
+  }
+   li.whatis-in-content-list__item h3 {
+       font-size: 18px;
+       font-weight: 900;
+       line-height: 115%;
+       margin-bottom: 10px;
+  }
+   li.whatis-in-content-list__item + li.whatis-in-content-list__item {
+       margin-top: 40px;
+  }
+   @media (max-width: 991.98px){
+
+       .row.desktop-v {
+           display: none;
+      }
+       .mobile-only.col-12 {
+           display: block;
+      }
+       .whatis-in-box {
+           padding: 40px;
+      }
+       .center-image {
+           text-align: center;
+      }
+       li.whatis-in-content-list__item p {
+           max-width: 400px;
+           margin: 0 auto;
+      }
+       .wic-slider .slick-dots li button:before {
+           width: 10px;
+           height: 10px;
+           background: #fff;
+           content: '';
+           border-radius: 50%;
+           opacity: 0.2;
+      }
+       .wic-slider .slick-dots li.slick-active button:before {
+           opacity: 1;
+           color: #fff;
+      }
+       .wic-slider .slick-dots li.slick-active button, .wic-slider .slick-dots li:hover button {
+           opacity: 1;
+           background: #fff;
+      }
+       .wic-slider .slick-dots li {
+           width: 10px;
+           height: 10px;
+      }
+       .wic-slider ul.slick-dots {
+           position: static;
+           margin-top: 30px;
+            display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 7px;
+      }
+       .whatis-in-header .heading span{
+           font-size:34px;
+      }
+       .full-width.container1 .whatis-in-box {
+          padding: 120px 0px;
+      }
+       .whatis-in-header .heading h3 {
+          font-size: 56px;
+      }
+   }
+  
+   @media (max-width: 750px){
+       .whatis-in-box {
+           padding: 0px 40px;
+      }
+     
+       .whatis-in-box .slick-dotted.slick-slider {
+          margin-bottom: 0px;
+          }
+   }
+
+{% endstyle %}
+
+{%- if product.metafields.custom.select_why_goju != blank -%}
+<section class="whatis-in overflow-hidden"id="whats-in-it">
+  <div class="{% if section.settings.full_width == false %}container{% else %}full-width{% endif %} container1">
+    <div class="row">
+      <div class="col-12">
+        {% assign goju = product.metafields.custom.select_why_goju.value %}
+        <div class="whatis-in-box">
+          <div class="whatis-in-header">
+            <div class="heading">
+              <h3>{{ goju.title }}</h3>
+              <span>{{ goju.sub_title }}</span>
+            </div>
+            <p>{{ goju.intro }}</p>
+          </div>
+          <div class="whatis-in-content">
+            <div class="row desktop-v">
+              <div class="col-4">
+                <ul class="whatis-in-content-list left-content">
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon_1 | img_url :'master' }}"
+                        alt="icon 1"
+                        width="58"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_1 }}</h3>
+                    <p>
+                      {{ goju.text_1 }}
+                    </p>
+                  </li>
+
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon_2 | img_url :'master' }}"
+                        alt="icon 2"
+                        width="53"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_2 }}</h3>
+                    <p>
+                      {{ goju.text_2 }}
+                    </p>
+                  </li>
+
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon_3 | img_url :'master' }}"
+                        alt="icon 3"
+                        width="68"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_3 }}</h3>
+                    <p>
+                      {{ goju.text_3 }}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-4">
+                <div class="center-image">
+                  <img
+                    src="{{ goju.image | img_url:'master' }}"
+                    alt="{{ product.title }}"
+                    loading="lazy"
+                    class="image"
+                  >
+                </div>
+              </div>
+              <div class="col-4">
+                <ul class="whatis-in-content-list right-content">
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon_4| img_url:'master' }}"
+                        alt="icon 4"
+                        width="49"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_4 }}</h3>
+                    <p>
+                      {{ goju.text_4 }}
+                    </p>
+                  </li>
+
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon__5 | img_url:'master' }}"
+                        alt="icon -5"
+                        width="53"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_5 }}</h3>
+                    <p>
+                      {{ goju.text_5 }}
+                    </p>
+                  </li>
+
+                  <li class="whatis-in-content-list__item">
+                    <div class="step-icon-img">
+                      <img
+                        src="{{ goju.icon_6 | img_url:'master' }}"
+                        alt="icon-6"
+                        width="58"
+                        height="51"
+                        loading="lazy"
+                        class="icon-img"
+                      >
+                    </div>
+
+                    <h3>{{ goju.heading_6 }}</h3>
+                    <p>
+                      {{ goju.text_6 }}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="mobile-only col-12">
+              <div class="center-image">
+                <img
+                  src="{{ goju.image | img_url:'master' }}"
+                  alt="{{ product.title }}"
+                  loading="lazy"
+                  class="image"
+                >
+              </div>
+
+              <ul class="whatis-in-content-list wic-slider">
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_1 | img_url:'master' }}"
+                      alt="icon-1"
+                      width="58"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_1 }}</h3>
+                  <p>
+                    {{ goju.text_1 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_2 | img_url:'master' }}"
+                      alt="icon-2"
+                      width="58"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_2 }}</h3>
+                  <p>
+                    {{ goju.text_2 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item "
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_3 | img_url:'master' }}"
+                      alt="icon-3"
+                      width="53"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_3 }}</h3>
+                  <p>
+                    {{ goju.text_3 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item "
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_4 | img_url:'master' }}"
+                      alt="icon-4"
+                      width="68"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_4 }}</h3>
+                  <p>
+                    {{ goju.text_4 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon__5 | img_url:'master' }}"
+                      alt="icon-5"
+                      width="49"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_5 }}</h3>
+                  <p>
+                    {{ goju.text_5 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_6 | img_url:'master' }}"
+                      alt="icon-6"
+                      width="53"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_6 }}</h3>
+                  <p>
+                    {{ goju.text_6 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item "
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_1 | img_url:'master' }}"
+                      alt="icon-1"
+                      width="58"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_1 }}</h3>
+                  <p>
+                    {{ goju.text_1 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_2 | img_url:'master' }}"
+                      alt="icon-2"
+                      width="58"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_2 }}</h3>
+                  <p>
+                    {{ goju.text_2 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_3 | img_url:'master' }}"
+                      alt="icon-3"
+                      width="53"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_3 }}</h3>
+                  <p>
+                    {{ goju.text_3 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_4 | img_url:'master' }}"
+                      alt="icon-4"
+                      width="68"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_4 }}</h3>
+                  <p>
+                    {{ goju.text_4 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon5 | img_url:'master' }}"
+                      alt="icon-5"
+                      width="49"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_5 }}</h3>
+                  <p>
+                    {{ goju.text_5 }}
+                  </p>
+                </li>
+                <li
+                  class="whatis-in-content-list__item"
+                >
+                  <div class="step-icon-img">
+                    <img
+                      src="{{ goju.icon_6 | img_url:'master' }}"
+                      alt="icon-6"
+                      width="53"
+                      height="51"
+                      loading="lazy"
+                      class="icon-img"
+                    >
+                  </div>
+
+                  <h3>{{ goju.heading_6 }}</h3>
+                  <p>
+                    {{ goju.text_6 }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+  "name": "What’s in it Obj",
+  "tag": "section",
+   "settings": [
+    {
+      "type":"checkbox",
+      "id":"full_width",
+      "label":"Full Width"
+    }
+  ],
+  "presets": [
+    {
+      "name": "What’s in it Obj"
+    }
+  ]
+}
+{% endschema %}

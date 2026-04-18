@@ -1,0 +1,134 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "blog-banner",
+      "custom_css": [],
+      "settings": {
+        "heading": "Stay up to date on all things health and wellness.",
+        "paragraph": "",
+        "image": "shopify://shop_images/Gemini_Generated_Image_3c4q0t3c4q0t3c4q.jpg",
+        "text_color": "#121212"
+      }
+    },
+    "blog-filter": {
+      "type": "blog-filter",
+      "settings": {
+        "hide_show": false,
+        "heading": "I want to see",
+        "background_color": "#00823E"
+      }
+    },
+    "blog-list": {
+      "type": "blog-list",
+      "blocks": {
+        "1b1a254f-9613-474e-84f0-446a6abcbf24": {
+          "type": "blog",
+          "settings": {
+            "blog": "gojushots/recipe-ginger-spritz"
+          }
+        },
+        "f2f5264a-1783-4237-933e-79fbb0820180": {
+          "type": "blog",
+          "settings": {
+            "blog": "gojushots/if-you-want-it-yourself-chances-are-others-will-too"
+          }
+        },
+        "12fb7ea5-112b-47fc-ae67-8f34273685d4": {
+          "type": "blog",
+          "settings": {
+            "blog": "gojushots/healthy-winter-skin"
+          }
+        },
+        "c41d9849-d7e5-4f9f-966e-aef91f7f75cb": {
+          "type": "blog",
+          "settings": {
+            "blog": "gojushots/get-to-know-turmeric"
+          }
+        }
+      },
+      "block_order": [
+        "1b1a254f-9613-474e-84f0-446a6abcbf24",
+        "f2f5264a-1783-4237-933e-79fbb0820180",
+        "12fb7ea5-112b-47fc-ae67-8f34273685d4",
+        "c41d9849-d7e5-4f9f-966e-aef91f7f75cb"
+      ],
+      "settings": {
+        "sub_heading": "Featured Content",
+        "heading": "Get more out of Goju with our recipes",
+        "btn_link": "",
+        "btn_text": "View Collection",
+        "image": "shopify://shop_images/post-5.jpg"
+      }
+    },
+    "social-creatures": {
+      "type": "social-creatures",
+      "blocks": {
+        "c622698c-3c67-4202-a26f-22bd3161b994": {
+          "type": "image_list",
+          "settings": {
+            "image": "shopify://shop_images/DSCF7295-2_dd914881-9a98-4334-ba68-3a5866bd590a.jpg",
+            "insta_url": "https://www.instagram.com/goju_shots/"
+          }
+        },
+        "5c366be9-1d8b-4b8b-a352-42d6b17966b3": {
+          "type": "image_list",
+          "settings": {
+            "image": "shopify://shop_images/insta-img2_b8cd5650-ff61-440a-963d-7e617127c179.jpg",
+            "insta_url": "https://www.instagram.com/goju_shots/"
+          }
+        },
+        "b350bf1b-be71-4c76-8c13-119cdb62e120": {
+          "type": "image_list",
+          "settings": {
+            "image": "shopify://shop_images/302156834_3369258156638460_3450857903220252188_n.jpg",
+            "insta_url": "https://www.instagram.com/goju_shots/"
+          }
+        },
+        "d6d32a9b-7c01-4116-88a7-837382b53fb8": {
+          "type": "image_list",
+          "settings": {
+            "image": "shopify://shop_images/305350128_427722629454606_6557093029605053571_n.jpg",
+            "insta_url": "https://www.instagram.com/goju_shots/"
+          }
+        }
+      },
+      "block_order": [
+        "c622698c-3c67-4202-a26f-22bd3161b994",
+        "5c366be9-1d8b-4b8b-a352-42d6b17966b3",
+        "b350bf1b-be71-4c76-8c13-119cdb62e120",
+        "d6d32a9b-7c01-4116-88a7-837382b53fb8"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "We’re social creatures",
+        "body_text": "<p>Connecting with you is our favourite thing to do! Follow along to stay update to date with all things Goju. You can also DM us and leave comments with questions or feedback, we’d love to hear from you.<br/><br/>Tag @goju_shots with your Goju to go into our monthly giveaway draw!</p>",
+        "fb_url": "https://www.facebook.com/gojushots",
+        "insta_url": ""
+      }
+    },
+    "c3f4a22c-3b48-44c5-83b5-aa948219b90c": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "blog-filter",
+    "blog-list",
+    "social-creatures",
+    "c3f4a22c-3b48-44c5-83b5-aa948219b90c"
+  ]
+}

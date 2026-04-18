@@ -1,0 +1,66 @@
+{% if template.name == 'index' %}
+  
+{% assign product = all_products[block.settings.featured_product] %}
+{% else %}  
+{% assign product = product %}
+      {% endif %}  
+<a href="{{ product.url }}" class="card-product-box">
+  <div class="cpb-head">
+    <span>{{ product.type }}</span>
+    <h4>{{ product.title }}</h4>
+    {% if product.metafields.custom.product_tagline != blank %}
+          <p class="tagline">{{ product.metafields.custom.product_tagline }}</p>
+    {% endif %}
+  </div>
+  <div class="cpb-body">
+    {% if product.featured_image != blank %}
+    <div class="cpb-img">
+        <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />
+    </div>
+    {% endif %}
+    <h6><span class="from">From</span> {{ product.price | money }} </h6>
+    {% if product.metafields.custom.product_contents != blank %}
+        <p>{{ product.metafields.custom.product_contents }}</p>
+    {% endif %}
+    <div class="cpb-link">View Product</div>
+  </div>  
+</a>
+
+{% comment %}
+<div class="pbl-box">
+               <div class="pbl-img">
+                 <img src="{{ product.featured_image |img_url:'380x380' }}" alt="{{ product.title }}" />
+               </div>
+               <div class="pbl-text">
+                 <span>{{ product.type }}</span>
+                 <h4>{{ product.title }}</h4>
+                 {% comment %}
+                  <p>{{ product.description |truncatewords:15 }}</p> 
+                 {% endcomment %}
+                 {% if product.metafields.custom.product_tagline != blank %}
+                 <p class="tagline">{{ product.metafields.custom.product_tagline }}</p>
+                 {% endif %}
+                 <h6><span class="from">From</span> {{ product.price | money }} </h6>
+                 {% if product.metafields.custom.product_contents != blank %}
+                 <p>{{ product.metafields.custom.product_contents }}</p>
+                  {% endif %}
+                 <div class="pbl-btn"> 
+                    <a href="{{ product.url }}" class="btn btn-black">View Product</a>
+                    {% comment %}
+                    <form method="post" action="/cart/add" data-productid="{{ product.id }}">
+                    <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.variants.first.id }}" />
+                    <input type="submit" value="Add to cart" class="btn cart-btn" />
+                    </form>
+                    {% endcomment %}
+                 </div>
+                 {% comment %}
+                 {% include 'product-form' %}
+                 
+                 <form method="post" action="/cart/add" data-productid="{{ product.id }}">
+                  <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.variants.first.id }}" />
+                  <input type="submit" value="Add to cart" class="btn cart-btn" />
+                </form>
+                 {% endcomment %}
+               </div>
+             </div>
+    {% endcomment %}          

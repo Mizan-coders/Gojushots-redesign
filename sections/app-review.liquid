@@ -1,0 +1,45 @@
+<section class="content-container health-hub-container">
+   <div class="container container1">
+      <div class="row">
+         <div class="col-lg-5 col-md-6">
+            <div class="health-hub-img">
+               <img src="//cdn.shopify.com/s/files/1/0407/5103/8632/files/insta-img4_441x441.jpg?v=1658053280" alt="files/insta-img4.jpg" />
+            </div>
+         </div>
+         <div class="col-md-6 col-lg-5 offset-lg-1 offset-md-0">
+            <div class="health-hub-content">
+               {% for block in section.blocks %}
+               {% case block.type %}
+               {% when '@app' %}
+               {% render block %}
+               {% endcase %}
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% schema %}
+  {
+    "name": "App Review",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "include_padding",
+        "default": true,
+        "label": "Make section margins the same as theme"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      }
+    ],
+    "presets": [
+      {
+        "name": "App wrapper"
+      }
+    ]
+  }
+{% endschema %}

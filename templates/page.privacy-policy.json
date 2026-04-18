@@ -1,0 +1,37 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "privacy-policy": {
+      "type": "privacy-policy",
+      "settings": {
+        "heading": "Get in touch",
+        "short_text": "Need a hand? Don’t hesitate to contact us for any questions or queries that you may have.",
+        "live_chat": "shopify://policies/privacy-policy",
+        "email": "info@gojushots.com",
+        "popular_topics": "<li>When can I cancel my subscription?</li>\n                            <li>How long will it take my order to arrive?</li>\n                            <li>How long will my products stay fresh?</li>\n                            <li>What is your returns policy?</li>"
+      }
+    },
+    "about-sec8": {
+      "type": "about-sec8",
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "BANTER",
+        "blog": "gojushots",
+        "view_all": "",
+        "post_limit": 4
+      }
+    }
+  },
+  "order": [
+    "privacy-policy",
+    "about-sec8"
+  ]
+}

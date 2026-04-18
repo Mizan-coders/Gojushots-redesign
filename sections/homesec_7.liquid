@@ -1,0 +1,73 @@
+<section id="six" data-color="#F3F2EF" class="dksoni middle-block-container position-relative panel" data-color="#FCFCFB" style="overflow:hidden;">
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="intro-text-middle positive-relative">
+                    <span>{{ section.settings.sub_heading }}</span>
+                    <h3>{{ section.settings.heading }}</h3>
+                    {{ section.settings.body_text }}
+                    {% if section.settings.btn_url != blank %}
+                    <a href="{{ section.settings.btn_url }}" class="btn btn-outline">{{ section.settings.btn_text }}</a>
+                    {% endif %}
+                    {% if section.settings.map_image != blank %}
+                    <div class="intro-map-img">
+                      <img src="{{ section.settings.map_image |img_url:'360x505' }}" alt="{{ section.settings.map_image |alt }}">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if section.settings.buttom_image != blank %}
+    <div class="left-img-box">
+           <img src="{{ section.settings.buttom_image |img_url:'569x417' }}" alt="{{ section.settings.buttom_image |alt }}">
+    </div>
+    {% endif %}
+</section>
+{% schema %}
+  {
+    "name": "Store Nearby",
+    "settings": [
+    {
+      "type":"text",
+      "id":"sub_heading",
+      "label":"Sub Heading"
+    },
+    {
+      "type":"text",
+      "id":"heading",
+      "label":"Heading"
+    },
+    {
+      "type":"image_picker",
+      "id":"logo",
+      "label":"Logo"
+    },
+    {
+      "type":"richtext",
+      "id":"body_text",
+      "label":"Paragraph"
+    },
+    {
+      "type":"url",
+      "id":"btn_url",
+      "label":"Button URL"
+    },
+    {
+      "type":"text",
+      "id":"btn_text",
+      "label":"Button Text"
+    },
+    {
+      "type":"image_picker",
+      "id":"map_image",
+      "label":"Map Image"
+    },
+    {
+      "type":"image_picker",
+      "id":"buttom_image",
+      "label":"Bottom Image"
+    }
+    ]
+  }
+{% endschema %}

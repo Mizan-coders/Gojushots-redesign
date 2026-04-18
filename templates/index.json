@@ -1,0 +1,1212 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "homepage_hero_mw6d6P": {
+      "type": "homepage-hero",
+      "name": "Hero Banner",
+      "settings": {
+        "star_count": 5,
+        "rating_text": "4.9 stars · 2,100+ happy customers",
+        "heading_line1": "ONE SHOT.",
+        "heading_italic": "All day",
+        "heading_line2": "ENERGY.",
+        "subtext": "The daily wellness shot <strong>that actually works.</strong><br>Cold-pressed. No sugar. No crash. Just results.",
+        "price_original": "$95",
+        "price_current": "$85",
+        "price_pack": "/ 12 pack",
+        "price_per": "— just $7.08 per shot",
+        "cta1_label": "Shop Best Seller →",
+        "cta1_url": "shopify://collections/best-seller",
+        "cta2_label": "Find My Shot",
+        "cta2_url": "shopify://products/action-shot",
+        "urgency1_text": "",
+        "urgency1_color": "#ff4d4d",
+        "urgency2_text": "",
+        "urgency2_color": "#f59e0b",
+        "pill_1_icon": "🌿",
+        "pill_1_text": "100% Natural",
+        "pill_2_icon": "🇳🇿",
+        "pill_2_text": "NZ Made",
+        "pill_3_icon": "❄️",
+        "pill_3_text": "Cold-Pressed",
+        "pill_4_icon": "✓",
+        "pill_4_text": "No Preservatives",
+        "image": "shopify://shop_images/MacBook_Air_-_1.png",
+        "img_badge": "⭐ Best Seller",
+        "bg_color": "#121212",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homesec_1": {
+      "type": "hero-banner",
+      "blocks": {
+        "2a52b8d6-a450-41bd-8a6b-a0be76e622e5": {
+          "type": "hero",
+          "settings": {
+            "text_color": "#ffffff",
+            "full_url": "",
+            "sub_heading_1": "New range out now",
+            "heading": "Grown by nature. Crafted to perform.",
+            "sub_heading_2": "Sleep, Immunity, Digestion, Recovery, Performance",
+            "text": "",
+            "sub_heading_3": "",
+            "btn1_color": "#ffffff",
+            "btn1_text_color": "#121212",
+            "btn_text": "Shop GOJU Range",
+            "btn_url": "shopify://collections/all",
+            "btn2_color": "#ffffff",
+            "btn2_text_color": "#121212",
+            "btn_text_2": "",
+            "btn_url_2": "shopify://collections/all",
+            "image": "shopify://shop_images/60ml_shtos_ea1ccb85-9055-4179-bdaa-1bbc981aefa7.png",
+            "image_mob": "shopify://shop_images/Gemini_Generated_Image_ltysj4ltysj4ltys.png",
+            "video_id": "",
+            "flex_align": "align--middle-right",
+            "flex_align_mobile": "align--middle-center--mobile"
+          }
+        },
+        "5c3a0e4d-6577-4537-8900-47d3825be746": {
+          "type": "hero",
+          "disabled": true,
+          "settings": {
+            "text_color": "#fcfbf4",
+            "full_url": "",
+            "sub_heading_1": "",
+            "heading": "",
+            "sub_heading_2": "",
+            "text": "",
+            "sub_heading_3": "",
+            "btn1_color": "#191917",
+            "btn1_text_color": "#fcfbf4",
+            "btn_text": "Explore range",
+            "btn_url": "shopify://collections/all",
+            "btn2_color": "#191917",
+            "btn2_text_color": "#fcfbf4",
+            "btn_text_2": "",
+            "btn_url_2": "",
+            "image": "shopify://shop_images/web-page_c66513b0-f6ff-4f15-87f0-3a60542205b7.jpg",
+            "image_mob": "shopify://shop_images/mobile-web-page_4890e271-787f-4329-8322-1de0ddc97000.jpg",
+            "video_id": "",
+            "flex_align": "align--middle-center",
+            "flex_align_mobile": "align--middle-center"
+          }
+        }
+      },
+      "block_order": [
+        "2a52b8d6-a450-41bd-8a6b-a0be76e622e5",
+        "5c3a0e4d-6577-4537-8900-47d3825be746"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".hero-text p b {font-weight: 800; font-size: 22px;}",
+        "@media (max-width: 991px) {h1 {font-size: 30px !important; } .hero-text p b {font-weight: 800; font-size: 18px; }}",
+        ".hero-text-box {max-width: 630px;}",
+        "section.hero-outer-container h3 {font-weight: 700;}"
+      ],
+      "settings": {
+        "desktop_height": 90,
+        "mobile_height": 60
+      }
+    },
+    "aae61860-a3a0-40e2-9ed4-9e3a536d7f76": {
+      "type": "get-going",
+      "blocks": {
+        "941d2906-7ae8-4a1e-817b-03fabd5b492e": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "wellness-shots"
+          }
+        },
+        "featured_collection_BnDJWc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "functional-juices"
+          }
+        },
+        "927c0bdf-b2e5-4b0d-af24-4e763b637e70": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "500ml-multi-dose-bottles"
+          }
+        },
+        "56f9e3ac-ba13-474f-9026-59808e09b51f": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "combos"
+          }
+        }
+      },
+      "block_order": [
+        "941d2906-7ae8-4a1e-817b-03fabd5b492e",
+        "featured_collection_BnDJWc",
+        "927c0bdf-b2e5-4b0d-af24-4e763b637e70",
+        "56f9e3ac-ba13-474f-9026-59808e09b51f"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "Real ingredients. Built to work.",
+        "info": "No additives.\nNo preservatives.\nNo flavourings.\n\nJust potent blends designed to support immunity, energy, and everyday performance."
+      }
+    },
+    "homesec_6": {
+      "type": "text-with-image",
+      "disabled": true,
+      "settings": {
+        "background_color": "#00823e",
+        "text_color": "#fcfbf4",
+        "layout": "image_first",
+        "image": "shopify://shop_images/pomelli-image_10_1.png",
+        "video": "https://cdn.shopify.com/videos/c/o/v/a7b99c3448074f6fa9581333cdbea500.mp4",
+        "title": "The GOJU difference",
+        "heading_size": "h0",
+        "sub_title": "Learn all the ways you can Goju.",
+        "text": "<p>While our wellness shots are great on their own, there are so many ways that you can enjoy your daily dose of Goju.</p>",
+        "link_text": "Learn more about Goju",
+        "url": "shopify://pages/about-us"
+      }
+    },
+    "homesec_2": {
+      "type": "logo-with-text",
+      "blocks": {
+        "6cf0e307-b480-42eb-b3da-360a6e72bb63": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Artboard_1Favicon_68cb8641-bea8-4b6f-ab81-79577ce47644.png",
+            "text": "High-Strength"
+          }
+        },
+        "9966f34e-79cf-45c0-8843-4bb0f2cae149": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Artboard_1Favicon_68cb8641-bea8-4b6f-ab81-79577ce47644.png",
+            "text": "Made in NZ"
+          }
+        },
+        "613c1c02-b6c9-4c53-a381-f2602421c274": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Artboard_1Favicon_68cb8641-bea8-4b6f-ab81-79577ce47644.png",
+            "text": "100% Natural"
+          }
+        },
+        "9d582b2a-159a-4a6c-a9bc-3b9749b80dce": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Artboard_1Favicon_68cb8641-bea8-4b6f-ab81-79577ce47644.png",
+            "text": "made with organic ingredients"
+          }
+        }
+      },
+      "block_order": [
+        "6cf0e307-b480-42eb-b3da-360a6e72bb63",
+        "9966f34e-79cf-45c0-8843-4bb0f2cae149",
+        "613c1c02-b6c9-4c53-a381-f2602421c274",
+        "9d582b2a-159a-4a6c-a9bc-3b9749b80dce"
+      ],
+      "disabled": true,
+      "settings": {
+        "background_color": "#00823e",
+        "text_color": "#fcfbf4"
+      }
+    },
+    "171452839083d913b1": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_v2_index_reviews_slider_WnEbR9": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.ReviewsSlider/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "lowest_rating": "4",
+            "images_type": "product_images",
+            "only_pinned_reviews": false,
+            "reviews_sequence": "default",
+            "collection-ids": [],
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_v2_index_reviews_slider_WnEbR9"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true,
+        "anchor_link_id": ""
+      }
+    },
+    "d9d38807-f356-4a47-b937-5228e8efd21c": {
+      "type": "what-is-in",
+      "blocks": {
+        "3b4baeca-142c-4ece-adc6-400934b45112": {
+          "type": "left_list",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_100_Natural_2.svg",
+            "title": "Naturally delicious",
+            "text": "No additives. No preservatives. Just vibrant, flavour-forward juice and functional ingredients."
+          }
+        },
+        "946f6845-286a-465e-84dd-aa6414281234": {
+          "type": "left_list",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Low_Sugars_1.svg",
+            "title": "No added sugar",
+            "text": "We let our juice do the heavy lifting when it comes to flavour."
+          }
+        },
+        "d3ddbb2c-dcdc-4c1c-b8e4-a7e3f7502a66": {
+          "type": "left_list",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Made_Organic_2.svg",
+            "title": "Made with organic ingredients",
+            "text": "We prioritise certified organic ingredients across our range, because quality matters."
+          }
+        },
+        "d1bb3939-bb42-47f6-b343-d28f1ee0f6d1": {
+          "type": "right_list",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Made_in_NZ_2.svg",
+            "title": "Made in New Zealand",
+            "text": "Crafted in New Zealand using locally sourced ingredients where possible. Small-batch mindset. High standards."
+          }
+        },
+        "8f18a889-9e50-440e-b40a-e6806e3cdf4d": {
+          "type": "right_list",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Potently_Healthy_1.svg",
+            "title": "Potently Healthy",
+            "text": "Every Goju blend is built with intent, balancing flavour, potency, and purpose."
+          }
+        },
+        "0f68af0f-d96a-46d2-a992-08266cd1b4c2": {
+          "type": "right_list",
+          "settings": {
+            "icon": "shopify://shop_images/Functional_Wellness.svg",
+            "title": "Juice with Purpose",
+            "text": "We carefully select our ingredients based on their ability to benefit you the most."
+          }
+        }
+      },
+      "block_order": [
+        "3b4baeca-142c-4ece-adc6-400934b45112",
+        "946f6845-286a-465e-84dd-aa6414281234",
+        "d3ddbb2c-dcdc-4c1c-b8e4-a7e3f7502a66",
+        "d1bb3939-bb42-47f6-b343-d28f1ee0f6d1",
+        "8f18a889-9e50-440e-b40a-e6806e3cdf4d",
+        "0f68af0f-d96a-46d2-a992-08266cd1b4c2"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "background-color": "#fcfbf4",
+        "optional-background-color": "",
+        "container-color": "#00823e",
+        "secondary-color": "#00823e",
+        "text-color": "#ffffff",
+        "heading": "Better for you, naturally.",
+        "sub_heading": "WHY GOJU",
+        "text": "Here’s what makes Goju different",
+        "image": "shopify://shop_images/Action_shot_A.png"
+      }
+    },
+    "5e24db6a-f5b5-4012-8fcd-b24e185b4bd6": {
+      "type": "section-tabs-content",
+      "blocks": {
+        "ebff3ce9-2ed1-4218-9203-2ca9bf3ba37e": {
+          "type": "tabs_content",
+          "settings": {
+            "index": "01",
+            "title": "Ingredients",
+            "sub_heading": "Our commitment to sustainability",
+            "body_text": "<p>Goju harnesses the power of naturally functional ingredients. We select local and organic ingredients to ensure that every product is brimming with unparalleled quality and goodness.</p>",
+            "link_text": "Learn More",
+            "link": "shopify://pages/about-us",
+            "image": "shopify://shop_images/GINGER-FARMER-1.jpg"
+          }
+        },
+        "2f2ea9d2-7c4f-4477-bb69-8a688cdbae55": {
+          "type": "tabs_content",
+          "settings": {
+            "index": "02",
+            "title": "Sample the Shots",
+            "sub_heading": "Try them all",
+            "body_text": "<p>Don't know where to start? Try our 'try me pack'. It includes all four of Goju's potently healthy wellness shots.</p>",
+            "link_text": "Learn More",
+            "link": "shopify://products/the-sample-pack"
+          }
+        },
+        "dde7e6cd-e1c7-4812-82ff-6d35adcf4ac2": {
+          "type": "tabs_content",
+          "settings": {
+            "index": "03",
+            "title": "Combos",
+            "sub_heading": "Choose a bundle or build your own",
+            "body_text": "<p>Just like you, we appreciate variety, which is why we've curated 'Combo Packs' that blend our favourite products into perfect pairings.</p>",
+            "link_text": "Learn More",
+            "link": ""
+          }
+        },
+        "0b45afcd-2f63-4438-b721-a12cd974d18e": {
+          "type": "image_with_info",
+          "settings": {
+            "title": "Our Story",
+            "image": "shopify://shop_images/belle_tom_sqaure.png",
+            "body_text": "<p>Our mission when we started Goju was to make the best wellness shots in the world. </p>",
+            "link_text": "Learn More",
+            "link": "shopify://pages/about-us"
+          }
+        },
+        "17dacbbd-02f4-4e7b-be36-546384829b85": {
+          "type": "image_with_info",
+          "settings": {
+            "title": "Recipes",
+            "image": "shopify://shop_images/GOJU_Supershot_Shot5.jpg",
+            "body_text": "<p>Our products are more than just juice. They're also mocktail mixers, soup enhancers and smoothie bowl superstars.</p>",
+            "link_text": "Learn More",
+            "link": "https://gojushots.com/blogs/gojushots/tagged/recipe"
+          }
+        }
+      },
+      "block_order": [
+        "ebff3ce9-2ed1-4218-9203-2ca9bf3ba37e",
+        "2f2ea9d2-7c4f-4477-bb69-8a688cdbae55",
+        "dde7e6cd-e1c7-4812-82ff-6d35adcf4ac2",
+        "0b45afcd-2f63-4438-b721-a12cd974d18e",
+        "17dacbbd-02f4-4e7b-be36-546384829b85"
+      ],
+      "disabled": true,
+      "settings": {
+        "background_image": "shopify://shop_images/GOJU_Banner_Shot12.jpg"
+      }
+    },
+    "14926c13-dcef-4666-a0cb-7a9f0c2f1275": {
+      "type": "call-to-action",
+      "disabled": true,
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "background_top": "#fcfbf4",
+        "background_bottom": "#ffffff",
+        "image": "shopify://shop_images/gradient_60ml_shots.png",
+        "mobile_image_filter": "#121212",
+        "text_color": "#ffffff",
+        "button_color": "#ffffff",
+        "title": "Find us",
+        "sub_title": "We’re stocked all over New Zealand",
+        "text": "",
+        "btn_text": "Find your local stockist",
+        "btn_url": "shopify://pages/stockiest"
+      }
+    },
+    "be38c04e-14ac-445c-9d26-6c343a44b1e6": {
+      "type": "inner-banner",
+      "disabled": true,
+      "settings": {
+        "bg_image": "shopify://shop_images/Banner_22dcc64c-4ede-494a-b3c2-d76e6cb8e9f8.png",
+        "heading": "Find us.",
+        "sub_heading": "We’re probably closer than you thought.",
+        "info": "If you’re in the mood to get out of the house and track down some Goju in the wild, we’ve compiled a list of places you can find us! If we’re not in your neighourhood yet, keep an eye our - we’re always popping up in new stores.",
+        "btn_text": "Find your local",
+        "btn_url": "shopify://pages/about-us"
+      }
+    },
+    "homesec_3": {
+      "type": "homesec_3",
+      "blocks": {
+        "dca9c574-e526-4052-8603-c6ccb9d0fefa": {
+          "type": "featured-product",
+          "disabled": true,
+          "settings": {
+            "featured_product": "detox-shot"
+          }
+        },
+        "32357b86-755d-4a50-89c9-53cab930cde6": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "supershot"
+          }
+        },
+        "fe9c3ba0-ac9a-40f8-ad49-9387159fc800": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "ginger-shot"
+          }
+        },
+        "0ba005cf-2cb4-4c30-a39f-95607a660acf": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "ginger-manuka-shot"
+          }
+        },
+        "2cbeddb3-e1ff-414f-afb7-08a6c9f25a7f": {
+          "type": "featured-product",
+          "disabled": true,
+          "settings": {
+            "featured_product": "turmeric"
+          }
+        },
+        "9e331cef-e6f0-4dec-b152-c7f94078568f": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "turmeric-500ml-multi-dose-bottle"
+          }
+        }
+      },
+      "block_order": [
+        "dca9c574-e526-4052-8603-c6ccb9d0fefa",
+        "32357b86-755d-4a50-89c9-53cab930cde6",
+        "fe9c3ba0-ac9a-40f8-ad49-9387159fc800",
+        "0ba005cf-2cb4-4c30-a39f-95607a660acf",
+        "2cbeddb3-e1ff-414f-afb7-08a6c9f25a7f",
+        "9e331cef-e6f0-4dec-b152-c7f94078568f"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Best sellers.",
+        "pr_logo": "shopify://shop_images/logo-grey.png",
+        "short_text": "While all Goju products are great, there are some that our Go-getters just can't get enough of.",
+        "ml60": "https://gojushots.com/collections/all#shots",
+        "ml500": "https://gojushots.com/collections/all#bottles",
+        "combos": "https://gojushots.com/collections/all#packs",
+        "btn_text": "Shop the range",
+        "btn_link": "shopify://collections/all"
+      }
+    },
+    "homesec_5": {
+      "type": "review-section",
+      "blocks": {
+        "4d17af36-87c9-45cb-ab53-d602a11a0415": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Love the products",
+            "quote_by": "Maree",
+            "paragraph": "<p>Hey Goju. Love the products - The care in packaging, great customer service & supports local awesomeness.</p>"
+          }
+        },
+        "0e5c11cd-c21b-4ea6-94b5-6e62b22c2ebc": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "High vibes",
+            "quote_by": "Flora",
+            "paragraph": "<p>Best investment! Keeps you high vibe and so good for my over all wellbeing!</p>"
+          }
+        },
+        "48f5574d-8901-443a-8bd7-ff55a6fc7149": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Keeps my whole family healthy",
+            "quote_by": "Charlotte",
+            "paragraph": "<p>I don't just like these shots. I love them. They keep my whole family healthy and we love the sweet and spicy flavour!</p>"
+          }
+        },
+        "93beb0e6-9c85-4834-988c-c07e04119a76": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Love for Supershot",
+            "quote_by": "Nathan",
+            "paragraph": "<p>I loved the Supershot so much when I sampled it! Ordered a dozen and they just arrived so can’t wait to rip into them. <br/><br/>Best part is that it taste like an orange juice but with a healthy gingery kick to it. Exactly what I was after leading into winter.</p>"
+          }
+        },
+        "f3f60b56-5f46-42e5-82e3-5192fec8d2e4": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Seriously good",
+            "quote_by": "Skye",
+            "paragraph": "<p>This lasts me way longer than just the 8 shots. I take a 30ml shot, I also add to hot water and add some to soda waters - so, so good!</p>"
+          }
+        },
+        "480e8ee1-807c-4aa8-b2e5-a609aa9f1521": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Absolutely love it",
+            "quote_by": "Rochelle",
+            "paragraph": "<p>Tried these shot for the first time. I absolutely love it! Tastes great and not too overwhelming. <br/>Will definitely buy again.</p>"
+          }
+        },
+        "28490cfe-553c-4e7d-b156-e61aad761b88": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Good for the Body & Soul",
+            "quote_by": "Julie",
+            "paragraph": "<p>Love the Shots, so easy to use. Pop in my handbag for taking to the office... especially nice mixed with hot water for a good winter warm-up, plus knowing that they are extra good for the Body & Soul. xx</p>"
+          }
+        },
+        "9afb97ec-032a-4b3a-9f49-4105f40447fb": {
+          "type": "featured-review",
+          "settings": {
+            "quote": "Improving my immunity",
+            "quote_by": "Vivienne",
+            "paragraph": "<p>Love these shots! I take 30ml in the morning & again in the evening.  I feel it’s improving my immunity & menopause symptoms.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "4d17af36-87c9-45cb-ab53-d602a11a0415",
+        "0e5c11cd-c21b-4ea6-94b5-6e62b22c2ebc",
+        "48f5574d-8901-443a-8bd7-ff55a6fc7149",
+        "93beb0e6-9c85-4834-988c-c07e04119a76",
+        "f3f60b56-5f46-42e5-82e3-5192fec8d2e4",
+        "480e8ee1-807c-4aa8-b2e5-a609aa9f1521",
+        "28490cfe-553c-4e7d-b156-e61aad761b88",
+        "9afb97ec-032a-4b3a-9f49-4105f40447fb"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "But don’t just take our word for it…",
+        "back_heading": "Review"
+      }
+    },
+    "homepage_trust_ticker_4Ew9FJ": {
+      "type": "homepage-trust-ticker",
+      "blocks": {
+        "ticker_item_qnNQUr": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "⭐",
+            "text": "4.9 Stars · 2,100+ Reviews"
+          }
+        },
+        "ticker_item_Lz7yEY": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "🌿",
+            "text": "100% Natural Ingredients"
+          }
+        },
+        "ticker_item_JQxjLD": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "🇳🇿",
+            "text": "Made in New Zealand"
+          }
+        },
+        "ticker_item_xRcMty": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free Shipping $75+"
+          }
+        },
+        "ticker_item_x8Bdde": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "✅",
+            "text": "30-Day Guarantee"
+          }
+        },
+        "ticker_item_DfQT7F": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "❄️",
+            "text": "Cold-Pressed Formula"
+          }
+        },
+        "ticker_item_W9Mtkn": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "🌱",
+            "text": "No Preservatives"
+          }
+        }
+      },
+      "block_order": [
+        "ticker_item_qnNQUr",
+        "ticker_item_Lz7yEY",
+        "ticker_item_JQxjLD",
+        "ticker_item_xRcMty",
+        "ticker_item_x8Bdde",
+        "ticker_item_DfQT7F",
+        "ticker_item_W9Mtkn"
+      ],
+      "name": "Trust Ticker",
+      "settings": {
+        "bg_color": "#00823e",
+        "text_color": "#ffffff",
+        "separator": "✦",
+        "speed": "30",
+        "padding_top": 14,
+        "padding_bottom": 14
+      }
+    },
+    "homepage_press_AsSeenIn": {
+      "type": "homepage-press",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "label_text": "As Seen In",
+        "bg_color": "#f5f0e8",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "homepage_pick_goal_GhQmtE": {
+      "type": "homepage-pick-goal",
+      "blocks": {
+        "product_card_mRML7A": {
+          "type": "product_card",
+          "settings": {
+            "product": "defend-pack",
+            "name_override": "",
+            "goals": "energy,Recovery,Sleep",
+            "goal_label": "Immunity. Sleep. Recovery",
+            "badge_type": "bestseller",
+            "badge_text": "🌟 Best Seller",
+            "short_desc": "Triple-root ginseng, turmeric & ginger blend for all-day performance.",
+            "price_text": "",
+            "pack_text": "/ 12 pack",
+            "star_rating": 5,
+            "review_count": "237"
+          }
+        },
+        "product_card_niJt67": {
+          "type": "product_card",
+          "settings": {
+            "product": "action-shot",
+            "name_override": "",
+            "goals": "immunity",
+            "goal_label": "Power body. Charge mind.",
+            "badge_type": "new",
+            "badge_text": "New",
+            "short_desc": "Cold-pressed lemon, turmeric and ginger. Daily immunity in one shot.",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "89"
+          }
+        },
+        "product_card_7hBCQ3": {
+          "type": "product_card",
+          "settings": {
+            "product": "ginger-ignition",
+            "name_override": "",
+            "goals": "Digest.",
+            "goal_label": "Sleep · Recovery · Calm",
+            "badge_type": "none",
+            "badge_text": "Best Seller",
+            "short_desc": "Tart cherry, magnesium and passionflower. Wind down and wake up right.",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "64"
+          }
+        },
+        "product_card_EDqjMV": {
+          "type": "product_card",
+          "settings": {
+            "product": "ginger-500ml-multi-dose-bottle",
+            "name_override": "",
+            "goals": "Digestion, energy",
+            "goal_label": "Boost Your Immunity",
+            "badge_type": "none",
+            "badge_text": "Best Seller",
+            "short_desc": "",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "0"
+          }
+        },
+        "product_card_7eVUbC": {
+          "type": "product_card",
+          "settings": {
+            "product": "restore-pack",
+            "name_override": "",
+            "goals": "Digestion, energy,Recovery,Sleep",
+            "goal_label": "Digest. Recovery. Sleep",
+            "badge_type": "none",
+            "badge_text": "Best Seller",
+            "short_desc": "",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "0"
+          }
+        },
+        "product_card_jbxM66": {
+          "type": "product_card",
+          "settings": {
+            "product": "good-night",
+            "name_override": "",
+            "goals": "energy",
+            "goal_label": "Relax. Drift. Dream.",
+            "badge_type": "none",
+            "badge_text": "Best Seller",
+            "short_desc": "",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "0"
+          }
+        }
+      },
+      "block_order": [
+        "product_card_mRML7A",
+        "product_card_niJt67",
+        "product_card_7hBCQ3",
+        "product_card_EDqjMV",
+        "product_card_7eVUbC",
+        "product_card_jbxM66"
+      ],
+      "name": "Pick Your Goal",
+      "settings": {
+        "eyebrow": "Pick Your Goal",
+        "heading": "The shot for",
+        "heading_accent": "every need.",
+        "subtext": "Choose what you're working toward — we've got the right blend for it.",
+        "tab_all_label": "All Products",
+        "tab_1_icon": "⚡",
+        "tab_1_label": "Energy",
+        "tab_2_icon": "🛡️",
+        "tab_2_label": "Immunity",
+        "tab_3_icon": "😴",
+        "tab_3_label": "Sleep",
+        "tab_4_icon": "💪",
+        "tab_4_label": "Recovery",
+        "tab_5_icon": "🌿",
+        "tab_5_label": "Digestion",
+        "tab_6_icon": "",
+        "tab_6_label": "",
+        "cta_label": "Shop Full Range →",
+        "cta_url": "shopify://collections",
+        "columns": "3",
+        "bg_color": "#f5f0e8",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_why_goju_cWe97M": {
+      "type": "homepage-why-goju",
+      "blocks": {
+        "row_xjzymr": {
+          "type": "row",
+          "settings": {
+            "feature": "Cold-Pressed",
+            "goju_text": "Preserves nutrients — heat destroys up to 70% of benefits.",
+            "competitor_text": "Heat-treated, destroying key nutrients before you drink them."
+          }
+        },
+        "row_dzN7Tc": {
+          "type": "row",
+          "settings": {
+            "feature": "Natural Ingredients",
+            "goju_text": "100% natural — no artificial colours, flavours or fillers.",
+            "competitor_text": "Often contain artificial additives, sweeteners and fillers."
+          }
+        },
+        "row_qjUqei": {
+          "type": "row",
+          "settings": {
+            "feature": "No Sugar Added",
+            "goju_text": "Clean energy without the spike and crash cycle.",
+            "competitor_text": "High sugar content causes energy spikes and inevitable crashes."
+          }
+        },
+        "row_RdPgdk": {
+          "type": "row",
+          "settings": {
+            "feature": "Made in New Zealand",
+            "goju_text": "Locally sourced, Kiwi-made — supporting NZ since day one.",
+            "competitor_text": "Mass-produced overseas with little transparency on sourcing."
+          }
+        },
+        "row_fiKtf4": {
+          "type": "row",
+          "settings": {
+            "feature": "Goal-Specific Formula",
+            "goju_text": "Energy, immunity, sleep, digestion — each shot has one job.",
+            "competitor_text": "Generic one-size-fits-all formula with no targeted benefit."
+          }
+        },
+        "row_kkzdUT": {
+          "type": "row",
+          "settings": {
+            "feature": "No Preservatives",
+            "goju_text": "What you drink is exactly what nature made — nothing added.",
+            "competitor_text": "Rely on preservatives to extend shelf life at the cost of quality."
+          }
+        },
+        "row_DGkzWz": {
+          "type": "row",
+          "settings": {
+            "feature": "Subscription Flexibility",
+            "goju_text": "Pause, skip or cancel anytime — no lock-in, no questions asked.",
+            "competitor_text": "Locked-in contracts with difficult cancellation processes."
+          }
+        }
+      },
+      "block_order": [
+        "row_xjzymr",
+        "row_dzN7Tc",
+        "row_qjUqei",
+        "row_RdPgdk",
+        "row_fiKtf4",
+        "row_kkzdUT",
+        "row_DGkzWz"
+      ],
+      "name": "Why GOJU",
+      "settings": {
+        "eyebrow": "Why GOJU?",
+        "title_italic": "Why",
+        "title_main": "GOJU.",
+        "goju_logo": "shopify://shop_images/New_1_2x_2.png",
+        "goju_logo_text": "GOJU.",
+        "competitor_label": "Typical Wellness Shots",
+        "cta_label": "Shop GOJU Now →",
+        "cta_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_bundle_gihCYP": {
+      "type": "homepage-bundle",
+      "blocks": {
+        "product_item_Mie9CT": {
+          "type": "product_item",
+          "settings": {
+            "product": "immune-guard",
+            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Immune_guard_2_975f2a1e-d47d-427c-ac2b-96e0cf74b4bf.png?v=1774399335",
+            "name": "Immune Guard",
+            "sub": "Defend · Fortify",
+            "price": "$17",
+            "dot_top": "42%",
+            "dot_left": "18%",
+            "dot_right": ""
+          }
+        },
+        "product_item_mFFXxG": {
+          "type": "product_item",
+          "settings": {
+            "product": "good-night",
+            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png?v=1774338496",
+            "name": "Good Night",
+            "sub": "Relax · Drift · Dream",
+            "price": "$17",
+            "dot_top": "62%",
+            "dot_left": "48%",
+            "dot_right": ""
+          }
+        },
+        "product_item_U9YhdD": {
+          "type": "product_item",
+          "settings": {
+            "product": "vital-sunshine",
+            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png?v=1774399335",
+            "name": "Vital Sunshine",
+            "sub": "Recover · Brighten",
+            "price": "$17",
+            "dot_top": "22%",
+            "dot_left": "18%",
+            "dot_right": "15%"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_Mie9CT",
+        "product_item_mFFXxG",
+        "product_item_U9YhdD"
+      ],
+      "name": "Bundle",
+      "settings": {
+        "section_eyebrow": "Mixed Packs",
+        "section_title": "Can't Pick Just One?",
+        "section_title_italic": "Good.",
+        "section_sub": "Our mixed packs are built for variety — different benefits, one delivery.",
+        "badge_show": true,
+        "badge_text": "🔥 Most Popular Bundle",
+        "lifestyle_image_url": "",
+        "bundle_eyebrow": "Defence Pack",
+        "bundle_title": "Immunity. Sleep. Recovery.",
+        "bundle_tagline": "Three targeted shots. One daily defence routine.",
+        "price_total": "$50",
+        "price_per": "/ 9 shots",
+        "price_saving": "· Save vs buying separately",
+        "cart_btn_label": "Add Bundle to Cart →",
+        "cart_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_reviews_fDwEyT": {
+      "type": "homepage-reviews",
+      "blocks": {
+        "review_UjUfiN": {
+          "type": "review",
+          "settings": {
+            "name": "Abbey Fox",
+            "initials": "AF",
+            "avatar_color": "#d4f24a",
+            "rating": 5,
+            "review_text": "\"Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling in love with Good Night.\"",
+            "product_name": "Good Night Shot"
+          }
+        },
+        "review_njcbQ3": {
+          "type": "review",
+          "settings": {
+            "name": "Michelle D. Frazer",
+            "initials": "MF",
+            "avatar_color": "#a5d6a7",
+            "rating": 5,
+            "review_text": "\"Love it! Delicious flavour, love the pepper hit. Only been drinking for three days so am keen to see improvement in inflammation soon.\"",
+            "product_name": "Action Shot"
+          }
+        },
+        "review_YzWHJn": {
+          "type": "review",
+          "settings": {
+            "name": "Bernadette Frost",
+            "initials": "BF",
+            "avatar_color": "#ffcc80",
+            "rating": 5,
+            "review_text": "\"Sooo refreshing plus sore throat compliments — I'm sure the super shot is stopping the throat getting worse. Love it!\"",
+            "product_name": "Vital Sunshine"
+          }
+        }
+      },
+      "block_order": [
+        "review_UjUfiN",
+        "review_njcbQ3",
+        "review_YzWHJn"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "headline": "Real Results.",
+        "headline_italic": "Real people.",
+        "sub_headline": "See why thousands trust Goju daily.",
+        "score": "4.9",
+        "score_stars": 5,
+        "review_count": "Based on 137 reviews",
+        "verified_count": "2,100+ verified customers",
+        "write_review_label": "Write a Review",
+        "write_review_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_when_to_take_dBM67Q": {
+      "type": "homepage-when-to-take",
+      "blocks": {
+        "card_Rinn9z": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Immune_guard_A_6b469492-329f-46e6-83fb-624663b3916e.png",
+            "image_url": "",
+            "time_label": "Morning",
+            "title": "Start Strong",
+            "description": "Take your shot first thing on an empty stomach for maximum absorption. Sets the tone for the whole day.",
+            "tags": "Action Shot, Vital Sunshine",
+            "featured": false
+          }
+        },
+        "card_G39Vcw": {
+          "type": "card",
+          "settings": {
+            "image_url": "",
+            "time_label": "Pre-Workout",
+            "title": "Power Up",
+            "description": "The ginger and turmeric blend provides natural energy support before training — no jitters, no crash.",
+            "tags": "Action Shot, Ginger Ignition",
+            "featured": true
+          }
+        },
+        "card_EhU4WK": {
+          "type": "card",
+          "settings": {
+            "image_url": "",
+            "time_label": "Afternoon",
+            "title": "Beat the Slump",
+            "description": "Skip the coffee at 3pm. A GOJU shot gives you clean, sustained energy to power through the rest of your day.",
+            "tags": "Immune Guard, Vital Sunshine",
+            "featured": false
+          }
+        },
+        "card_MKJMCp": {
+          "type": "card",
+          "settings": {
+            "image_url": "",
+            "time_label": "Evening",
+            "title": "Wind Down",
+            "description": "Let Good Night do the work. Tart cherry, magnesium and passionflower ease you into a deep, restful sleep.",
+            "tags": "Good Night",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "card_Rinn9z",
+        "card_G39Vcw",
+        "card_EhU4WK",
+        "card_MKJMCp"
+      ],
+      "name": "When to Take Your Shot",
+      "settings": {
+        "eyebrow": "Daily Routine",
+        "title": "When to take your",
+        "title_italic": "shot.",
+        "subtitle": "GOJU fits into your day wherever you need it most — morning, workout or afternoon slump.",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_subscribe_iD7bTC": {
+      "type": "homepage-subscribe",
+      "blocks": {
+        "perk_GD46dV": {
+          "type": "perk",
+          "settings": {
+            "icon": "💰",
+            "text": "Save 10% on every order automatically"
+          }
+        },
+        "perk_xNKndW": {
+          "type": "perk",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free shipping on every subscription order"
+          }
+        },
+        "perk_9j9df6": {
+          "type": "perk",
+          "settings": {
+            "icon": "⏸️",
+            "text": "Pause, skip or cancel anytime — no lock-in"
+          }
+        },
+        "perk_UUeGYk": {
+          "type": "perk",
+          "settings": {
+            "icon": "🎯",
+            "text": "Choose your frequency — weekly, fortnightly or monthly"
+          }
+        }
+      },
+      "block_order": [
+        "perk_GD46dV",
+        "perk_xNKndW",
+        "perk_9j9df6",
+        "perk_UUeGYk"
+      ],
+      "name": "Subscribe & Save",
+      "settings": {
+        "eyebrow": "Subscribe & Save",
+        "title": "Never run out.",
+        "title_italic": "Save every order.",
+        "body_text": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked.",
+        "card_title": "Start Subscribing",
+        "card_subtitle": "Pick your first product and lock in your savings today.",
+        "subscribe_btn_label": "Subscribe & Save 10%",
+        "subscribe_url": "shopify://collections/all",
+        "subscribe_note": "Pause or cancel anytime. No commitments.",
+        "offer_prefix": "Or get",
+        "offer_highlight": "$10 off",
+        "offer_suffix": "your first one-time order",
+        "email_placeholder": "Your email address",
+        "email_btn_label": "Get $10 Off",
+        "discount_code": "",
+        "success_msg": "You're in! Use code",
+        "success_msg_suffix": "at checkout.",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homesec_11": {
+      "type": "homesec_11",
+      "settings": {
+        "eyebrow_text": "Health & Wellness",
+        "title": "Dive deeper",
+        "heading_italic": "into health.",
+        "sub_title": "Expert-led guides on nutrition, recovery, sleep and everyday performance.",
+        "blog": "gojushots",
+        "post_limit": 3,
+        "show_date": true,
+        "show_view_all": false,
+        "view_all": "shopify://blogs/gojushots",
+        "view_all_text": "Learn more",
+        "enable_slider": false,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "16772150570bec987c": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true,
+        "anchor_link_id": ""
+      }
+    },
+    "homesec_7": {
+      "type": "call-to-action",
+      "disabled": true,
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "background_top": "",
+        "background_bottom": "",
+        "image": "shopify://shop_images/find_us_section.png",
+        "mobile_image_filter": "",
+        "text_color": "",
+        "button_color": "",
+        "title": "Find us.",
+        "sub_title": "We’re probably closer than you thought.",
+        "text": "<p>If you’re in the mood to get out of the house and track down some Goju in the wild, we’ve compiled a list of places you can find us! If we’re not in your neighourhood yet, keep an eye our - we’re always popping up in new stores.</p><p></p>",
+        "btn_text": "Find your local",
+        "btn_url": "shopify://pages/store-locator-1"
+      }
+    },
+    "ecb75264-6232-4581-ba18-4272e75f00a9": {
+      "type": "instafeed",
+      "disabled": true,
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    },
+    "ec8eaaaa-e600-4dae-9c59-ab5fb4ba11dc": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "<script src=\"https://apps.elfsight.com/p/platform.js\" defer></script>\n<div class=\"elfsight-app-b51e080b-a12b-4cd7-89a4-a647b34f28aa\"></div>\n\n<style>\n.eapps-link {\nfilter: blur(1000px);\npointer-events: none;\n}\n</style>",
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "homepage_hero_mw6d6P",
+    "homesec_1",
+    "aae61860-a3a0-40e2-9ed4-9e3a536d7f76",
+    "homesec_6",
+    "homesec_2",
+    "171452839083d913b1",
+    "d9d38807-f356-4a47-b937-5228e8efd21c",
+    "5e24db6a-f5b5-4012-8fcd-b24e185b4bd6",
+    "14926c13-dcef-4666-a0cb-7a9f0c2f1275",
+    "be38c04e-14ac-445c-9d26-6c343a44b1e6",
+    "homesec_3",
+    "homesec_5",
+    "homepage_trust_ticker_4Ew9FJ",
+    "homepage_press_AsSeenIn",
+    "homepage_pick_goal_GhQmtE",
+    "homepage_why_goju_cWe97M",
+    "homepage_bundle_gihCYP",
+    "homepage_reviews_fDwEyT",
+    "homepage_when_to_take_dBM67Q",
+    "homepage_subscribe_iD7bTC",
+    "homesec_11",
+    "16772150570bec987c",
+    "homesec_7",
+    "ecb75264-6232-4581-ba18-4272e75f00a9",
+    "ec8eaaaa-e600-4dae-9c59-ab5fb4ba11dc"
+  ]
+}

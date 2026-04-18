@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "contact-page",
+      "custom_css": [
+        ".form-control {border: 1px solid #e5e5e5 !important;}"
+      ],
+      "settings": {
+        "heading": "Drop us a line",
+        "body_text": "<p>Questions, feedback, or something not quite right — we’re here for it.</p><p>Send us a message and we’ll get back to you as soon as we can.</p>",
+        "gn_inquiries": "<p>For anything from product questions to order support, just drop us a line.</p><p>We’ll come back to you as quickly as possible.</p>",
+        "wholesale": "<p>Interested in stocking Goju?</p><p>We partner with a small number of retailers who value high-quality, functional products. If that sounds like you, we’d love to hear from you.</p><p>Reach us at <a href=\"mailto:team@gojushots.com.\" title=\"mailto:team@gojushots.com.\">team@gojushots.com</a></p>",
+        "btn_link": "shopify://pages/about-us",
+        "fb_url": "https://www.facebook.com/gojushots",
+        "insta_url": "https://www.instagram.com/goju_shots/"
+      }
+    },
+    "4e1f7448-03ec-4d19-9592-8156b0bd7024": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "4e1f7448-03ec-4d19-9592-8156b0bd7024"
+  ]
+}

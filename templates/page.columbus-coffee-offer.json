@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "1664883300ace959e4": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n\n.container1 {\n  margin: auto;\n  display: flex;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-items: center;\n  }\n\n.image {\n  background-size: cover;\n  background-position: center;\n  height: 100%;\n  width: 50%;\n}\n\nh1, h4, p {\ncolor: black;\n}\n\n.description {\n  width: 50%;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 20px;\n}\n\n@media (max-width: 720px) {\n  .container1 {\n    display: block;\n    height: auto;\n    max-height: 100%;\n  }\n  .image, .description {\n    width: 100%;\n  }\n  .image {\n    height: auto;\n  }\n}\n</style>\n\n<div class=\"container1\" style=\"background-color: #fbf3ea;\">\n  <div class=\"image\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/custom_resized_861f0043-dc18-48b2-afeb-1517d041930f.jpg?v=1664933337\" style=\"width:100%\"></div>\n    <div class=\"description\">\n      <h1>Columbus Coffee</h1>\n      <h4>Wholesale information + Early Adopter\n      <br>offer for Goju wellness shots</h4>\n      <p>Please email team@gojushots.com to place your order.</p>\n    </div>\n</div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "1664846747a1953f09": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n\n.container2 {\n  margin: auto;\n  display: flex;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-items: center;\n  padding: 30px 100px 30px 100px;\n    }\n\n.image2 {\n  background-size: cover;\n  background-position: center;\n  height: 100%;\n  width: 40%;\n  padding:30px;\n}\n\nh1, h4, p, h5, h6 {\ncolor: black;\n\n}\n\n.description2 {\n  width: 50%;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n}\n\n@media (max-width: 720px) {\n  .container2 {\n    display: block;\n    height: auto;\n    max-height: 100%;\n   display: flex;\n   flex-direction: column-reverse;\n   padding: 10px 0px 10px 0px; \n  }\n  .image2, .description2 {\n    width: 100%;\n  }\n  .image2 {\n    height: auto;\n    padding:10px;\n  }\n}\n</style>\n\n<div class=\"container2\" style=\"background-color: #fbf3ea;\">\n      <div class=\"description2\">\n      <h6 style=\"margin-bottom: 0px !important;\">Here's a deal worth a shot</h6>\n      <h1>50% off your first order</h1>\n      <h5>Goju is offering 50% off your first order if you order before December 31st 2022.</h5>\n      <h6 style=\"margin-bottom: 0px !important;\">Product</h6>\n      <p style=\"margin-bottom: 10px !important;\">500ml multi-dose bottles. Each potently healthy bottle of juice contains approximately 16 wellness shots. There are 3 flavours, Ginger, Turmeric and Collagen</p>\n      <h6 style=\"margin-bottom: 0px !important;\">How you sell</h6>\n      <p style=\"margin-bottom: 10px !important;\">You can sell the shots on their own or paired with a mixer. Customers can choose a 30ml or a 60ml shot. More information on products and sale tips are below.</p>\n      <h6 style=\"margin-bottom: 0px !important;\">Pricing</h6>\n      <p style=\"margin-bottom: 10px !important;\">1 x box of 6 500ml multi-dose bottes = $90 excl GST</p>\n      <h6 style=\"margin-bottom: 0px !important;\">RRP</h6>\n      <p style=\"margin-bottom: 10px !important;\">60ml shot = $3.50 <br> 30ml shot = $2.50</p>\n    </div>\n    <div class=\"image2\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/DSCF7295-2_dd914881-9a98-4334-ba68-3a5866bd590a.jpg?v=1663533058\" style=\"width:100%\"></div>\n</div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "16648833047d086126": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n\n.container3 {\n  margin: auto;\n  display: flex;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-items: center;\n  padding: 30px 100px 30px 100px;\n    }\n\n.image3 {\n  background-size: cover;\n  background-position: center;\n  height: 100%;\n  width: 50%;\n  padding:25px;\n}\n\nh1, h4, p, h5, h6 {\ncolor: black;\n\n}\n\n.description3 {\n  width: 50%;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n}\n\n@media (max-width: 720px) {\n  .container3 {\n    display: block;\n    height: auto;\n    max-height: 100%;\n    padding: 10px 0px 10px 0px; \n  }\n  .image3, .description3 {\n    width: 100%;\n  }\n  .image3 {\n    height: auto;\n    padding:10px;\n  }\n}\n</style>\n\n<div class=\"container3\" style=\"background-color: #fbf3ea;\">\n\n<div class=\"image3\"><p style=\"margin-bottom: 10px !important; font-weight: bolder;\">Check out Columbus x Goju 'local favourite' recipe as seen in Columbus's newsletter.</p><br><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/ginger-tea-recipe.webp?v=1661899607\" style=\"width:100%\"></div>\n      <div class=\"description2\">\n      <h1>Lemon, Honey, Ginger Flu Fighter</h1>\n      <p style=\"margin-bottom: 10px !important; font-weight: bolder;\">A DELICIOUS BLEND OF FRESH LEMON, NATURAL SWEET HONEY AND A SHOT OF GOJU GINGER\n<br><br>INGREDIENTS: <br>350 ml Hot Water \n<br>50 ml tepid water \n<br>2 teaspoons of honey \n<br>30ml shot of Goju ginger liquid \n<br>1 tspn of lemon juice \n<br>2 lemon slices to garnish\n<br><br>METHOD: \n<br>Put Ginger juice, Lemon and Honey into the bottom of the glass <br>Gently add the hot water. \n<br>Gently stir with a long teaspoon (parfait spoon) until well mixed <br>Now add the tepid water (not chilled) until roughly 1cm below lip of glass \n<br>Add 2 slices of lemon to the top as a garnish.\n<br><br>PRESENTATION: \n<br>Serve in a Frappe Glass, with a straw. For ease of drinking you may want to wrap a napkin around the glass or use a cardboard hot beverage collar.\n<br><br>RRP/MARGIN: \n<br>$6.50</p>\n      \n    </div>\n    </div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "16648940052670612e": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n\n.container4 {\n  margin: auto;\n  display: flex;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-items: center;\n  padding: 30px 100px 30px 100px;\n    }\n\n.image4 {\n  background-size: cover;\n  background-position: center;\n  height: 100%;\n  width: 50%;\n  padding:50px;\n}\n\nh1, h4, p, h5, h6 {\ncolor: black;\n\n}\n\n.description4 {\n  width: 50%;\n  display: flex;\n  flex-direction: column;\n  padding: 20px;\n}\n\n@media (max-width: 720px) {\n  .container4 {\n    display: block;\n    height: auto;\n    max-height: 100%;\n    padding: 10px 0px 10px 0px; \n  }\n  .image4, .description4 {\n    width: 100%;\n    align-items: center;\n  }\n  .image4 {\n    height: auto;\n    padding:10px;\n  }\n}\n</style>\n<h1 style=\"text-align: center;background-color: #fbf3ea; margin-bottom:0px;\">More recipes from Goju</h1>\n<div class=\"container4\" style=\"background-color: #fbf3ea;\">\n<div class=\"image4\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/5.png?v=1664898573\" style=\"width:100%\">\n<br><br><h4 style=\"text-align: center;\">Ginger Spritz</h4>\n<p style=\"font-weight: bold; text-align: center;\">Ingredients\n<br>30mls or 60mls of Goju Ginger\n<br>A handful of frozen berries \n<br>A dollop of honey or sweetener of\nyour choice \n<br>Top with sparkling water</p></div>\n<div class=\"image4\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/latte.png?v=1661901369\" style=\"width:100%\">\n<br><br><h4 style=\"text-align: center;\">Turmeric Latte</h4>\n<p style=\"font-weight: bold; text-align: center;\">Ingredients\n<br>30mls or 60mls of Goju Turmeric \n<br>250mls coconut milk\n<br>1 tsp honey sprinkle with cinnamon<br><br><br></p>\n</div>\n<div class=\"image4\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/4.png?v=1664898489\" style=\"width:100%\">\n<br><br><h4 style=\"text-align: center;\">Zingy OJ</h4>\n<p style=\"font-weight: bold; text-align: center;\">Ingredients\n<br>30mls or 60mls of Goju Ginger\n<br>250mls Orange juice\n<br>Squeeze of lime\n<br><br><br></p>\n</div>\n                 \n        </div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "16648966644595a623": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div>\n<style>\n\n.container5 {\n  margin: auto;\n  display: flex;\n  flex-wrap: nowrap;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0px 100px 0px 100px;\n    }\n\n.image5 {\n  background-size: cover;\n  background-position: center;\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\nh1, h4, p, h5, h6 {\ncolor: black;\n\n}\n\n@media (max-width: 720px) {\n  .container5 {\n    display: block;\n    height: auto;\n    max-height: 100%;\n    padding: 10px 0px 10px 0px; \n  }\n  .image5 {\n    width: 100%;\n    align-items: center;\n  }\n  .image5 {\n    height: auto;\n    padding: 10px 10px 0px 10px;\n  }\nh1{font-size:280%;}\n}\n</style>\n<h1 style=\"text-align: center;background-color: #fbf3ea; margin-bottom:0px;\">Create your own recipes by add a Goju shot to:</h1>\n<div class=\"container5\" style=\"background-color: #fbf3ea;\">\n<div class=\"image5\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/op1.png?v=1664933770\" style=\"width:25%\">\n<br><br><h4 style=\"text-align: center;\">Fizzy water</h4>\n</div>\n<div class=\"image5\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Op2.png?v=1664933770\" style=\"width:25%\">\n<br><br><h4 style=\"text-align: center;\">Hot water</h4>\n</div>\n<div class=\"image5\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/op3.png?v=1664934087\" style=\"width:25%\">\n<br><br><h4 style=\"text-align: center;\">Juice</h4>\n</div>\n<div class=\"image5\"><img src=\"https://cdn.shopify.com/s/files/1/0407/5103/8632/files/op4.png?v=1664934085\" style=\"width:25%; padding-top:35px;\">\n<br><br><h4 style=\"text-align: center;\">Or just have it straight up</h4>\n</div>               \n</div>\n<h4  style=\"font-weight: bold; text-align: center; background-color: #fbf3ea; margin-bottom:0px; padding:10px;\">We have point of sale material to help you customers understand how they can enjoy Goju.\n<br><br><br>You can download or view our point of sale material <a href=\"https://drive.google.com/drive/u/3/folders/1dljY26Zz3mpU657e5FbLHJlkJHiE6ImJ\" target=\"_blank\" style=\"text-decoration: underline;\">here.</a><br><br></h4>\n<h1 style=\"text-align: center;background-color: #fbf3ea; margin-bottom:0px; padding: 30px;\">Contact us today to place your order\nor find out more.</h1>\n<p style=\"font-weight: bold; text-align: center; background-color: #fbf3ea; padding: 30px;\">Email team@gojushots.com</p>\n</div>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1664883300ace959e4",
+    "1664846747a1953f09",
+    "16648833047d086126",
+    "16648940052670612e",
+    "16648966644595a623"
+  ]
+}

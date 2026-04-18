@@ -1,0 +1,243 @@
+<div class="inner-banner-container d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner-banner-content">
+                    <div class="ibc-img-box">
+                        <img src="{{ section.settings.hero_image |img_url:'796x434' }}" alt="{{ section.settings.hero_image |alt }}" />
+                    </div>
+                    <h3>{{ section.settings.heading }}</h3>
+                    <div class="ibc-img">
+                        <img src="{{ section.settings.nav_image |img_url:'316x60' }}" alt="{{ section.settings.nav_image |alt }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="option-box">
+                    <h5>{{ section.settings.sub_heading }}</h5>
+                    <span>EFFECTS</span>
+                    <select class="form-select" id="turmeric-sort">
+                        <option value="turmeric1">Turmeric</option>
+                        <option value="turmeric2">Ginger</option>
+                        <option value="turmeric3">Collagen</option>
+                        <option value="turmeric4">Charcoal</option>
+                        <option value="turmeric5">Macha</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ul class="ibc-box-list d-flex flex-wrap" id="turmeric1">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'turmeric1' %}
+                    <li>
+                        <h4>{{ block.settings.heading }}</h4>
+                        <p>{{ block.settings.subheading }}</p>
+                        <span>{{ block.settings.text }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <ul class="ibc-box-list d-flex flex-wrap d-none" id="turmeric2">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'turmeric2' %}
+                    <li>
+                        <h4>{{ block.settings.heading }}</h4>
+                        <p>{{ block.settings.subheading }}</p>
+                        <span>{{ block.settings.text }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <ul class="ibc-box-list d-flex flex-wrap d-none" id="turmeric3">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'turmeric3' %}
+                    <li>
+                        <h4>{{ block.settings.heading }}</h4>
+                        <p>{{ block.settings.subheading }}</p>
+                        <span>{{ block.settings.text }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <ul class="ibc-box-list d-flex flex-wrap d-none" id="turmeric4">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'turmeric4' %}
+                    <li>
+                        <h4>{{ block.settings.heading }}</h4>
+                        <p>{{ block.settings.subheading }}</p>
+                        <span>{{ block.settings.text }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <ul class="ibc-box-list d-flex flex-wrap d-none" id="turmeric5">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'turmeric5' %}
+                    <li>
+                        <h4>{{ block.settings.heading }}</h4>
+                        <p>{{ block.settings.subheading }}</p>
+                        <span>{{ block.settings.text }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <div class="banner-btn d-sm-none d-block">
+                    <a href="{{ section.settings.btn_url }}" class="btn btn-outline">{{ section.settings.btn_text }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Banner",
+    "settings": [
+      {
+        "type" : "image_picker",
+        "id"  : "hero_image",
+        "label" : "Hero Image"
+      },
+      {
+        "type" : "text",
+        "id"  : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "image_picker",
+        "id"  : "nav_image",
+        "label" : "List Image"
+      },
+      {
+        "type" : "text",
+        "id"  : "sub_heading",
+        "label" : "Sub Heading"
+      },
+      {
+        "type" : "url",
+        "id"  : "btn_url",
+        "label" : "Button URL"
+      },
+      {
+        "type" : "text",
+        "id"  : "btn_text",
+        "label" : "Button Text"
+      }
+    ],
+    "blocks": [
+     {
+       "name": "Turmeric",
+       "type": "turmeric1",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+         },
+         {
+           "type": "text",
+           "id": "subheading",
+           "label": "Sub Heading"
+         },
+         {
+           "type": "text",
+           "id": "text",
+           "label": "Text"
+         }
+       ]
+     },
+      {
+       "name": "Ginger",
+       "type": "turmeric2",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+         },
+         {
+           "type": "text",
+           "id": "subheading",
+           "label": "Sub Heading"
+         },
+         {
+           "type": "text",
+           "id": "text",
+           "label": "Text"
+         }
+       ]
+     },
+      {
+       "name": "Collagen",
+       "type": "turmeric3",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+         },
+         {
+           "type": "text",
+           "id": "subheading",
+           "label": "Sub Heading"
+         },
+         {
+           "type": "text",
+           "id": "text",
+           "label": "Text"
+         }
+       ]
+     },
+      {
+       "name": "Charcoal",
+       "type": "turmeric4",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+         },
+         {
+           "type": "text",
+           "id": "subheading",
+           "label": "Sub Heading"
+         },
+         {
+           "type": "text",
+           "id": "text",
+           "label": "Text"
+         }
+       ]
+     },
+      {
+       "name": "Macha",
+       "type": "turmeric5",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Heading"
+         },
+         {
+           "type": "text",
+           "id": "subheading",
+           "label": "Sub Heading"
+         },
+         {
+           "type": "text",
+           "id": "text",
+           "label": "Text"
+         }
+       ]
+     }
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

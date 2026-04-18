@@ -1,0 +1,320 @@
+{{ 'collection-new-alt.css' | asset_url | stylesheet_tag }}
+<div class="overflow-hidden coll-page">
+  <div class="coll-nav-container d-sm-none d-block">
+    <ul class="coll-nav d-flex align-items-center justify-content-between">
+      <li class="coll-nav-item"><a href="#one" class="btn btn-outline">Shots</a></li>
+      <li class="coll-nav-item"><a href="#two" class="btn btn-outline">Bottles</a></li>
+      <li class="coll-nav-item"><a href="#three" class="btn btn-outline">Combos</a></li>
+    </ul>
+  </div>
+  <!-- ============================== collection Block Container Start ============================== -->
+  <div class="collection-outer">
+    {% assign collection_shots = 'wellness-shots' %}
+    {% if collection.handle == 'all' or collection.handle == 'wellness-shots' %}
+      <section
+        class="section"
+        data-bg="#316879"
+        id="ten"
+        data-color="#E81F76"
+        class="dksoni collection-container panel"
+        style="background: #FFDA00"
+      >
+        <div class=" ">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="collection-box d-flex flex-wrap">
+                <div id="col1" data-color="#2ABBE6" class="collection-box-text yellow-box">
+                  <div class="collection-text">
+                    <div class="back-img">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-img.png?v=1658675461"
+                        alt=""
+                      >
+                    </div>
+                    <h3>{{- collections['wellness-shots'].title | escape -}}</h3>
+                    {{- collections['wellness-shots'].description -}}
+                  </div>
+                </div>
+                <div class="collection-product-list">
+                  <ul class="cp-list d-flex flex-wrap">
+                    {% for product in collections[collection_shots].products %}
+                      <li class="cp-item">
+                        <div class="cp-box">
+                          <div class="cp-img">
+                            <img src="{{ product.featured_image | img_url: '205x196' }}" alt="{{ product.title }}">
+                          </div>
+                          <div class="cp-text">
+                            <span>{{ product.vendor }}</span>
+                            <h4>{{ product.title }}</h4>
+                            <h6>{{ product.price | money }}</h6>
+                            <a href="{{ product.url }}" class="btn btn-outline">View Product</a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    <li>
+                      <div class="sticker-img-box">
+                        <img
+                          src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/sticker-1.png?v=1658758817"
+                          alt=""
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== collection Block Container End ============================== -->
+    {% endif %}
+    <!-- ============================== collection Block Container Start ============================== -->
+    {% assign collection_500ml = '500ml-bottles' %}
+    {% if collection.handle == 'all' or collection.handle == 'collection_500ml' %}
+      <section
+        class="section"
+        data-bg="#f47a60"
+        id="eleven"
+        data-color="#53CFF3"
+        class="dksoni collection-container panel"
+        style="background: #E81F76"
+      >
+        <div class=" ">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="collection-box d-flex flex-wrap">
+                <div class="collection-box-text pink-box">
+                  <div class="collection-text">
+                    <div class="back-img">
+                      <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-2.png?v=1658714054" alt="">
+                    </div>
+                    <h3>{{- collections['500ml-bottles'].title | escape -}}</h3>
+                    {{- collections['500ml-bottles'].description -}}
+                  </div>
+                </div>
+                <div class="collection-product-list">
+                  <ul class="cp-list d-flex flex-wrap">
+                    {% for product in collections[collection_500ml].products %}
+                      <li class="cp-item">
+                        <div class="cp-box">
+                          <div class="cp-img">
+                            <img src="{{ product.featured_image | img_url: '205x196' }}" alt="{{ product.title }}">
+                          </div>
+                          <div class="cp-text">
+                            <span>{{ product.vendor }}</span>
+                            <h4>{{ product.title }}</h4>
+                            <h6>{{ product.price | money }}</h6>
+                            <a href="{{ product.url }}" class="btn btn-outline">View Product</a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    <li>
+                      <div class="sticker-img-box">
+                        <img
+                          src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/sticker-2.png?v=1658758864"
+                          alt=""
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== collection Block Container End ============================== -->
+    {% endif %}
+    <!-- ============================== collection Block Container Start ============================== -->
+    {% assign collection_combos = 'combos' %}
+    {% if collection.handle == 'all' or collection.handle == 'combos' %}
+      <section id="design" class="dksoni collection-container panel">
+        <div class=" ">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="collection-box d-flex flex-wrap">
+                <div class="collection-box-text blue-box">
+                  <div class="collection-text">
+                    <div class="back-img">
+                      <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-3.png?v=1658758450" alt="">
+                    </div>
+                    <h3>{{- collections.combos.title | escape -}}</h3>
+                    {{- collections.combos.description -}}
+                  </div>
+                </div>
+                <div class="collection-product-list">
+                  <ul class="cp-list d-flex flex-wrap">
+                    {% for product in collections[collection_combos].products %}
+                      <li class="cp-item">
+                        <div class="cp-box">
+                          <div class="cp-img">
+                            <img src="{{ product.featured_image | img_url: '205x196' }}" alt="{{ product.title }}">
+                          </div>
+                          <div class="cp-text">
+                            <span>{{ product.vendor }}</span>
+                            <h4>{{ product.title }}</h4>
+                            <h6>{{ product.price | money }}</h6>
+                            <a href="{{ product.url }}" class="btn btn-outline">View Product</a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    <li class="cp-item extra_large_content">
+                      <div class="cp-box">
+                        <div class="cp-img">
+                          <img
+                            src="{{ section.settings.combos_image | img_url: 'master' }}"
+                            alt="{{ collection.title }}"
+                          >
+                        </div>
+                        <div class="cp-text">
+                          <h4>{{ section.settings.combos_heading }}</h4>
+                          <p>{{ section.settings.combos_text }}</p>
+                          <a href="{{ section.settings.combos_button_link }}" class="btn btn-outline">
+                            {{- section.settings.combos_button_text -}}
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+    <!-- ============================== collection Block Container End ============================== -->
+    <!-- ============================== collection Block Container Start ============================== -->
+    {% assign collection_merch = 'merch' %}
+    {% if collection.handle == 'all' or collection.handle == 'merch' %}
+      <section id="design2" class="dksoni collection-container panel">
+        <div class=" ">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="collection-box d-flex flex-wrap">
+                <div class="collection-box-text yellow-box">
+                  <div class="collection-text">
+                    <div class="back-img">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-img.png?v=1658675461"
+                        alt=""
+                      >
+                    </div>
+                    <h3>{{- collections.merch.title | escape -}}</h3>
+                    {{- collections.merch.description -}}
+                  </div>
+                </div>
+                <div class="collection-product-list">
+                  <ul class="cp-list d-flex flex-wrap">
+                    {% for product in collections[collection_merch].products %}
+                      <li class="cp-item">
+                        <div class="cp-box">
+                          <div class="cp-img">
+                            <img src="{{ product.featured_image | img_url: '205x196' }}" alt="{{ product.title }}">
+                          </div>
+                          <div class="cp-text">
+                            <span>{{ product.vendor }}</span>
+                            <h4>{{ product.title }}</h4>
+                            <h6>{{ product.price | money }}</h6>
+                            <a href="{{ product.url }}" class="btn btn-outline">View Product</a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    <li class="cp-item extra_large_content">
+                      <div class="cp-box">
+                        <div class="cp-img">
+                          <img
+                            src="{{ section.settings.merch_image | img_url: 'master' }}"
+                            alt="{{ collection.title }}"
+                          >
+                        </div>
+                        <div class="cp-text">
+                          <h4>{{ section.settings.merch_heading }}</h4>
+                          <p>{{ section.settings.merch_text }}</p>
+                          <a href="{{ section.settings.merch_button_link }}" class="btn btn-outline">
+                            {{- section.settings.merch_button_text -}}
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== collection Block Container End ============================== -->
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+  {
+    "type": "header",
+    "content": "Combos Content"
+  },
+  {
+    "type": "image_picker",
+    "id": "combos_image",
+    "label": "Image"
+  },
+  {
+    "type": "text",
+    "id": "combos_heading",
+    "label": "Heading"
+  },
+  {
+    "type": "textarea",
+    "id": "combos_text",
+    "label": "Text"
+  },
+  {
+    "type": "text",
+    "id": "combos_button_text",
+    "label": "Button Text"
+  },
+  {
+    "type": "url",
+    "id": "combos_button_link",
+    "label": "Button Link"
+  },
+      {
+    "type": "header",
+    "content": "Merch Content"
+  },
+  {
+    "type": "image_picker",
+    "id": "merch_image",
+    "label": "Image"
+  },
+  {
+    "type": "text",
+    "id": "merch_heading",
+    "label": "Heading"
+  },
+  {
+    "type": "textarea",
+    "id": "merch_text",
+    "label": "Text"
+  },
+  {
+    "type": "text",
+    "id": "merch_button_text",
+    "label": "Button Text"
+  },
+  {
+    "type": "url",
+    "id": "merch_button_link",
+    "label": "Button Link"
+  }
+  ]
+}
+{% endschema %}

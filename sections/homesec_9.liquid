@@ -1,0 +1,99 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- if blog.articles_count > 0 -%}
+  <!-- ============================== category block container Start ============================== -->
+  <section id="nine" data-color="#ffffff" class="dksoni post-container panel" data-color="#20A634" style="overflow:hidden;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="heading">
+            <h3>{{ section.settings.title }}</h3>
+            <h5>{{ section.settings.sub_title }}</h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="view-all-btn d-flex justify-content-md-end">
+            <a href="{{ section.settings.view_all }}" class="btn btn-white">View Go Club</a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="post-list post-slider arrow-bottom d-md-flex">
+            {%- for article in blog.articles limit: section.settings.post_limit -%}
+              <li class="post-item">
+                <div class="post-box">
+                  {%- if article.image -%}
+                    <div class="post-img">
+                      {{ article | img_url: '325x325', scale: 2 | img_tag: '' }}
+                    </div>
+                  {%- endif -%}
+                  <div class="post-text">
+                    <div class="post-date">{{ article.published_at | date: '%d. %B %y' }}</div>
+                    <h3>{{ article.title }}</h3>
+                    {%- if article.excerpt.size > 0 -%}
+                      <p>{{ article.excerpt }}</p>
+                    {%- else -%}
+                      <p>{{ article.content | strip_html | truncate: 150 }}</p>
+                    {%- endif -%}
+                    <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============================== category block container End ============================== -->
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blog posts"
+    },
+	{
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Heading",
+      "default": "Sub Blog posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "url",
+      "id": "view_all",
+      "label": "View all URL"
+    },
+	{
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog",
+      "settings": {
+        "blog": "News",
+        "post_limit": 3
+      }
+    }
+  ]
+}
+{% endschema %}

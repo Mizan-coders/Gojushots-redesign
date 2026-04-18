@@ -1,0 +1,150 @@
+<div class="icon-cluster">
+    <div class="shape-box">
+      {%- if product.metafields.custom.icon_cluster != blank -%}
+        <img
+          src="{{ product.metafields.custom.icon_cluster |img_url:'447x80' }}"
+          alt="{{ product.metafields.custom.icon_cluster |alt }}"
+        >
+      {%- else -%}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/icons.png?v=1666099043"
+          alt="{{ product.metafields.custom.icon_cluster |alt }}"
+        >
+      {%- endif -%}
+    </div>
+
+  <div class="sdb-link d-flex justify-content-center">
+    <!--
+      START - the science popup - to be implemented later
+          <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#custom-popup">
+              <div class="icon">
+                 <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                       fill-rule="evenodd"
+                       clip-rule="evenodd"
+                       d="M13.66 5.65L8 0L2.34 5.65C0.78 7.21 0 9.29 0 11.29C0 13.29 0.78 15.4 2.34 16.96C3.9 18.52 5.95 19.31 8 19.31C10.05 19.31 12.1 18.52 13.66 16.96C15.22 15.4 16 13.29 16 11.29C16 9.29 15.22 7.21 13.66 5.65ZM2 11.65C2.01 9.65 2.62 8.38 3.76 7.25L8 2.92L12.24 7.3C13.38 8.42 13.99 9.65 14 11.65H2Z"
+                       fill="#E81F76"
+                       />
+                 </svg>
+              </div>
+              The Science
+           </a>
+      ----    END - the science popup - to be implemented later
+    -->
+
+    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#nutrition-popup">
+      <div class="icon">
+        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+             fill-rule="evenodd"
+             clip-rule="evenodd"
+             d="M14.4 1.8H13.5V0H11.7V1.8H4.5V0H2.7V1.8H1.8C0.81 1.8 0 2.61 0 3.6V16.2C0 17.19 0.81 18 1.8 18H14.4C15.39 18 16.2 17.19 16.2 16.2V3.6C16.2 2.61 15.39 1.8 14.4 1.8ZM14.4 16.2H1.8V7.2H14.4V16.2ZM1.8 5.4V3.6H14.4V5.4H1.8ZM3.6 9H12.6V10.8H3.6V9ZM3.6 12.6H9.9V14.4H3.6V12.6Z"
+             fill="#E81F76"
+             />
+        </svg>
+      </div>
+      Nutrition
+    </a>
+    <a href="/pages/stockist">
+      <div class="icon">
+        <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+             fill-rule="evenodd"
+             clip-rule="evenodd"
+             d="M6.3 0C9.783 0 12.6 2.817 12.6 6.3C12.6 11.025 6.3 18 6.3 18C6.3 18 0 11.025 0 6.3C0 2.817 2.817 0 6.3 0ZM1.8 6.3C1.8 8.865 4.428 12.789 6.3 15.192C8.208 12.771 10.8 8.892 10.8 6.3C10.8 3.816 8.784 1.8 6.3 1.8C3.816 1.8 1.8 3.816 1.8 6.3ZM6.3 8.55C5.05736 8.55 4.05 7.54264 4.05 6.3C4.05 5.05736 5.05736 4.05 6.3 4.05C7.54264 4.05 8.55 5.05736 8.55 6.3C8.55 7.54264 7.54264 8.55 6.3 8.55Z"
+             fill="#E81F76"
+             />
+        </svg>
+      </div>
+      Find a stockist
+    </a>
+  </div>
+</div>
+
+<div
+  class="custom-modal modal fade"
+  id="custom-popup"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="custom-popupLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="navbar-brand" href="/"
+          ><img
+            src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Goju_logo_pos_1_14cf97aa-3101-4df8-a8d3-7fffa703b496.png?v=1658043940"
+            alt="Goju Shots"
+        ></a>
+        <div class="close-btn" data-bs-dismiss="modal" aria-label="Close">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9168 9.08075L24.9193 7.08325L17.0002 15.0024L9.081 7.08325L7.0835 9.08075L15.0027 16.9999L7.0835 24.9191L9.081 26.9166L17.0002 18.9974L24.9193 26.9166L26.9168 24.9191L18.9977 16.9999L26.9168 9.08075Z" fill="#3E3E3E"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content-text">
+          <h4>The Science Behind</h4>
+          <p>
+            Stress, the ever-present reaction to pressure that we unfortunately cannot completely eliminate from our
+            lives, impacts us mentally and physically and in more ways than we can imagine, short-term and long-term.
+            Though we cannot completely avoid it, we can learn to manage it by making simple life changes or making time
+            for healthy stress-reducing habits.
+
+            The stress that Covid-19 caused in society was overwhelming as it transformed our daily lives, impacted work
+            environments, relationships, and our general health. Adjusting to life post-pandemic is arguably just as
+            stressful as we transition back into working on-site, studying on-campus, socialising more, and making all
+            the other necessary adjustments. As young professionals, we are all too familiar with stress and how it
+            impacts our lives. This is why we believe it is important to explore the topic of stress and how to manage
+            it, especially in a world that is constantly providing us with unimaginable challenges on top of every-day
+            life. As much as we try to avoid the overwhelming feelings that stress causes, our daily tasks, professions,
+            workplaces and other responsibilities inevitably morph into stressors, affecting our bodies in a multitude
+            of ways. If you often hear about stress management and wonder how you can possibly make time to de-stress in
+            the midst of deadlines or an abundance of tasks for the day, we can certainly relate, having experienced
+            these feelings, but we’re here to make it simple. Sometimes the issue is that we believe the only way to
+            relieve our stress is to tackle the direct problems, whether it means working tirelessly without breaks to
+            complete an assignment, completing errand after errand, or doing everything you can to meet a work deadline,
+            disregarding your body’s needs. This means that we end up forgetting that doing little things that promote
+            relaxation, calm our minds, and ease our bodies, actually aid the process towards achieving our daily goals,
+            bringing us closer to completion and thereby, easing stress as it stimulates our brains and improves our
+            overall health.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if product.metafields.custom.nutrition_img != blank %}
+  <!-- nutrition-popup -->
+
+  <div
+    class="custom-modal modal fade"
+    id="nutrition-popup"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="nutrition-popupLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="navbar-brand" href="/"></a>
+          <div class="close-btn" data-bs-dismiss="modal" aria-label="Close">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9168 9.08075L24.9193 7.08325L17.0002 15.0024L9.081 7.08325L7.0835 9.08075L15.0027 16.9999L7.0835 24.9191L9.081 26.9166L17.0002 18.9974L24.9193 26.9166L26.9168 24.9191L18.9977 16.9999L26.9168 9.08075Z" fill="#3E3E3E"/>
+            </svg>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="nutrition-img-box">
+            <img src="{{ product.metafields.custom.nutrition_img | image_url: width: 489  }}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

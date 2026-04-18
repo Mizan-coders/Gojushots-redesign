@@ -1,0 +1,163 @@
+<!--============================== Product Block container Start ==============================-->
+<section id="three" style="overflow:hidden;" data-color="#E81F76" class="dksoni product-block-container panel position-relative" data-color="#FAF9F6" style="overflow:hidden;">
+  <div class="logo-yellow d-md-none d-block">
+    <img src="{{ section.settings.pr_logo | img_url:'1184x592' }}" alt="logo-yellow" />
+  </div>
+  <div class="container container1">
+    <div class="row align-items-end">
+      <div class="col-md-6">
+        <div class="heading d-md-block">
+        <h3>{{ section.settings.title }}</h3>
+        <div class="logo-yellow d-md-block d-none">
+            <img src="{{ section.settings.pr_logo | img_url:'1184x592' }}" alt="logo-yellow" />
+        </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="product-block-btn d-md-flex justify-content-end">
+            <a href="{{ section.settings.btn_link }}" class="black-link">{{ section.settings.btn_text }}</a>
+        </div>
+        <div class="product-block-btn d-none text-center">
+            <a href="{{ section.settings.title }}" class="btn btn-black">Shop All</a>
+        </div>
+      </div>
+    </div>
+     <div class="row">
+       <div class="col-md-3 custom-width d-none d-md-block">
+         <div class="product-block-disc">
+           <p>{{ section.settings.short_text }}</p>  
+         </div>
+         <div class="product-block-disc-link">
+            <a href="{{ section.settings.ml60 }}" class="black-link">60mL Wellness Shots</a>
+            <a href="{{ section.settings.ml500 }}" class="black-link">500mL Bottles</a>
+            <a href="{{ section.settings.combos }}" class="black-link">Combos</a>
+         </div>
+       </div>
+       <div class="col-md-9 custom-width">
+         <ul class="product-block-list product-block-slider arrow-bottom d-xl-flex">
+           {% for block in section.blocks %}
+           {% assign product = all_products[block.settings.featured_product] %}
+           <li class="pbl-item">
+              <a href="{{ product.url }}" class="card-product-box">
+                <div class="cpb-head">
+                  <span>{{ product.type }}</span>
+                  <h4>{{ product.title }}</h4>
+                  {% if product.metafields.custom.product_tagline != blank %}
+                        <p class="tagline">{{ product.metafields.custom.product_tagline }}</p>
+                  {% endif %}
+                </div>
+                <div class="cpb-body">
+                  {% if product.featured_image != blank %}
+                  <div class="cpb-img">
+                      <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />
+                  </div>
+                  {% endif %}
+                  <div class="product-price">
+                                  
+                                    {% if product.compare_at_price > product.price %}
+                                    <h6 class="is"><span class="from">From</span> {{ product.price | money }} </h6>
+                                    <h6  class="was"><span class="from">Was From {{ product.compare_at_price |money }}</h6>
+                                    {% else %} 
+                                    <h6><span class="from">From</span> {{ product.price | money }} </h6>
+                                    {% endif %}
+                              
+                                    {% if product.metafields.custom.product_contents != blank %}
+                                        <p>{{ product.metafields.custom.product_contents }}</p>
+                                    {% endif %}
+                              
+                                    <div class="cpb-link">View Product</div>
+                  </div>  
+                </div>  
+              </a>
+           </li>
+           {% endfor %}
+         </ul>
+         <div class="product-block-arrow d-flex align-items-center justify-content-between">
+                <a href="#!" class="custom-arrow-btn product-block-prev"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/icon-left.png?v=1661477399" alt="arrow-left" /></a>
+                  <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                      <span class="slider__label"></span>
+                  </div>
+                <a href="#!" class="custom-arrow-btn product-block-next"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/icon-right.png?v=1661477399" alt="right-arrow" /></a>
+          </div>
+         {% comment %}
+         <div class="content-text">
+           <h5>{{ section.settings.bottom_title }}</h5>
+           <a href="{{ section.settings.shop_by_range }}" class="btn btn-default">Shop the range</a>
+         </div>
+         {% endcomment %}
+       </div>
+     </div>
+   </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Featured product",
+    "class": "index-section index-section--featured-product",
+	"max_blocks": 12,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+	  {
+        "type": "image_picker",
+        "id": "pr_logo",
+        "label": "Logo"
+      },
+      
+	 {
+        "type": "textarea",
+        "id": "short_text",
+        "label": "Short Text"
+      }, 
+	 {
+        "type": "url",
+        "id": "ml60",
+        "label": "60mL Wellness Shots URL"
+      },
+	  {
+        "type": "url",
+        "id": "ml500",
+        "label": "500mL Bottles"
+      },
+      {
+        "type": "url",
+        "id": "combos",
+        "label": "Combos"
+      },
+	  {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Text"
+      },
+	  {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button Link"
+      }
+
+	  
+    ],
+	"blocks": [
+     {
+       "name": "Featured Product",
+       "type": "featured-product",
+       "settings": [
+         {
+           "type": "product",
+           "id": "featured_product",
+           "label": "Select Featured Product"
+         }
+       ]
+     }
+   ],
+    "presets": [
+      {
+        "name": "Featured product",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

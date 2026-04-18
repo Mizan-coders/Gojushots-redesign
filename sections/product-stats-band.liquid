@@ -1,0 +1,208 @@
+{{ 'section-product-cro.css' | asset_url | stylesheet_tag }}
+
+{%- assign pc_primary = product.metafields.custom.primary_color -%}
+
+{% style %}
+  .pdp-cro.stats-band-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- assign _accent = section.settings.accent_color -%}
+    {%- if _accent == blank or _accent == 'rgba(0,0,0,0)' -%}{%- assign _accent = pc_primary -%}{%- endif -%}
+    {% if _accent != blank and _accent != 'rgba(0,0,0,0)' %}
+    --cro-accent: {{ _accent }};
+    {% endif %}
+    {% if section.settings.highlight_color != blank and section.settings.highlight_color != 'rgba(0,0,0,0)' %}
+    --cro-highlight: {{ section.settings.highlight_color }};
+    {% endif %}
+  }
+  @media screen and (max-width: 749px) {
+    .pdp-cro.stats-band-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.7 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+  }
+{% endstyle %}
+
+{%- assign _bg = section.settings.bg_color -%}
+{%- if _bg == blank or _bg == 'rgba(0,0,0,0)' -%}{%- assign _bg = pc_primary -%}{%- endif -%}
+<div class="pdp-cro cro-section--brand stats-band-{{ section.id }}" id="stats-band-{{ section.id }}"
+  {%- if _bg != blank and _bg != 'rgba(0,0,0,0)' -%}
+    style="background-color: {{ _bg }};"
+  {%- endif -%}
+>
+  <div class="cro-container">
+    {%- assign mf_stats = product.metafields.cro.stats.value -%}
+    <div class="cro-stats-band">
+      {%- if mf_stats.size > 0 -%}
+        {%- for stat in mf_stats -%}
+          <div class="cro-stat-item cro-fade-up delay-{{ forloop.index }}">
+            {%- if stat.number.value != blank -%}
+              <span class="cro-stat-num">{{ stat.number.value }}</span>
+            {%- endif -%}
+            {%- if stat.label.value != blank -%}
+              <p class="cro-stat-label">{{ stat.label.value }}</p>
+            {%- endif -%}
+            {%- if stat.sub.value != blank -%}
+              <p class="cro-stat-sub">{{ stat.sub.value }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <div
+              class="cro-stat-item cro-fade-up delay-{{ forloop.index }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.number != blank -%}
+                <span class="cro-stat-num">{{ block.settings.number }}</span>
+              {%- endif -%}
+              {%- if block.settings.label != blank -%}
+                <p class="cro-stat-label">{{ block.settings.label }}</p>
+              {%- endif -%}
+              {%- if block.settings.sub != blank -%}
+                <p class="cro-stat-sub">{{ block.settings.sub }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var band = document.getElementById('stats-band-{{ section.id }}');
+  if (!band) return;
+
+  var items = band.querySelectorAll('.cro-fade-up');
+  if (!items.length) return;
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    items.forEach(function (el) { observer.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Stats Band",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number / Headline",
+          "default": "94%",
+          "info": "E.g. 94%, 100%, 2,100+"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label",
+          "default": "of customers felt more energetic within 2 weeks"
+        },
+        {
+          "type": "text",
+          "id": "sub",
+          "label": "Sub-label",
+          "default": "Based on customer survey",
+          "info": "Small print below the label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "info": "Leave blank to use the default dark brand colour."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#1D7A3F",
+      "info": "Controls the section background when using the brand bg class."
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Stat number colour",
+      "default": "#F9C74F",
+      "info": "Controls the large stat numbers colour."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 20, "max": 120, "step": 4, "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 20, "max": 120, "step": 4, "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats Band",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "94%",
+            "label": "of customers felt more energetic within 2 weeks",
+            "sub": "Based on customer survey"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "natural, cold-pressed ingredients. Zero artificial additives",
+            "sub": "Third-party verified"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "2,100+",
+            "label": "verified customer reviews with an average 4.9 star rating",
+            "sub": "Updated weekly"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

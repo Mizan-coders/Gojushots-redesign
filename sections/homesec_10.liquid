@@ -1,0 +1,83 @@
+<section id="seven" data-color="#2FBA44" class="dksoni content-container social-creatures-container panel" data-color="#F3F2EF" style="overflow:hidden;" >
+<div class="container">
+    <div class="row  align-items-center">
+        <div class="col-md-6 col-lg-5 offset-lg-1 offset-md-0">
+            <div class="sc-content">
+                <h3>{{ section.settings.heading }}</h3>
+                {{ section.settings.body_text }}
+                <ul class="sc-social-links">
+                    <li> 
+                        <a href="{{ section.settings.fb_url }}" target="_blank" class="sc-social-link"><i class="fab fa-facebook-square"></i><span class="d-none d-md-block">Follow us on Facebook</span></a>
+                    </li>
+                    <li> 
+                        <a href="{{ section.settings.insta_url }}" target="_blank" class="sc-social-link"><i class="fab fa-instagram"></i><span class="d-none d-md-block">Follow us on Instagram</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>  
+        <div class="col-md-6 col-lg-5">
+            <ul class="sc-img-list sc-img-slider pb-0 d-flex flex-wrap">
+                {% for block in section.blocks %}
+                <li>
+                    <a href="{{ block.settings.insta_url }}" target="_blank" class="sc-img-box">
+                        <img src="{{ block.settings.image|img_url:'256x256' }}" alt="{{ block.settings.image|alt }}">
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>  
+    </div>
+</div>
+</section>
+{% schema %}
+  {
+    "name": "Social creatures",
+    "settings": [
+      {
+      "type":"text",
+      "id":"heading",
+      "label":"Heading"
+      },
+      {
+      "type":"richtext",
+      "id":"body_text",
+      "label":"Body Text"
+      },
+      {
+      "type":"url",
+      "id":"fb_url",
+      "label":"Facebook URL"
+      },
+      {
+      "type":"url",
+      "id":"insta_url",
+      "label":"Instagram URL"
+      }
+    ],
+    "max_blocks": 4,
+    "blocks": [
+       {
+         "name": "Image List",
+         "type": "image_list",
+         "settings": [
+           {
+             "type": "image_picker",
+             "id": "image",
+             "label": "Image"
+           },
+           {
+             "type": "url",
+             "id": "insta_url",
+             "label": "URL"
+           }
+         ]
+       }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

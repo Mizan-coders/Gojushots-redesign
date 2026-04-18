@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "help-hub": {
+      "type": "help-hub",
+      "blocks": {
+        "df532ef4-8896-4977-8cdd-fec2e9e16a18": {
+          "type": "block",
+          "settings": {
+            "heading": "Subscriptions",
+            "body_text": "<p><strong>Find out more about...</strong></p><p>How do Goju subscriptions work?</p><p>When can I pause my subscription?Are delivery dates flexible?</p><p>Will I be notified about my subscription?</p>",
+            "btn_link": "shopify://pages/about-subscriptions",
+            "btn_text": "View All"
+          }
+        },
+        "859fff5d-7a5c-434b-973f-cf0dfb07e18d": {
+          "type": "block",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "body_text": "<p><strong>Find out more about...</strong></p><p>When will I get my order? (New Zealand)</p><p>When will I get my order? (Australia)</p><p>Can I track my order?</p><p>How can I request a refund?</p>",
+            "btn_link": "shopify://pages/shipping-returns",
+            "btn_text": "View All"
+          }
+        }
+      },
+      "block_order": [
+        "df532ef4-8896-4977-8cdd-fec2e9e16a18",
+        "859fff5d-7a5c-434b-973f-cf0dfb07e18d"
+      ],
+      "settings": {
+        "heading": "What do you need to know about?",
+        "subheading": "Get in touch",
+        "text": "Need a hand? Don’t hesitate to contact us for any questions or queries that you may have.",
+        "live_chat": "",
+        "email": "team@gojushots.com",
+        "topics": "<li><a href=\"https://gojushots.com/pages/about-subscriptions\" id=\"check\"> When can I cancel my subscription?</a></li>\n                            <li><a href=\"https://gojushots.com/pages/shipping-returns\" id=\"check\"> How long will it take my order to arrive?</a></li>\n                                                     <li><a href=\"https://gojushots.com/pages/shipping-returns\" id=\"check\"> What is your returns policy?</a></li>"
+      }
+    },
+    "about-sec8": {
+      "type": "about-sec8",
+      "disabled": true,
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "WELLNESS",
+        "blog": "gojushots",
+        "view_all": "",
+        "post_limit": 4
+      }
+    },
+    "ee40ccfd-74df-4ee8-8d66-0c0bfe5f534d": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "help-hub",
+    "about-sec8",
+    "ee40ccfd-74df-4ee8-8d66-0c0bfe5f534d"
+  ]
+}

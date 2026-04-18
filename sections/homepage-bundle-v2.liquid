@@ -1,0 +1,1037 @@
+{%- style -%}
+  .bb-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: 'var(--goju-page-bg, #f5f0e8)' }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media screen and (min-width: 750px) {
+    .bb-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── Inner ── */
+  .bb-{{ section.id }} .bb__inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* ── Section header ── */
+  .bb-{{ section.id }} .bb__section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .bb-{{ section.id }} .bb__section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4a9c65;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .bb-{{ section.id }} .bb__section-title {
+    font-size: clamp(28px, 3.2vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #0a0a0a;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .bb-{{ section.id }} .bb__section-title em {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: none;
+    color: #2d6b45;
+  }
+  .bb-{{ section.id }} .bb__section-sub {
+    font-size: 15px;
+    color: #888;
+    margin: 12px auto 0;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* ── Pack selector cards ── */
+  .bb-{{ section.id }} .bb__toggle-wrap {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .bb-{{ section.id }} .bb__pack-card {
+    flex: 1;
+    min-width: 220px;
+    max-width: 320px;
+    background: #fff;
+    border: 2px solid #e0ddd6;
+    border-radius: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .bb-{{ section.id }} .bb__pack-card:hover {
+    border-color: #1a4a2e;
+    box-shadow: 0 4px 16px rgba(26,74,46,0.12);
+    transform: translateY(-2px);
+  }
+  .bb-{{ section.id }} .bb__pack-card.bb-active {
+    border-color: #1a4a2e;
+    box-shadow: 0 4px 20px rgba(26,74,46,0.18);
+    background: #f4faf0;
+  }
+  .bb-{{ section.id }} .bb__pack-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .bb-{{ section.id }} .bb__pack-size {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    color: #0a0a0a;
+    text-transform: uppercase;
+  }
+  .bb-{{ section.id }} .bb__pack-badge-popular {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #1a4a2e;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .bb-{{ section.id }} .bb__pack-badge-value {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #d4f24a;
+    color: #0a0a0a;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .bb-{{ section.id }} .bb__pack-price {
+    font-size: 28px;
+    font-weight: 900;
+    color: #0a0a0a;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .bb-{{ section.id }} .bb__pack-was {
+    font-size: 14px;
+    font-weight: 500;
+    color: #aaa;
+    text-decoration: line-through;
+    letter-spacing: 0;
+    margin-left: 4px;
+  }
+  .bb-{{ section.id }} .bb__pack-saving-strip {
+    background: #e8f5e9;
+    color: #1a4a2e;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0.02em;
+    box-sizing: border-box;
+  }
+  .bb-{{ section.id }} .bb__pack-saving-strip--gold {
+    background: #fffde7;
+    color: #795548;
+  }
+
+  /* ── Builder card ── */
+  .bb-{{ section.id }} .bb__card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  }
+
+  /* Card header */
+  .bb-{{ section.id }} .bb__card-header {
+    padding: 24px 36px;
+    border-bottom: 1px solid #f5f0e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .bb-{{ section.id }} .bb__step-label {
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .bb-{{ section.id }} .bb__progress-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0a0a0a;
+  }
+  .bb-{{ section.id }} .bb__slots-msg {
+    font-size: 13px;
+    color: #e07a40;
+    font-weight: 600;
+    margin-top: 3px;
+  }
+  .bb-{{ section.id }} .bb__dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* Product grid */
+  .bb-{{ section.id }} .bb__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    background: #f5f0e8;
+    padding: 12px;
+  }
+
+  /* Summary row */
+  .bb-{{ section.id }} .bb__summary-row {
+    padding: 20px 36px;
+    border-top: 1px solid #f5f0e8;
+    background: #f9fdf7;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bb-{{ section.id }} .bb__summary-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1a4a2e;
+    white-space: nowrap;
+  }
+  .bb-{{ section.id }} .bb__summary-items {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Card footer */
+  .bb-{{ section.id }} .bb__card-footer {
+    padding: 24px 36px;
+    border-top: 1px solid #f5f0e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .bb-{{ section.id }} .bb__price-total {
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: #0a0a0a;
+  }
+  .bb-{{ section.id }} .bb__price-was {
+    font-size: 16px;
+    color: #aaa;
+    font-weight: 500;
+    text-decoration: line-through;
+    margin-left: 8px;
+  }
+  .bb-{{ section.id }} .bb__price-per {
+    font-size: 12px;
+    color: #888;
+    margin-top: 3px;
+  }
+  .bb-{{ section.id }} .bb__savings-pill {
+    display: none;
+    background: #d4f24a;
+    color: #0a0a0a;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+  .bb-{{ section.id }} .bb__add-btn {
+    background: #0a0a0a;
+    color: #d4f24a;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .bb-{{ section.id }} .bb__add-btn:hover:not(:disabled) {
+    background: #1a4a2e;
+    color: #ffffff;
+  }
+  .bb-{{ section.id }} .bb__add-btn:active { transform: scale(0.98); }
+  .bb-{{ section.id }} .bb__add-btn:disabled {
+    background: #ccc;
+    color: #fff;
+    cursor: not-allowed;
+  }
+  .bb-{{ section.id }} .bb__add-btn--success { background: #1a4a2e; color: #ffffff; }
+  .bb-{{ section.id }} .bb__add-btn--error   { background: #b91c1c; color: #ffffff; }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 767px) {
+    .bb-{{ section.id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .bb-{{ section.id }} .bb__pack-card {
+      min-width: 160px;
+      padding: 16px 18px;
+    }
+    .bb-{{ section.id }} .bb__pack-price {
+      font-size: 22px;
+    }
+    .bb-{{ section.id }} .bb__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .bb-{{ section.id }} .bb__card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .bb-{{ section.id }} .bb__card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .bb-{{ section.id }} .bb__add-btn {
+      width: 100%;
+      text-align: center;
+    }
+    .bb-{{ section.id }} .bb__summary-row {
+      padding: 16px 20px;
+    }
+    .bb-{{ section.id }} .bb__price-total {
+      font-size: 32px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="bb-{{ section.id }}">
+  <div class="bb__inner">
+
+    {%- comment -%} Section header {%- endcomment -%}
+    <div class="bb__section-header">
+      {%- if section.settings.section_eyebrow != blank -%}
+        <span class="bb__section-eyebrow">{{ section.settings.section_eyebrow | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.section_title != blank -%}
+        <div class="bb__section-title">
+          {{- section.settings.section_title | escape -}}
+          {%- if section.settings.section_title_italic != blank %} <em>{{ section.settings.section_title_italic | escape }}</em>{%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.section_sub != blank -%}
+        <p class="bb__section-sub">{{ section.settings.section_sub | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Pack selector cards {%- endcomment -%}
+    <div class="bb__toggle-wrap">
+
+      <button class="bb__pack-card bb-active" id="bb-pack-3-{{ section.id }}" onclick="window['bbSetSize_{{ section.id }}'](3)">
+        <div class="bb__pack-top">
+          <span class="bb__pack-size">{{ section.settings.pack_3_label | default: '3 × 9-Pack' | escape }}</span>
+          {%- if section.settings.pack_3_badge != blank -%}
+            <span class="bb__pack-badge-popular">{{ section.settings.pack_3_badge | escape }}</span>
+          {%- endif -%}
+        </div>
+        <div class="bb__pack-price">
+          {{ section.settings.pack_3_display_price | default: '$135' | escape }}
+          {%- if section.settings.pack_3_was_price != blank -%}
+            <span class="bb__pack-was">{{ section.settings.pack_3_was_price | escape }}</span>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.pack_3_saving_strip != blank -%}
+          <span class="bb__pack-saving-strip">{{ section.settings.pack_3_saving_strip | escape }}</span>
+        {%- endif -%}
+      </button>
+
+      <button class="bb__pack-card" id="bb-pack-4-{{ section.id }}" onclick="window['bbSetSize_{{ section.id }}'](4)">
+        <div class="bb__pack-top">
+          <span class="bb__pack-size">{{ section.settings.pack_4_label | default: '4 × 9-Pack' | escape }}</span>
+          {%- if section.settings.pack_4_badge != blank -%}
+            <span class="bb__pack-badge-value">{{ section.settings.pack_4_badge | escape }}</span>
+          {%- endif -%}
+        </div>
+        <div class="bb__pack-price">
+          {{ section.settings.pack_4_display_price | default: '$170' | escape }}
+          {%- if section.settings.pack_4_was_price != blank -%}
+            <span class="bb__pack-was">{{ section.settings.pack_4_was_price | escape }}</span>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.pack_4_saving_strip != blank -%}
+          <span class="bb__pack-saving-strip bb__pack-saving-strip--gold">{{ section.settings.pack_4_saving_strip | escape }}</span>
+        {%- endif -%}
+      </button>
+
+    </div>
+
+    {%- comment -%} Builder card {%- endcomment -%}
+    <div class="bb__card" id="bb-card-{{ section.id }}">
+
+      {%- comment -%} Card header {%- endcomment -%}
+      <div class="bb__card-header">
+        <div>
+          <div class="bb__step-label">{{ section.settings.step_label | default: 'Step 1 — Choose your packs' | escape }}</div>
+          <div class="bb__progress-label">
+            <span id="bb-count-{{ section.id }}">0</span> of <span id="bb-total-{{ section.id }}">3</span> selected
+          </div>
+          <div class="bb__slots-msg" id="bb-msg-{{ section.id }}">Pick 3 packs to unlock your bundle price</div>
+        </div>
+        <div class="bb__dots" id="bb-dots-{{ section.id }}"></div>
+      </div>
+
+      {%- comment -%} Product grid {%- endcomment -%}
+      <div class="bb__grid" id="bb-grid-{{ section.id }}"></div>
+
+      {%- comment -%} Summary row {%- endcomment -%}
+      <div class="bb__summary-row" id="bb-summary-{{ section.id }}" style="display:none;">
+        <div class="bb__summary-label">Your bundle:</div>
+        <div class="bb__summary-items" id="bb-summary-items-{{ section.id }}"></div>
+      </div>
+
+      {%- comment -%} Card footer {%- endcomment -%}
+      <div class="bb__card-footer">
+        <div>
+          <div style="display:flex;align-items:baseline;">
+            <div class="bb__price-total" id="bb-price-{{ section.id }}">$—</div>
+            <div class="bb__price-was" id="bb-price-was-{{ section.id }}" style="display:none;"></div>
+          </div>
+          <div class="bb__price-per" id="bb-price-per-{{ section.id }}">Select your packs above</div>
+          <div class="bb__savings-pill" id="bb-savings-{{ section.id }}"></div>
+        </div>
+        <button class="bb__add-btn" id="bb-add-{{ section.id }}" disabled>
+          Select <span id="bb-btn-count-{{ section.id }}">3</span> packs to continue →
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var SID = '{{ section.id }}';
+
+  /* ── Product data from theme editor ── */
+  var BB_PRODUCTS = [
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'product_item' -%}
+        {%- liquid
+          assign p_vid = ''
+          assign p_price = block.settings.price | default: '0'
+          assign p_img = ''
+          assign p_name = block.settings.name | default: ''
+          assign p_tags = block.settings.tags | default: ''
+          assign p_variant_label = ''
+          if block.settings.image != blank
+            assign p_img = block.settings.image | image_url: width: 400
+          endif
+          if block.settings.product != blank
+            assign p_var = block.settings.product.selected_or_first_available_variant
+            assign p_vid = p_var.id
+            assign p_price = p_var.price | divided_by: 100.0 | round: 2
+            if p_name == blank
+              assign p_name = block.settings.product.title
+            endif
+            if p_tags == blank and block.settings.product.metafields.custom.product_tagline != blank
+              assign p_tags = block.settings.product.metafields.custom.product_tagline
+            endif
+            unless p_var.title == 'Default Title'
+              assign p_variant_label = p_var.title
+            endunless
+            if p_img == blank and block.settings.product.featured_image != blank
+              assign p_img = block.settings.product.featured_image | image_url: width: 400
+            endif
+          endif
+        -%}
+        {
+          id: 'block-{{ block.id | replace: '-', '_' }}',
+          variantId: {{ p_vid | json }},
+          name: {{ p_name | json }},
+          tags: {{ p_tags | json }},
+          variantLabel: {{ p_variant_label | json }},
+          price: {{ p_price | json }},
+          img: {{ p_img | json }},
+          bg: {{ block.settings.tile_bg_color | default: '#e8f5e9' | json }},
+          qty: 0
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ];
+
+  var BB_SAVINGS = {
+    3: {{ section.settings.pack_3_savings_amount | default: 15 }},
+    4: {{ section.settings.pack_4_savings_amount | default: 30 }}
+  };
+
+  var bbSize = 3;
+
+  function bbTotal(){
+    return BB_PRODUCTS.reduce(function(a,p){ return a + p.qty; }, 0);
+  }
+
+  window['bbSetSize_' + SID] = function(n){
+    bbSize = n;
+    BB_PRODUCTS.forEach(function(p){ p.qty = 0; });
+    var b3 = document.getElementById('bb-pack-3-' + SID);
+    var b4 = document.getElementById('bb-pack-4-' + SID);
+    if(b3) b3.classList.toggle('bb-active', n === 3);
+    if(b4) b4.classList.toggle('bb-active', n === 4);
+    bbRender();
+  };
+
+  function bbAdjust(idx, delta, e){
+    e.stopPropagation();
+    var next = BB_PRODUCTS[idx].qty + delta;
+    if(next < 0) return;
+    if(delta > 0 && bbTotal() >= bbSize) return;
+    BB_PRODUCTS[idx].qty = next;
+    bbRender();
+  }
+  window['bbAdjust_' + SID] = bbAdjust;
+
+  function bbToggle(idx){
+    if(BB_PRODUCTS[idx].qty > 0){
+      BB_PRODUCTS[idx].qty = 0;
+    } else {
+      if(bbTotal() < bbSize) BB_PRODUCTS[idx].qty = 1;
+    }
+    bbRender();
+  }
+  window['bbToggle_' + SID] = bbToggle;
+
+  function bbRender(){
+    var sel  = bbTotal();
+    var done = (sel === bbSize);
+    var full = (sel >= bbSize);
+
+    /* dots */
+    var dotsEl = document.getElementById('bb-dots-' + SID);
+    if(dotsEl){
+      var dHtml = '';
+      for(var i = 0; i < bbSize; i++){
+        if(i < sel){
+          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:#1a4a2e;border:2px solid #1a4a2e;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700;transition:all 0.25s;">&#10003;</div>';
+        } else {
+          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:rgba(26,74,46,0.08);border:2px dashed rgba(26,74,46,0.25);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(26,74,46,0.25);font-weight:700;transition:all 0.25s;">&#10003;</div>';
+        }
+      }
+      dotsEl.innerHTML = dHtml;
+    }
+
+    /* counter + btn count */
+    var countEl  = document.getElementById('bb-count-' + SID);
+    var totalEl  = document.getElementById('bb-total-' + SID);
+    var btnCntEl = document.getElementById('bb-btn-count-' + SID);
+    if(countEl)  countEl.textContent  = sel;
+    if(totalEl)  totalEl.textContent  = bbSize;
+    if(btnCntEl) btnCntEl.textContent = bbSize;
+
+    /* status message */
+    var msgEl = document.getElementById('bb-msg-' + SID);
+    if(msgEl){
+      if(done){
+        msgEl.textContent = '\u2713 Bundle complete \u2014 ready to add to cart';
+        msgEl.style.color = '#1a4a2e';
+      } else {
+        var rem = bbSize - sel;
+        msgEl.textContent = 'Pick ' + rem + ' more pack' + (rem !== 1 ? 's' : '') + ' to unlock your bundle price';
+        msgEl.style.color = '#e07a40';
+      }
+    }
+
+    /* product grid */
+    var grid = document.getElementById('bb-grid-' + SID);
+    if(grid){
+      var fnToggle = "window['bbToggle_" + SID + "']";
+      var fnAdjust = "window['bbAdjust_" + SID + "']";
+      var html = '';
+      BB_PRODUCTS.forEach(function(p, idx){
+        var qty   = p.qty;
+        var isSel = qty > 0;
+        var isOff = full && !isSel;
+
+        var tileStyle = [
+          'cursor:pointer',
+          'position:relative',
+          'user-select:none',
+          'padding:16px',
+          'border-radius:12px',
+          'transition:box-shadow 0.2s, background 0.18s'
+        ];
+        if(isSel){
+          tileStyle.push('background:#d4edda');
+          tileStyle.push('outline:2px solid #1a4a2e');
+          tileStyle.push('outline-offset:-2px');
+          tileStyle.push('box-shadow:0 4px 16px rgba(26,74,46,0.18)');
+        } else if(isOff){
+          tileStyle.push('background:#fff');
+          tileStyle.push('opacity:0.4');
+          tileStyle.push('pointer-events:none');
+        } else {
+          tileStyle.push('background:#fff');
+        }
+
+        html += '<div style="' + tileStyle.join(';') + '" onclick="' + fnToggle + '(' + idx + ')">';
+
+        /* tick badge */
+        if(isSel){
+          html += '<div style="position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#1a4a2e;display:flex;align-items:center;justify-content:center;z-index:5;">';
+          html += '<svg viewBox="0 0 12 12" style="width:12px;height:12px;fill:none;stroke:#fff;stroke-width:3;"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>';
+          html += '</div>';
+        }
+
+        /* thumbnail */
+        if(p.img){
+          html += '<div style="width:150px;height:150px;border-radius:12px;margin-bottom:12px;overflow:hidden;background:' + p.bg + ';display:flex;align-items:center;justify-content:center;">';
+          html += '<img src="' + p.img + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:contain;" loading="lazy">';
+          html += '</div>';
+        }
+
+        /* text */
+        if(p.tags) html += '<div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#2d6b45;text-transform:uppercase;margin-bottom:4px;">' + p.tags + '</div>';
+        html += '<div style="font-size:16px;font-weight:800;letter-spacing:0.03em;color:' + (isSel ? '#1a4a2e' : '#0a0a0a') + ';margin-bottom:4px;">' + p.name + '</div>';
+        var priceLabel = p.variantLabel ? '$' + p.price + '.00 / ' + p.variantLabel : '$' + p.price + '.00';
+        html += '<div style="font-size:13px;font-weight:700;color:#0a0a0a;">' + priceLabel + '</div>';
+
+        /* selected label */
+        if(isSel){
+          html += '<div style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;background:#1a4a2e;color:#fff;font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">&#10003; Selected</div>';
+        }
+
+        /* qty controls */
+        if(isSel){
+          html += '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;" onclick="event.stopPropagation()">';
+          html += '<button onclick="' + fnAdjust + '(' + idx + ',-1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1a4a2e;background:transparent;cursor:pointer;font-size:15px;color:#1a4a2e;display:flex;align-items:center;justify-content:center;font-family:inherit;">&#8722;</button>';
+          html += '<span style="font-weight:800;font-size:14px;min-width:14px;text-align:center;">' + qty + '</span>';
+          var plusStyle = full && qty === 0 ? 'opacity:0.3;cursor:not-allowed;' : '';
+          html += '<button ' + (full ? 'disabled' : '') + ' onclick="' + fnAdjust + '(' + idx + ',1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1a4a2e;background:transparent;cursor:pointer;font-size:15px;color:#1a4a2e;display:flex;align-items:center;justify-content:center;font-family:inherit;' + plusStyle + '">&#43;</button>';
+          html += '</div>';
+        }
+
+        html += '</div>';
+      });
+      grid.innerHTML = html;
+    }
+
+    /* summary row */
+    var summaryRow   = document.getElementById('bb-summary-' + SID);
+    var summaryItems = document.getElementById('bb-summary-items-' + SID);
+    if(summaryRow && summaryItems){
+      var picked = BB_PRODUCTS.filter(function(p){ return p.qty > 0; });
+      if(picked.length > 0){
+        summaryRow.style.display = 'flex';
+        var sHtml = '';
+        picked.forEach(function(p){
+          sHtml += '<div style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:8px 12px;animation:bbFadeIn 0.25s ease;">';
+          sHtml += '<div style="width:36px;height:36px;border-radius:8px;overflow:hidden;background:' + p.bg + ';flex-shrink:0;display:flex;align-items:center;justify-content:center;">';
+          if(p.img) sHtml += '<img src="' + p.img + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:contain;">';
+          sHtml += '</div>';
+          sHtml += '<div><div style="font-size:12px;font-weight:700;color:#0a0a0a;">' + p.name + '</div>';
+          sHtml += '<div style="font-size:11px;color:#1a4a2e;font-weight:700;">x' + p.qty + '</div></div>';
+          sHtml += '</div>';
+        });
+        summaryItems.innerHTML = sHtml;
+      } else {
+        summaryRow.style.display = 'none';
+      }
+    }
+
+    /* pricing & CTA */
+    var save = BB_SAVINGS[bbSize] || 0;
+    var regTotal = BB_PRODUCTS.reduce(function(sum, p){
+      return sum + (p.qty > 0 ? p.price * p.qty : 0);
+    }, 0);
+    regTotal  = Math.round(regTotal * 100) / 100;
+    var saleTotal = Math.round((regTotal - save) * 100) / 100;
+
+    var priceEl   = document.getElementById('bb-price-' + SID);
+    var priceWas  = document.getElementById('bb-price-was-' + SID);
+    var perEl     = document.getElementById('bb-price-per-' + SID);
+    var savingsEl = document.getElementById('bb-savings-' + SID);
+    var addBtn    = document.getElementById('bb-add-' + SID);
+
+    if(done){
+      if(priceEl){ priceEl.textContent = '$' + saleTotal.toFixed(2); priceEl.style.color = '#1a4a2e'; }
+      if(priceWas){ priceWas.textContent = '$' + regTotal.toFixed(2); priceWas.style.display = 'inline'; }
+      if(perEl) perEl.textContent = bbSize + ' \u00d7 9-packs';
+      if(savingsEl){ savingsEl.textContent = 'You save $' + save + '.00'; savingsEl.style.display = 'inline-block'; }
+      if(addBtn){ addBtn.disabled = false; addBtn.textContent = '{{ section.settings.cart_btn_label | default: 'Add Bundle to Cart →' | escape }}'; }
+    } else {
+      if(priceEl){ priceEl.textContent = '$\u2014'; priceEl.style.color = '#0a0a0a'; }
+      if(priceWas) priceWas.style.display = 'none';
+      if(perEl) perEl.textContent = 'Select your packs above';
+      if(savingsEl) savingsEl.style.display = 'none';
+      if(addBtn){ addBtn.disabled = true; addBtn.textContent = 'Select ' + bbSize + ' packs to continue \u2192'; }
+    }
+  }
+
+  /* ── Add to cart ── */
+  var _nativeFetch = window.fetch.bind(window);
+
+  var addBtn = document.getElementById('bb-add-' + SID);
+  if(addBtn){
+    addBtn.addEventListener('click', function(){
+      var variantIds = [];
+      BB_PRODUCTS.forEach(function(p){
+        if(p.qty > 0 && p.variantId){
+          for(var i = 0; i < p.qty; i++) variantIds.push(Number(p.variantId));
+        }
+      });
+
+      if(variantIds.length === 0) return;
+
+      addBtn.disabled = true;
+      addBtn.textContent = 'Adding to cart\u2026';
+
+      var payload = { items: variantIds.map(function(id){ return { id: id, quantity: 1 }; }) };
+
+      _nativeFetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res){
+        if(!res.ok) return res.json().then(function(e){ throw new Error(e.description || 'Error'); });
+        return res.json();
+      })
+      .then(function(){
+        addBtn.textContent = '\u2713 Added to cart!';
+        addBtn.classList.add('bb__add-btn--success');
+
+        var cart = document.querySelector('cart-drawer');
+        if(!cart){ window.location.href = '/cart'; return; }
+        cart.classList.remove('is-empty');
+        fetch('/?sections=cart-drawer,cart-icon-bubble')
+          .then(function(r){ return r.json(); })
+          .then(function(sections){
+            cart.renderContents({ id: variantIds[0], sections: sections });
+          })
+          .catch(function(){ window.location.href = '/cart'; });
+
+        setTimeout(function(){
+          addBtn.disabled = false;
+          addBtn.textContent = '{{ section.settings.cart_btn_label | default: 'Add Bundle to Cart →' | escape }}';
+          addBtn.classList.remove('bb__add-btn--success');
+        }, 4000);
+      })
+      .catch(function(err){
+        addBtn.disabled = false;
+        addBtn.textContent = err.message || 'Something went wrong';
+        addBtn.classList.add('bb__add-btn--error');
+        setTimeout(function(){
+          addBtn.textContent = '{{ section.settings.cart_btn_label | default: 'Add Bundle to Cart →' | escape }}';
+          addBtn.classList.remove('bb__add-btn--error');
+        }, 3000);
+      });
+    });
+  }
+
+  /* init */
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', bbRender);
+  } else {
+    bbRender();
+  }
+  setTimeout(bbRender, 300);
+
+})();
+</script>
+
+<style>
+  @keyframes bbFadeIn {
+    from { opacity:0; transform:translateY(4px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Bundle Builder V2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "section_eyebrow",
+      "label": "Eyebrow",
+      "default": "Bundle & Save"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading",
+      "default": "Can't pick just one?"
+    },
+    {
+      "type": "text",
+      "id": "section_title_italic",
+      "label": "Heading italic word",
+      "default": "Good."
+    },
+    {
+      "type": "textarea",
+      "id": "section_sub",
+      "label": "Subtitle",
+      "default": "Mix and match any 60ml shots. The more you grab, the more you save."
+    },
+    {
+      "type": "header",
+      "content": "Pack card — Option 1 (3-pack)"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_label",
+      "label": "Pack label",
+      "default": "3 × 9-Pack"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_badge",
+      "label": "Badge text",
+      "default": "Most Popular",
+      "info": "Shown with dark green background"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_display_price",
+      "label": "Sale price display",
+      "default": "$135"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_was_price",
+      "label": "Was price display",
+      "default": "was $150"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_saving_strip",
+      "label": "Saving strip text",
+      "default": "💰 You save $15"
+    },
+    {
+      "type": "number",
+      "id": "pack_3_savings_amount",
+      "label": "Savings amount ($) — used for cart calculation",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Pack card — Option 2 (4-pack)"
+    },
+    {
+      "type": "text",
+      "id": "pack_4_label",
+      "label": "Pack label",
+      "default": "4 × 9-Pack"
+    },
+    {
+      "type": "text",
+      "id": "pack_4_badge",
+      "label": "Badge text",
+      "default": "Best Value",
+      "info": "Shown with lime green background"
+    },
+    {
+      "type": "text",
+      "id": "pack_4_display_price",
+      "label": "Sale price display",
+      "default": "$170"
+    },
+    {
+      "type": "text",
+      "id": "pack_4_was_price",
+      "label": "Was price display",
+      "default": "was $200"
+    },
+    {
+      "type": "text",
+      "id": "pack_4_saving_strip",
+      "label": "Saving strip text",
+      "default": "💰 You save $30"
+    },
+    {
+      "type": "number",
+      "id": "pack_4_savings_amount",
+      "label": "Savings amount ($) — used for cart calculation",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Builder card"
+    },
+    {
+      "type": "text",
+      "id": "step_label",
+      "label": "Step label",
+      "default": "Step 1 — Choose your packs"
+    },
+    {
+      "type": "text",
+      "id": "cart_btn_label",
+      "label": "Add to cart button label",
+      "default": "Add Bundle to Cart →"
+    },
+    {
+      "type": "header",
+      "content": "Background & spacing"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#f5f0e8"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_item",
+      "name": "Product tile",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Links variant ID for add-to-cart"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image (optional)",
+          "info": "Leave blank to use the product's featured image automatically"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name override (optional)",
+          "info": "Leave blank to use the product title automatically"
+        },
+        {
+          "type": "text",
+          "id": "tags",
+          "label": "Tagline override (optional)",
+          "info": "Leave blank to use the Product Tagline metafield automatically"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price fallback",
+          "default": "50",
+          "info": "Only used if no Product is linked above"
+        },
+        {
+          "type": "color",
+          "id": "tile_bg_color",
+          "label": "Thumbnail background colour",
+          "default": "#c8e6c9"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Builder V2",
+      "blocks": [
+        {
+          "type": "product_item",
+          "settings": {
+            "name": "Action Shot",
+            "tags": "Energy · Focus · Stamina",
+            "price": "50",
+            "tile_bg_color": "#c8e6c9"
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "name": "Vital Sunshine",
+            "tags": "Immunity · Vitamin C",
+            "price": "50",
+            "tile_bg_color": "#fff9c4"
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "name": "Good Night",
+            "tags": "Sleep · Recovery · Calm",
+            "price": "50",
+            "tile_bg_color": "#e1bee7"
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "name": "Immune Guard",
+            "tags": "Immunity · Defence",
+            "price": "50",
+            "tile_bg_color": "#ffccbc"
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "name": "Ginger Manuka",
+            "tags": "Soothe · Restore · Gut",
+            "price": "50",
+            "tile_bg_color": "#ffe0b2"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

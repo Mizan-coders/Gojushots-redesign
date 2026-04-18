@@ -1,0 +1,194 @@
+{%- style -%}
+  .tt-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: '#1a4a2e' }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  /* ── Track ── */
+  .tt-{{ section.id }} .tt__track {
+    display: flex;
+    width: max-content;
+    animation: tt-scroll-{{ section.id }} {{ section.settings.speed | default: 30 }}s linear infinite;
+  }
+  .tt-{{ section.id }} .tt__track:hover {
+    animation-play-state: paused;
+  }
+
+  /* ── Content block (rendered twice for seamless loop) ── */
+  .tt-{{ section.id }} .tt__content {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    white-space: nowrap;
+  }
+
+  /* ── Individual item ── */
+  .tt-{{ section.id }} .tt__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ section.settings.text_color | default: 'rgba(255,255,255,0.9)' }};
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .tt-{{ section.id }} .tt__icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* ── Separator ── */
+  .tt-{{ section.id }} .tt__sep {
+    color: rgba(255,255,255,0.3);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ── Scroll animation ── */
+  @keyframes tt-scroll-{{ section.id }} {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+  {%- assign sep = section.settings.separator | default: '✦' -%}
+
+  <div class="tt-{{ section.id }}">
+    <div class="tt__track">
+
+      {%- comment -%} First copy {%- endcomment -%}
+      <div class="tt__content">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ticker_item' -%}
+            <span class="tt__item" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <span class="tt__icon">{{ block.settings.icon }}</span>
+              {%- endif -%}
+              {{- block.settings.text | escape -}}
+            </span>
+            <span class="tt__sep" aria-hidden="true">{{ sep }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Duplicate for seamless loop {%- endcomment -%}
+      <div class="tt__content" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ticker_item' -%}
+            <span class="tt__item">
+              {%- if block.settings.icon != blank -%}
+                <span class="tt__icon">{{ block.settings.icon }}</span>
+              {%- endif -%}
+              {{- block.settings.text | escape -}}
+            </span>
+            <span class="tt__sep">{{ sep }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Trust Ticker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#1a4a2e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator character",
+      "default": "✦"
+    },
+    {
+      "type": "select",
+      "id": "speed",
+      "label": "Scroll speed",
+      "options": [
+        { "value": "15", "label": "Fast" },
+        { "value": "30", "label": "Medium" },
+        { "value": "50", "label": "Slow" }
+      ],
+      "default": "30"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 14,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ticker_item",
+      "name": "Ticker Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "⭐"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "4.9 Stars · 2,100+ Reviews"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Ticker",
+      "blocks": [
+        { "type": "ticker_item", "settings": { "icon": "⭐", "text": "4.9 Stars · 2,100+ Reviews" } },
+        { "type": "ticker_item", "settings": { "icon": "🌿", "text": "100% Natural Ingredients" } },
+        { "type": "ticker_item", "settings": { "icon": "🇳🇿", "text": "Made in New Zealand" } },
+        { "type": "ticker_item", "settings": { "icon": "🚚", "text": "Free Shipping $75+" } },
+        { "type": "ticker_item", "settings": { "icon": "✅", "text": "30-Day Guarantee" } },
+        { "type": "ticker_item", "settings": { "icon": "❄️", "text": "Cold-Pressed Formula" } },
+        { "type": "ticker_item", "settings": { "icon": "🌱", "text": "No Preservatives" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

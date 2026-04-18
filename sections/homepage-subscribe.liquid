@@ -1,0 +1,563 @@
+<link rel="stylesheet" href="{{ 'component-goju-btn.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-goju-btn.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .ss-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: '#1a4a2e' }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    .ss-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Decorative circle — top-right corner */
+  .ss-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Inner grid */
+  .ss-{{ section.id }} .ss__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Left: content ── */
+  .ss-{{ section.id }} .ss__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--goju-accent);
+    margin: 0 0 16px;
+    display: block;
+  }
+  .ss-{{ section.id }} .ss__title {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: white;
+    margin: 0;
+  }
+  .ss-{{ section.id }} .ss__title em {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: none;
+    color: var(--goju-accent);
+    display: block;
+    letter-spacing: 0;
+  }
+  .ss-{{ section.id }} .ss__body {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+    margin: 20px 0 0;
+  }
+
+  /* Perks */
+  .ss-{{ section.id }} .ss__perks {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ss-{{ section.id }} .ss__perk {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ss-{{ section.id }} .ss__perk-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(212,242,74,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .ss-{{ section.id }} .ss__perk-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ── Right: glass card ── */
+  .ss-{{ section.id }} .ss__card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 40px;
+  }
+  .ss-{{ section.id }} .ss__card-title {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: white;
+    margin: 0 0 8px;
+    line-height: 1.1;
+  }
+  .ss-{{ section.id }} .ss__card-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+
+  /* Subscribe button (full-width, dark pill) */
+  .ss-{{ section.id }} .ss__sub-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 50px;
+    background: rgba(0,0,0,0.35);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s ease, transform 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+  }
+  .ss-{{ section.id }} .ss__sub-btn:hover {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,242,74,0.3);
+  }
+  .ss-{{ section.id }} .ss__sub-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin: 12px 0 0;
+  }
+
+  /* Divider */
+  .ss-{{ section.id }} .ss__divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 20px 0;
+  }
+
+  /* Offer text */
+  .ss-{{ section.id }} .ss__offer {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    margin: 0 0 14px;
+  }
+  .ss-{{ section.id }} .ss__offer-hl {
+    color: var(--goju-accent);
+    font-weight: 700;
+  }
+
+  /* Email form row */
+  .ss-{{ section.id }} .ss__form-row {
+    display: flex;
+    gap: 10px;
+  }
+  .ss-{{ section.id }} .ss__input {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 0;
+  }
+  .ss-{{ section.id }} .ss__input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  .ss-{{ section.id }} .ss__input:focus {
+    border-color: var(--goju-accent) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(212,242,74,0.25);
+  }
+  .ss-{{ section.id }} .ss__submit {
+    background: var(--goju-accent);
+    color: var(--goju-accent-text);
+    padding: 14px 22px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .ss-{{ section.id }} .ss__submit:hover {
+    transform: scale(1.03);
+  }
+
+  /* Form messages */
+  .ss-{{ section.id }} .ss__form-msg {
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.5;
+  }
+  .ss-{{ section.id }} .ss__form-msg--success {
+    background: rgba(212,242,74,0.12);
+    color: var(--goju-accent);
+  }
+  .ss-{{ section.id }} .ss__form-msg--error {
+    background: rgba(255,80,80,0.1);
+    color: rgba(255,150,150,0.9);
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 989px) {
+    .ss-{{ section.id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .ss-{{ section.id }} .ss__inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+  @media screen and (max-width: 479px) {
+    .ss-{{ section.id }} .ss__card {
+      padding: 28px 20px;
+    }
+    .ss-{{ section.id }} .ss__form-row {
+      flex-direction: column;
+    }
+    .ss-{{ section.id }} .ss__submit {
+      width: 100%;
+      text-align: center;
+    }
+  }
+{%- endstyle -%}
+
+<section class="ss-{{ section.id }}">
+  <div class="ss__inner">
+
+    {%- comment -%} ── Left: content ── {%- endcomment -%}
+    <div class="ss__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="ss__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+      {%- endif -%}
+
+      <h2 class="ss__title">
+        {{- section.settings.title | escape -}}
+        {%- if section.settings.title_italic != blank -%}
+          <em>{{ section.settings.title_italic | escape }}</em>
+        {%- endif -%}
+      </h2>
+
+      {%- if section.settings.body_text != blank -%}
+        <p class="ss__body">{{ section.settings.body_text | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="ss__perks" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'perk' -%}
+              <li class="ss__perk" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != blank -%}
+                  <span class="ss__perk-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                {%- endif -%}
+                <span class="ss__perk-text">{{ block.settings.text | escape }}</span>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── Right: form card ── {%- endcomment -%}
+    <div class="ss__card">
+      {%- if section.settings.card_title != blank -%}
+        <h3 class="ss__card-title">{{ section.settings.card_title | escape }}</h3>
+      {%- endif -%}
+      {%- if section.settings.card_subtitle != blank -%}
+        <p class="ss__card-sub">{{ section.settings.card_subtitle | escape }}</p>
+      {%- endif -%}
+
+      {%- comment -%} Subscribe CTA button {%- endcomment -%}
+      <a
+        href="{{ section.settings.subscribe_url | default: '#' }}"
+        class="ss__sub-btn"
+      >
+        {{- section.settings.subscribe_btn_label | default: 'Subscribe & Save 10%' | escape }} &rarr;
+      </a>
+      {%- if section.settings.subscribe_note != blank -%}
+        <p class="ss__sub-note">{{ section.settings.subscribe_note | escape }}</p>
+      {%- endif -%}
+
+      <div class="ss__divider" role="separator"></div>
+
+      {%- comment -%} Offer text {%- endcomment -%}
+      {%- if section.settings.offer_prefix != blank or section.settings.offer_highlight != blank -%}
+        <p class="ss__offer">
+          {{- section.settings.offer_prefix | escape }}
+          {%- if section.settings.offer_highlight != blank %}
+            <strong class="ss__offer-hl">{{ section.settings.offer_highlight | escape }}</strong>
+          {%- endif %}
+          {{ section.settings.offer_suffix | escape -}}
+        </p>
+      {%- endif -%}
+
+      {%- comment -%} Email capture form {%- endcomment -%}
+      {%- form 'customer', id: 'SubEmailForm-{{ section.id }}' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,homepage-offer">
+
+        {%- if form.posted_successfully? -%}
+          <p class="ss__form-msg ss__form-msg--success">
+            {%- if section.settings.discount_code != blank -%}
+              {{ section.settings.success_msg | default: "You're in! Use code" | escape }}
+              <strong>{{ section.settings.discount_code | escape }}</strong>
+              {{ section.settings.success_msg_suffix | default: 'at checkout.' | escape }}
+            {%- else -%}
+              {{ section.settings.success_msg | default: "You're in! Check your email for your discount." | escape }}
+            {%- endif -%}
+          </p>
+        {%- else -%}
+          <div class="ss__form-row">
+            <input
+              id="SubEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              class="ss__input"
+              value="{{ form.email }}"
+              placeholder="{{ section.settings.email_placeholder | default: 'Your email address' | escape }}"
+              autocomplete="email"
+              aria-required="true"
+              required
+            >
+            <button type="submit" class="ss__submit">
+              {{- section.settings.email_btn_label | default: 'Get $10 Off' | escape -}}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <p class="ss__form-msg ss__form-msg--error">
+              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Subscribe & Save",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#1a4a2e"
+    },
+    {
+      "type": "header",
+      "content": "Left column"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Subscribe & Save"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Never run out."
+    },
+    {
+      "type": "text",
+      "id": "title_italic",
+      "label": "Heading italic line",
+      "default": "Save every order."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked."
+    },
+    {
+      "type": "header",
+      "content": "Right card"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card heading",
+      "default": "Start Subscribing"
+    },
+    {
+      "type": "text",
+      "id": "card_subtitle",
+      "label": "Card subtext",
+      "default": "Pick your first product and lock in your savings today."
+    },
+    {
+      "type": "text",
+      "id": "subscribe_btn_label",
+      "label": "Subscribe button text",
+      "default": "Subscribe & Save 10%"
+    },
+    {
+      "type": "url",
+      "id": "subscribe_url",
+      "label": "Subscribe button URL"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_note",
+      "label": "Button note",
+      "default": "Pause or cancel anytime. No commitments."
+    },
+    {
+      "type": "header",
+      "content": "Email offer"
+    },
+    {
+      "type": "text",
+      "id": "offer_prefix",
+      "label": "Offer text (before highlight)",
+      "default": "Or get"
+    },
+    {
+      "type": "text",
+      "id": "offer_highlight",
+      "label": "Highlighted offer amount",
+      "default": "$10 off"
+    },
+    {
+      "type": "text",
+      "id": "offer_suffix",
+      "label": "Offer text (after highlight)",
+      "default": "your first one-time order"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "email_btn_label",
+      "label": "Email button text",
+      "default": "Get $10 Off"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount code (shown on success)"
+    },
+    {
+      "type": "text",
+      "id": "success_msg",
+      "label": "Success message",
+      "default": "You're in! Use code"
+    },
+    {
+      "type": "text",
+      "id": "success_msg_suffix",
+      "label": "Success message (after code)",
+      "default": "at checkout."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji icon",
+          "default": "💰"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Perk text",
+          "default": "Save 10% on every order automatically"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscribe & Save",
+      "blocks": [
+        { "type": "perk", "settings": { "icon": "💰", "text": "Save 10% on every order automatically" } },
+        { "type": "perk", "settings": { "icon": "🚚", "text": "Free shipping on every subscription order" } },
+        { "type": "perk", "settings": { "icon": "⏸️", "text": "Pause, skip or cancel anytime — no lock-in" } },
+        { "type": "perk", "settings": { "icon": "🎯", "text": "Choose your frequency — weekly, fortnightly or monthly" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

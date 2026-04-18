@@ -1,0 +1,118 @@
+{% comment %}
+Please don't modified this files. It might be overwrite!!
+{% endcomment %}
+
+<style>
+.ps-announcement-popup {
+	transition: all 0.3s ease-in;
+	display: none;
+	width: 300px;
+	height: 300px;
+}
+.ps-announcement-popup img {
+    max-width: 100%;
+}
+.ps-announcement-popup.side,
+.ps-announcement-popup.middle {
+    display: block;
+}
+.ps-announcement-popup .close {
+	position: absolute;
+	right: 10px;
+	top: 12px;
+	width: 20px;
+	height: 20px;
+	opacity: 0;
+	cursor: pointer;
+}
+.ps-announcement-popup .close:hover {
+	opacity: 0;
+}
+.ps-announcement-popup .close:before,
+.ps-announcement-popup .close:after {
+	position: absolute;
+	left: 15px;
+	content: ' ';
+	height: 20px;
+	width: 2px;
+	background-color: transparent;
+}
+.ps-announcement-popup .close:before {
+	transform: rotate(45deg);
+}
+.ps-announcement-popup .close:after {
+	transform: rotate(-45deg);
+}
+
+.ps-announcement-popup.side.left,
+.ps-announcement-popup.side.right {
+	position: fixed;
+	bottom: 10%;
+	color: #000;
+}
+.ps-announcement-popup.side.left {
+	transform: translate(-100%);
+}
+.ps-announcement-popup.side.left.active {
+	transform: translate(0);
+}
+.ps-announcement-popup.side.right {
+	right: 0;
+	transform: translate(100%);
+}
+.ps-announcement-popup.side.right.active {
+	transform: translate(0);
+}
+.ps-announcement-popup.middle {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.3);
+	visibility: hidden;
+	opacity: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+.ps-announcement-popup.middle .ps-modal {
+    position: absolute;
+    top: calc(50% - 150px);
+	left: calc(50% - 150px);
+	max-width: 300px;
+	max-height: 300px;
+}
+.ps-announcement-popup.middle.active {
+	visibility: visible;
+	opacity: 1;
+}
+</style>
+
+<div class="ps-announcement-popup">
+	<div class="ps-modal">
+	    {{ 'laybuy_announcement_asset.jpg' | asset_img_url : "master" | img_tag }}
+	    <span class="close"></span>
+	</div>
+</div>
+
+<script type="application/javascript">
+(function() {
+	if (!window.LBConfigs || !window.LBConfigs.popup.enable) return;
+	let className = window.LBConfigs.popup.position || 'middle',
+	delay = typeof(window.LBConfigs.popup.delay) === 'undefined' ? 5000 : window.LBConfigs.popup.delay,
+	dialogs = document.querySelector('.ps-announcement-popup');
+	className.split(' ').forEach(function(cls_name) {
+	    dialogs.classList.add(cls_name);
+	}),
+	skey = 'ps-laybuy-popup';
+	cb = function() {
+		dialogs.classList.add('active');
+		dialogs.querySelector('.close').addEventListener('click', function() {
+			dialogs.classList.remove('active');
+		});
+		window.sessionStorage.setItem(skey, '1');
+	};
+	if (window.sessionStorage.getItem(skey) !== '1') {
+		setTimeout(cb, delay);
+	}
+})();
+</script>

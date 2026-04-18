@@ -1,0 +1,284 @@
+{{ 'section-product-cro.css' | asset_url | stylesheet_tag }}
+
+{%- assign pc_primary = product.metafields.custom.primary_color -%}
+
+{% style %}
+  .faq-cro-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if pc_primary != blank %}
+    --cro-accent: {{ pc_primary }};
+    {% endif %}
+  }
+  @media screen and (max-width: 749px) {
+    .faq-cro-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.65 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.65 | round }}px;
+    }
+  }
+{% endstyle %}
+
+<section
+  class="pdp-cro cro-section--dark faq-cro-{{ section.id }}"
+  id="faq-cro-{{ section.id }}"
+  {%- if section.settings.bg_color != blank and section.settings.bg_color != 'rgba(0,0,0,0)' -%}
+    style="background-color: {{ section.settings.bg_color }};"
+  {%- endif -%}
+>
+  <div class="cro-container">
+    <div class="cro-faq-layout">
+
+      {%- comment -%} LEFT: header {%- endcomment -%}
+      <div class="cro-faq__left cro-fade-up">
+        {%- if section.settings.kicker != blank -%}
+          <span class="cro-kicker cro-kicker--accent">{{ section.settings.kicker }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="cro-heading cro-faq__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtext != blank -%}
+          <p class="cro-faq__subtext">{{ section.settings.subtext }}</p>
+        {%- endif -%}
+        {%- if section.settings.contact_label != blank and section.settings.contact_url != blank -%}
+          <a href="{{ section.settings.contact_url }}" class="cro-btn cro-btn--outline-light cro-faq__contact">
+            {{ section.settings.contact_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} RIGHT: accordion {%- endcomment -%}
+      {%- assign mf_faq = product.metafields.cro.faq.value -%}
+      <div class="cro-faq__right">
+        {%- if mf_faq.size > 0 -%}
+          {%- for item in mf_faq -%}
+            <details class="cro-faq-item cro-fade-up delay-{{ forloop.index }}">
+              <summary class="cro-faq-item__question">
+                <span>{{ item.question.value }}</span>
+                <span class="cro-faq-item__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path class="cro-faq-plus" d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path class="cro-faq-minus" d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="cro-faq-item__answer">
+                <p>{{ item.answer.value }}</p>
+              </div>
+            </details>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq_item' -%}
+              <details
+                class="cro-faq-item cro-fade-up delay-{{ forloop.index }}"
+                {{ block.shopify_attributes }}
+              >
+                <summary class="cro-faq-item__question">
+                  <span>{{ block.settings.question }}</span>
+                  <span class="cro-faq-item__icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path class="cro-faq-plus" d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <path class="cro-faq-minus" d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="cro-faq-item__answer">
+                  <p>{{ block.settings.answer }}</p>
+                </div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('faq-cro-{{ section.id }}');
+  if (!section) return;
+
+  /* Scroll animations */
+  var items = section.querySelectorAll('.cro-fade-up');
+  if (items.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+    items.forEach(function (el) { observer.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* Smooth accordion */
+  var details = section.querySelectorAll('.cro-faq-item');
+
+  function openItem(det) {
+    var answer = det.querySelector('.cro-faq-item__answer');
+    det.open = true;
+    var target = answer.scrollHeight + 22; // 22px = bottom padding
+    answer.style.height = target + 'px';
+  }
+
+  function closeItem(det) {
+    var answer = det.querySelector('.cro-faq-item__answer');
+    answer.style.height = answer.scrollHeight + 'px';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        answer.style.height = '0px';
+      });
+    });
+    answer.addEventListener('transitionend', function handler() {
+      det.open = false;
+      answer.removeEventListener('transitionend', handler);
+    });
+  }
+
+  details.forEach(function (det) {
+    var summary = det.querySelector('summary');
+    summary.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (det.open) {
+        closeItem(det);
+      } else {
+        details.forEach(function (other) {
+          if (other !== det && other.open) closeItem(other);
+        });
+        openItem(det);
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ CRO",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What ingredients are in an Action Shot?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Goju Shots contains fresh NZ ginger root, turmeric root, lemon juice, apple juice, and black pepper extract. No added sugar, no preservatives, no artificial flavours — ever."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Got Questions?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Can't find what you're looking for? Reach out to our team."
+    },
+    {
+      "type": "text",
+      "id": "contact_label",
+      "label": "Contact button label",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact button URL"
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "info": "Leave blank to use the default dark section colour."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ CRO",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What ingredients are in an Action Shot?",
+            "answer": "Goju Shots contains fresh NZ ginger root, turmeric root, lemon juice, apple juice, and black pepper extract. No added sugar, no preservatives, no artificial flavours — ever."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "When is the best time to drink it?",
+            "answer": "First thing in the morning on an empty stomach is ideal for maximum absorption. Many customers also enjoy it before a workout for natural energy support."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "Choose your pack size, select 'Subscribe & Save', and we'll deliver your shots on your chosen schedule. You save 10% on every order and get free shipping. Pause, skip or cancel anytime — no lock-in."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship to Australia?",
+            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

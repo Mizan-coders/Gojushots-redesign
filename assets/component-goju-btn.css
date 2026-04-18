@@ -1,0 +1,70 @@
+/* ── Goju Button Component ─────────────────────────────────────────────────
+   Single source of truth for all branded buttons across the store.
+   Use via: {% render 'goju-btn', label: '...', url: '...', style: 'primary' %}
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Base ── */
+.goju-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 50px;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  -webkit-appearance: none;
+}
+
+/* ── Sizes ── */
+.goju-btn--sm {
+  font-size: 12px;
+  padding: 7px 16px;
+}
+.goju-btn--md {
+  font-size: 13px;
+  padding: 10px 22px;
+}
+.goju-btn--lg {
+  font-size: 15px;
+  padding: 14px 30px;
+}
+
+/* ── Primary (Shop Now style: dark bg + accent text) ── */
+.goju-btn--primary {
+  background: var(--goju-btn-secondary-bg, #191917);
+  color: var(--goju-accent);
+  border: 1.5px solid transparent;
+}
+.goju-btn--primary:hover {
+  background: var(--goju-btn-primary-bg, #1d7a3f);
+  color: #ffffff;
+}
+
+/* ── Outline (transparent bg + dark border) ── */
+.goju-btn--outline {
+  background: transparent;
+  color: #191917;
+  border: 1.5px solid rgba(0, 0, 0, 0.18);
+}
+.goju-btn--outline:hover {
+  border-color: #191917;
+  background: rgba(0, 0, 0, 0.03);
+  color: #191917;
+}
+
+/* ── Ghost (no bg, no border — inline link style) ── */
+.goju-btn--ghost {
+  background: transparent;
+  color: #2d6b45;
+  border: 1.5px solid transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+.goju-btn--ghost:hover {
+  color: #191917;
+}

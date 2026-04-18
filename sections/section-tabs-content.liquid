@@ -1,0 +1,395 @@
+{% style %}
+    .section-tabs-content-container {
+          padding: 60px 0;
+      }
+    .section-bg:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: rgb(250 247 233 / 89%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  }
+
+  .section-bg {
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  }
+
+  .section-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+          .home-tab-nav {
+            width: 305px;
+        }
+        ul.tab-list li a {
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 900;
+            line-height: 115%;
+            color:#ABAAA3;
+        }
+        ul.tab-list li.active a{
+            color:#191917;
+        }
+        ul.tab-list li a span {
+            padding-right: 20px;
+        }
+        .home-tab-nav li + li {
+            margin-top: 10px;
+        }
+        .home-tav-text {
+            width: calc(100% - 305px);
+            padding-left: 20px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 135%;
+        }
+        .home-tav-text h2 {
+            font-size: 40px;
+            font-weight: 900;
+            line-height: 100%;
+            margin-bottom: 10px;
+        }
+        .home-tav-text h5 {
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 115%;
+            margin-bottom: 20px;
+        }
+        .tcb-item p {
+            max-width: 600px;
+        }
+        .tcb-image {
+            width: 100%;
+            margin-top: 40px;
+        }
+        .tcb-image img {
+            width: 100%;
+            object-fit: cover;
+            height: auto;
+            border-radius:12px
+        }
+        .tcb-btn a {
+            border-bottom: 0.5px solid var(--Greyscale-Feature, #191917);
+            padding-bottom: 5px;
+        }
+        .btc-content-list {
+            display: flex;
+            /* flex-wrap: wrap; */
+            width: calc(100% + 40px);
+            margin-left: -20px;
+        }
+        .btc-content-item {
+            width: 50%;
+            padding:0 20px;
+        }
+        .btc-content-item h2 {
+          font-size: 24px;
+          font-weight: 900;
+          line-height: 115%;
+          margin-top: 15px;
+      }
+        .btc-content-item:first-child{
+            width:60%;
+        }
+          .section-tab-content {
+            display: none;
+          }
+          .section-tab-content.active {
+            display: block;
+          }
+      @media(max-width:991px){
+          .tcb-item p {
+              max-width: 600px;
+              margin: 0 auto 20px;
+          }
+          .home-tab-nav {
+              width: 100%;
+          }
+          .home-tav-text {
+              width: 100%;
+              padding: 0;
+              text-align: center;
+          }
+          .home-tab-nav li + li {
+              margin-top: 0;
+          }
+          ul.tab-list li a span {
+              padding-right: 0px;
+          }
+          .home-tab-nav ul.tab-list {
+              display: flex;
+              justify-content: center;
+              gap: 30px;
+              margin-bottom: 50px;
+          }
+      }
+      @media(max-width:751px){
+        .home-tab-nav {
+            width: calc(100% + 4rem);
+            text-align: left;
+            align-items: baseline;
+            display: flex;
+            justify-content: left;
+            overflow: visible;
+            margin-left: -2rem;
+            }
+          .home-tab-nav ul.tab-list {
+              width: auto;
+              overflow-x: auto;
+              white-space: nowrap;
+              scroll-direction: horizontal;
+              overflow-x: auto;
+              overflow-y: hidden;
+              scroll-snap-coordinate: 0 0;
+              scroll-snap-points-x: repeat(100%);
+              scroll-snap-type: x mandatory;
+              flex: 1;
+              display: flex;
+              -webkit-overflow-scrolling: touch;
+              scrollbar-width: none;
+              flex-grow: 1;
+              flex-direction: row;
+              padding: 0 2rem;
+              text-align: left;
+              justify-content: left;
+          }
+        .tcb-item {
+            text-align: left;
+            }
+        .home-tav-text h2{
+            font-size:34px;
+            }
+        ul.tab-list li a{
+            font-size:16px;
+            }
+      }
+      @media(max-width:499.98px){
+        ul.tab-list li:first-child a {
+            /* margin-left: 7rem; */
+            }
+        ul.tab-list li:last-child a {
+            /* margin-right: 4.75rem; */
+            }
+      }
+{% endstyle %}
+<section class="section-tabs-content-container position-relative">
+  {% if section.settings.background_image != blank %}
+    <div class="section-bg position-absolute">
+      {%- assign background_image = section.settings.background_image -%}
+      {{ background_image | image_url: width: background_image.width | image_tag: class: 'tab-bg', loading: 'lazy' }}
+    </div>
+  {% endif %}
+  <div class="container container1">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="home-tab-content-box d-flex flex-wrap">
+          <div class="home-tab-nav">
+            <ul class="tab-list">
+              {%- for block in section.blocks -%}
+                {% if block.type == 'tabs_content' %}
+                  <li
+                    class="tab-item {% if forloop.index == 1 %}active{% endif %}"
+                    data-tab="sectionTab{{- forloop.index -}}"
+                  >
+                    <a
+                      href="javascript:void(0)"
+                      class="tab-item-link"
+
+                      onclick="changeTab('sectionTab{{ forloop.index }}')"
+                    >
+                      <span>{{ block.settings.index }} </span>
+                      {{ block.settings.title }}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="home-tav-text">
+            {%- for block in section.blocks -%}
+              {% if block.type == 'tabs_content' %}
+                <div
+                  id="sectionTab{{ forloop.index }}"
+                  class="tabs-body-content section-tab-content tbc-list {% if forloop.first %}active{% endif %}"
+                >
+                  <div class="tcb-item">
+                    <h2>{{ block.settings.title }}</h2>
+                    <h5>{{ block.settings.sub_heading }}</h5>
+                    {{ block.settings.body_text }}
+                    <div class="tcb-btn">
+                      <a href="{{ block.settings.link }}">
+                        {{- block.settings.link_text }}
+                        {% render 'next-arrow' -%}
+                      </a>
+                    </div>
+                    {%- assign image = block.settings.image -%}
+                    {% if image != blank %}
+                      <div class="tcb-image">
+                        {{ image | image_url: width: image.width | image_tag: class: '', loading: 'lazy' }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+            <div class="home-tav-text-bottom">
+              <div class="btc-content-list">
+                {%- for block in section.blocks -%}
+                  {% if block.type == 'image_with_info' %}
+                    <div class="btc-content-item">
+                      {%- assign image = block.settings.image -%}
+                      {% if image != blank %}
+                        <div class="tcb-image">
+                          {{ image | image_url: width: image.width | image_tag: class: '', loading: 'lazy' }}
+                        </div>
+                      {% endif %}
+                      <h2>{{ block.settings.title }}</h2>
+                      {{ block.settings.body_text }}
+                      <div class="tcb-btn">
+                        <a href="{{ block.settings.link }}">
+                          {{- block.settings.link_text }}
+                          {% render 'next-arrow' -%}
+                        </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+   window.onload = function() {
+    changeTab('sectionTab1');
+  };
+
+  function changeTab(tabId) {
+    var tabContents = document.getElementsByClassName('section-tab-content');
+    for (var i = 0; i < tabContents.length; i++) {
+      tabContents[i].style.display = 'none';
+    }
+
+    var tabItems = document.getElementsByClassName('tab-item');
+    for (var i = 0; i < tabItems.length; i++) {
+      tabItems[i].classList.remove('active');
+    }
+
+    document.getElementById(tabId).style.display = 'block';
+
+    // Add 'active' class to the selected tab-item
+    var selectedTab = document.querySelector('.tab-item[data-tab="' + tabId + '"]');
+    if (selectedTab) {
+      selectedTab.classList.add('active');
+    }
+  }
+</script>
+{% schema %}
+  {
+  "name": "Tabs Content",
+  "tag": "section",
+  "settings": [
+    {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        }
+  ],
+  "blocks": [
+    {
+      "name": "Tabs Content",
+      "type": "tabs_content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "index",
+          "label": "Index"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "sub_heading",
+          "label": "Sub Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "body_text",
+          "label": "Body Text"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "name": "Image With Info",
+      "type": "image_with_info",
+
+      "limit":2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "body_text",
+          "label": "Body Text"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabs Content"
+    }
+  ]
+}
+{% endschema %}

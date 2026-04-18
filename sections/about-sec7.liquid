@@ -1,0 +1,47 @@
+<section class="content-container sustainable-packaging-container color-blue">
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-6 offset-md-0">
+                <div class="new-heading mob-center mb-0">
+                    <h3>
+                        {{ section.settings.heading }}
+                        <span class="new-heading-overlay">{{ section.settings.sub_heading }}</span>
+                    </h3>
+                    {{ section.settings.body_text }}
+                </div>
+            </div>
+        </div>
+        <div class="sustainable-packaging-bg">
+            <img src="{{ section.settings.image |img_url:'666x477' }}" alt="{{ section.settings.image |alt }}" />
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Better Body",
+    "settings": [
+      {
+        "type" : "textarea",
+        "id" : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "text",
+        "id" : "sub_heading",
+        "label" : "Sub Heading"
+      },
+      {
+        "type" : "richtext",
+        "id" : "body_text",
+        "label" : "Body Text"
+      },
+      {
+        "type" : "image_picker",
+        "id" : "image",
+        "label" : "Image"
+      }
+    
+    ]
+  }
+{% endschema %}

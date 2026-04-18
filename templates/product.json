@@ -1,0 +1,332 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.custom.product_tagline.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "growave_loyalty_wishlist_block_product_review_avg_profile_tHXztF": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
+        },
+        "64e91aad-0f1b-4db4-87be-528918441a02": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "recharge_subscriptions_subscription_widget_QKR7Tm": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "collapsible-row-0": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Materials",
+            "icon": "leather",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-1": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Shipping & Returns",
+            "icon": "truck",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-2": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Dimensions",
+            "icon": "ruler",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-3": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "heart",
+            "content": "",
+            "page": ""
+          }
+        },
+        "share": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "trust_U6q4hM": {
+          "type": "trust",
+          "settings": {
+            "trust_icon": "shopify://shop_images/payment_methods.png",
+            "trust_text": "Pay securely with..."
+          }
+        },
+        "34fcfbad-21d6-4a3b-b9e2-4d42ce697781": {
+          "type": "shipping_info",
+          "settings": {
+            "free_shipping_icon": "shopify://shop_images/Icon.png",
+            "free_shipping_text": "Free Shipping on orders over $90 for a one-time purchase",
+            "happiness_text_icon": "shopify://shop_images/Icon_1.png",
+            "happiness_text": "Goju 30 day happiness guarantee"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "67ce9eed-64e1-4ccf-b907-e013494539f7": {
+          "type": "scroll_headlines",
+          "settings": {
+            "desc": "Product Details",
+            "desc_id": "product-details",
+            "subscription": "",
+            "subscription_id": "",
+            "whats_in_it": "What’s in it",
+            "whats_in_it_id": "whats-in-it",
+            "reviews": "Reviews",
+            "reviews_id": "reviews"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "growave_loyalty_wishlist_block_product_review_avg_profile_tHXztF",
+        "64e91aad-0f1b-4db4-87be-528918441a02",
+        "variant_picker",
+        "recharge_subscriptions_subscription_widget_QKR7Tm",
+        "quantity_selector",
+        "buy_buttons",
+        "collapsible-row-0",
+        "collapsible-row-1",
+        "collapsible-row-2",
+        "collapsible-row-3",
+        "share",
+        "trust_U6q4hM",
+        "34fcfbad-21d6-4a3b-b9e2-4d42ce697781",
+        "description",
+        "67ce9eed-64e1-4ccf-b907-e013494539f7"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "thumbnail_slider",
+        "media_size": "small",
+        "mobile_thumbnails": "show",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "0f4f0816-b224-4382-bc51-0f79cbab9ccb": {
+      "type": "subcribe-and-save",
+      "blocks": {
+        "f0501fda-2404-4ed8-9088-81164f1e1628": {
+          "type": "subscribe_step",
+          "settings": {
+            "icon": "shopify://shop_images/10percent-191917.svg",
+            "title": "Get more for less",
+            "text": "Get 10% off every order. Plus, enjoy priority shipping."
+          }
+        },
+        "06be93e7-4eaa-4992-a500-4b0012a43e83": {
+          "type": "subscribe_step",
+          "settings": {
+            "icon": "shopify://shop_images/Skip-191917.svg",
+            "title": "You call the shots",
+            "text": "Easily swap products, skip orders, or cancel your subscription at any time."
+          }
+        },
+        "dd6f7f87-21b4-494c-98bc-8e696b68e1cb": {
+          "type": "subscribe_step",
+          "settings": {
+            "icon": "shopify://shop_images/Cancel-191917.svg",
+            "title": "Control your order",
+            "text": "Make changes in your customer portal or send us an email for help."
+          }
+        },
+        "subscribe_step_HqFQ97": {
+          "type": "subscribe_step",
+          "settings": {
+            "icon": "shopify://shop_images/Asset_2_772c3847-cec7-40ab-8220-210370d47e44.svg",
+            "title": "Free Shipping",
+            "text": "Not only will you save on your Goju, but shipping is free too."
+          }
+        }
+      },
+      "block_order": [
+        "f0501fda-2404-4ed8-9088-81164f1e1628",
+        "06be93e7-4eaa-4992-a500-4b0012a43e83",
+        "dd6f7f87-21b4-494c-98bc-8e696b68e1cb",
+        "subscribe_step_HqFQ97"
+      ],
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 40,
+        "heading": "Subscribe and Save",
+        "short_text": "Love Goju, but always forget to stock up your fridge? Subscribe and save and you'll have Goju delivered regularly, to your place, at your own pace. Simply click 'Subscribe & Save', and we'll do the rest."
+      }
+    },
+    "rejuvenate-radiate": {
+      "type": "rejuvenate-radiate",
+      "settings": {
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "heading": "Rejuvenate + Radiate with Superbeauty"
+      }
+    },
+    "0d771efe-5a9e-4b22-bdeb-f1287fa4aecc": {
+      "type": "what-is-in-metaobj",
+      "settings": {
+        "full_width": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "blocks": {
+        "featured_collection_iAKEgT": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "our-range-1"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_iAKEgT"
+      ],
+      "settings": {
+        "heading": "You might like...",
+        "info": ""
+      }
+    },
+    "product-feedback": {
+      "type": "product-feedback",
+      "blocks": {
+        "growave_loyalty_wishlist_v2_product_reviews_widget_K3QyCG": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "min_images_for_slider_visibility": 6,
+            "reviews_per_page": 5,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_v2_product_reviews_widget_K3QyCG"
+      ],
+      "settings": {
+        "include_padding": true
+      }
+    },
+    "blog-section": {
+      "type": "about-sec8",
+      "disabled": true,
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "BANTER",
+        "blog": "gojushots",
+        "view_all": "shopify://blogs/gojushots",
+        "post_limit": 4
+      }
+    },
+    "420280bc-648a-4776-9da7-18078cbbfbdf": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "settings": {
+        "include_margins": false,
+        "anchor_link_id": "reviews"
+      }
+    },
+    "1745447451d846400d": {
+      "type": "apps",
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_nfEL4b": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "settings": {
+            "enabled": true,
+            "id": "",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_nfEL4b"
+      ],
+      "settings": {
+        "include_margins": true,
+        "anchor_link_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "0f4f0816-b224-4382-bc51-0f79cbab9ccb",
+    "rejuvenate-radiate",
+    "0d771efe-5a9e-4b22-bdeb-f1287fa4aecc",
+    "product-recommendations",
+    "product-feedback",
+    "blog-section",
+    "420280bc-648a-4776-9da7-18078cbbfbdf",
+    "loox-product-reviews-app-section",
+    "1745447451d846400d"
+  ]
+}

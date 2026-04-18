@@ -1,0 +1,132 @@
+{% style %}
+section.instagram{
+    background: #FAF7E9;
+    padding:3rem 0;
+}
+.inst-content {
+    position: relative;
+}
+.inst-content img {
+    position: absolute;
+    width: 449.03px;
+    height: 225px;
+    left: -60px;
+}
+.insta-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 25px;
+}
+.insta-info h2 {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 72px;
+    line-height: 115%;
+    color: #191917;
+    margin-bottom: 0;
+}
+.insta-info h3 {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 115%;
+    color: #32312E;
+    margin-bottom: 0;
+}
+.insta-feed {
+    position: relative;
+}
+
+.insta-feed .slick-slider {
+    padding-bottom: 0;
+}
+  
+.instagram li.slick-slide {
+    padding: 0 5px;
+}
+@media only screen and (max-width:768px){  
+.insta-info h2{
+  font-size:60px;
+}  
+}
+@media only screen and (max-width:376px){
+  .insta-info {
+    padding: 0 0 40px;
+    flex-flow: column;
+    align-items:start;
+}
+}  
+{% endstyle %}
+<section class="instagram section-{{ section.id }}">
+    <div class="container container2">
+      <div class="inst-content">
+        {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | img_url:'master' }}" alt="{{ section.settings.logo | alt }}" />
+        {% endif %}
+      </div>
+      {% if section.settings.insta_handle != blank or section.settings.heading !=blank %}
+      <div class="insta-info">
+        {% if section.settings.heading != blank %}<h2>{{ section.settings.heading }}</h2>{% endif %}
+        {% if section.settings.insta_handle !=blank %}<h3>{{ section.settings.insta_handle }}</h3>{% endif %}
+      </div>
+    {% endif %}
+     </div>
+    <div class="insta-feed">
+      <ul class="sc-img-slider insta-slider">
+          {% for block in section.blocks %}
+          <li>
+              <a href="{{ block.settings.insta_url }}" target="_blank" class="sc-img-box">
+                  <img src="{{ block.settings.image|img_url:'256x256' }}" alt="{{ block.settings.image|alt }}">
+              </a>
+          </li>
+          {% endfor %}
+      </ul>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Instagram",
+    "settings": [
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading"
+      },
+      {
+        "type":"text",
+        "id":"insta_handle",
+        "label":"Insta Handle"
+      },
+       {
+        "type":"image_picker",
+        "id":"logo",
+        "label":"Logo"
+      }
+    ],
+    "blocks": [
+       {
+         "name": "Insta Image",
+         "type": "image_list",
+         "settings": [
+           {
+             "type": "image_picker",
+             "id": "image",
+             "label": "Image"
+           },
+           {
+             "type": "url",
+             "id": "insta_url",
+             "label": "URL"
+           }
+         ]
+       }
+    ],
+    "presets": [
+      {
+        "name": "Instagram"
+      }
+    ]
+  }
+{% endschema %}

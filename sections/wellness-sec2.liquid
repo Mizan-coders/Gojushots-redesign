@@ -1,0 +1,195 @@
+<div class="shots-disc-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="shots-disc-list">
+                    {% for block in section.blocks %}
+                    {%- assign product = all_products[block.settings.featured_product] -%}
+                    <li class="shots-disc-item">
+                        <div class="shots-disc-box d-flex flex-wrap">
+                            <div class="sdb-img-box d-flex align-items-center justify-content-center">
+                                <div class="sdb-img">
+                                    {% if product.metafields.custom.inside_count_image != blank %}
+                                    <img src="{{ product.metafields.custom.inside_count_image |img_url:'262x473' }}" alt="{{ product.title }}" />
+                                    {% else %}
+                                    <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/bottle-1_262x473.png?v=1658197070" alt="{{ product.title }}" />
+                                    {%-endif-%}
+                                </div>
+                                <div class="shape-box">
+                                    {%- if product.metafields.custom.icon_cluster != blank -%}
+                                    <img src="{{ product.metafields.custom.icon_cluster |img_url:'447x80' }}" alt="{{ product.metafields.custom.icon_cluster |alt }}" />
+                                    {%-else-%}
+                                    <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/icon-list-2_447x80.png?v=1658247420" alt="{{ product.metafields.custom.icon_cluster |alt }}" />
+                                    {%-endif-%}
+                                </div>
+                                <div class="sdb-link d-flex">
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#custom-popup{{-forloop.index-}}">
+                                        <div class="icon">
+                                            <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    clip-rule="evenodd"
+                                                    d="M13.66 5.65L8 0L2.34 5.65C0.78 7.21 0 9.29 0 11.29C0 13.29 0.78 15.4 2.34 16.96C3.9 18.52 5.95 19.31 8 19.31C10.05 19.31 12.1 18.52 13.66 16.96C15.22 15.4 16 13.29 16 11.29C16 9.29 15.22 7.21 13.66 5.65ZM2 11.65C2.01 9.65 2.62 8.38 3.76 7.25L8 2.92L12.24 7.3C13.38 8.42 13.99 9.65 14 11.65H2Z"
+                                                    fill="#E81F76"
+                                                />
+                                            </svg>
+                                        </div>
+                                        The Science
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <div class="icon">
+                                            <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    clip-rule="evenodd"
+                                                    d="M14.4 1.8H13.5V0H11.7V1.8H4.5V0H2.7V1.8H1.8C0.81 1.8 0 2.61 0 3.6V16.2C0 17.19 0.81 18 1.8 18H14.4C15.39 18 16.2 17.19 16.2 16.2V3.6C16.2 2.61 15.39 1.8 14.4 1.8ZM14.4 16.2H1.8V7.2H14.4V16.2ZM1.8 5.4V3.6H14.4V5.4H1.8ZM3.6 9H12.6V10.8H3.6V9ZM3.6 12.6H9.9V14.4H3.6V12.6Z"
+                                                    fill="#E81F76"
+                                                />
+                                            </svg>
+                                        </div>
+                                        Nutrition
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <div class="icon">
+                                            <svg width="13" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    clip-rule="evenodd"
+                                                    d="M6.3 0C9.783 0 12.6 2.817 12.6 6.3C12.6 11.025 6.3 18 6.3 18C6.3 18 0 11.025 0 6.3C0 2.817 2.817 0 6.3 0ZM1.8 6.3C1.8 8.865 4.428 12.789 6.3 15.192C8.208 12.771 10.8 8.892 10.8 6.3C10.8 3.816 8.784 1.8 6.3 1.8C3.816 1.8 1.8 3.816 1.8 6.3ZM6.3 8.55C5.05736 8.55 4.05 7.54264 4.05 6.3C4.05 5.05736 5.05736 4.05 6.3 4.05C7.54264 4.05 8.55 5.05736 8.55 6.3C8.55 7.54264 7.54264 8.55 6.3 8.55Z"
+                                                    fill="#E81F76"
+                                                />
+                                            </svg>
+                                        </div>
+                                        Find a stockist
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="sdb-text-box">
+                                <span>{{ product.vendor }}</span>
+                                <h3>{{ product.title }}</h3>
+                                <ul class="d-md-block d-none">
+                                    <li>
+                                        <h5>Benefits</h5>
+                                        <p>{{ product.metafields.custom.benefits }}</p>
+                                        <a href="{{ block.settings.science_link }}">The science behind Turmeric</a>
+                                    </li>
+                                    <li>
+                                        <h5>How to</h5>
+                                        <p>{{ product.metafields.custom.how_to }}</p>
+                                    </li>
+                                    <li>
+                                        <h5>Ingredients</h5>
+                                        <p>{{ product.metafields.custom.ingredients }}</p>
+                                    </li>
+                                </ul>
+                                <div class="accordion d-md-none d-block">
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="headingOne">
+                                            <a class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Benefits
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="">
+                                            <div class="accordion-body">
+                                                <p>{{ product.metafields.custom.benefits }}</p>
+                                                <a href="{{ block.settings.science_link }}">The science behind Turmeric</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="headingTwo">
+                                            <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                How to
+                                            </a>
+                                        </div>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="">
+                                            <div class="accordion-body">
+                                              <p>{{ product.metafields.custom.how_to }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <div class="</p>accordion-header" id="headingThree">
+                                            <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                Ingredients
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="">
+                                            <div class="accordion-body">
+                                               <p>{{ product.metafields.custom.ingredients }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sdb-btn-group">
+                                    <h5>Get yours now</h5>
+                                    <div class="sdb-btn">
+                                        <a href="{{ product.metafields.custom.shop_60ml_shots_url }}" class="btn btn-outline">Shop 60mL Shots</a>
+                                        <a href="{{ product.metafields.custom.shop_50ml_shots_url }}" class="btn btn-outline">Shop 50mL Bottles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% for block in section.blocks %}
+{%- assign product = all_products[block.settings.featured_product] -%}
+<div class="custom-modal modal fade" id="custom-popup{{-forloop.index-}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="custom-popupLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="navbar-brand" href="/"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Goju_logo_pos_1_14cf97aa-3101-4df8-a8d3-7fffa703b496.png?v=1658043940" alt="Goju Shots" /></a>
+        <div class="close-btn" data-bs-dismiss="modal" aria-label="Close">{% include 'close' %}</div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content-text">
+            <h4>{{ product.metafields.custom.popup_heading }}</h4>
+            <p>{{ product.metafields.custom.popup_paragraph }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}                                                 
+{% schema %}
+  {
+    "name": "Wellness Hub Products",
+    "max_blocks": 5,
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Note this all data is coming from products meta fields so you can edit update all this data by updating product meta fields."
+      }
+    ],
+    "blocks": [
+     {
+       "name": "Featured Product",
+       "type": "featured-product",
+       "settings": [
+         {
+           "type": "product",
+           "id": "featured_product",
+           "label": "Select Featured Product"
+         }
+       ]
+     }
+   ],
+  "presets": [
+    {
+      "name": "Wellness Hub Products"
+    }
+  ]
+  }
+{% endschema %}
+{% style %}
+.shots-disc-item  .shape-box img {
+    width: 100%;
+    margin: 0 8px;
+    max-width: 447px;
+}
+  {% endstyle %}

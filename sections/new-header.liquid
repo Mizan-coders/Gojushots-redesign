@@ -1,0 +1,374 @@
+
+
+<header id="header">
+   		{% if section.settings.message %}
+        <div class="header-upper">
+            <div class="container container1">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-center justify-content-center position-relative">
+                        <div class="hu-title">{{ section.settings.message_text }}</div>
+                        <div class="hu-link">
+                            <a href="{{ section.settings.message_link }}" class="header-btn d-flex align-items-center">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   		{% endif %}
+        <div class="header-lower">
+            <nav class="navbar navbar-expand-xl">
+                <div class="container container1">
+                    <div class="nav-inside d-flex align-items-center justify-content-xl-between">
+                        <a class="navbar-brand" href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url:'100x50' }}" alt="{{ shop.name }}" /></a>
+                        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="mainNav">
+                          <div class="navbar-inside ms-auto">
+                            <ul class="navbar-nav">
+                             {% for link in section.settings.main_linklist.links %}
+                             <li class="nav-item">
+                                  <a class="nav-link {% if link.links != blank %}dropdown-toggle{% endif %}" {% if link.links != blank %}id="id-{{ forloop.index }}"{% endif %} href="{{ link.url }}" {% if link.links != blank %} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% endif %}>
+                                      {{ link.title }}<i><img src="include/images/chervon-down.svg" alt="" /></i>
+                                  </a>
+                               	  {% if link.links != blank %}
+                                  <ul class="dropdown-menu" aria-labelledby="id-{{ forloop.index }}">
+                                      {% for child_link in link.links %} 
+                                      <li>
+                                        <a class="dropdown-item" href="{{ child_link.url }}" class="mn-childhead"><span>{{ child_link.title }}</span></a>   
+                                      </li> 
+                                      {% endfor %}
+                                  </ul>
+                               	  {% endif %}
+                              </li>
+                              {% endfor %}
+                             </ul>
+                      		</div>
+                        </div>
+                        <div class="header-right d-flex align-items-center"> 
+                        	
+                            <a href="#!" class="account-icon">
+                              <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/user.png?v=1654011608" alt="user" />
+                          	</a>
+                            <a href="{{ routes.cart_url }}" class="cart-icon">
+                              <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/cart.png?v=1654011608" alt="cart" />
+                          	</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": {
+        "cs": "Panel oznámení",
+        "da": "Meddelelseslinje",
+        "de": "Ankündigungsbereich",
+        "en": "Announcement bar",
+        "es": "Barra de anuncios",
+        "fi": "Ilmoituspalkki",
+        "fr": "Barre d'annonces",
+        "it": "Barra degli annunci",
+        "ja": "告知バー",
+        "ko": "공지 표시줄",
+        "nb": "Kunngjøringslinje",
+        "nl": "Aankondigingsbalk",
+        "pl": "Pasek ogłoszeń",
+        "pt-BR": "Barra de avisos",
+        "pt-PT": "Barra de comunicado",
+        "sv": "Meddelandefält",
+        "th": "แถบประกาศ",
+        "tr": "Duyuru çubuğu",
+        "vi": "Thanh thông báo",
+        "zh-CN": "公告栏",
+        "zh-TW": "公告列"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "message",
+      "label": {
+        "cs": "Zobrazit oznámení",
+        "da": "Vis meddelelse",
+        "de": "Ankündigung anzeigen",
+        "en": "Show announcement",
+        "es": "Mostrar anuncio",
+        "fi": "Näytä ilmoitus",
+        "fr": "Afficher l'annonce",
+        "it": "Mostra annuncio",
+        "ja": "告知を表示する",
+        "ko": "공지 표시",
+        "nb": "Vis kunngjøring",
+        "nl": "Aankondiging weergeven",
+        "pl": "Pokaż ogłoszenie",
+        "pt-BR": "Mostrar comunicado",
+        "pt-PT": "Mostrar comunicado",
+        "sv": "Visa tillkännagivande",
+        "th": "แสดงประกาศ",
+        "tr": "Duyuruyu göster",
+        "vi": "Hiển thị thông báo",
+        "zh-CN": "显示公告",
+        "zh-TW": "顯示公告"
+      },
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "message_text",
+      "label": {
+        "cs": "Text",
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "tr": "Metin",
+        "vi": "Văn bản",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "cs": "Tady můžete zadat oznámení",
+        "da": "Meddel noget her",
+        "de": "Hier etwas ankündigen",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fi": "Ilmoita jotakin tässä",
+        "fr": "Annoncez quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "ko": "여기에 공지하십시오",
+        "nb": "Kunngjør noe her",
+        "nl": "Kondig hier iets aan",
+        "pl": "Ogłoś coś tutaj",
+        "pt-BR": "Anuncie algo aqui",
+        "pt-PT": "Anunciar algo aqui",
+        "sv": "Meddela något här",
+        "th": "ประกาศข้อความที่นี่",
+        "tr": "Buraya bir duyuru ekleyin",
+        "vi": "Thông báo điều gì đó tại đây",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "url",
+      "id": "message_link",
+      "label": {
+        "cs": "Odkaz",
+        "da": "Link",
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fi": "Linkki",
+        "fr": "Lien",
+        "it": "Link",
+        "ja": "リンク",
+        "ko": "링크",
+        "nb": "Kobling",
+        "nl": "Link",
+        "pl": "Link",
+        "pt-BR": "Link",
+        "pt-PT": "Ligação",
+        "sv": "Länk",
+        "th": "ลิงก์",
+        "tr": "Bağlantı",
+        "vi": "Liên kết",
+        "zh-CN": "链接",
+        "zh-TW": "連結"
+      },
+      "info": {
+        "cs": "Volitelné",
+        "da": "Valgfri",
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fi": "Valinnainen",
+        "fr": "Facultatif",
+        "it": "Facoltativo",
+        "ja": "オプション",
+        "ko": "선택 사항",
+        "nb": "Valgfritt",
+        "nl": "Optioneel",
+        "pl": "Opcjonalnie",
+        "pt-BR": "Opcional",
+        "pt-PT": "Opcional",
+        "sv": "Valfritt",
+        "th": "ไม่จำเป็น",
+        "tr": "İsteğe bağlı",
+        "vi": "Không bắt buộc",
+        "zh-CN": "可选",
+        "zh-TW": "(選填)"
+      }
+    }
+    
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+{% if template.name != "index" %} 
+<style>
+
+/* ================== new header ====================== */
+ #header { background: #fff; position: fixed; left: 0; top: 0; right: 0; padding: 0; z-index: 9999; transition: all 0.2s ease-in; -webkit-transition: all 0.2s ease-in; box-shadow: 0 0 8px rgb(0 0 0 / 10%); }
+.header-upper { background: #282828; padding: 6px 0; color: #fff; text-align: center;display: flex;justify-content: center;align-items: center; height: 40px;}
+.hu-title { font-size: 14px; display: inline-block; }
+.hu-link { margin-left: 8px; display: inline-block; line-height: 14px; }
+.hu-link > a { color: #fff; text-decoration: none; line-height: 16px; }
+
+.header-lower{background-color:#fff;}
+.header-lower .navbar { padding: 0; width: 100%; height: 80px; display: flex; align-items: center; }
+.header-lower .container.container1 { width: 100%; max-width: 1420px; margin: 0 auto; padding: 0 15px; }
+.header-lower .navbar-brand {width: 100px;padding: 0;margin: 0;position: relative;z-index: 999;display: flex;}
+.header-lower .nav-inside {display: flex;justify-content: space-between;align-items: center;}
+.header-lower .navbar-toggler { display: none; }
+.header-lower .navbar-nav { display: flex; list-style: none; }
+.header-lower .navbar-nav .dropdown-menu {list-style: none;opacity: 0;visibility: hidden;background: #fff;color: #546579;min-width: 180px;box-shadow: 0 5px 8px rgb(0 0 0 / 20%);border: 0;border-radius: 0;position: absolute;top: 100%;margin-top: 5px;padding: 10px 0;transition: all .3s ease-in;}
+  
+.header-lower .nav-item {padding: 0 21px;position: relative;}
+.header-lower .nav-item .dropdown-item { color: #546579; padding: 5px 15px; font-weight: 400; width: 100%; display: block; text-decoration: none; font-size: 14px; }
+.header-lower .nav-item:hover > .dropdown-menu { margin-top: 0; opacity: 1; visibility: visible; }
+.header-lower .nav-link {font-size: 14px;line-height: 30px;font-weight: 600;color: #000;padding: 0;margin: 0;text-decoration: none;}
+.header-lower .navbar-collapse { margin-left: auto; margin-right: 6%; }
+.header-right { display: flex;}
+.header-lower .header-right > a { width: 25px; line-height: 25px; }
+.header-lower .header-right > a + a { margin-left: 25px;  width: 30px; }
+.header-lower .header-right > a > img { vertical-align: middle; width: 100%; object-fit: contain;} 
+
+@media (max-width:1199.98px) {
+	.header-lower .navbar-collapse { position: fixed; top: 100px; left: 0; background: #fff; padding: 0; z-index: 99; margin: 0; border: 0; overflow-y: auto; bottom: 0; width: 100%; height: 0; display: block !important; transition: all .3s cubic-bezier(0.77, 0.2, 0.05, 1.0); }
+	.header-lower .navbar-inside { height: calc(100vh - 125px); padding: 0 19px; }
+	.header-lower .navbar-nav { flex-flow: column; padding: 0; }
+	.header-lower .nav-item { padding: 0; border-bottom: 1px solid #DFDED8; }
+	.header-lower .nav-link { font-size: 14px; line-height: 51px; position: relative; color: #6E6B63; }
+    .header-lower .header-right { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+    .header-lower .header-right > a { width: 22px; }
+    .header-lower .navbar { height: 60px; position: relative; }
+    .header-lower .navbar-brand { width: 80px; margin: 0 auto; }
+    .header-lower .header-right > a + a { margin-left: 20px; }
+    .header-lower .header-right > a > img { }
+    .header-lower .navbar-toggler { display: block; width: 60px; height: 60px; border-radius: 0; cursor: pointer; text-decoration: none; padding: 0; border: 0; background: transparent; margin: 0; position: absolute; top: 50%; z-index: 999; transform: translateY(-50%); left: 0; }
+    .navbar-toggler-icon { position: relative; display: inline-block; width: 20px; height: 2px; color: #243238; text-indent: -55px; margin-top: 0; background: #546579; transition: all .2s ease-out; -webkit-transition: all .2s ease-out; -moz-transition: all .2s ease-out; -ms-transition: all .2s ease-out; vertical-align: middle; }
+    .navbar-toggler .navbar-toggler-icon:before, .navbar-toggler .navbar-toggler-icon:after { content: ''; width: 20px; height: 2px; background: #546579; position: absolute; left: 0; transition: all .2s ease-out; }
+    .navbar-toggler .navbar-toggler-icon:before { top: -7px; }
+    .navbar-toggler .navbar-toggler-icon:after { bottom: -7px; }
+    .nav-open .navbar-toggler-icon { background: transparent; }
+    .nav-open .navbar-toggler .navbar-toggler-icon:before { transform: rotate(45deg); top: 2px; }
+    .nav-open .navbar-toggler .navbar-toggler-icon:after { transform: rotate(-45deg); bottom: -2px; }
+    .nav-open .header-lower .navbar-collapse { height: calc(100vh - 100px); 
+}
+}
+  
+@media (max-width:767.98px) {
+	.header-lower .header-right > a + a { margin-left: 16px; width: 25px; }
+	.header-lower .header-right > a { width: 19px; }
+}
+
+</style>
+
+<script>
+$('.navbar-toggler').on('click', function() {
+    $('body').toggleClass('nav-open');
+});
+</script>
+
+{%endif%}

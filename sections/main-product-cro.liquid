@@ -1,0 +1,2214 @@
+{{ 'section-product-cro.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%} Per-product color tokens + section padding {%- endcomment -%}
+{% style %}
+  /* Per-product gallery bg driven by metafield */
+  .cro-gallery__main-{{ section.id }} {
+    background-color: {{ product.metafields.custom.primary_color | default: '#f3f3f3' }};
+  }
+  .cro-gallery__thumb-dot-{{ section.id }} {
+    background-color: {{ product.metafields.custom.secondary_color | default: '#191917' }};
+  }
+  /* Section padding override */
+  .cro-hero-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 749px) {
+    .cro-hero-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.6 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round }}px;
+    }
+  }
+  {%- if section.settings.button_scheme == 'black' -%}
+  #MainProduct-{{ section.id }} .cro-btn--primary {
+    background: #191917;
+  }
+  #MainProduct-{{ section.id }} .cro-btn--primary:hover {
+    background: #2d2d2b;
+  }
+  #MainProduct-{{ section.id }} .cro-pw__tog-btn.is-active {
+    background: #191917;
+    border-color: #191917;
+  }
+  #MainProduct-{{ section.id }} .cro-pw__freq-btn.is-active {
+    background: #191917;
+    border-color: #191917;
+    color: #ffffff;
+  }
+  #MainProduct-{{ section.id }} .cro-sticky-atc__btn {
+    background: #ffffff;
+    color: #191917;
+  }
+  #MainProduct-{{ section.id }} .cro-sticky-atc__btn:hover {
+    background: #e8e8e8;
+    color: #191917;
+  }
+  {%- endif -%}
+  {%- if section.settings.sticky_bg_color != blank and section.settings.sticky_bg_color != 'rgba(0,0,0,0)' -%}
+  #CroStickyATC-{{ section.id }} {
+    background: {{ section.settings.sticky_bg_color }};
+  }
+  {%- endif -%}
+  {%- if section.settings.sticky_btn_color != blank and section.settings.sticky_btn_color != 'rgba(0,0,0,0)' -%}
+  #CroStickyATC-{{ section.id }} .cro-sticky-atc__btn {
+    background: {{ section.settings.sticky_btn_color }};
+  }
+  #CroStickyATC-{{ section.id }} .cro-sticky-atc__btn:hover:not(:disabled) {
+    background: {{ section.settings.sticky_btn_color }};
+    opacity: 0.88;
+  }
+  {%- endif -%}
+  {%- if section.settings.sticky_btn_text_color != blank and section.settings.sticky_btn_text_color != 'rgba(0,0,0,0)' -%}
+  #CroStickyATC-{{ section.id }} .cro-sticky-atc__btn {
+    color: {{ section.settings.sticky_btn_text_color }};
+  }
+  {%- endif -%}
+  /* Hide subscription UI instantly for no-plan variants — prevents flash before JS runs */
+  .cro-pw[data-variant-has-plans="0"] .cro-pw__toggle,
+  .cro-pw[data-variant-has-plans="0"] .cro-pw__perks,
+  .cro-pw[data-variant-has-plans="0"] .cro-pw__freq,
+  .cro-pw[data-variant-has-plans="0"] .cro-pw__cancel-note { display: none !important; }
+{% endstyle %}
+
+{%- assign product_form_id = 'product-form-cro-' | append: section.id -%}
+
+<section
+  class="pdp-cro cro-hero-section-{{ section.id }} shopify-section-main-product"
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+>
+  <div class="cro-container">
+    <div class="cro-product-hero">
+
+      {%- comment -%}═══════════════════════════════════════════
+        LEFT PANEL — PRODUCT GALLERY
+      ═══════════════════════════════════════════{%- endcomment -%}
+      <div class="cro-gallery" id="CroGallery-{{ section.id }}">
+
+        {%- comment -%} ── MAIN IMAGE AREA ── {%- endcomment -%}
+        <div class="cro-gallery__main cro-gallery__main-{{ section.id }}">
+
+          {%- comment -%} Best Seller / featured badge from product tags {%- endcomment -%}
+          {%- if product.tags contains 'best-seller'
+               or product.tags contains 'bestseller'
+               or product.tags contains 'Best Seller'
+               or product.tags contains 'BestSeller' -%}
+            <span class="cro-gallery__badge cro-tag cro-tag--highlight">Best Seller</span>
+          {%- elsif product.tags contains 'new'
+                 or product.tags contains 'New'
+                 or product.tags contains 'NEW' -%}
+            <span class="cro-gallery__badge cro-tag cro-tag--dark">New</span>
+          {%- endif -%}
+
+          {%- comment -%} Main image slider — reuses existing snippet {%- endcomment -%}
+          <div class="cro-gallery__slider-wrap">
+            {%- if product.media.size > 0 -%}
+              <div
+                class="cro-gallery__slides"
+                id="CroSlides-{{ section.id }}"
+                aria-label="{{ 'products.modal.label' | t }}"
+                tabindex="0"
+              >
+                {%- comment -%} Slide order: image[1] first, then image[0], then image[2+] {%- endcomment -%}
+                {%- assign _slide_i = 0 -%}
+
+                {%- comment -%} Slot 0 — image[1] (shown first on product page) {%- endcomment -%}
+                {%- if product.media.size > 1 -%}
+                  {%- assign _m = product.media[1] -%}
+                  <div class="cro-gallery__slide is-active" data-index="0" aria-hidden="false">
+                    {%- if _m.media_type == 'video' -%}
+                      {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
+                    {%- elsif _m.media_type == 'external_video' -%}
+                      {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping }}
+                    {%- else -%}
+                      <img
+                        srcset="{{ _m | img_url: '480x' }} 480w, {{ _m | img_url: '720x' }} 720w, {{ _m | img_url: '1080x' }} 1080w"
+                        sizes="(min-width: 990px) 50vw, 100vw"
+                        src="{{ _m | img_url: '720x' }}"
+                        alt="{{ _m.alt | default: product.title | escape }}"
+                        loading="eager"
+                        width="{{ _m.preview_image.width }}"
+                        height="{{ _m.preview_image.height }}"
+                        data-media-id="{{ _m.id }}"
+                      >
+                    {%- endif -%}
+                  </div>
+                  {%- assign _slide_i = 1 -%}
+                {%- endif -%}
+
+                {%- comment -%} Slot 1 (or 0 if only 1 image) — original first image {%- endcomment -%}
+                {%- assign _m = product.media[0] -%}
+                <div class="cro-gallery__slide{% unless product.media.size > 1 %} is-active{% endunless %}" data-index="{{ _slide_i }}" aria-hidden="{% if product.media.size > 1 %}true{% else %}false{% endif %}">
+                  {%- if _m.media_type == 'video' -%}
+                    {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
+                  {%- elsif _m.media_type == 'external_video' -%}
+                    {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping }}
+                  {%- else -%}
+                    <img
+                      srcset="{{ _m | img_url: '480x' }} 480w, {{ _m | img_url: '720x' }} 720w, {{ _m | img_url: '1080x' }} 1080w"
+                      sizes="(min-width: 990px) 50vw, 100vw"
+                      src="{{ _m | img_url: '720x' }}"
+                      alt="{{ _m.alt | default: product.title | escape }}"
+                      loading="lazy"
+                      width="{{ _m.preview_image.width }}"
+                      height="{{ _m.preview_image.height }}"
+                      data-media-id="{{ _m.id }}"
+                    >
+                  {%- endif -%}
+                </div>
+                {%- assign _slide_i = _slide_i | plus: 1 -%}
+
+                {%- comment -%} Slots 2+ — remaining images from index 2 onwards {%- endcomment -%}
+                {%- for media in product.media offset: 2 -%}
+                  <div class="cro-gallery__slide" data-index="{{ _slide_i }}" aria-hidden="true">
+                    {%- if media.media_type == 'video' -%}
+                      {{ media | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
+                    {%- elsif media.media_type == 'external_video' -%}
+                      {{ media | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping }}
+                    {%- else -%}
+                      <img
+                        srcset="{{ media | img_url: '480x' }} 480w, {{ media | img_url: '720x' }} 720w, {{ media | img_url: '1080x' }} 1080w"
+                        sizes="(min-width: 990px) 50vw, 100vw"
+                        src="{{ media | img_url: '720x' }}"
+                        alt="{{ media.alt | default: product.title | escape }}"
+                        loading="lazy"
+                        width="{{ media.preview_image.width }}"
+                        height="{{ media.preview_image.height }}"
+                        data-media-id="{{ media.id }}"
+                      >
+                    {%- endif -%}
+                  </div>
+                  {%- assign _slide_i = _slide_i | plus: 1 -%}
+                {%- endfor -%}
+              </div>
+
+              {%- comment -%} Prev / Next arrows {%- endcomment -%}
+              {%- if product.media.size > 1 -%}
+                <button
+                  class="cro-gallery__arrow cro-gallery__arrow--prev"
+                  aria-label="{{ 'general.slider.previous_slide' | t }}"
+                  data-target="CroSlides-{{ section.id }}"
+                  data-dir="-1"
+                >
+                  <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+                    <path d="M8 1L1 8L8 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button
+                  class="cro-gallery__arrow cro-gallery__arrow--next"
+                  aria-label="{{ 'general.slider.next_slide' | t }}"
+                  data-target="CroSlides-{{ section.id }}"
+                  data-dir="1"
+                >
+                  <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+                    <path d="M1 1L8 8L1 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              {%- endif -%}
+
+            {%- else -%}
+              {%- comment -%} No media fallback {%- endcomment -%}
+              <div class="cro-gallery__slide is-active cro-gallery__no-media">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {%- endif -%}
+          </div>{%- comment -%} /.cro-gallery__slider-wrap {%- endcomment -%}
+        </div>{%- comment -%} /.cro-gallery__main {%- endcomment -%}
+
+        {%- comment -%} ── THUMBNAIL STRIP ── {%- endcomment -%}
+        {%- if product.media.size > 1 -%}
+          <div class="cro-gallery__thumbs" id="CroThumbs-{{ section.id }}" role="tablist">
+            {%- assign _ti = 0 -%}
+
+            {%- comment -%} Thumb 0 — image[1] first {%- endcomment -%}
+            {%- assign _m = product.media[1] -%}
+            <button class="cro-gallery__thumb is-active" data-index="0" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="true" aria-label="{{ _m.alt | default: product.title | escape }}">
+              <img src="{{ _m | img_url: '120x120', crop: 'center' }}" alt="{{ _m.alt | default: product.title | escape }}" loading="eager" width="120" height="120">
+            </button>
+            {%- assign _ti = 1 -%}
+
+            {%- comment -%} Thumb 1 — original first image {%- endcomment -%}
+            {%- assign _m = product.media[0] -%}
+            <button class="cro-gallery__thumb" data-index="{{ _ti }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="false" aria-label="{{ _m.alt | default: product.title | escape }}">
+              <img src="{{ _m | img_url: '120x120', crop: 'center' }}" alt="{{ _m.alt | default: product.title | escape }}" loading="lazy" width="120" height="120">
+            </button>
+            {%- assign _ti = 2 -%}
+
+            {%- comment -%} Thumbs 2+ — remaining images {%- endcomment -%}
+            {%- for media in product.media offset: 2 limit: 4 -%}
+              <button class="cro-gallery__thumb" data-index="{{ _ti }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="false" aria-label="{{ media.alt | default: product.title | escape }}">
+                <img src="{{ media | img_url: '120x120', crop: 'center' }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy" width="120" height="120">
+              </button>
+              {%- assign _ti = _ti | plus: 1 -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+
+      </div>{%- comment -%} /.cro-gallery {%- endcomment -%}
+
+      {%- comment -%}═══════════════════════════════════════════
+        RIGHT PANEL — PURCHASE INFO
+        (built out in Task 3)
+      ═══════════════════════════════════════════{%- endcomment -%}
+      <div
+        class="cro-info-panel"
+        id="CroInfoPanel-{{ section.id }}"
+      >
+        <div
+          class="cro-info-panel__sticky"
+          id="CroInfoSticky-{{ section.id }}"
+        >
+
+          {%- assign first_app_seen = false -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+
+              {%- when 'text' -%}
+                {%- comment -%} Product category pill badge {%- endcomment -%}
+                {%- if product.metafields.custom.product_tagline != blank -%}
+                  <div class="cro-info-panel__tagline" {{ block.shopify_attributes }}>
+                    <span class="cro-product-badge">
+                      {{- product.metafields.custom.product_tagline -}}
+                    </span>
+                  </div>
+                {%- endif -%}
+
+              {%- when 'title' -%}
+                {%- comment -%} Split title: first word italic, rest bold {%- endcomment -%}
+                {%- assign title_first = product.title | split: ' ' | first -%}
+                {%- assign title_rest  = product.title | remove_first: title_first | lstrip -%}
+                <div class="cro-info-panel__title" {{ block.shopify_attributes }}>
+                  <h1 class="cro-heading cro-product-title">
+                    <em>{{ title_first | escape }}</em>
+                    {%- if title_rest != blank %} <strong>{{ title_rest | escape }}</strong>{%- endif -%}
+                  </h1>
+                  {%- if product.type != blank -%}
+                    <p class="cro-product-type">{{ product.type }}</p>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'short_description' -%}
+                {%- comment -%} Short description with Read More / Read Less toggle {%- endcomment -%}
+                {%- assign short_desc = product.metafields.custom.custom_description -%}
+                {%- if short_desc == blank -%}
+                  {%- assign short_desc = product.description | strip_html | truncatewords: 30 -%}
+                {%- endif -%}
+                {%- if short_desc != blank -%}
+                  <div class="cro-info-panel__short-desc" {{ block.shopify_attributes }}>
+                    <p class="cro-short-desc">{{ short_desc }}</p>
+                    {%- if product.description != blank -%}
+                      <div class="cro-desc-full rte" id="CroDescFull-{{ section.id }}" aria-hidden="true">
+                        {{ product.description }}
+                      </div>
+                      {%- unless block.settings.hide_read_more -%}
+                      <button
+                        class="cro-read-more-btn"
+                        id="CroReadMoreBtn-{{ section.id }}"
+                        aria-expanded="false"
+                        aria-controls="CroDescFull-{{ section.id }}"
+                        data-label="{{ block.settings.read_more_label | default: 'Read More' | escape }}"
+                        type="button"
+                      >
+                        <span class="cro-read-more-btn__text">{{ block.settings.read_more_label | default: 'Read More' }}</span>
+                        <svg class="cro-read-more-btn__icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                          <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                      {%- endunless -%}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+
+              {%- when 'benefit_pills' -%}
+                {%- comment -%} Benefit pills — per-product metafields first, block settings as fallback {%- endcomment -%}
+                {%- assign mf_p1t = product.metafields.cro.pill_1_text.value -%}
+                {%- assign mf_p2t = product.metafields.cro.pill_2_text.value -%}
+                {%- assign mf_p3t = product.metafields.cro.pill_3_text.value -%}
+                {%- assign mf_p4t = product.metafields.cro.pill_4_text.value -%}
+                {%- if mf_p1t != blank or mf_p2t != blank or mf_p3t != blank or mf_p4t != blank -%}
+                  <div class="cro-benefit-pills" {{ block.shopify_attributes }}>
+                    {%- if mf_p1t != blank -%}
+                      <span class="cro-benefit-pill">
+                        {%- assign mf_p1i = product.metafields.cro.pill_1_icon.value -%}
+                        {%- if mf_p1i != blank -%}<span class="cro-benefit-pill__icon" aria-hidden="true">{{ mf_p1i }}</span>{%- endif -%}
+                        {{ mf_p1t }}
+                      </span>
+                    {%- endif -%}
+                    {%- if mf_p2t != blank -%}
+                      <span class="cro-benefit-pill">
+                        {%- assign mf_p2i = product.metafields.cro.pill_2_icon.value -%}
+                        {%- if mf_p2i != blank -%}<span class="cro-benefit-pill__icon" aria-hidden="true">{{ mf_p2i }}</span>{%- endif -%}
+                        {{ mf_p2t }}
+                      </span>
+                    {%- endif -%}
+                    {%- if mf_p3t != blank -%}
+                      <span class="cro-benefit-pill">
+                        {%- assign mf_p3i = product.metafields.cro.pill_3_icon.value -%}
+                        {%- if mf_p3i != blank -%}<span class="cro-benefit-pill__icon" aria-hidden="true">{{ mf_p3i }}</span>{%- endif -%}
+                        {{ mf_p3t }}
+                      </span>
+                    {%- endif -%}
+                    {%- if mf_p4t != blank -%}
+                      <span class="cro-benefit-pill">
+                        {%- assign mf_p4i = product.metafields.cro.pill_4_icon.value -%}
+                        {%- if mf_p4i != blank -%}<span class="cro-benefit-pill__icon" aria-hidden="true">{{ mf_p4i }}</span>{%- endif -%}
+                        {{ mf_p4t }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                {%- else -%}
+                  {%- assign has_pill = false -%}
+                  {%- if block.settings.pill_1_text != blank or block.settings.pill_2_text != blank
+                       or block.settings.pill_3_text != blank or block.settings.pill_4_text != blank -%}
+                    {%- assign has_pill = true -%}
+                  {%- endif -%}
+                  {%- if has_pill -%}
+                    <div class="cro-benefit-pills" {{ block.shopify_attributes }}>
+                      {%- for i in (1..4) -%}
+                        {%- assign pill_icon = 'pill_' | append: i | append: '_icon' -%}
+                        {%- assign pill_text = 'pill_' | append: i | append: '_text' -%}
+                        {%- if block.settings[pill_text] != blank -%}
+                          <span class="cro-benefit-pill">
+                            {%- if block.settings[pill_icon] != blank -%}
+                              <span class="cro-benefit-pill__icon" aria-hidden="true">{{ block.settings[pill_icon] }}</span>
+                            {%- endif -%}
+                            {{ block.settings[pill_text] }}
+                          </span>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+
+              {%- when '@app' -%}
+                {%- unless first_app_seen -%}
+                  <div class="cro-info-panel__app-block cro-review-inline-row" {{ block.shopify_attributes }}>
+                    {% render block %}
+                    <span class="cro-rating-verified">
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M2 6L5 9L10 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      Verified
+                    </span>
+                  </div>
+                  {%- assign first_app_seen = true -%}
+                {%- else -%}
+                  <div class="cro-info-panel__app-block" {{ block.shopify_attributes }}>
+                    {% render block %}
+                  </div>
+                {%- endunless -%}
+
+              {%- when 'price' -%}
+                <div
+                  class="cro-info-panel__price"
+                  id="CroPrice-{{ section.id }}"
+                  role="status"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
+
+                  {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                    <div class="cro-info-panel__tax caption rte">
+                      {%- if shop.taxes_included -%}
+                        {{ 'products.product.include_taxes' | t }}
+                      {%- endif -%}
+                      {%- if shop.shipping_policy.body != blank -%}
+                        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'variant_picker' -%}
+                <div class="cro-info-panel__variants" {{ block.shopify_attributes }}>
+                  {%- assign variant_label = block.settings.variant_label | default: 'Choose Pack Size' -%}
+                  <span class="cro-label cro-label--section">{{ variant_label }}</span>
+
+                  {%- unless product.has_only_default_variant -%}
+                    {%- if block.settings.picker_type == 'button' -%}
+                      <variant-radios
+                        class="no-js-hidden cro-variant-row"
+                        data-section="{{ section.id }}"
+                        data-url="{{ product.url }}"
+                      >
+                        {%- for option in product.options_with_values -%}
+                          <fieldset class="js product-form__input">
+                            <legend class="cro-label">{{ option.name }}</legend>
+                            <div class="cro-variant-row">
+                              {%- for value in option.values -%}
+                                <input
+                                  type="radio"
+                                  id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                  name="{{ option.name }}"
+                                  value="{{ value | escape }}"
+                                  form="{{ product_form_id }}"
+                                  class="visually-hidden"
+                                  {% if option.selected_value == value %}checked{% endif %}
+                                >
+                                <label
+                                  for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                  class="cro-variant-btn{% if option.selected_value == value %} is-active{% endif %}"
+                                >
+                                  {{ value }}
+                                </label>
+                              {%- endfor -%}
+                            </div>
+                          </fieldset>
+                        {%- endfor -%}
+                        <script data-cst_variant="data" type="application/json">
+                          {{ product.variants | json }}
+                        </script>
+                      </variant-radios>
+                      {%- assign hint_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
+                      {%- if product.tags contains 'no-subscription' -%}{%- assign hint_has_plans = 0 -%}{%- endif -%}
+                      <p id="CroNoSubHint-{{ section.id }}" class="cro-variant-nosub-hint" {% if hint_has_plans > 0 %}hidden{% endif %}>{{ block.settings.nosub_hint | default: 'One-time purchase — subscribe & save on the 15 pack with free shipping always' }}</p>
+                    {%- else -%}
+                      <variant-selects
+                        class="no-js-hidden"
+                        data-section="{{ section.id }}"
+                        data-url="{{ product.url }}"
+                      >
+                        {%- for option in product.options_with_values -%}
+                          <div class="product-form__input product-form__input--dropdown">
+                            <label class="cro-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                              {{ option.name }}
+                            </label>
+                            <div class="select">
+                              <select
+                                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                                class="select__select"
+                                name="options[{{ option.name | escape }}]"
+                                form="{{ product_form_id }}"
+                              >
+                                {%- for value in option.values -%}
+                                  <option
+                                    value="{{ value | escape }}"
+                                    {% if option.selected_value == value %}selected="selected"{% endif %}
+                                  >{{ value }}</option>
+                                {%- endfor -%}
+                              </select>
+                              {% render 'icon-caret' %}
+                            </div>
+                          </div>
+                        {%- endfor -%}
+                        <script data-cst_variant="data" type="application/json">
+                          {{ product.variants | json }}
+                        </script>
+                      </variant-selects>
+                    {%- endif -%}
+
+                    {%- comment -%} Pack customiser for bundle products {%- endcomment -%}
+                    {%- if product.id == 5384322908328
+                         or product.id == 8723492995240
+                         or product.id == 7399079248040 -%}
+                      {%- render 'cro-pack-customiser', product: product, form_id: product_form_id -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                </div>
+
+              {%- when 'buy_buttons' -%}
+                <div class="cro-info-panel__buy" {{ block.shopify_attributes }}>
+                  <product-form class="product-form">
+                    <div class="product-form__error-message-wrapper" role="alert" hidden>
+                      {% render 'svg_error_icon' %}
+                      <span class="product-form__error-message"></span>
+                    </div>
+
+                    {%- form 'product',
+                          product,
+                          id: product_form_id,
+                          class: 'form',
+                          novalidate: 'novalidate',
+                          data-type: 'add-to-cart-form',
+                          data-productid: product.id -%}
+
+                      {%- comment -%} ReCharge subscription snippet {%- endcomment -%}
+                      {%- if product.available -%}
+                        {% render 'subscription-product' with product as product %}
+                      {%- endif -%}
+
+                      <input
+                        type="hidden"
+                        name="id"
+                        data-productid="{{ product.id }}"
+                        value="{{ product.selected_or_first_available_variant.id }}"
+                        disabled
+                      >
+
+                      <div class="cro-info-panel__cta-wrap">
+                        <button
+                          type="submit"
+                          name="add"
+                          class="cro-btn cro-btn--primary cro-atc-btn"
+                          id="CroATC-{{ section.id }}"
+                          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                        >
+                          <span class="cro-atc-btn__label">
+                            {%- if product.selected_or_first_available_variant.available -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                              —
+                              <span class="cro-atc-btn__price">
+                                {{ product.selected_or_first_available_variant.price | money }}
+                              </span>
+                            {%- else -%}
+                              {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
+                          </span>
+                          <div class="loading-overlay__spinner hidden">
+                            {% render 'svg_loading_spinner' %}
+                          </div>
+                        </button>
+
+                        {%- if block.settings.show_dynamic_checkout and product.selling_plan_groups == empty -%}
+                          <div class="cro-info-panel__dynamic-checkout">
+                            {{ form | payment_button }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endform -%}
+                  </product-form>
+                </div>
+
+              {%- when 'mini_trust' -%}
+                <div class="cro-mini-trust-bar" {{ block.shopify_attributes }}>
+                  {%- assign items = 'item_1,item_2,item_3,item_4' | split: ',' -%}
+                  {%- for item in items -%}
+                    {%- assign icon_key = 'icon_' | append: forloop.index -%}
+                    {%- assign text_key = 'text_' | append: forloop.index -%}
+                    {%- if block.settings[text_key] != blank -%}
+                      <div class="cro-mini-trust-item">
+                        {%- if block.settings[icon_key] != blank -%}
+                          <span class="cro-mini-trust-icon" aria-hidden="true">{{ block.settings[icon_key] }}</span>
+                        {%- endif -%}
+                        <span>{{ block.settings[text_key] }}</span>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+
+              {%- when 'purchase_widget' -%}
+                {%- comment -%} Custom CRO purchase widget — hides default ReCharge UI {%- endcomment -%}
+                {%- assign pw_price    = product.selected_or_first_available_variant.price -%}
+                {%- assign pw_discount = block.settings.discount_percent | plus: 0 -%}
+                {%- assign no_sub = false -%}
+                {%- if product.tags contains 'no-subscription' -%}{%- assign no_sub = true -%}{%- endif -%}
+                <div
+                  class="cro-pw"
+                  id="CroPW-{{ section.id }}"
+                  data-price="{{ pw_price }}"
+                  data-discount="{{ pw_discount }}"
+                  data-section="{{ section.id }}"
+                  data-no-sub="{{ no_sub }}"
+                  data-variant-has-plans="{%- if no_sub -%}0{%- else -%}{{ product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 }}{%- endif -%}"
+                  data-per-shot-label="{{ block.settings.per_shot_label | escape }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- comment -%} One-time / Subscribe toggle — hidden for no-subscription products {%- endcomment -%}
+                  {%- unless no_sub -%}
+                  <div class="cro-pw__toggle">
+                    <button class="cro-pw__tog-btn" data-mode="once" type="button">{{ block.settings.label_onetime }}</button>
+                    <button class="cro-pw__tog-btn is-active" data-mode="sub" type="button">{{ block.settings.label_sub }}{% if pw_discount > 0 %} {{ pw_discount }}%{% endif %}</button>
+                  </div>
+                  {%- endunless -%}
+
+                  {%- comment -%} Price block {%- endcomment -%}
+                  <div class="cro-pw__price-main" id="CroPWPrice-{{ section.id }}"></div>
+                  <div class="cro-pw__price-was" id="CroPWWas-{{ section.id }}"></div>
+                  <div class="cro-pw__saving-pill" id="CroPWSaving-{{ section.id }}"></div>
+                  <div class="cro-pw__price-note" id="CroPWNote-{{ section.id }}"></div>
+                  <div class="cro-pw__per-shot" id="CroPWPerShot-{{ section.id }}" hidden></div>
+
+                  {%- unless no_sub -%}
+                  {%- comment -%} Subscription perks {%- endcomment -%}
+                  <ul class="cro-pw__perks" id="CroPWPerks-{{ section.id }}">
+                    {%- if block.settings.perk_1 != blank -%}<li><span class="cro-pw__perk-dot"></span>{{ block.settings.perk_1 }}</li>{%- endif -%}
+                    {%- if block.settings.perk_2 != blank -%}<li><span class="cro-pw__perk-dot"></span>{{ block.settings.perk_2 }}</li>{%- endif -%}
+                    {%- if block.settings.perk_3 != blank -%}<li><span class="cro-pw__perk-dot"></span>{{ block.settings.perk_3 }}</li>{%- endif -%}
+                  </ul>
+
+                  {%- comment -%} Frequency selector {%- endcomment -%}
+                  <div class="cro-pw__freq" id="CroPWFreq-{{ section.id }}">
+                    <div class="cro-pw__freq-label">{{ block.settings.freq_label }}</div>
+                    <div class="cro-pw__freq-btns">
+                      {%- for group in product.selling_plan_groups -%}
+                        {%- for plan in group.selling_plans -%}
+                          <button class="cro-pw__freq-btn{% if forloop.first and forloop.parentloop.first %} is-active{% endif %}" data-plan-id="{{ plan.id }}" data-hint="{{ plan.description }}" type="button">{%- assign tw = plan.name | truncatewords: 2, '' | split: ' ' -%}{{ tw.first }} {{ tw.last | capitalize }}s</button>
+                        {%- endfor -%}
+                      {%- endfor -%}
+                    </div>
+                    <div class="cro-pw__freq-hint" id="CroPWHint-{{ section.id }}"></div>
+                  </div>
+
+                  {%- comment -%} One-time nudge — hidden for no-plan variants {%- endcomment -%}
+                  <div class="cro-pw__onetime-note" id="CroPWOnetimeNote-{{ section.id }}" hidden>
+                    {{ block.settings.onetime_note }}
+                  </div>
+
+                  {%- comment -%} No-plan variant upsell — shown instead of onetime nudge {%- endcomment -%}
+                  {%- assign pw_v_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
+                  {%- comment -%} Upsell only shows for per-variant no-sub (not when whole product is tagged no-subscription) {%- endcomment -%}
+                  <div class="cro-pw__nosub-upsell" id="CroPWNoSubUpsell-{{ section.id }}" {% if pw_v_has_plans > 0 or no_sub %}hidden{% endif %}>
+                    <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '→ 15 Shots with Subscribe &amp; Save — save 10% with free shipping always.' }}</a>
+                  </div>
+
+                  {%- comment -%} Cancel reassurance {%- endcomment -%}
+                  <div class="cro-pw__cancel-note" id="CroPWCancel-{{ section.id }}">{{ block.settings.cancel_note }}</div>
+                  {%- endunless -%}
+                </div>
+
+              {%- when 'accordion_item' -%}
+                {%- comment -%} Per-product metafield override for accordion content {%- endcomment -%}
+                {%- assign acc_mf_key = block.settings.metafield_key -%}
+                {%- assign acc_title = block.settings.title -%}
+                {%- assign acc_content = block.settings.content -%}
+                {%- if acc_mf_key != blank -%}
+                  {%- assign acc_title_key = acc_mf_key | append: '_title' -%}
+                  {%- assign acc_mf_title = product.metafields.cro[acc_title_key].value -%}
+                  {%- assign acc_mf_content = product.metafields.cro[acc_mf_key].value -%}
+                  {%- if acc_mf_title != blank -%}{%- assign acc_title = acc_mf_title -%}{%- endif -%}
+                  {%- if acc_mf_content != blank -%}{%- assign acc_content = acc_mf_content -%}{%- endif -%}
+                {%- endif -%}
+                {%- comment -%} Inline accordion row — group all adjacent items in one wrapper {%- endcomment -%}
+                {%- assign is_first_accordion = true -%}
+                {%- assign prev_index = forloop.index0 | minus: 1 -%}
+                {%- if prev_index >= 0 -%}
+                  {%- assign prev_block = section.blocks[prev_index] -%}
+                  {%- if prev_block.type == 'accordion_item' -%}
+                    {%- assign is_first_accordion = false -%}
+                  {%- endif -%}
+                {%- endif -%}
+                {%- assign next_index = forloop.index0 | plus: 1 -%}
+                {%- assign is_last_accordion = true -%}
+                {%- if next_index < section.blocks.size -%}
+                  {%- assign next_block = section.blocks[next_index] -%}
+                  {%- if next_block.type == 'accordion_item' -%}
+                    {%- assign is_last_accordion = false -%}
+                  {%- endif -%}
+                {%- endif -%}
+                {%- if is_first_accordion -%}<div class="cro-panel-accordion">{%- endif -%}
+                <details class="cro-panel-acc-item" {{ block.shopify_attributes }}>
+                  <summary class="cro-panel-acc-item__head">
+                    <span class="cro-panel-acc-item__title">{{ acc_title }}</span>
+                    <svg class="cro-panel-acc-item__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </summary>
+                  <div class="cro-panel-acc-item__body rte">
+                    {{ acc_content }}
+                  </div>
+                </details>
+                {%- if is_last_accordion -%}</div>{%- endif -%}
+
+              {%- when 'shipping_info' -%}
+                <div class="cro-info-panel__shipping cro-trust-bar" {{ block.shopify_attributes }}>
+                  {%- if block.settings.free_shipping_icon != blank -%}
+                    <div class="cro-trust-item">
+                      <img
+                        src="{{ block.settings.free_shipping_icon | img_url: '32x32' }}"
+                        alt=""
+                        width="20"
+                        height="20"
+                        loading="lazy"
+                        class="cro-trust-icon"
+                      >
+                      <span>{{ block.settings.free_shipping_text }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.happiness_text_icon != blank -%}
+                    <div class="cro-trust-item">
+                      <img
+                        src="{{ block.settings.happiness_text_icon | img_url: '32x32' }}"
+                        alt=""
+                        width="20"
+                        height="20"
+                        loading="lazy"
+                        class="cro-trust-icon"
+                      >
+                      <span>{{ block.settings.happiness_text }}</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'trust' -%}
+                <div class="cro-info-panel__trust" {{ block.shopify_attributes }}>
+                  {%- if block.settings.trust_text != blank -%}
+                    <p class="cro-label">{{ block.settings.trust_text }}</p>
+                  {%- endif -%}
+                  {% render 'product_trust' %}
+                </div>
+
+              {%- when 'stats_row' -%}
+                <div class="cro-info-panel__stats-row cro-stats-row" {{ block.shopify_attributes }}>
+                  {%- for i in (1..3) -%}
+                    {%- assign num_key   = 'stat_' | append: i | append: '_number' -%}
+                    {%- assign label_key = 'stat_' | append: i | append: '_label' -%}
+                    {%- if block.settings[num_key] != blank -%}
+                      <div class="cro-stat-item">
+                        <span class="cro-stat-item__number">{{ block.settings[num_key] }}</span>
+                        <span class="cro-stat-item__label">{{ block.settings[label_key] }}</span>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+
+              {%- when 'description' -%}
+                {%- comment -%} Full description handled by Read More in short_description block {%- endcomment -%}
+
+              {%- when 'scroll_headlines' -%}
+                <nav class="cro-info-panel__scroll-nav" aria-label="Product sections" {{ block.shopify_attributes }}>
+                  {%- if block.settings.desc != blank -%}
+                    <a href="#{{ block.settings.desc_id | handleize }}" class="cro-scroll-link">
+                      {{ block.settings.desc }}
+                    </a>
+                  {%- endif -%}
+                  {%- if block.settings.whats_in_it != blank -%}
+                    <a href="#{{ block.settings.whats_in_it_id | handleize }}" class="cro-scroll-link">
+                      {{ block.settings.whats_in_it }}
+                    </a>
+                  {%- endif -%}
+                  {%- if block.settings.subscription != blank -%}
+                    <a href="#{{ block.settings.subscription_id | handleize }}" class="cro-scroll-link">
+                      {{ block.settings.subscription }}
+                    </a>
+                  {%- endif -%}
+                  {%- if block.settings.reviews != blank -%}
+                    <a href="#{{ block.settings.reviews_id | handleize }}" class="cro-scroll-link">
+                      {{ block.settings.reviews }}
+                    </a>
+                  {%- endif -%}
+                </nav>
+
+              {%- when 'collapsible_tab' -%}
+                <div class="cro-info-panel__accordion product__accordion" {{ block.shopify_attributes }}>
+                  <details id="Details-{{ block.id }}-{{ section.id }}">
+                    <summary>
+                      <div class="summary__title">
+                        {% render 'icon-accordion', icon: block.settings.icon %}
+                        <h2 class="h4 accordion__title">
+                          {{ block.settings.heading | default: block.settings.page.title }}
+                        </h2>
+                      </div>
+                      {% render 'icon-caret' %}
+                    </summary>
+                    <div class="accordion__content rte">
+                      {{ block.settings.content }}
+                      {{ block.settings.page.content }}
+                    </div>
+                  </details>
+                </div>
+
+              {%- when 'share' -%}
+                <share-button
+                  id="Share-{{ section.id }}"
+                  class="share-button"
+                  {{ block.shopify_attributes }}
+                >
+                  <button class="share-button__button hidden">
+                    {% render 'icon-share' %}
+                    {{ block.settings.share_label | escape }}
+                  </button>
+                  <details id="Details-{{ block.id }}-{{ section.id }}">
+                    <summary class="share-button__button">
+                      {% render 'icon-share' %}
+                      {{ block.settings.share_label | escape }}
+                    </summary>
+                    <div class="share-button__fallback motion-reduce">
+                      <div class="field">
+                        <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status"></span>
+                        <input
+                          type="text"
+                          class="field__input"
+                          id="url"
+                          value="{{ product.selected_variant.url | default: product.url | prepend: request.origin }}"
+                          placeholder="{{ 'general.share.share_url' | t }}"
+                          onclick="this.select();"
+                          readonly
+                        >
+                        <label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
+                      </div>
+                      <button class="share-button__close hidden no-js-hidden">
+                        {% render 'icon-close' %}
+                        <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                      </button>
+                      <button class="share-button__copy no-js-hidden">
+                        {% render 'icon-clipboard' %}
+                        <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                      </button>
+                    </div>
+                  </details>
+                </share-button>
+                <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+
+            {%- endcase -%}
+          {%- endfor -%}
+
+        </div>{%- comment -%} /.cro-info-panel__sticky {%- endcomment -%}
+      </div>{%- comment -%} /.cro-info-panel {%- endcomment -%}
+
+    </div>{%- comment -%} /.cro-product-hero {%- endcomment -%}
+  </div>{%- comment -%} /.cro-container {%- endcomment -%}
+
+  {%- comment -%} Popups for variant modals (kept from original) {%- endcomment -%}
+  {% assign popups = section.blocks | where: "type", "popup" %}
+  {%- for block in popups -%}
+    <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+      <div role="dialog" aria-label="{{ block.settings.text }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+        <button id="ModalClose-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">
+          {% render 'icon-close' %}
+        </button>
+        <div class="product-popup-modal__content-info">
+          <h1 class="h2">{{ block.settings.page.title }}</h1>
+          {{ block.settings.page.content }}
+        </div>
+      </div>
+    </modal-dialog>
+  {%- endfor -%}
+
+  {%- comment -%} Sticky ATC bar {%- endcomment -%}
+  <div
+    class="cro-sticky-atc"
+    id="CroStickyATC-{{ section.id }}"
+    aria-hidden="true"
+    aria-live="polite"
+  >
+    {%- comment -%} Product thumbnail {%- endcomment -%}
+    {%- if product.featured_image != blank -%}
+      <img
+        class="cro-sticky-atc__thumb"
+        src="{{ product.featured_image | img_url: '80x80', crop: 'center' }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        width="40"
+        height="40"
+        loading="lazy"
+        id="CroStickyThumb-{{ section.id }}"
+      >
+    {%- endif -%}
+
+    {%- comment -%} Product info {%- endcomment -%}
+    <div class="cro-sticky-atc__info">
+      <span class="cro-sticky-atc__name">{{ product.title | escape }}</span>
+      {%- unless product.has_only_default_variant -%}
+        <span class="cro-sticky-atc__variant" id="CroStickyVariant-{{ section.id }}">
+          {{- product.selected_or_first_available_variant.title -}}
+        </span>
+      {%- endunless -%}
+    </div>
+
+    {%- comment -%} Purchase mode toggle — hidden for no-subscription products {%- endcomment -%}
+    {%- unless product.tags contains 'no-subscription' -%}
+    <div class="cro-sticky-atc__mode" id="CroStickyMode-{{ section.id }}">
+      <button class="cro-sticky-atc__mode-btn" data-mode="once" type="button">One-time</button>
+      <button class="cro-sticky-atc__mode-btn is-active" data-mode="sub" type="button">Subscribe</button>
+    </div>
+    {%- endunless -%}
+
+    {%- comment -%} Price {%- endcomment -%}
+    <span class="cro-sticky-atc__price" id="CroStickyPrice-{{ section.id }}">
+      {{ product.selected_or_first_available_variant.price | money }}
+    </span>
+
+    {%- comment -%} Add to cart / Subscribe button {%- endcomment -%}
+    <button
+      class="cro-sticky-atc__btn"
+      id="CroStickyBtn-{{ section.id }}"
+      data-form="{{ product_form_id }}"
+      data-label-add="Add to Cart"
+      data-label-adding="Adding…"
+      data-label-added="Added ✓"
+      data-label-soldout="{{ 'products.product.sold_out' | t }}"
+      {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+    >
+      {%- if product.selected_or_first_available_variant.available -%}
+        {%- if product.tags contains 'no-subscription' -%}
+          Add to Cart
+        {%- else -%}
+          Subscribe &amp; Save 10%
+        {%- endif -%}
+      {%- else -%}
+        {{ 'products.product.sold_out' | t }}
+      {%- endif -%}
+    </button>
+  </div>
+
+  {%- comment -%} JS scripts {%- endcomment -%}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {%- if product.media.size > 0 -%}
+    <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- comment -%} Schema / SEO ld+json {%- endcomment -%}
+  {%- liquid
+    if product.selected_or_first_available_variant.featured_media
+      assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+      assign seo_media = product.featured_media
+    endif
+  -%}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ request.origin | append: product.url | json }},
+      {% if seo_media %}"image": [{{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}],{% endif %}
+      "description": {{ product.description | strip_html | json }},
+      {% if product.selected_or_first_available_variant.sku != blank %}"sku": {{ product.selected_or_first_available_variant.sku | json }},{% endif %}
+      "brand": { "@type": "Brand", "name": {{ product.vendor | json }} },
+      "offers": [
+        {%- for variant in product.variants -%}
+          {
+            "@type": "Offer",
+            {% if variant.sku != blank %}"sku": {{ variant.sku | json }},{% endif %}
+            "availability": "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+            "price": {{ variant.price | divided_by: 100.00 | json }},
+            "priceCurrency": {{ cart.currency.iso_code | json }},
+            "url": {{ request.origin | append: variant.url | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+
+</section>
+
+{%- comment -%} ─── Gallery & Sticky ATC JavaScript ─── {%- endcomment -%}
+<script>
+(function() {
+  'use strict';
+
+  // ── Gallery: slide switching ──────────────────────────────────
+  function CroGallery(sectionId) {
+    var slidesEl  = document.getElementById('CroSlides-' + sectionId);
+    var thumbsEl  = document.getElementById('CroThumbs-' + sectionId);
+    if (!slidesEl) return;
+
+    var slides = Array.from(slidesEl.querySelectorAll('.cro-gallery__slide'));
+    var thumbs = thumbsEl
+      ? Array.from(thumbsEl.querySelectorAll('.cro-gallery__thumb'))
+      : [];
+    var current = 0;
+
+    function goTo(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+
+      slides[current].classList.remove('is-active');
+      slides[current].setAttribute('aria-hidden', 'true');
+      if (thumbs[current]) {
+        thumbs[current].classList.remove('is-active');
+        thumbs[current].setAttribute('aria-selected', 'false');
+      }
+
+      current = index;
+      slides[current].classList.add('is-active');
+      slides[current].setAttribute('aria-hidden', 'false');
+      if (thumbs[current]) {
+        thumbs[current].classList.add('is-active');
+        thumbs[current].setAttribute('aria-selected', 'true');
+      }
+    }
+
+    // Arrow buttons
+    var section = document.getElementById('MainProduct-' + sectionId);
+    if (section) {
+      section.querySelectorAll('.cro-gallery__arrow').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var dir = parseInt(btn.dataset.dir, 10);
+          goTo(current + dir);
+        });
+      });
+    }
+
+    // Thumbnail clicks
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        goTo(parseInt(thumb.dataset.index, 10));
+      });
+    });
+
+    // Touch/swipe on main image
+    var touchStartX = 0;
+    slidesEl.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    slidesEl.addEventListener('touchend', function(e) {
+      var diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Sync with variant change (Shopify variant-radios / variant-selects)
+    document.addEventListener('variant:change', function(e) {
+      var variant = e.detail && e.detail.variant;
+      if (!variant || !variant.featured_media) return;
+      var mediaId = String(variant.featured_media.id);
+      slides.forEach(function(slide, i) {
+        if (slide.querySelector('[data-media-id="' + mediaId + '"]')) goTo(i);
+      });
+    });
+  }
+
+  // ── Sticky ATC ───────────────────────────────────────────────
+  function CroStickyATC(sectionId) {
+    var bar       = document.getElementById('CroStickyATC-'    + sectionId);
+    var anchor    = document.getElementById('CroATC-'          + sectionId);
+    var priceEl   = document.getElementById('CroStickyPrice-'  + sectionId);
+    var variantEl = document.getElementById('CroStickyVariant-'+ sectionId);
+    var thumbEl   = document.getElementById('CroStickyThumb-'  + sectionId);
+    var stickyBtn = document.getElementById('CroStickyBtn-'    + sectionId);
+    var modeEl    = document.getElementById('CroStickyMode-'   + sectionId);
+    var pw        = document.getElementById('CroPW-'           + sectionId);
+    if (!bar || !anchor) return;
+
+    // ── 1. Show / hide using IntersectionObserver ──
+    // Wait for window.load so images and app widgets have settled layout
+    // before we start observing — prevents the flash-on-load on mobile.
+    function initVisibility() {
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(entries) {
+          var entry = entries[0];
+          // Only show when ATC has scrolled ABOVE the viewport (top < 0).
+          // If top > 0 the ATC is still below the fold — don't show yet.
+          var show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+          bar.classList.toggle('is-visible', show);
+          bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+        }, { threshold: 0 }).observe(anchor);
+      } else {
+        var threshold = anchor.getBoundingClientRect().top + window.scrollY + anchor.offsetHeight;
+        function checkVisibility() {
+          var show = window.scrollY > threshold;
+          bar.classList.toggle('is-visible', show);
+          bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+        }
+        window.addEventListener('resize', function() {
+          threshold = anchor.getBoundingClientRect().top + window.scrollY + anchor.offsetHeight;
+        });
+        window.addEventListener('scroll', checkVisibility, { passive: true });
+        checkVisibility();
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      initVisibility();
+    } else {
+      window.addEventListener('load', initVisibility);
+    }
+
+    // ── 2. Price helpers ──
+    window._croCurrentVariantPrice = {{ product.selected_or_first_available_variant.price }};
+
+    function money(cents) {
+      return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+    }
+    function getStickyPrice(mode, price) {
+      if (!pw || mode !== 'sub') return money(price);
+      var disc = parseInt(pw.dataset.discount, 10) || 10;
+      return money(Math.round(price * (1 - disc / 100)));
+    }
+
+    // ── 3. Mode toggle (One-time / Subscribe) ──
+    var stickyMode = 'sub';
+
+    function setMode(mode) {
+      stickyMode = mode;
+      if (modeEl) {
+        modeEl.querySelectorAll('.cro-sticky-atc__mode-btn').forEach(function(b) {
+          b.classList.toggle('is-active', b.dataset.mode === mode);
+        });
+      }
+      var price = window._croCurrentVariantPrice;
+      if (priceEl) priceEl.textContent = getStickyPrice(mode, price);
+      if (stickyBtn) stickyBtn.textContent = mode === 'sub' ? 'Subscribe & Save 10%' : stickyBtn.dataset.labelAdd;
+      // Mirror to main purchase widget
+      if (pw) {
+        pw.querySelectorAll('.cro-pw__tog-btn').forEach(function(b) {
+          if (b.dataset.mode === mode && !b.classList.contains('is-active')) b.click();
+        });
+      }
+    }
+
+    if (modeEl) {
+      modeEl.querySelectorAll('.cro-sticky-atc__mode-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { setMode(btn.dataset.mode); });
+      });
+    }
+
+    // Mirror main PW toggle → sticky
+    if (pw) {
+      pw.querySelectorAll('.cro-pw__tog-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          stickyMode = btn.dataset.mode;
+          if (modeEl) {
+            modeEl.querySelectorAll('.cro-sticky-atc__mode-btn').forEach(function(b) {
+              b.classList.toggle('is-active', b.dataset.mode === stickyMode);
+            });
+          }
+          if (priceEl) priceEl.textContent = getStickyPrice(stickyMode, window._croCurrentVariantPrice);
+          if (stickyBtn) stickyBtn.textContent = stickyMode === 'sub' ? 'Subscribe & Save 10%' : stickyBtn.dataset.labelAdd;
+        });
+      });
+    }
+
+    // Initialise price display
+    if (priceEl) priceEl.textContent = getStickyPrice('sub', window._croCurrentVariantPrice);
+
+    // ── 4. Variant change ──
+    document.addEventListener('variant:change', function(e) {
+      var v = e.detail && e.detail.variant;
+      if (!v) return;
+      window._croCurrentVariantPrice = v.price;
+      if (priceEl) priceEl.textContent = getStickyPrice(stickyMode, v.price);
+      if (variantEl) variantEl.textContent = v.title !== 'Default Title' ? v.title : '';
+      if (thumbEl && v.featured_image) {
+        thumbEl.src = v.featured_image.src.replace(/(\.[a-z]+)(\?.*)?$/, '_80x80_crop_center$1$2');
+      }
+      if (stickyBtn) {
+        stickyBtn.disabled = !v.available;
+        stickyBtn.textContent = v.available
+          ? (stickyMode === 'sub' ? 'Subscribe & Save 10%' : stickyBtn.dataset.labelAdd)
+          : stickyBtn.dataset.labelSoldout;
+      }
+    });
+
+    // ── 5. ATC button click ──
+    if (stickyBtn) {
+      stickyBtn.addEventListener('click', function() {
+        if (stickyBtn.disabled) return;
+        var form = document.getElementById(stickyBtn.dataset.form);
+        if (!form) return;
+        stickyBtn.disabled = true;
+        stickyBtn.textContent = stickyBtn.dataset.labelAdding;
+        var mainSubmit = form.querySelector('[type="submit"][name="add"]');
+        if (mainSubmit) mainSubmit.click();
+        var restore = setTimeout(function() {
+          stickyBtn.textContent = stickyBtn.dataset.labelAdd;
+          stickyBtn.disabled = false;
+        }, 3500);
+        function onCartUpdate() {
+          clearTimeout(restore);
+          stickyBtn.textContent = stickyBtn.dataset.labelAdded;
+          setTimeout(function() {
+            stickyBtn.textContent = stickyBtn.dataset.labelAdd;
+            stickyBtn.disabled = false;
+          }, 2000);
+        }
+        document.addEventListener('cart:updated', onCartUpdate, { once: true });
+        document.addEventListener('cart:change',  onCartUpdate, { once: true });
+      });
+    }
+
+  }
+
+  // ── Custom Purchase Widget ────────────────────────────────────
+  (function () {
+    var pw = document.getElementById('CroPW-{{ section.id }}');
+    if (!pw) return;
+
+    var rawPrice    = parseInt(pw.dataset.price, 10);          // price in cents
+    var discount    = parseInt(pw.dataset.discount, 10) || 10;
+    var defaultFreq = pw.dataset.defaultFreq || '2w';
+
+    var onetimePrice = rawPrice / 100;
+    var subPrice     = Math.round(rawPrice * (1 - discount / 100)) / 100;
+    var saving       = Math.round((onetimePrice - subPrice) * 100) / 100;
+
+    // Build planId → per_delivery_price map from variant selling_plan_allocations
+    var planPriceMap = {};
+    function buildPlanPriceMap(variant) {
+      planPriceMap = {};
+      if (!variant || !variant.selling_plan_allocations) return;
+      variant.selling_plan_allocations.forEach(function(alloc) {
+        planPriceMap[String(alloc.selling_plan_id)] = alloc.per_delivery_price;
+      });
+    }
+    // Initialise from currently selected variant
+    (function() {
+      var varEl = document.querySelector('script[data-cst_variant="data"]');
+      if (!varEl) return;
+      try {
+        var variants = JSON.parse(varEl.textContent);
+        var initV = variants.find(function(v) { return v.id === {{ product.selected_or_first_available_variant.id }}; });
+        if (initV) buildPlanPriceMap(initV);
+      } catch(e) {}
+    })();
+
+    function money(n) {
+      return '$' + n.toFixed(2).replace(/\.00$/, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    var elPrice   = document.getElementById('CroPWPrice-{{ section.id }}');
+    var elWas     = document.getElementById('CroPWWas-{{ section.id }}');
+    var elSaving  = document.getElementById('CroPWSaving-{{ section.id }}');
+    var elNote    = document.getElementById('CroPWNote-{{ section.id }}');
+    var elPerks   = document.getElementById('CroPWPerks-{{ section.id }}');
+    var elFreq    = document.getElementById('CroPWFreq-{{ section.id }}');
+    var elCancel  = document.getElementById('CroPWCancel-{{ section.id }}');
+    var elOtNote      = document.getElementById('CroPWOnetimeNote-{{ section.id }}');
+    var elNoSubUpsell = document.getElementById('CroPWNoSubUpsell-{{ section.id }}');
+    var elNoSubHint   = document.getElementById('CroNoSubHint-{{ section.id }}');
+    var elHint        = document.getElementById('CroPWHint-{{ section.id }}');
+    var noSubProduct           = pw.dataset.noSub === 'true';
+    var currentVariantHasPlans = !noSubProduct && (pw.dataset.variantHasPlans !== '0');
+    var atcBtn    = document.getElementById('CroATC-{{ section.id }}');
+    var atcLabel  = atcBtn ? atcBtn.querySelector('.cro-atc-btn__label') : null;
+
+    var subNote      = pw.dataset.subNote      || 'Free shipping included — always';
+    var otShipping   = pw.dataset.otShipping   || '+ $8 shipping';
+
+    // ── ReCharge element finders ──────────────────────────────
+    function rcRadio(val) {
+      return document.querySelector('input[name="purchaseOption"][value="' + val + '"]');
+    }
+    function rcSelect() {
+      return document.querySelector('select[name="rc_selling_plan"]');
+    }
+
+    function clickRC(val) {
+      var r = rcRadio(val);
+      if (r) {
+        r.checked = true;
+        r.dispatchEvent(new Event('change', { bubbles: true }));
+        var lbl = r.closest('label');
+        if (lbl) lbl.click();
+      }
+    }
+    function setRCPlan(planId) {
+      var sel = rcSelect();
+      if (sel) {
+        sel.value = planId;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+        sel.dispatchEvent(new Event('input',  { bubbles: true }));
+      }
+      // Set native Shopify selling_plan input so subscription is attached to cart
+      var spInput = document.querySelector('input[name="selling_plan"]');
+      if (spInput) {
+        spInput.value = planId;
+        spInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    // ── Render subscribe state ────────────────────────────────
+    function renderSub(planId, hint) {
+      var displayPrice  = (planId && planPriceMap[String(planId)] !== undefined)
+                          ? planPriceMap[String(planId)] / 100
+                          : subPrice;
+      var displaySaving = Math.round((onetimePrice + 8 - displayPrice) * 100) / 100;
+      if (elPrice)  elPrice.textContent  = money(displayPrice);
+      if (elWas)    elWas.innerHTML      = '<s>' + money(onetimePrice) + '</s> one-time price';
+      if (elSaving) { elSaving.textContent = 'Save ' + money(displaySaving) + ' per order'; elSaving.hidden = false; }
+      if (elNote)   elNote.textContent   = '{{ block.settings.sub_note | default: "Free shipping included — always" }}';
+      if (elPerks)  elPerks.hidden       = false;
+      if (elFreq)   elFreq.hidden        = false;
+      if (elCancel) elCancel.hidden      = false;
+      if (elOtNote)      elOtNote.hidden      = true;
+      if (elNoSubUpsell) elNoSubUpsell.hidden = true;
+      if (elHint && hint) elHint.textContent = hint;
+      if (atcLabel) atcLabel.innerHTML   = 'Subscribe — <span class="cro-atc-btn__price">' + money(displayPrice) + '</span>';
+      // Per-shot pricing
+      var elPerShot = document.getElementById('CroPWPerShot-{{ section.id }}');
+      if (elPerShot) {
+        var checkedRadio = document.querySelector('.cro-variant-row input[type="radio"]:checked');
+        var shotMatch = checkedRadio ? checkedRadio.value.match(/^(\d+)/) : null;
+        var shotCount = shotMatch ? parseInt(shotMatch[1]) : {{ block.settings.shots_per_pack | default: 0 }};
+        if (shotCount > 0) {
+          var perShot = Math.round((displayPrice / shotCount) * 100) / 100;
+          var perShotLabel = pw.dataset.perShotLabel || 'Just {price} per shot, delivered to your door.';
+          elPerShot.textContent = perShotLabel.replace(/\{price\}/g, money(perShot));
+          elPerShot.hidden = false;
+        } else {
+          elPerShot.hidden = true;
+        }
+      }
+      clickRC('subscription');
+      if (planId) setRCPlan(planId);
+    }
+
+    // ── Render one-time state ─────────────────────────────────
+    function renderOnetime() {
+      if (elPrice)  elPrice.textContent  = money(onetimePrice);
+      if (elWas)    elWas.innerHTML      = '';
+      if (elSaving) elSaving.hidden      = true;
+      var _ship = 8;
+      var _otTotal = Math.round((onetimePrice + _ship) * 100) / 100;
+      var _saving  = Math.round((onetimePrice + _ship - subPrice) * 100) / 100;
+      if (elNote) {
+        if (currentVariantHasPlans) {
+          elNote.innerHTML = 'One-time: ' + money(onetimePrice) + ' + $' + _ship + ' shipping = ' + money(_otTotal) + ' delivered. Subscribe: <span style="color:#1D9E75;font-weight:500;">' + money(subPrice) + ' with free shipping always</span> — save ' + money(_saving) + ' every order. Cancel anytime.';
+        } else {
+          elNote.textContent = 'One-time: ' + money(onetimePrice) + ' + $' + _ship + ' shipping = ' + money(_otTotal) + ' delivered.';
+        }
+      }
+      if (elPerks)  elPerks.hidden       = true;
+      if (elFreq)   elFreq.hidden        = true;
+      if (elCancel) elCancel.hidden      = true;
+      if (elOtNote)      elOtNote.hidden      = currentVariantHasPlans ? false : true;
+      // Upsell only for per-variant no-sub (not when whole product is no-subscription)
+      if (elNoSubUpsell) elNoSubUpsell.hidden = (!currentVariantHasPlans && !noSubProduct) ? false : true;
+      var elPerShot = document.getElementById('CroPWPerShot-{{ section.id }}');
+      if (elPerShot) elPerShot.hidden = true;
+      if (atcLabel) atcLabel.innerHTML   = 'Add to cart — <span class="cro-atc-btn__price">' + money(onetimePrice) + '</span>';
+      // Only sync ReCharge widget when variant actually has plans (avoids RC's async handlers
+      // re-setting selling_plan on no-plan variants like 9-shot)
+      if (currentVariantHasPlans) clickRC('onetime');
+      // Clear native Shopify selling_plan so one-time purchase doesn't carry a subscription
+      var spInput = document.querySelector('input[name="selling_plan"]');
+      if (spInput) { spInput.value = ''; spInput.dispatchEvent(new Event('change', { bubbles: true })); }
+      // Delayed clears: catch any async re-set by ReCharge's event handlers
+      setTimeout(function() {
+        var sp = document.querySelector('input[name="selling_plan"]');
+        if (sp && sp.value) { sp.value = ''; sp.dispatchEvent(new Event('change', { bubbles: true })); }
+      }, 150);
+      setTimeout(function() {
+        var sp = document.querySelector('input[name="selling_plan"]');
+        if (sp && sp.value) { sp.value = ''; sp.dispatchEvent(new Event('change', { bubbles: true })); }
+      }, 600);
+    }
+
+    // ── Toggle buttons ────────────────────────────────────────
+    var togBtns = pw.querySelectorAll('.cro-pw__tog-btn');
+    var currentMode = 'sub';
+    togBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        togBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        currentMode = btn.dataset.mode;
+        if (currentMode === 'sub') {
+          var activeFreq = pw.querySelector('.cro-pw__freq-btn.is-active');
+          var planId = activeFreq ? activeFreq.dataset.planId : (pw.querySelector('.cro-pw__freq-btn') ? pw.querySelector('.cro-pw__freq-btn').dataset.planId : '');
+          var hint   = activeFreq ? activeFreq.dataset.hint   : '';
+          renderSub(planId, hint);
+        } else {
+          renderOnetime();
+        }
+      });
+    });
+
+    // ── Frequency buttons ─────────────────────────────────────
+    var freqBtns = pw.querySelectorAll('.cro-pw__freq-btn');
+    freqBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        freqBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        if (elHint) elHint.textContent = btn.dataset.hint || '';
+        setRCPlan(btn.dataset.planId);
+        renderSub(btn.dataset.planId, btn.dataset.hint);
+      });
+    });
+
+    // ── "Choose the 15 pack" link — switch to first variant with plans ──
+    var noSubLink = document.getElementById('CroPWNoSubLink-{{ section.id }}');
+    if (noSubLink) {
+      noSubLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        var variantData = document.querySelector('script[data-cst_variant="data"]');
+        if (!variantData) return;
+        try {
+          var variants = JSON.parse(variantData.textContent);
+          var planVariant = variants.find(function(v) {
+            return v.selling_plan_allocations && v.selling_plan_allocations.length > 0;
+          });
+          if (!planVariant) return;
+          var optionValue = planVariant.options[0];
+          var radios = document.querySelectorAll('.cro-variant-row input[type="radio"]');
+          for (var i = 0; i < radios.length; i++) {
+            if (radios[i].value === optionValue) {
+              var lbl = document.querySelector('label[for="' + radios[i].id + '"]');
+              if (lbl) lbl.click();
+              break;
+            }
+          }
+        } catch (err) {}
+      });
+    }
+
+    // ── Init on load ──────────────────────────────────────────
+    function initPW() {
+      // No-subscription product or variant with no plans — lock to one-time mode
+      if (pw.dataset.noSub === 'true') {
+        currentMode = 'once';
+        var toggle = pw.querySelector('.cro-pw__toggle');
+        if (toggle) toggle.hidden = true;
+        renderOnetime();
+        return;
+      }
+      // Initial variant has no plans — show One-time only (e.g. 9-shot pack)
+      if (pw.dataset.variantHasPlans === '0') {
+        currentMode = 'once';
+        var toggle = pw.querySelector('.cro-pw__toggle');
+        if (toggle) toggle.hidden = true;
+        if (elPerks)  elPerks.hidden  = true;
+        if (elFreq)   elFreq.hidden   = true;
+        if (elCancel) elCancel.hidden = true;
+        renderOnetime();
+        return;
+      }
+      currentMode = 'sub';
+      // Set default frequency button
+      var defBtn = pw.querySelector('.cro-pw__freq-btn.is-active') || pw.querySelector('.cro-pw__freq-btn');
+      if (defBtn) {
+        freqBtns.forEach(function(b){ b.classList.remove('is-active'); });
+        defBtn.classList.add('is-active');
+      }
+      var planId = defBtn ? defBtn.dataset.planId : '';
+      var hint   = defBtn ? defBtn.dataset.hint   : '';
+      renderSub(planId, hint);
+      // Poll for 3s — re-assert Subscribe if ReCharge overrides it (even without firing events)
+      var pollCount = 0;
+      var pollTimer = setInterval(function() {
+        if (currentMode !== 'sub' || ++pollCount > 15) { clearInterval(pollTimer); return; }
+        var subRadio = rcRadio('subscription');
+        if (subRadio && !subRadio.checked) {
+          togBtns.forEach(function(b) { b.classList.toggle('is-active', b.dataset.mode === 'sub'); });
+          renderSub(planId, hint);
+        }
+      }, 200);
+    }
+
+    // ── Handle variant switch — show/hide sub UI per variant ──────
+    // Ignore variant:change events while still on the initial variant (fired multiple times by
+    // Dawn + ReCharge on page load). Only update when the user navigates to a different variant.
+    var initialVariantId = {{ product.selected_or_first_available_variant.id }};
+    var departedfromInitial = false;
+
+    document.addEventListener('variant:change', function(e) {
+      var variant = e.detail && e.detail.variant;
+      if (!variant) return;
+
+      // Update prices for every variant:change (safe — just math)
+      rawPrice     = variant.price;
+      onetimePrice = rawPrice / 100;
+      subPrice     = Math.round(rawPrice * (1 - discount / 100)) / 100;
+      saving       = Math.round((onetimePrice - subPrice) * 100) / 100;
+      buildPlanPriceMap(variant);
+
+      // Mark when user has navigated away from the initial variant
+      if (variant.id !== initialVariantId) departedfromInitial = true;
+
+      // While still on the initial variant, don't touch the purchase widget UI —
+      // initPW() already set it correctly and the 800ms sync will finalise ReCharge state.
+      if (!departedfromInitial) return;
+
+      var hasPlans = !noSubProduct && !!(variant.selling_plan_allocations && variant.selling_plan_allocations.length > 0);
+      currentVariantHasPlans = hasPlans;
+      var toggle   = pw.querySelector('.cro-pw__toggle');
+
+      // Update the "one-time only" hint below variant buttons
+      if (elNoSubHint) elNoSubHint.hidden = hasPlans;
+
+      if (!hasPlans) {
+        currentMode = 'once';
+        pw.dataset.variantHasPlans = '0';
+        if (toggle)   toggle.hidden   = true;
+        if (elPerks)  elPerks.hidden  = true;
+        if (elFreq)   elFreq.hidden   = true;
+        if (elCancel) elCancel.hidden = true;
+        var spInput = document.querySelector('input[name="selling_plan"]');
+        if (spInput) {
+          spInput.value = '';
+          spInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        renderOnetime();
+      } else {
+        pw.dataset.variantHasPlans = '1';
+        if (toggle) toggle.hidden = false;
+        currentMode = 'sub';
+        togBtns.forEach(function(b) { b.classList.toggle('is-active', b.dataset.mode === 'sub'); });
+        var activeFreq = pw.querySelector('.cro-pw__freq-btn.is-active');
+        var planId = activeFreq ? activeFreq.dataset.planId : (pw.querySelector('.cro-pw__freq-btn') ? pw.querySelector('.cro-pw__freq-btn').dataset.planId : '');
+        var hint   = activeFreq ? activeFreq.dataset.hint   : '';
+        renderSub(planId, hint);
+      }
+    });
+
+    // Run immediately for visual state
+    initPW();
+    // After 800ms: simulate clicks to sync all 3 layers (UI + ReCharge + Shopify selling_plan)
+    setTimeout(function() {
+      if (pw.dataset.noSub === 'true') return;
+      if (pw.dataset.variantHasPlans === '0') return; // 9-shot or other no-plan variant — stay One-time
+      var subBtn = pw.querySelector('.cro-pw__tog-btn[data-mode="sub"]');
+      var firstPlanBtn = pw.querySelector('.cro-pw__freq-btn.is-active') || pw.querySelector('.cro-pw__freq-btn');
+      var spInput = document.querySelector('input[name="selling_plan"]');
+      if (subBtn) subBtn.click();
+      if (firstPlanBtn) firstPlanBtn.click();
+      if (spInput && firstPlanBtn) spInput.value = firstPlanBtn.dataset.planId;
+    }, 800);
+
+    // Safety net: clear selling_plan before form submit if current variant has no plans
+    var productForm = document.getElementById('{{ product_form_id }}');
+    if (productForm) {
+      productForm.addEventListener('submit', function() {
+        if (pw.dataset.variantHasPlans === '0' || currentMode === 'once') {
+          var spInput = document.querySelector('input[name="selling_plan"]');
+          if (spInput) spInput.value = '';
+        }
+      }, true); // capture phase — runs before ReCharge can interfere
+    }
+    // Belt-and-suspenders: intercept fetch to strip selling_plan from /cart/add
+    // when the selected variant has no subscription plans (e.g. 9-shot).
+    // Dawn sends FormData; ReCharge may send JSON or URLSearchParams — handle all formats.
+    (function() {
+      var _origFetch = window.fetch;
+      window.fetch = function(resource, init) {
+        var url = typeof resource === 'string' ? resource
+                : (resource && resource.url) ? resource.url : '';
+        if (url.indexOf('/cart/add') !== -1 && pw.dataset.variantHasPlans === '0') {
+          if (init && init.body) {
+            if (init.body instanceof FormData) {
+              init.body.delete('selling_plan');
+            } else if (init.body instanceof URLSearchParams) {
+              init.body.delete('selling_plan');
+            } else if (typeof init.body === 'string') {
+              try {
+                var body = JSON.parse(init.body);
+                delete body.selling_plan;
+                init = Object.assign({}, init, { body: JSON.stringify(body) });
+              } catch(e) {
+                try {
+                  var params = new URLSearchParams(init.body);
+                  params.delete('selling_plan');
+                  init = Object.assign({}, init, { body: params.toString() });
+                } catch(e2) {}
+              }
+            }
+          }
+        }
+        return _origFetch.call(window, resource, init);
+      };
+    })();
+  })();
+
+  // ── Panel accordion (How to Take, Ingredients, Shipping) ─────
+  (function () {
+    var accItems = document.querySelectorAll('.cro-panel-acc-item');
+    accItems.forEach(function (det) {
+      var body = det.querySelector('.cro-panel-acc-item__body');
+      body.style.overflow = 'hidden';
+      body.style.height = '0px';
+      body.style.transition = 'height 0.3s ease';
+
+      det.querySelector('summary').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (det.open) {
+          body.style.height = body.scrollHeight + 'px';
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { body.style.height = '0px'; });
+          });
+          body.addEventListener('transitionend', function h() {
+            det.open = false;
+            body.removeEventListener('transitionend', h);
+          });
+        } else {
+          det.open = true;
+          body.style.height = body.scrollHeight + 'px';
+          body.addEventListener('transitionend', function h() {
+            body.style.height = 'auto';
+            body.removeEventListener('transitionend', h);
+          });
+        }
+      });
+    });
+  })();
+
+  // ── Read More / Read Less description toggle ──────────────────
+  function initReadMore(sectionId) {
+    var btn  = document.getElementById('CroReadMoreBtn-' + sectionId);
+    var full = document.getElementById('CroDescFull-' + sectionId);
+    if (!btn || !full) return;
+
+    // Set initial collapsed state
+    full.style.height = '0px';
+    full.style.overflow = 'hidden';
+    full.style.transition = 'height 0.35s ease';
+
+    var preview = btn.closest('.cro-info-panel__short-desc') && btn.closest('.cro-info-panel__short-desc').querySelector('.cro-short-desc');
+
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        full.style.height = full.scrollHeight + 'px';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            full.style.height = '0px';
+          });
+        });
+        full.addEventListener('transitionend', function handler() {
+          full.setAttribute('aria-hidden', 'true');
+          full.removeEventListener('transitionend', handler);
+        });
+        btn.setAttribute('aria-expanded', 'false');
+        btn.querySelector('.cro-read-more-btn__text').textContent = btn.dataset.label || 'Read More';
+        btn.classList.remove('is-open');
+        if (preview) preview.style.display = '';
+      } else {
+        full.setAttribute('aria-hidden', 'false');
+        full.style.height = full.scrollHeight + 'px';
+        full.addEventListener('transitionend', function handler() {
+          full.style.height = 'auto';
+          full.removeEventListener('transitionend', handler);
+        });
+        btn.setAttribute('aria-expanded', 'true');
+        btn.querySelector('.cro-read-more-btn__text').textContent = 'Read Less';
+        btn.classList.add('is-open');
+        if (preview) preview.style.display = 'none';
+      }
+    });
+  }
+
+  // ── Scroll-to-section links ───────────────────────────────────
+  function initScrollLinks() {
+    document.querySelectorAll('.cro-scroll-link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  // ── Auto-select first subscription-enabled variant on page load ──
+  // If the default variant has no plans (e.g. 9-shot), switch to the first
+  // variant that does (e.g. 15-shot) so Subscribe & Save shows by default.
+  function autoSelectPlanVariant() {
+    // Only run when no specific variant was requested in the URL.
+    // Once the user picks a variant (9-shot or 15-shot), it appears in the URL
+    // and this guard prevents auto-switching from overriding their choice.
+    if (new URLSearchParams(window.location.search).has('variant')) return;
+    var pw = document.getElementById('CroPW-{{ section.id }}');
+    if (!pw || pw.dataset.noSub === 'true') return;
+    if (pw.dataset.variantHasPlans !== '0') return; // already on a plan variant
+    var varEl = document.querySelector('script[data-cst_variant="data"]');
+    if (!varEl) return;
+    try {
+      var allVariants = JSON.parse(varEl.textContent);
+      var planVariant = allVariants.find(function(v) {
+        return v.available && v.selling_plan_allocations && v.selling_plan_allocations.length > 0;
+      });
+      if (!planVariant) return;
+      var variantRadios = document.querySelector('variant-radios.cro-variant-row');
+      if (!variantRadios) return;
+      var radios = variantRadios.querySelectorAll('input[type="radio"]');
+      planVariant.options.forEach(function(optVal) {
+        var radio = Array.from(radios).find(function(r) { return r.value === optVal && !r.checked; });
+        if (radio) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    } catch(e) {}
+  }
+
+  // ── Init on DOM ready ─────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    CroGallery('{{ section.id }}');
+    CroStickyATC('{{ section.id }}');
+    initScrollLinks();
+    initReadMore('{{ section.id }}');
+    autoSelectPlanVariant();
+  });
+
+  // Re-init on Shopify theme editor section reload
+  document.addEventListener('shopify:section:load', function(e) {
+    if (e.detail.sectionId === '{{ section.id }}') {
+      CroGallery('{{ section.id }}');
+      CroStickyATC('{{ section.id }}');
+      initReadMore('{{ section.id }}');
+    }
+  });
+})();
+</script>
+
+<script>
+/* Fix: Bootstrap 5.0.x does NOT teleport modals to <body> when they have a parent
+   element — the modal stays inside .cro-gallery (position:sticky stacking context),
+   preventing it from painting above the right info panel. Move them manually. */
+(function () {
+  function teleportModals() {
+    ['#nutrition-popup', '#custom-popup'].forEach(function (id) {
+      var el = document.querySelector(id);
+      if (el && el.parentElement !== document.body) {
+        document.body.appendChild(el);
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', teleportModals);
+  } else {
+    teleportModals();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "CRO Product Page",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "text",
+      "name": "Product Tagline",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Tagline",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            { "value": "body",      "label": "Body" },
+            { "value": "subtitle",  "label": "Subtitle" },
+            { "value": "uppercase", "label": "Uppercase" }
+          ],
+          "default": "subtitle",
+          "label": "Style"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Product Title",
+      "limit": 1
+    },
+    {
+      "type": "short_description",
+      "name": "Short Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Pulls from the 'Custom Description' metafield (custom.custom_description). Falls back to the first 30 words of the product description."
+        },
+        {
+          "type": "text",
+          "id": "read_more_label",
+          "label": "Read More button text",
+          "default": "Read More",
+          "info": "Text shown on the expand button below the short description."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_read_more",
+          "label": "Hide Read More button",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "benefit_pills",
+      "name": "Benefit Pills",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Up to 4 benefit pills shown as a row"
+        },
+        {
+          "type": "text",
+          "id": "pill_1_icon",
+          "label": "Pill 1 — Icon (emoji or symbol)",
+          "default": "🌿"
+        },
+        {
+          "type": "text",
+          "id": "pill_1_text",
+          "label": "Pill 1 — Label",
+          "default": "100% Natural"
+        },
+        {
+          "type": "text",
+          "id": "pill_2_icon",
+          "label": "Pill 2 — Icon",
+          "default": "NZ"
+        },
+        {
+          "type": "text",
+          "id": "pill_2_text",
+          "label": "Pill 2 — Label",
+          "default": "Made in NZ"
+        },
+        {
+          "type": "text",
+          "id": "pill_3_icon",
+          "label": "Pill 3 — Icon",
+          "default": "❄️"
+        },
+        {
+          "type": "text",
+          "id": "pill_3_text",
+          "label": "Pill 3 — Label",
+          "default": "Cold-Pressed"
+        },
+        {
+          "type": "text",
+          "id": "pill_4_icon",
+          "label": "Pill 4 — Icon",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "pill_4_text",
+          "label": "Pill 4 — Label",
+          "default": "No Preservatives"
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "variant_label",
+          "label": "Variant section label",
+          "default": "Choose Pack Size",
+          "info": "Shown above the variant buttons. E.g. 'Choose Pack Size', 'Choose Size'"
+        },
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            { "value": "dropdown", "label": "Dropdown" },
+            { "value": "button",   "label": "Pills" }
+          ],
+          "default": "button",
+          "label": "Style"
+        },
+        {
+          "type": "text",
+          "id": "nosub_hint",
+          "label": "No-subscription hint text",
+          "default": "One-time purchase — subscribe & save on the 15 pack with free shipping always",
+          "info": "Shown below variant buttons when the selected variant has no subscription plans."
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": false,
+          "label": "Show dynamic checkout button",
+          "info": "Shows Shop Pay, PayPal etc."
+        }
+      ]
+    },
+    {
+      "type": "mini_trust",
+      "name": "Mini Trust Bar",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "icon_1", "label": "Icon 1 (emoji)", "default": "🔒" },
+        { "type": "text", "id": "text_1", "label": "Text 1", "default": "Secure checkout" },
+        { "type": "text", "id": "icon_2", "label": "Icon 2 (emoji)", "default": "🚚" },
+        { "type": "text", "id": "text_2", "label": "Text 2", "default": "Free shipping $75+" },
+        { "type": "text", "id": "icon_3", "label": "Icon 3 (emoji)", "default": "📋" },
+        { "type": "text", "id": "text_3", "label": "Text 3", "default": "30-day guarantee" },
+        { "type": "text", "id": "icon_4", "label": "Icon 4 (emoji)", "default": "🌿" },
+        { "type": "text", "id": "text_4", "label": "Text 4", "default": "Organic certified" }
+      ]
+    },
+    {
+      "type": "shipping_info",
+      "name": "Shipping USPs",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "free_shipping_icon",  "label": "Free Shipping Icon" },
+        { "type": "text",         "id": "free_shipping_text",  "label": "Free Shipping Text" },
+        { "type": "image_picker", "id": "happiness_text_icon", "label": "Guarantee Icon" },
+        { "type": "text",         "id": "happiness_text",      "label": "Guarantee Text" }
+      ]
+    },
+    {
+      "type": "trust",
+      "name": "Trust Badges",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "trust_icon", "label": "Trust Badge Image" },
+        { "type": "text",         "id": "trust_text", "label": "Label above badges" }
+      ]
+    },
+    {
+      "type": "purchase_widget",
+      "name": "Custom Purchase Widget",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Toggle Labels"
+        },
+        { "type": "text", "id": "label_onetime", "label": "One-time label", "default": "One-time" },
+        { "type": "text", "id": "label_sub", "label": "Subscribe label", "default": "Subscribe & Save" },
+        {
+          "type": "header",
+          "content": "Pricing"
+        },
+        { "type": "range", "id": "discount_percent", "label": "Subscription discount %", "min": 5, "max": 30, "step": 5, "default": 10 },
+        { "type": "text", "id": "sub_note", "label": "Subscribe price note", "default": "Free shipping included — always" },
+        { "type": "text", "id": "onetime_shipping", "label": "One-time shipping note", "default": "+ $8 shipping · subscribe for free shipping always" },
+        {
+          "type": "header",
+          "content": "Subscription Perks"
+        },
+        { "type": "text", "id": "perk_1", "label": "Perk 1", "default": "10% off every order" },
+        { "type": "text", "id": "perk_2", "label": "Perk 2", "default": "Free shipping, always" },
+        { "type": "text", "id": "perk_3", "label": "Perk 3", "default": "Swap, skip or cancel anytime" },
+        {
+          "type": "header",
+          "content": "Per-Shot Pricing"
+        },
+        { "type": "number", "id": "shots_per_pack", "label": "Shots per pack", "default": 15 },
+        { "type": "text", "id": "per_shot_label", "label": "Per-shot pricing text", "default": "Just {price} per shot, delivered to your door.", "info": "Use {price} where the calculated price should appear. Leave blank to hide." },
+        {
+          "type": "header",
+          "content": "Frequency Options"
+        },
+        { "type": "text", "id": "freq_label", "label": "Frequency label", "default": "Deliver every" },
+        { "type": "text", "id": "freq_unit", "label": "Frequency unit", "default": "weeks" },
+        { "type": "select", "id": "default_freq", "label": "Default frequency", "options": [{"value":"2w","label":"2 weeks"},{"value":"3w","label":"3 weeks"},{"value":"4w","label":"4 weeks"}], "default": "2w" },
+        { "type": "text", "id": "plan_2w", "label": "2-week plan ID", "default": "2724757672" },
+        { "type": "text", "id": "hint_2w", "label": "2-week hint text", "default": "Daily habit — arrives just as you finish your last bottle." },
+        { "type": "text", "id": "plan_3w", "label": "3-week plan ID", "default": "2724692136" },
+        { "type": "text", "id": "hint_3w", "label": "3-week hint text", "default": "Most days — great buffer without over-ordering." },
+        { "type": "text", "id": "plan_4w", "label": "4-week plan ID", "default": "2724724904" },
+        { "type": "text", "id": "hint_4w", "label": "4-week hint text", "default": "A few times a week — clean monthly rhythm." },
+        {
+          "type": "header",
+          "content": "Notes"
+        },
+        { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always." },
+        { "type": "textarea", "id": "onetime_note", "label": "One-time nudge note", "default": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime." },
+        { "type": "text", "id": "cancel_note", "label": "Cancel reassurance", "default": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked." }
+      ]
+    },
+    {
+      "type": "accordion_item",
+      "name": "Accordion Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Row title",
+          "default": "How to Take"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row content",
+          "default": "<p>Take one shot daily, ideally in the morning before breakfast for maximum absorption.</p>"
+        },
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "label": "Metafield key (optional)",
+          "info": "Enter a key from the cro namespace to pull per-product content. E.g. acc_how_to or acc_ingredients. Leave blank to use the text above."
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product Description",
+      "limit": 1
+    },
+    {
+      "type": "scroll_headlines",
+      "name": "Section Nav Links",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "desc",            "label": "Details label",         "default": "Product Details" },
+        { "type": "text", "id": "desc_id",         "label": "Details anchor ID",     "default": "product-details" },
+        { "type": "text", "id": "whats_in_it",     "label": "Ingredients label" },
+        { "type": "text", "id": "whats_in_it_id",  "label": "Ingredients anchor ID", "default": "whats-in-it" },
+        { "type": "text", "id": "subscription",    "label": "Subscription label" },
+        { "type": "text", "id": "subscription_id", "label": "Subscription anchor ID" },
+        { "type": "text", "id": "reviews",         "label": "Reviews label" },
+        { "type": "text", "id": "reviews_id",      "label": "Reviews anchor ID",     "default": "reviews" }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Row",
+      "settings": [
+        { "type": "text",     "id": "heading", "default": "Collapsible row", "label": "Heading" },
+        { "type": "select",   "id": "icon",    "label": "Icon",
+          "options": [
+            { "value": "none",       "label": "None" },
+            { "value": "apple",      "label": "Apple" },
+            { "value": "bottle",     "label": "Bottle" },
+            { "value": "box",        "label": "Box" },
+            { "value": "chat_bubble","label": "Chat bubble" },
+            { "value": "check_mark", "label": "Check mark" },
+            { "value": "heart",      "label": "Heart" },
+            { "value": "leaf",       "label": "Leaf" },
+            { "value": "truck",      "label": "Truck" }
+          ],
+          "default": "none"
+        },
+        { "type": "richtext",    "id": "content", "label": "Content" },
+        { "type": "page",        "id": "page",    "label": "Page content" }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "share_label", "label": "Share label", "default": "Share" }
+      ]
+    },
+    {
+      "type": "stats_row",
+      "name": "Stats Row",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "stat_1_number", "label": "Stat 1 — number", "default": "1 in 3" },
+        { "type": "text", "id": "stat_1_label",  "label": "Stat 1 — label",  "default": "Adults don't get enough quality sleep" },
+        { "type": "text", "id": "stat_2_number", "label": "Stat 2 — number", "default": "7 Hours" },
+        { "type": "text", "id": "stat_2_label",  "label": "Stat 2 — label",  "default": "Sleep below this level impacts energy and recovery" },
+        { "type": "text", "id": "stat_3_number", "label": "Stat 3 — number", "default": "1 in 5" },
+        { "type": "text", "id": "stat_3_label",  "label": "Stat 3 — label",  "default": "Report work-related stress impacting sleep" }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Gallery layout",
+      "options": [
+        { "value": "stacked",          "label": "Stacked" },
+        { "value": "thumbnail",        "label": "Thumbnail (left)" },
+        { "value": "thumbnail_slider", "label": "Thumbnail (bottom)" }
+      ],
+      "default": "thumbnail_slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "label": "Hide other variants' images",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Loop product videos",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Info Panel"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Sticky purchase panel",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Button Colour Scheme"
+    },
+    {
+      "type": "select",
+      "id": "button_scheme",
+      "label": "Button colour",
+      "options": [
+        { "value": "green", "label": "Brand green" },
+        { "value": "black", "label": "Black" }
+      ],
+      "default": "green"
+    },
+    {
+      "type": "header",
+      "content": "Sticky ATC Bar — Colours"
+    },
+    {
+      "type": "color",
+      "id": "sticky_bg_color",
+      "label": "Bar background colour",
+      "default": "#191917",
+      "info": "Background colour of the floating sticky bar."
+    },
+    {
+      "type": "color",
+      "id": "sticky_btn_color",
+      "label": "Button background colour",
+      "default": "#F9C74F",
+      "info": "CTA button background colour in the sticky bar."
+    },
+    {
+      "type": "color",
+      "id": "sticky_btn_text_color",
+      "label": "Button text colour",
+      "default": "#191917",
+      "info": "CTA button text colour in the sticky bar."
+    },
+    {
+      "type": "header",
+      "content": "Sticky ATC Bar — Rating"
+    },
+    {
+      "type": "text",
+      "id": "sticky_rating_score",
+      "label": "Rating score",
+      "default": "5.0",
+      "info": "E.g. 4.9 — update when your average changes"
+    },
+    {
+      "type": "text",
+      "id": "sticky_review_count",
+      "label": "Review count",
+      "default": "13",
+      "info": "E.g. 2,100+ — update as reviews grow"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    { "name": "CRO Product Page" }
+  ]
+}
+{% endschema %}

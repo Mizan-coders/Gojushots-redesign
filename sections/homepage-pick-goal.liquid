@@ -1,0 +1,883 @@
+{%- style -%}
+  .pg-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: 'var(--goju-page-bg, #f5f0e8)' }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .pg-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── Header ── */
+  .pg-{{ section.id }} .pg__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 48px;
+    text-align: center;
+  }
+  .pg-{{ section.id }} .pg__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1d7a3f;
+    margin-bottom: 12px;
+  }
+  .pg-{{ section.id }} .pg__heading {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #191917;
+    line-height: 1.1;
+    margin: 0 0 16px;
+  }
+  .pg-{{ section.id }} .pg__heading em {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: none;
+    color: #1d7a3f;
+    letter-spacing: 0;
+  }
+  .pg-{{ section.id }} .pg__sub {
+    font-size: 16px;
+    color: rgba(25,25,23,0.55);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Filter bar ── */
+  .pg-{{ section.id }} .pg__filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    padding: 0 40px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .pg-{{ section.id }} .pg__filters::-webkit-scrollbar { display: none; }
+  .pg-{{ section.id }} .pg-filter-btn {
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid rgba(0,0,0,0.2);
+    background: transparent;
+    color: #191917;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pg-{{ section.id }} .pg-filter-btn.is-active {
+    background: #1a4a2e;
+    color: white;
+    border-color: #1a4a2e;
+  }
+  .pg-{{ section.id }} .pg-filter-btn:not(.is-active):hover {
+    border-color: #191917;
+  }
+
+  /* ── Products grid ── */
+  .pg-{{ section.id }} .pg__grid-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .pg-{{ section.id }} .pg__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Product card ── */
+  .pg-{{ section.id }} .pg__card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.06);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .pg-{{ section.id }} .pg__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .pg-{{ section.id }} .pg__card:hover .pg__quick-add {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .pg-{{ section.id }} .pg__card:hover .pg__card-info {
+    padding-bottom: 56px;
+  }
+
+  /* Image */
+  .pg-{{ section.id }} .pg__card-img {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .pg-{{ section.id }} .pg__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+  .pg-{{ section.id }} .pg__card:hover .pg__card-img img {
+    transform: scale(1.04);
+  }
+
+  /* Badge */
+  .pg-{{ section.id }} .pg__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    z-index: 2;
+  }
+  .pg-{{ section.id }} .pg__badge--bestseller {
+    background: var(--goju-accent);
+    color: var(--goju-accent-text);
+  }
+  .pg-{{ section.id }} .pg__badge--new {
+    background: #1d7a3f;
+    color: white;
+  }
+
+  /* Card info */
+  .pg-{{ section.id }} .pg__card-info {
+    padding: 16px 18px 20px;
+    position: relative;
+    z-index: 2;
+    background: white;
+    transition: padding-bottom 0.35s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .pg-{{ section.id }} .pg__goal-tags {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #1d7a3f;
+    margin-bottom: 4px;
+  }
+  .pg-{{ section.id }} .pg__card-name {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #191917;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+  }
+  .pg-{{ section.id }} .pg__card-desc {
+    font-size: 13px;
+    color: rgba(25,25,23,0.55);
+    line-height: 1.4;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .pg-{{ section.id }} .pg__card-footer {
+    display: flex;
+    flex-direction: column;
+  }
+  .pg-{{ section.id }} .pg__price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #191917;
+  }
+  .pg-{{ section.id }} .pg__price span {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(25,25,23,0.5);
+  }
+  .pg-{{ section.id }} .pg__stars {
+    font-size: 13px;
+    color: rgba(25,25,23,0.5);
+    margin-top: 4px;
+  }
+  .pg-{{ section.id }} .pg__stars strong {
+    color: #fbbf24;
+  }
+
+  /* Quick-add */
+  .pg-{{ section.id }} .pg__quick-add {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--goju-btn-primary-bg, #1d7a3f);
+    color: var(--goju-btn-primary-text, #ffffff);
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 3;
+    border: none;
+    width: 100%;
+  }
+  .pg-{{ section.id }} .pg__quick-add::before {
+    content: '+';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  /* Shop All CTA */
+  .pg-{{ section.id }} .pg__cta-wrap {
+    text-align: center;
+    margin-top: 40px;
+    padding: 0 40px;
+  }
+  .pg-{{ section.id }} .pg__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    border-radius: 50px;
+    background: var(--goju-btn-secondary-bg, #191917);
+    color: var(--goju-accent);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .pg-{{ section.id }} .pg__cta-btn:hover {
+    background: var(--goju-btn-primary-bg, #1d7a3f);
+    color: #ffffff;
+  }
+
+  /* ── Tablet ── */
+  @media screen and (max-width: 989px) {
+    .pg-{{ section.id }} .pg__header,
+    .pg-{{ section.id }} .pg__grid-wrap,
+    .pg-{{ section.id }} .pg__cta-wrap { padding-left: 20px; padding-right: 20px; }
+    .pg-{{ section.id }} .pg__filters { padding-left: 20px; padding-right: 20px; justify-content: flex-start; flex-wrap: nowrap; }
+    .pg-{{ section.id }} .pg__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .pg-{{ section.id }} .pg__quick-add { opacity: 1; transform: translateY(0); font-size: 12px; padding: 12px 16px; }
+    .pg-{{ section.id }} .pg__card-info { padding-bottom: 56px !important; }
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 479px) {
+    .pg-{{ section.id }} .pg__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    .pg-{{ section.id }} .pg__card-name { font-size: 16px; }
+    .pg-{{ section.id }} .pg__price { font-size: 16px; }
+    .pg-{{ section.id }} .pg__quick-add { font-size: 11px; padding: 11px 14px; }
+    .pg-{{ section.id }} .pg__filter-btn { font-size: 12px; padding: 8px 16px; }
+  }
+{%- endstyle -%}
+
+<div class="pg-{{ section.id }}">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="pg__header">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="pg__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+    {%- endif -%}
+    <h2 class="pg__heading">
+      {{- section.settings.heading | escape -}}
+      {%- if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent | escape }}</em>{%- endif -%}
+    </h2>
+    {%- if section.settings.subtext != blank -%}
+      <p class="pg__sub">{{ section.settings.subtext | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Filter buttons {%- endcomment -%}
+  <div class="pg__filters" id="PgFilters-{{ section.id }}">
+    <button class="pg-filter-btn is-active" data-goal="all">
+      {{- section.settings.tab_all_label | default: 'All Products' | escape -}}
+    </button>
+    {%- for i in (1..6) -%}
+      {%- assign icon_key  = 'tab_' | append: i | append: '_icon' -%}
+      {%- assign label_key = 'tab_' | append: i | append: '_label' -%}
+      {%- if section.settings[label_key] != blank -%}
+        <button
+          class="pg-filter-btn"
+          data-goal="{{ section.settings[label_key] | downcase | strip | escape }}"
+        >
+          {%- if section.settings[icon_key] != blank -%}{{ section.settings[icon_key] }} {%- endif -%}
+          {{- section.settings[label_key] | escape -}}
+        </button>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- comment -%} Products grid {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
+    <div class="pg__grid-wrap">
+      <div class="pg__grid" id="PgGrid-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'product_card' -%}
+            {%- assign card_product = block.settings.product -%}
+            {%- assign card_url = card_product.url | default: '#' -%}
+            {%- if block.settings.image != blank -%}
+              {%- assign card_image = block.settings.image -%}
+            {%- elsif card_product.featured_image != blank -%}
+              {%- assign card_image = card_product.featured_image -%}
+            {%- else -%}
+              {%- assign card_image = card_product.images[1] -%}
+            {%- endif -%}
+            {%- assign card_price = card_product.selected_or_first_available_variant.price -%}
+            {%- assign card_title = block.settings.name_override | default: card_product.title -%}
+            {%- assign goals_raw = block.settings.goals | default: '' | downcase | strip -%}
+            <div
+              class="pg__card"
+              data-goals="{{ goals_raw | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- comment -%} Image {%- endcomment -%}
+              <a href="{{ card_url }}" class="pg__card-img" aria-label="{{ card_title | escape }}" tabindex="-1">
+                {%- if card_image != blank -%}
+                  <img
+                    src="{{ card_image | image_url: width: 600 }}"
+                    alt="{{ card_image.alt | default: card_title | escape }}"
+                    width="600"
+                    height="600"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+
+                {%- comment -%} Badge {%- endcomment -%}
+                {%- if block.settings.badge_type != 'none' and block.settings.badge_text != blank -%}
+                  <div class="pg__badge pg__badge--{{ block.settings.badge_type }}">
+                    {{- block.settings.badge_text | escape -}}
+                  </div>
+                {%- endif -%}
+              </a>
+
+              {%- comment -%} Card info {%- endcomment -%}
+              <div class="pg__card-info">
+                {%- if block.settings.goal_label != blank -%}
+                  <div class="pg__goal-tags">{{ block.settings.goal_label | escape }}</div>
+                {%- endif -%}
+                <a href="{{ card_url }}" style="text-decoration:none;">
+                  <h3 class="pg__card-name">{{ card_title | escape }}</h3>
+                </a>
+                {%- if block.settings.short_desc != blank -%}
+                  <p class="pg__card-desc">{{ block.settings.short_desc | escape }}</p>
+                {%- elsif card_product.description != blank -%}
+                  <p class="pg__card-desc">{{ card_product.description | strip_html | truncatewords: 12 }}</p>
+                {%- endif -%}
+                <div class="pg__card-footer">
+                  <div>
+                    <div class="pg__price">
+                      {%- if block.settings.price_text != blank -%}
+                        {{ block.settings.price_text | escape }}
+                        {%- if block.settings.pack_text != blank -%}
+                          <span>{{ block.settings.pack_text | escape }}</span>
+                        {%- endif -%}
+                      {%- elsif card_price != blank -%}
+                        {{ card_price | money }}
+                        {%- if block.settings.pack_text != blank -%}
+                          <span>{{ block.settings.pack_text | escape }}</span>
+                        {%- endif -%}
+                      {%- endif -%}
+                    </div>
+                    {%- if block.settings.review_count != blank -%}
+                      <div class="pg__stars">
+                        {%- assign star_count = block.settings.star_rating | default: 5 -%}
+                        <strong>
+                          {%- for i in (1..star_count) -%}★{%- endfor -%}
+                        </strong>
+                        ({{ block.settings.review_count | escape }})
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+
+              {%- comment -%} Quick-add {%- endcomment -%}
+              {%- if card_product != blank -%}
+                {%- assign first_variant = card_product.selected_or_first_available_variant -%}
+                <button
+                  class="pg__quick-add"
+                  data-variant-id="{{ first_variant.id }}"
+                  aria-label="Add {{ card_title | escape }} to cart"
+                >
+                  <span class="pg__quick-add-text">Add to Cart</span>
+                </button>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Shop All CTA {%- endcomment -%}
+      {%- if section.settings.cta_label != blank -%}
+        <div class="pg__cta-wrap">
+          <a
+            href="{{ section.settings.cta_url | default: '#' }}"
+            class="pg__cta-btn"
+          >
+            {{- section.settings.cta_label | escape -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>
+(function() {
+  // Capture window.fetch NOW — this inline script runs before slidecarthq.js
+  // loads from CDN (async), so this is the original unpatched fetch.
+  // Using it for /cart/add.js prevents Slide Cart from intercepting that call
+  // and auto-opening its own cart UI.
+  var _nativeFetch = window.fetch.bind(window);
+
+  var section = document.querySelector('.pg-{{ section.id }}');
+  if (!section) return;
+
+  var filterBtns = section.querySelectorAll('.pg-filter-btn');
+  var cards      = section.querySelectorAll('.pg__card');
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+
+      var goal = btn.dataset.goal;
+
+      cards.forEach(function(card) {
+        if (goal === 'all') {
+          card.style.display = '';
+        } else {
+          var cardGoals = (card.dataset.goals || '').toLowerCase();
+          card.style.display = cardGoals.indexOf(goal) !== -1 ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Quick-add: use _nativeFetch (captured before Slide Cart patches window.fetch)
+  // so Slide Cart never intercepts this call and its own cart UI never opens.
+  // After add, open Dawn's cart-drawer directly via renderContents.
+  section.querySelectorAll('.pg__quick-add').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var variantId = parseInt(btn.dataset.variantId);
+      if (!variantId) return;
+
+      var label = btn.querySelector('.pg__quick-add-text');
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      if (label) label.textContent = 'Adding…';
+
+      _nativeFetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+      })
+      .then(function(res) {
+        if (!res.ok) return res.json().then(function(err) { throw new Error(err.description || 'Error'); });
+        return res.json();
+      })
+      .then(function() {
+        if (label) label.textContent = '✓ Added!';
+        btn.style.opacity = '1';
+
+        var cart = document.querySelector('cart-drawer');
+        if (!cart) { window.location.href = '/cart'; return; }
+
+        // Fix is-empty on the outer wrapper (renderContents only clears it from .drawer__inner)
+        cart.classList.remove('is-empty');
+        fetch('/?sections=cart-drawer,cart-icon-bubble')
+          .then(function(r) { return r.json(); })
+          .then(function(sections) {
+            cart.renderContents({ id: variantId, sections: sections });
+          })
+          .catch(function() { window.location.href = '/cart'; });
+
+        setTimeout(function() {
+          if (label) label.textContent = 'Add to Cart';
+          btn.disabled = false;
+          btn.style.opacity = '';
+        }, 2000);
+      })
+      .catch(function(err) {
+        if (label) label.textContent = err.message || 'Try again';
+        setTimeout(function() {
+          if (label) label.textContent = 'Add to Cart';
+          btn.disabled = false;
+          btn.style.opacity = '';
+        }, 2000);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Pick Your Goal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Pick Your Goal"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The shot for"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading italic accent",
+      "default": "every need."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Choose what you're working toward — we've got the right blend for it."
+    },
+    {
+      "type": "header",
+      "content": "Filter Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_all_label",
+      "label": "All tab label",
+      "default": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_icon",
+      "label": "Tab 1 icon (emoji)",
+      "default": "⚡"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Tab 1 label",
+      "default": "Energy"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_icon",
+      "label": "Tab 2 icon (emoji)",
+      "default": "🛡️"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Tab 2 label",
+      "default": "Immunity"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_icon",
+      "label": "Tab 3 icon (emoji)",
+      "default": "😴"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_label",
+      "label": "Tab 3 label",
+      "default": "Sleep"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_icon",
+      "label": "Tab 4 icon (emoji)",
+      "default": "💪"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_label",
+      "label": "Tab 4 label",
+      "default": "Recovery"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_icon",
+      "label": "Tab 5 icon (emoji)",
+      "default": "🌿"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_label",
+      "label": "Tab 5 label",
+      "default": "Digestion"
+    },
+    {
+      "type": "text",
+      "id": "tab_6_icon",
+      "label": "Tab 6 icon (emoji)"
+    },
+    {
+      "type": "text",
+      "id": "tab_6_label",
+      "label": "Tab 6 label"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop Full Range →"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Products per row (desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#f5f0e8"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "name_override",
+          "label": "Product name override",
+          "info": "Leave blank to use the product title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image override",
+          "info": "Leave blank to use the product's featured image"
+        },
+        {
+          "type": "header",
+          "content": "Goal Filtering"
+        },
+        {
+          "type": "text",
+          "id": "goals",
+          "label": "Goals (comma-separated, lowercase)",
+          "info": "e.g. energy,focus — must match filter tab labels exactly",
+          "default": "energy"
+        },
+        {
+          "type": "text",
+          "id": "goal_label",
+          "label": "Goal display label",
+          "info": "Shown on the card e.g. Energy · Focus · Stamina",
+          "default": "Energy · Focus · Stamina"
+        },
+        {
+          "type": "header",
+          "content": "Badge"
+        },
+        {
+          "type": "select",
+          "id": "badge_type",
+          "label": "Badge style",
+          "options": [
+            { "value": "none",       "label": "None" },
+            { "value": "bestseller", "label": "Best Seller (yellow)" },
+            { "value": "new",        "label": "New (green)" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "Best Seller"
+        },
+        {
+          "type": "header",
+          "content": "Card Content"
+        },
+        {
+          "type": "textarea",
+          "id": "short_desc",
+          "label": "Short description",
+          "info": "Leave blank to auto-pull from product description"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price override",
+          "info": "e.g. $85 — leave blank to use product price"
+        },
+        {
+          "type": "text",
+          "id": "pack_text",
+          "label": "Pack size text",
+          "default": "/ 9 pack"
+        },
+        {
+          "type": "range",
+          "id": "star_rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_count",
+          "label": "Review count",
+          "default": "0"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pick Your Goal",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "goal_label": "Energy · Focus · Stamina",
+            "goals": "energy",
+            "badge_type": "bestseller",
+            "badge_text": "⭐ Best Seller",
+            "short_desc": "Triple-root ginseng, turmeric & ginger blend for all-day performance.",
+            "price_text": "$85",
+            "pack_text": "/ 12 pack",
+            "star_rating": 5,
+            "review_count": "237"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "goal_label": "Immunity · Vitamin C",
+            "goals": "immunity",
+            "badge_type": "new",
+            "badge_text": "New",
+            "short_desc": "Cold-pressed lemon, turmeric and ginger. Daily immunity in one shot.",
+            "price_text": "$50",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "89"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "goal_label": "Sleep · Recovery · Calm",
+            "goals": "sleep,recovery",
+            "badge_type": "none",
+            "short_desc": "Tart cherry, magnesium and passionflower. Wind down and wake up right.",
+            "price_text": "$50",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "64"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "goal_label": "Immunity · Defence",
+            "goals": "immunity",
+            "badge_type": "none",
+            "short_desc": "Elderberry, zinc and vitamin C. Your daily defence against everything.",
+            "price_text": "$50",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "51"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

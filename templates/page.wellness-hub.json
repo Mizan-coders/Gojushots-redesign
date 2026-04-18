@@ -1,0 +1,203 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "wellness-sec1": {
+      "type": "wellness-sec1",
+      "blocks": {
+        "cfdf9f76-e57a-4981-aeef-f94a18df71a0": {
+          "type": "turmeric1",
+          "settings": {
+            "heading": "1mg",
+            "subheading": "Turmeric",
+            "text": "Per serve"
+          }
+        },
+        "9181e145-e281-4d62-ac42-fdb57212f47e": {
+          "type": "turmeric1",
+          "settings": {
+            "heading": "2mg",
+            "subheading": "Turmeric",
+            "text": "Per serve"
+          }
+        },
+        "432d1fe0-bd07-43f3-b782-14705f7a587f": {
+          "type": "turmeric1",
+          "settings": {
+            "heading": "3mg",
+            "subheading": "Turmeric",
+            "text": "Per serve"
+          }
+        },
+        "ffa39d9d-4e7b-4a6b-a3d2-d0da1bf8c99a": {
+          "type": "turmeric1",
+          "settings": {
+            "heading": "4mg",
+            "subheading": "Per serve",
+            "text": "Per serve"
+          }
+        },
+        "79546277-31f7-45ec-9bae-724a4c5a36ef": {
+          "type": "turmeric2",
+          "settings": {
+            "heading": "1mg",
+            "subheading": "Ginger",
+            "text": "Per serve"
+          }
+        },
+        "f242178a-66fa-49b1-a8a5-c794f338c101": {
+          "type": "turmeric2",
+          "settings": {
+            "heading": "2mg",
+            "subheading": "Ginger",
+            "text": "Per serve"
+          }
+        },
+        "178a4e2f-f9a8-4939-af25-80c23f307d3d": {
+          "type": "turmeric3",
+          "settings": {
+            "heading": "1mg",
+            "subheading": "Collagen",
+            "text": "Per serve"
+          }
+        },
+        "41bfa7a7-ea50-4589-93bf-76a96169d1a6": {
+          "type": "turmeric3",
+          "settings": {
+            "heading": "2mg",
+            "subheading": "Collagen",
+            "text": "Per Serve"
+          }
+        },
+        "d698eb53-6440-4065-ac32-0208439f4955": {
+          "type": "turmeric4",
+          "settings": {
+            "heading": "1mg",
+            "subheading": "Charcoal",
+            "text": "Per serve"
+          }
+        },
+        "c4559cfe-72be-49cb-91f2-fa40296434d6": {
+          "type": "turmeric4",
+          "settings": {
+            "heading": "2mg",
+            "subheading": "Charcoal",
+            "text": "Per serve"
+          }
+        },
+        "05980fa2-6039-492b-baf0-3c7adbfcf2a0": {
+          "type": "turmeric5",
+          "settings": {
+            "heading": "1mg",
+            "subheading": "Macha",
+            "text": "Per serve"
+          }
+        },
+        "d56d6746-ac37-4eca-9832-ea11e47a686c": {
+          "type": "turmeric5",
+          "settings": {
+            "heading": "2mg",
+            "subheading": "Macha",
+            "text": "Per serve"
+          }
+        }
+      },
+      "block_order": [
+        "cfdf9f76-e57a-4981-aeef-f94a18df71a0",
+        "9181e145-e281-4d62-ac42-fdb57212f47e",
+        "432d1fe0-bd07-43f3-b782-14705f7a587f",
+        "ffa39d9d-4e7b-4a6b-a3d2-d0da1bf8c99a",
+        "79546277-31f7-45ec-9bae-724a4c5a36ef",
+        "f242178a-66fa-49b1-a8a5-c794f338c101",
+        "178a4e2f-f9a8-4939-af25-80c23f307d3d",
+        "41bfa7a7-ea50-4589-93bf-76a96169d1a6",
+        "d698eb53-6440-4065-ac32-0208439f4955",
+        "c4559cfe-72be-49cb-91f2-fa40296434d6",
+        "05980fa2-6039-492b-baf0-3c7adbfcf2a0",
+        "d56d6746-ac37-4eca-9832-ea11e47a686c"
+      ],
+      "settings": {
+        "hero_image": "shopify://shop_images/shots.png",
+        "heading": "Meet the shots",
+        "nav_image": "shopify://shop_images/shots-nav.png",
+        "sub_heading": "What’s inside of your Goju?",
+        "btn_url": "",
+        "btn_text": "The Science behind Turmeric"
+      }
+    },
+    "wellness-sec2": {
+      "type": "wellness-sec2",
+      "blocks": {
+        "00be207b-36eb-432e-9f2e-45b31191cde8": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "detox-shot"
+          }
+        },
+        "a97ad641-1e0f-419d-be72-e6c4ab49a280": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "collagen-multi-dose"
+          }
+        },
+        "58e450f1-e9e2-4742-9dfd-19f3953895ab": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "day-night-recovery-pack"
+          }
+        },
+        "efbdfaa1-dfbd-4bac-9014-cf282d87ccb7": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "g-t-500ml-combo-pack"
+          }
+        },
+        "87657a74-7ab9-46b4-9919-0b6b52f4319a": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "ginger-500ml-multi-dose-bottle"
+          }
+        }
+      },
+      "block_order": [
+        "00be207b-36eb-432e-9f2e-45b31191cde8",
+        "a97ad641-1e0f-419d-be72-e6c4ab49a280",
+        "58e450f1-e9e2-4742-9dfd-19f3953895ab",
+        "efbdfaa1-dfbd-4bac-9014-cf282d87ccb7",
+        "87657a74-7ab9-46b4-9919-0b6b52f4319a"
+      ],
+      "settings": {}
+    },
+    "wellness-sec3": {
+      "type": "text-box-section",
+      "settings": {
+        "heading": "GOJU. STRAIGHT UP.",
+        "btn_link": "shopify://collections",
+        "btn_text": "Shop the range"
+      }
+    },
+    "about-sec8": {
+      "type": "about-sec8",
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "BANTER",
+        "blog": "gojushots",
+        "view_all": "shopify://blogs/gojushots",
+        "post_limit": 4
+      }
+    }
+  },
+  "order": [
+    "wellness-sec1",
+    "wellness-sec2",
+    "wellness-sec3",
+    "about-sec8"
+  ]
+}

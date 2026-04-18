@@ -1,0 +1,69 @@
+<section class="text-with-image-container">
+  <div class="container container1">
+     <div class="row">
+        <div class="col-md-12">
+           <div class="text-with-image-box mission-about d-flex flex-wrap">
+             
+             <div class="twib-content">
+               <h2 class="h1">{{ section.settings.title | escape }}</h2>
+               <h6>{{ section.settings.sub_title | escape }}</h6>
+               <div class="twib-text">
+                  {{ section.settings.text }}
+               </div>
+               {% if section.settings.icon_image != blank %}
+               <div class="twib-icon">
+                    <img src="{{ section.settings.icon_image |img_url:'480x80' }}" alt="{{ section.settings.icon_image |alt }}" />
+               </div>
+               {% endif %}
+             </div>
+             <div class="twib-img">
+               <img src="{{ section.settings.image | img_url:'640x' }}" alt="{{ section.settings.image | alt }}" />
+             </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Text With Image",
+    "settings": [
+      {
+	   "type": "image_picker",
+	   "id": "image",
+	   "label": "Image"
+	  },
+      {
+	   "type": "text",
+	   "id": "title",
+	   "label": "Title"
+	  },
+      {
+	   "type": "text",
+	   "id": "sub_title",
+	   "label": "Sub Title"
+	  },
+      {
+        "type":"richtext",
+        "id":"text",
+        "label":"Text"
+      },
+      {
+	   "type": "image_picker",
+	   "id": "icon_image",
+	   "label": "Icon Image"
+	  }
+    ],
+    "presets":[
+      {
+        "name":"About Mission"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

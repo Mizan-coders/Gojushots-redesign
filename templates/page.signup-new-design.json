@@ -1,0 +1,201 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "basic-body",
+      "settings": {
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "image": "shopify://shop_images/wellness_image_SS_640x_db8a6179-f13d-49a1-8db2-ce3e33ae21ac.png",
+        "video": ""
+      }
+    },
+    "b85254a6-8f22-4fb6-97c8-9e0911765450": {
+      "type": "logo-with-text",
+      "disabled": true,
+      "blocks": {
+        "0be7c882-9031-4869-b44c-7bae685d2469": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Ultimate_S.png",
+            "text": "A superhero has landed"
+          }
+        },
+        "1e72fecc-2fac-443d-b0a8-f0ed2b8f11d1": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Flexing_Arm.png",
+            "text": "new goju supershot out now"
+          }
+        },
+        "48edc17b-8851-4198-b8f0-0df6c1ddb6d3": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Light_bulb.png",
+            "text": "Potently healthy shots you won't regret"
+          }
+        },
+        "ea787c7c-3b73-49ba-bfe4-8ee0598c2964": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Light_bulb.png",
+            "text": "A superhero has landed"
+          }
+        }
+      },
+      "block_order": [
+        "0be7c882-9031-4869-b44c-7bae685d2469",
+        "1e72fecc-2fac-443d-b0a8-f0ed2b8f11d1",
+        "48edc17b-8851-4198-b8f0-0df6c1ddb6d3",
+        "ea787c7c-3b73-49ba-bfe4-8ee0598c2964"
+      ],
+      "settings": {
+        "background_color": "#f7cb0f",
+        "text_color": "#fcfbf4"
+      }
+    },
+    "ff56e504-d38d-40a0-89dd-cfcd74162720": {
+      "type": "about-mission",
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/about-img1.jpg",
+        "title": "The Mission.",
+        "sub_title": "To bring health and wellness to our community of Go-Getters.",
+        "text": "<p>We want to become New Zealand’s favourite go-to health drink. We pioneered wellness shots on local shores and now want to make them a part of a healthy daily routine for Go-Getters worldwide.</p><p>We want to export New Zealand's best wellness shots to the world. Taking our New Zealand and Fijian produce and sharing it with Go-Getters everywhere.</p><p>We will create wellness products that help you feel healthier every day because we only get where we're going by helping you get where you're going first. It's only right.</p><p>We have big dreams, but we know it's all about balance. Work hard, have fun and take care of your well-being.</p>",
+        "icon_image": "shopify://shop_images/icons_691a9ebb-fb52-4f41-895c-2648688fa7f6.png"
+      }
+    },
+    "8899a663-ee45-4149-bbfe-15a30658e1b9": {
+      "type": "call-to-action",
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/Screen_Shot_2022-10-28_at_11.44.55_AM.png",
+        "title": "Find us.",
+        "sub_title": "We’re probably closer than you thought.",
+        "text": "<p>If you’re in the mood to get out of the house and track down some Goju in the wild, we’ve compiled a list of places you can find us! If we’re not in your neighourhood yet, keep an eye our - we’re always popping up in new stores.</p>",
+        "btn_text": "Find your local",
+        "btn_url": "shopify://pages/store-locator-1"
+      }
+    },
+    "4ad309b5-3900-4570-a3d5-ec82c3004c7d": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "Product recommendations",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "wellness-shots",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "00346738-5c6b-49f9-a01c-04b872e58304": {
+      "type": "homesec_3",
+      "disabled": true,
+      "blocks": {
+        "a2cd5f92-1ce1-4b57-a550-cbc994022042": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "collagen-multi-dose"
+          }
+        },
+        "f243c8cf-b51f-4fff-9e04-6f108a8f9d1b": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "g-t-500ml-combo-pack"
+          }
+        },
+        "85fa450e-0179-444d-8ce3-a8e9813f9262": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "pick-n-mix"
+          }
+        },
+        "bf2c8ab6-86b7-46cd-a294-14f227bf3a3b": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "turmeric"
+          }
+        },
+        "25bf47c3-fb85-4d49-8938-ea1841a7aa46": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "turmeric"
+          }
+        },
+        "a91d7f34-13d2-4cdd-b5fd-6e8d218fac93": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": ""
+          }
+        },
+        "14f6e540-faaf-4430-9302-9b7a1f26a382": {
+          "type": "featured-product",
+          "settings": {
+            "featured_product": "turmeric-shot"
+          }
+        }
+      },
+      "block_order": [
+        "a2cd5f92-1ce1-4b57-a550-cbc994022042",
+        "f243c8cf-b51f-4fff-9e04-6f108a8f9d1b",
+        "85fa450e-0179-444d-8ce3-a8e9813f9262",
+        "bf2c8ab6-86b7-46cd-a294-14f227bf3a3b",
+        "25bf47c3-fb85-4d49-8938-ea1841a7aa46",
+        "a91d7f34-13d2-4cdd-b5fd-6e8d218fac93",
+        "14f6e540-faaf-4430-9302-9b7a1f26a382"
+      ],
+      "settings": {
+        "title": "You might like",
+        "pr_logo": "shopify://shop_images/logo-grey.png",
+        "short_text": "While all Goju products are great, there are some that our Go-getters just can't get enough of.",
+        "ml60": "",
+        "ml500": "",
+        "combos": "",
+        "btn_text": "",
+        "btn_link": ""
+      }
+    },
+    "124e5cff-9cf3-4bc2-952e-c16067d690c7": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "b85254a6-8f22-4fb6-97c8-9e0911765450",
+    "ff56e504-d38d-40a0-89dd-cfcd74162720",
+    "8899a663-ee45-4149-bbfe-15a30658e1b9",
+    "4ad309b5-3900-4570-a3d5-ec82c3004c7d",
+    "00346738-5c6b-49f9-a01c-04b872e58304",
+    "124e5cff-9cf3-4bc2-952e-c16067d690c7"
+  ]
+}

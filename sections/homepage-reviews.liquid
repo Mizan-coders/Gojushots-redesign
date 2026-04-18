@@ -1,0 +1,520 @@
+{%- style -%}
+  .rv-{{ section.id }} {
+    background: #0a0a0a;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-left: 40px;
+    padding-right: 40px;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    .rv-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── Header ── */
+  .rv-{{ section.id }} .rv__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    gap: 32px;
+  }
+
+  /* Rating row — headline + sub + score all inline */
+  .rv-{{ section.id }} .rv__rating {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Headline */
+  .rv-{{ section.id }} .rv__headline {
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: white;
+    line-height: 1;
+    margin: 0;
+  }
+  .rv-{{ section.id }} .rv__headline em {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: none;
+    color: var(--goju-accent);
+    display: block;
+    letter-spacing: 0;
+  }
+  .rv-{{ section.id }} .rv__sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Score row */
+  .rv-{{ section.id }} .rv__score-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .rv-{{ section.id }} .rv__big-score {
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--goju-accent);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .rv-{{ section.id }} .rv__meta {
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .rv-{{ section.id }} .rv__meta-stars {
+    font-size: 20px;
+    color: #fbbf24;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .rv-{{ section.id }} .rv__meta-count {
+    font-size: 13px;
+    display: block;
+  }
+  .rv-{{ section.id }} .rv__meta-verified {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--goju-accent);
+    display: block;
+  }
+
+  /* Write a review button */
+  .rv-{{ section.id }} .rv__write-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .rv-{{ section.id }} .rv__write-btn:hover {
+    background: rgba(255,255,255,0.14);
+    color: white;
+  }
+
+  /* ── Cards grid ── */
+  .rv-{{ section.id }} .rv__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .rv-{{ section.id }} .rv__card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .rv-{{ section.id }} .rv__card:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Card top */
+  .rv-{{ section.id }} .rv__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .rv-{{ section.id }} .rv__reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .rv-{{ section.id }} .rv__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #0a0a0a;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .rv-{{ section.id }} .rv__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+  .rv-{{ section.id }} .rv__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+  }
+  .rv-{{ section.id }} .rv__verified {
+    font-size: 11px;
+    color: #4a9c65;
+    margin-top: 2px;
+  }
+  .rv-{{ section.id }} .rv__stars {
+    color: #fbbf24;
+    font-size: 13px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  /* Review body */
+  .rv-{{ section.id }} .rv__text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .rv-{{ section.id }} .rv__product {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 989px) {
+    .rv-{{ section.id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .rv-{{ section.id }} .rv__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .rv-{{ section.id }} .rv__rating {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .rv-{{ section.id }} .rv__score-row {
+      margin-top: 8px;
+    }
+    .rv-{{ section.id }} .rv__big-score {
+      font-size: 64px;
+    }
+    .rv-{{ section.id }} .rv__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+  @media screen and (max-width: 479px) {
+    .rv-{{ section.id }} .rv__big-score {
+      font-size: 56px;
+    }
+    .rv-{{ section.id }} .rv__meta-stars {
+      font-size: 18px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="rv-{{ section.id }}">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="rv__header">
+    <div class="rv__rating">
+      <div class="rv__headline" role="heading" aria-level="2">
+        {{- section.settings.headline | escape -}}
+        {%- if section.settings.headline_italic != blank -%}
+          <em>{{ section.settings.headline_italic | escape }}</em>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.sub_headline != blank -%}
+        <p class="rv__sub">{{ section.settings.sub_headline | escape }}</p>
+      {%- endif -%}
+      <div class="rv__score-row">
+        {%- if section.settings.score != blank -%}
+          <div class="rv__big-score">{{ section.settings.score | escape }}</div>
+        {%- endif -%}
+        <div class="rv__meta">
+          {%- assign star_count = section.settings.score_stars | default: 5 -%}
+          <span class="rv__meta-stars">
+            {%- for i in (1..star_count) -%}★{%- endfor -%}
+          </span>
+          {%- if section.settings.review_count != blank -%}
+            <span class="rv__meta-count">{{ section.settings.review_count | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.verified_count != blank -%}
+            <span class="rv__meta-verified">{{ section.settings.verified_count | escape }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.write_review_url != blank or section.settings.write_review_label != blank -%}
+      <a href="{{ section.settings.write_review_url | default: '#' }}" class="rv__write-btn">
+        {{- section.settings.write_review_label | default: 'Write a Review' | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Review cards {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
+    <div class="rv__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="rv__card" {{ block.shopify_attributes }}>
+            <div class="rv__card-top">
+              <div class="rv__reviewer">
+                {%- if block.settings.avatar_image != blank -%}
+                  <div class="rv__avatar" aria-hidden="true">
+                    <img
+                      src="{{ block.settings.avatar_image | image_url: width: 80 }}"
+                      alt="{{ block.settings.name | escape }}"
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- else -%}
+                  <div
+                    class="rv__avatar"
+                    style="background: {{ block.settings.avatar_color | default: '#d4f24a' }};"
+                    aria-hidden="true"
+                  >{{ block.settings.initials | escape }}</div>
+                {%- endif -%}
+                <div>
+                  <div class="rv__name">{{ block.settings.name | escape }}</div>
+                  <div class="rv__verified">✓ Verified Buyer</div>
+                </div>
+              </div>
+              <div class="rv__stars">
+                {%- assign rating = block.settings.rating | default: 5 -%}
+                {%- for i in (1..rating) -%}★{%- endfor -%}
+              </div>
+            </div>
+            {%- if block.settings.review_text != blank -%}
+              <p class="rv__text">{{ block.settings.review_text | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.product_name != blank -%}
+              <div class="rv__product">{{ block.settings.product_name | escape }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Heading",
+      "default": "Real Results."
+    },
+    {
+      "type": "text",
+      "id": "headline_italic",
+      "label": "Heading italic line",
+      "default": "Real people."
+    },
+    {
+      "type": "text",
+      "id": "sub_headline",
+      "label": "Sub headline",
+      "default": "See why thousands trust Goju daily."
+    },
+    {
+      "type": "header",
+      "content": "Score"
+    },
+    {
+      "type": "text",
+      "id": "score",
+      "label": "Rating score",
+      "default": "4.9"
+    },
+    {
+      "type": "range",
+      "id": "score_stars",
+      "label": "Star count",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count text",
+      "default": "Based on 137 reviews"
+    },
+    {
+      "type": "text",
+      "id": "verified_count",
+      "label": "Verified customers text",
+      "default": "2,100+ verified customers"
+    },
+    {
+      "type": "header",
+      "content": "Write a Review button"
+    },
+    {
+      "type": "text",
+      "id": "write_review_label",
+      "label": "Button label",
+      "default": "Write a Review"
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer name",
+          "default": "Abbey Fox"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar_image",
+          "label": "Profile photo (optional)",
+          "info": "Upload a photo. If left empty, initials are shown instead."
+        },
+        {
+          "type": "text",
+          "id": "initials",
+          "label": "Avatar initials",
+          "default": "AF",
+          "info": "2 letters shown in the avatar circle"
+        },
+        {
+          "type": "text",
+          "id": "avatar_color",
+          "label": "Avatar background colour",
+          "default": "#d4f24a",
+          "info": "Any CSS hex colour, e.g. #d4f24a"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "\"Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling in love with Good Night.\""
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Good Night Shot"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name": "Abbey Fox",
+            "initials": "AF",
+            "avatar_color": "#d4f24a",
+            "rating": 5,
+            "review_text": "\"Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling in love with Good Night.\"",
+            "product_name": "Good Night Shot"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Michelle D. Frazer",
+            "initials": "MF",
+            "avatar_color": "#a5d6a7",
+            "rating": 5,
+            "review_text": "\"Love it! Delicious flavour, love the pepper hit. Only been drinking for three days so am keen to see improvement in inflammation soon.\"",
+            "product_name": "Action Shot"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Bernadette Frost",
+            "initials": "BF",
+            "avatar_color": "#ffcc80",
+            "rating": 5,
+            "review_text": "\"Sooo refreshing plus sore throat compliments — I'm sure the super shot is stopping the throat getting worse. Love it!\"",
+            "product_name": "Vital Sunshine"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

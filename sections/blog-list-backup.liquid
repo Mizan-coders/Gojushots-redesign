@@ -1,0 +1,170 @@
+
+
+<section class="content-container blog-container">
+  <div class="container container1">
+      <div class="row">
+          <div class="col-md-12">
+              <ul class="blog-list">
+                  {% for block in section.blocks %}
+                  {%- assign article = block.settings.blog -%}
+                  <li class="blog-item">
+                      <div class="blog-box">
+                          <div class="blog-img">
+                            <img src="{{ article.image.src | img_url:'297x297' }}" alt="{{ article.title }}" >     
+                          </div>
+                          <div class="blog-text">
+                              <div class="blog-date">{{ article.published_at | time_tag: format: 'date' }}</div>
+                              <h3>{{ article.title }}</h3>
+                              {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                              <p>
+                                {%- if article.excerpt.size > 0 -%}
+                                {{ article.excerpt | strip_html | truncatewords: 30 }}
+                                {%- else -%}
+                                {{ article.content | strip_html | truncatewords: 30 }}
+                                {%- endif -%}
+                              </p>
+                              {%- endif -%}
+                              <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                          </div>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+              {% assign string = request.path | split: '/' %}
+              {% assign carry_tag = string[3] %}
+              {% if carry_tag =='tagged' %}
+              <ul class="blog-list">
+                  {% for group_tag in blog.all_tags %}
+                     {% for article in blog.articles %}
+                      {% assign titles = article.title | uniq %}
+ 
+                       {% if article.tags contains group_tag %}
+                      <li class="blog-item">
+                      <div class="blog-box">
+                          <div class="blog-img">
+                            <img src="{{ article.image.src | img_url:'297x297' }}" alt="{{ titles }}" >     
+                          </div>
+                          <div class="blog-text">
+                              <div class="blog-date">{{ article.published_at | time_tag: format: 'date' }}</div>
+                              <h3>{{ titles }}</h3>
+                              {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                              <p>
+                                {%- if article.excerpt.size > 0 -%}
+                                {{ article.excerpt | strip_html | truncatewords: 30 }}
+                                {%- else -%}
+                                {{ article.content | strip_html | truncatewords: 30 }}
+                                {%- endif -%}
+                              </p>
+                              {%- endif -%}
+                              <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                          </div>
+                      </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  {% endfor %}                    
+              </ul>
+              {% else %}
+              {%- paginate blogs['gojushots'].articles by 4 -%}
+              <ul class="blog-list">
+                {% for article in blogs['gojushots'].articles limit:4 %}
+                  <li class="blog-item">
+                      <div class="blog-box">
+                          <div class="blog-img">
+                            <img src="{{ article.image.src | img_url:'297x297' }}" alt="{{ article.title }}" >     
+                          </div>
+                          <div class="blog-text">
+                              <div class="blog-date">{{ article.published_at | time_tag: format: 'date' }}</div>
+                              <h3>{{ article.title }}</h3>
+                              {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                              <p>
+                                {%- if article.excerpt.size > 0 -%}
+                                {{ article.excerpt | strip_html | truncatewords: 30 }}
+                                {%- else -%}
+                                {{ article.content | strip_html | truncatewords: 30 }}
+                                {%- endif -%}
+                              </p>
+                              {%- endif -%}
+                              <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                          </div>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+              
+              <div class="pagination d-flex justify-content-center">    
+                  <ul class="page-num d-flex">
+                      {%- if paginate.previous -%}
+                      <li><a href="{{ paginate.previous.url }}{{ anchor }}" class="page-arrow">{% render 'arrow-left' %}</a></li>
+                      {% endif %}
+                      {%- for part in paginate.parts -%}
+                      <li>
+                       
+                        {%- if part.is_link -%}
+                          <a href="{{ part.url }}{{ anchor }}" class="page-numbers pagination__item link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                        {%- else -%}
+                          {%- if part.title == paginate.current_page -%}
+                            <a role="link" aria-disabled="true" class="page-numbers pagination__item pagination__item--current light" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                          {%- else -%}
+                            <span class="pagination__item">{{ part.title }}</span>
+                          {%- endif -%}
+                        {%- endif -%}
+                      </li>
+                      {%- endfor -%}
+                      {%- if paginate.next -%}
+                      <li><a href="{{ paginate.next.url }}{{ anchor }}" class="page-arrow">{% render 'arrow-right' %}</a></li>
+                      {% endif %}
+                  </ul>
+              </div>
+              {%- endpaginate -%}
+              {% endif %}
+          </div>  
+      </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Blog",
+    "settings": [
+    {
+    "type":"text",
+    "id":"sub_heading",
+    "label":"Sub Heaidng"
+    },
+    {
+    "type":"text",
+    "id":"heading",
+    "label":"Heaidng"
+    },
+    {
+    "type":"url",
+    "id":"btn_link",
+    "label":"Button Link"
+    },
+    {
+    "type":"text",
+    "id":"btn_text",
+    "label":"Button Text"
+    },
+    {
+    "type":"image_picker",
+    "id":"image",
+    "label":"BG Image"
+    }
+    ],
+    "max_blocks": 4,
+    "blocks": [
+     {
+       "name": "Featured Featured",
+       "type": "blog",
+       "settings": [
+         {
+           "type": "article",
+           "id": "blog",
+           "label": "Select Featured Featured"
+         }
+       ]
+     }
+  ]
+  }
+{% endschema %}

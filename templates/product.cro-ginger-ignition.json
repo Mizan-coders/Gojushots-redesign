@@ -1,0 +1,466 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-cro",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.custom.product_tagline.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "short_description": {
+          "type": "short_description",
+          "settings": {}
+        },
+        "benefit_pills": {
+          "type": "benefit_pills",
+          "settings": {
+            "pill_1_icon": "🌿",
+            "pill_1_text": "100% Natural",
+            "pill_2_icon": "🇳🇿",
+            "pill_2_text": "Made in NZ",
+            "pill_3_icon": "💪🏽",
+            "pill_3_text": "High-Strength",
+            "pill_4_icon": "✓",
+            "pill_4_text": "No Additives"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_label": "Choose Pack Size",
+            "picker_type": "button",
+            "nosub_hint": "One-time purchase only · No subscription available"
+          }
+        },
+        "purchase_widget": {
+          "type": "purchase_widget",
+          "settings": {
+            "label_onetime": "One-time",
+            "label_sub": "Subscribe & Save",
+            "discount_percent": 10,
+            "sub_note": "Free shipping included — always",
+            "onetime_shipping": "+ $8 shipping · subscribe for free shipping always",
+            "perk_1": "10% off every order",
+            "perk_2": "Free shipping, always",
+            "perk_3": "Swap, skip or cancel anytime",
+            "freq_label": "Deliver every",
+            "freq_unit": "weeks",
+            "default_freq": "2w",
+            "plan_2w": "2724757672",
+            "hint_2w": "Daily habit — arrives just as you finish your last bottle.",
+            "plan_3w": "2724692136",
+            "hint_3w": "Most days — great buffer without over-ordering.",
+            "plan_4w": "2724724904",
+            "hint_4w": "A few times a week — clean monthly rhythm.",
+            "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
+            "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
+          }
+        },
+        "recharge_widget": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "mini_trust": {
+          "type": "mini_trust",
+          "settings": {
+            "icon_1": "🔒",
+            "text_1": "Secure checkout",
+            "icon_2": "🚚",
+            "text_2": "Free shipping w/ Subscribe",
+            "icon_3": "📋",
+            "text_3": "30-day guarantee",
+            "icon_4": "🌿",
+            "text_4": "Organic certified"
+          }
+        },
+        "acc_how_to": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How to Take",
+            "content": "<p>Take one shot daily, ideally in the morning before breakfast for maximum absorption. It's also great before or after food to support digestion.</p>",
+            "metafield_key": ""
+          }
+        },
+        "acc_ingredients": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Ingredients",
+            "content": "<p>Organic Apple Juice, Organic Fijian Ginger Juice, Organic NZ Apple Cider Vinegar, NZ Lemon Juice</p>",
+            "metafield_key": ""
+          }
+        },
+        "acc_shipping": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Shipping Information",
+            "content": "<p>Subscribe & Save and get free shipping on every order. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allowing up to 5 days for rural addresses.</p>",
+            "metafield_key": ""
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "short_description",
+        "growave_review_avg",
+        "benefit_pills",
+        "variant_picker",
+        "purchase_widget",
+        "recharge_widget",
+        "buy_buttons",
+        "mini_trust",
+        "acc_how_to",
+        "acc_ingredients",
+        "acc_shipping"
+      ],
+      "settings": {
+        "gallery_layout": "thumbnail_slider",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "enable_sticky_info": true,
+        "button_scheme": "green",
+        "sticky_bg_color": "#191917",
+        "sticky_btn_color": "#f9c74f",
+        "sticky_btn_text_color": "#191917",
+        "sticky_rating_score": "5.0",
+        "sticky_review_count": "13",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "stats-band": {
+      "type": "product-stats-band",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "70%",
+            "label": "of the immune system is linked to gut health",
+            "sub": "Global research"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "#1",
+            "label": "highest ginger concentration per ml in NZ",
+            "sub": "Compared to leading wellness shots"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "1 in 5",
+            "label": "adults experience digestive discomfort",
+            "sub": "Digestive health research"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "bg_color": "",
+        "accent_color": "#ca2c53",
+        "highlight_color": "#f2d4d7",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "product-story": {
+      "type": "product-story",
+      "settings": {
+        "kicker": "The GOJU Story",
+        "heading": "Wellness you can feel",
+        "heading_accent_word": "can feel",
+        "body_1": "Ginger Ignition is our high-potency ginger shot with apple cider vinegar to support gut health — it's a fiery, concentrated blend designed to ignite your system and power you through the day.",
+        "body_2": "Cold-pressed and packed with active gingerols, one shot is all it takes to fire up your digestion, reduce inflammation and get moving.",
+        "pill_1_icon": "🌱",
+        "pill_1_text": "Whole-food ingredients",
+        "pill_2_icon": "🧪",
+        "pill_2_text": "Lab tested",
+        "pill_3_icon": "🌍",
+        "pill_3_text": "Sustainable packaging",
+        "accent_color": "#e5194f",
+        "image": "shopify://shop_images/Gemini_Generated_Image_mylxommylxommylx.jpg",
+        "quote": "\"Real food. Real results. No shortcuts.\"",
+        "quote_attr": "— tom, GOJU Founder",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ingredients": {
+      "type": "product-ingredients-cro",
+      "blocks": {
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#ff6b35",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-03-22_at_23.42.44.jpg",
+            "emoji": "🫚",
+            "name": "Fresh Ginger",
+            "benefit": "Supports digestion, reduces nausea, and delivers powerful anti-inflammatory gingerols.",
+            "tag": "digestion"
+          }
+        },
+        "ing_2": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#f9c74f",
+            "image": "shopify://shop_images/18.png",
+            "emoji": "🟡",
+            "name": "Apple Cider Vinegar",
+            "benefit": "Naturally fermented and traditionally used to support gut health and digestive function.",
+            "tag": "gut health"
+          }
+        },
+        "ing_4": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#e63946",
+            "image": "shopify://shop_images/lemons_dde71d37-124d-4aeb-bfb1-812a5541ecbc.png",
+            "emoji": "🌶️",
+            "name": "Lemon",
+            "benefit": "Bright, sharp and naturally rich in Vitamin C, supporting both the flavour and the function of every bottle.",
+            "tag": "CITrus"
+          }
+        },
+        "ing_3": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#a7c957",
+            "image": "shopify://shop_images/Apples.png",
+            "emoji": "🍋",
+            "name": "Apple",
+            "benefit": "Balances the heat of the ginger and ACV with natural sweetness.",
+            "tag": "balance"
+          }
+        }
+      },
+      "block_order": [
+        "ing_1",
+        "ing_2",
+        "ing_4",
+        "ing_3"
+      ],
+      "settings": {
+        "kicker": "What's Inside",
+        "heading": "Active Ingredients",
+        "heading_accent_word": "Ingredients",
+        "bg_color": "",
+        "accent_color": "#f2d4d7",
+        "highlight_color": "#e5194d",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "how-to-use": {
+      "type": "product-how-to-use",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Shake the bottle",
+            "description": "Natural ingredients settle — give it a good shake before opening to mix everything evenly."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Take it in the morning",
+            "description": "The ginger and apple cider vinegar combination is traditionally used to wake the digestive system up and get things moving before the day starts."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Or keep one handy after a big meal",
+            "description": "Ginger and apple cider vinegar have been used for centuries to support digestion and ease that uncomfortable post-meal fullness."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Drink it straight, mix it, or add it to hot water",
+            "description": "Shoot it back, sip it slowly, or pour it into hot water for a warming ginger and ACV tea. Whatever works for you."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "kicker": "Simple Routine",
+        "heading": "How to use Ginger Ignition",
+        "heading_accent": "Ginger Ignition",
+        "accent_color": "#e5194f",
+        "highlight_color": "#f2d4d7",
+        "image": "shopify://shop_images/Gemini_Generated_Image_2geou12geou12geo.jpg",
+        "visual_bg_color": "",
+        "badge_text": "Fire Up. Digest.",
+        "cta_label": "Shop Ginger Ignition",
+        "cta_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "reviews-cro": {
+      "type": "product-reviews-cro",
+      "blocks": {
+        "growave_reviews": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "min_images_for_slider_visibility": 6,
+            "reviews_per_page": 5,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "growave_reviews"
+      ],
+      "settings": {
+        "rating_score": "4.9",
+        "review_count_text": "2,100+ verified reviews",
+        "heading": "What our customers say",
+        "subtext": "Real reviews from real people who made the switch to whole-food wellness.",
+        "padding_top": 80,
+        "padding_bottom": 120
+      }
+    },
+    "ugc": {
+      "type": "product-ugc",
+      "disabled": true,
+      "settings": {
+        "heading": "Loved by our community",
+        "subtext": "Tag us @goju_shots to be featured",
+        "hashtag": "#GojuShots",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq": {
+      "type": "product-faq-cro",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What ingredients are in Ginger Ignition?",
+            "answer": "Ginger Ignition contains high-potency fresh ginger, turmeric root, lemon juice, and black pepper extract. No added sugar, no preservatives, no artificial flavours — ever."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When is the best time to drink it?",
+            "answer": "First thing in the morning on an empty stomach is ideal for maximum absorption. Also great before a workout for natural energy support."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "Choose your pack size, select 'Subscribe & Save', and we'll deliver your shots on your chosen schedule. You save 10% on every order and get free shipping. Pause, skip or cancel anytime — no lock-in."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship to Australia?",
+            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "kicker": "Got Questions?",
+        "heading": "Frequently Asked",
+        "subtext": "Can't find what you're looking for? Reach out to our team.",
+        "contact_label": "Contact us",
+        "contact_url": "",
+        "bg_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "crosssell": {
+      "type": "product-recommendations",
+      "blocks": {
+        "collection_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "our-range-1"
+          }
+        }
+      },
+      "block_order": [
+        "collection_1"
+      ],
+      "settings": {
+        "heading": "Complete your Wellness Routine",
+        "info": ""
+      }
+    },
+    "loox-reviews": {
+      "type": "apps",
+      "settings": {
+        "include_margins": false,
+        "anchor_link_id": "reviews"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "stats-band",
+    "product-story",
+    "ingredients",
+    "how-to-use",
+    "reviews-cro",
+    "ugc",
+    "faq",
+    "crosssell",
+    "loox-reviews"
+  ]
+}

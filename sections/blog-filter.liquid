@@ -1,0 +1,99 @@
+{% if section.settings.hide_show == false %}
+<section class="filter-container" style="background: {{ section.settings.background_color }};">
+<div class="container container1">
+    <div class="row  align-items-end">
+        <div class="col-md-12">
+            <div class="filter-box">
+                <h5 class="d-none d-md-block">{{ section.settings.heading }}</h5>
+                <h5 class="d-md-none" id="openFilterBox">{{ section.settings.heading }}: <span>{% render 'arrow-down' %}</span></h5>
+                <ul class="filter-tag-list d-none d-md-flex flex-wrap">
+                    <li class="filter-tag-item {% comment %}active{% endcomment %}">
+                        <a href="/blogs/gojushots" class="btn-white-outline filter-link">Everything</a>
+                    </li>
+                    <li class="filter-tag-item">
+                        <a href="/blogs/gojushots/tagged/goju-news" class="btn-white-outline filter-link">Goju News</a>
+                    </li>
+                    <li class="filter-tag-item">
+                        <a href="/blogs/gojushots/tagged/recipe" class="btn-white-outline filter-link">Recipes</a>
+                    </li>
+                    <li class="filter-tag-item">
+                        <a href="/blogs/gojushots/tagged/health-advice" class="btn-white-outline filter-link">Health Advice</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 d-none">
+            <div class="short-by-box ">
+                <select id="dynamic_select" style="background-image: url(https://cdn.shopify.com/s/files/1/0407/5103/8632/files/dropdown.png?v=1654014962);">
+                    <option>Sort By: </option>
+                    <option value="{{ shop.url }}/blogs/gojushots">Newest to Oldest</option>
+                    <option value="{{ shop.url }}/pages/oldest-to-newest">Oldest to Newest</option>
+                    <option value="{{ shop.url }}/pages/a-to-z">A To Z</option>
+                    <option value="{{ shop.url }}/pages/z-to-a">Z To A</option>
+                </select>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="filter-menu-modal d-md-none">
+    <a href="javascript:void(0)" class="filter-close-btn"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/close.png?v=1658412956" alt="close"></a>
+    <div class="filter-menu-box">
+        <h3>filter</h3>
+        <ul class="filter-menu-list">
+            <li>
+                <a href="/blogs/gojushots" class="filter-menu-link">Everything</a>
+            </li>
+            <li>
+                <a href="/blogs/gojushots/tagged/goju-news" class="filter-menu-link">Goju News</a>
+            </li>
+            <li>
+                <a href="/blogs/gojushots/tagged/recipe" class="filter-menu-link">Recipes</a>
+            </li>
+            <li>
+                <a href="/blogs/gojushots/tagged/health-advice" class="filter-menu-link">Health Advice</a>
+            </li>
+        </ul>
+        <div class="filter-menu-cta">
+            <a href="#!" class="btn btn-black btn-block">Apply Filters</a>
+        </div>
+    </div>
+</div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Filter",
+    "settings": [
+    {
+    "type":"checkbox",
+    "id":"hide_show",
+    "label":"Hide"
+    },
+    {
+    "type":"text",
+    "id":"heading",
+    "label":"Heading"
+    },
+    {
+    "type": "color_background",
+    "id": "background_color",
+    "label": "Background",
+    "default": "#f0057a"
+    }
+    ]
+  }
+{% endschema %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    jQuery(function(){
+      // bind change event to select
+      jQuery('#dynamic_select').on('change', function () {
+          var url = jQuery(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+    });
+</script>

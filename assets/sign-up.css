@@ -1,0 +1,53 @@
+/* =================== sign-up page Css ===================== */
+.su-content-box .su-content-img { background:red; }
+.sign-up-container{padding: 80px 0 100px;}
+.su-content-box{max-width: 622px;}
+.su-content-head h3 { font-size: 48px;line-height: 112%;color: #30363C;margin-bottom: 0;}
+.su-content-head .btn{background: #E4E3DF;border-radius: 34px;}
+.su-content-head .btn:hover{background: #FFDA00}
+.su-content-head .btn img{margin-right: 6px;}
+.su-content-body {margin-top: 90px;}
+.su-content h5 {font-size: 2rem;line-height: 24px;margin-bottom: 8px;font-weight: 700;}
+.su-content + .su-content {margin-top: 28px;}
+.su-content p, .su-content li { font-size: 14px;line-height: 2rem;color: #696969; margin-bottom: 0;}
+.su-content p + p , .su-content li + li {margin-top: 16px;}        
+.signup-intro-content { margin: 0 6rem; }
+.signup-intro-block { font-size: 14px; line-height: 2rem; color: #696969; }
+.signup-intro-block h6 {font-size: 2rem;line-height: 24px;margin-bottom: 2rem;letter-spacing: .3px;color: #000;font-family: 'Ratch';}
+.signup-intro-block + .signup-intro-block { padding-top: 4rem; margin-top: 4rem; border-top: 1px solid #E4E3DF; }
+.signup-intro-block p { margin-bottom: 16px; }
+.signup-intro-content ul:not([class]) li { padding-left: 1rem; padding-bottom: 1rem; position: relative; font-size: 14px; line-height: 2rem; color: #696969; }
+.signup-intro-content ul:not([class]) li::before { content: ''; position: absolute; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 4px solid #3E3E3E; left: 0; top: 4px!important;; }
+.signup-intro-links li{width:100%;}
+.signup-intro-links li + li { margin-top: 1rem; }
+.signup-intro-link {font-size: 14px;font-family: 'Ratch';line-height: 2rem;position: relative;color: #000 !important;display: flex;align-items: center;}
+.signup-intro-link img { width: 16px; }
+.signup-intro-link span { margin-left: 9px; }
+
+@media (max-width: 1199.98px){
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .product-section .container {
+width: 100% !important; max-width: 100vw!important; padding: 0 2rem!important; }
+    .sign-up-container{padding: 6rem 0;}
+    .su-content-head h3{font-size: 38px;}
+    .su-content-body{margin-top: 6rem;}
+    .product-block-arrow { position: relative; }
+    .product-block-arrow  .custom-arrow-btn{ }
+}
+@media (max-width: 991.98px){
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+width: 100% !important; max-width: 100vw!important; padding: 0 2rem!important; }
+    .su-content-head h3{font-size: 30px;}
+    .su-content-box{margin: 0 auto;}
+    .signup-intro-content {margin: 0rem 2rem 0rem 2rem; max-width: 622px;}
+
+}
+@media (max-width: 767.98px){
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .product-section .container {
+width: 100% !important; max-width: 100vw!important; padding: 0 2rem!important; }
+    .su-content-head{flex-flow: column;}
+    .su-content-head .btn{margin-top: 25px;width: 100%;}
+    .su-content-head h3{font-size: 25px;}
+    .sign-up-container{padding: 0;}
+    .su-content-body {margin-top: 4rem;}
+
+}

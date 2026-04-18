@@ -1,0 +1,497 @@
+{% style %}
+    .mobile-banner{
+      display:none !important;
+    }
+
+    .height_control {
+    height: calc({{ section.settings.desktop_height }}vh - 120px)!important;
+    }
+    @media(min-width:992px){
+    .hero-container.text-align--top-left {
+      align-items: self-start;
+      display: flex;
+      justify-content: flex-start;
+  }
+  .text-align--top-left .hero-outer-text-box {
+      display: flex;
+      justify-content: flex-start;
+  }
+  .hero-container.text-align--top-center {
+      align-items: start;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+  }
+  .text-align--top-center .hero-outer-text-box {
+      display: flex;
+      justify-content: center;
+  }
+  .hero-container.text-align--top-right {
+      display: flex;
+      align-items: start;
+      justify-content: end;
+      text-align: right;
+  }
+  .text-align--top-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+  .hero-container.text-align--middle-left {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+  }
+  .text-align--middle-left.hero-outer-text-box {
+      display: flex;
+      justify-content: start;
+  }
+  .hero-container.text-align--middle-center {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+  }
+  .text-align--middle-center .hero-outer-text-box {
+      display: flex;
+      justify-content: center;
+  }
+  .hero-container.text-align--middle-right {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      text-align: right;
+  }
+  .text-align--middle-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+  .hero-container.text-align--bottom-left {
+      display: flex;
+      align-items: end;
+  }
+  .text-align--bottom-left .hero-outer-text-box {
+      display: flex;
+      align-items: end;
+      justify-content: start;
+  }
+  .hero-container.text-align--bottom-center {
+      display: flex;
+      justify-content: center;
+  }
+  .text-align--bottom-center .hero-outer-text-box {
+      display: flex;
+      align-items: end;
+      text-align: center;
+      justify-content: center;
+  }
+  .hero-container.text-align--bottom-right {
+      display: flex;
+      align-items: end;
+      justify-content: end;
+      text-align: right;
+  }
+  .text-align--bottom-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+    }
+  
+@media(max-width:992px){
+      .height_control {
+        height: calc({{ section.settings.mobile_height }}vh - 80px)!important;
+      }
+      .hero-container.mobile-text-align--left .hero-outer-text-box {
+          display: flex;
+          text-align: left;
+          justify-content: flex-start;
+      }
+      .hero-container.mobile-text-align--center .hero-outer-text-box {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+      }
+      .hero-container.mobile-text-align--right .hero-outer-text-box {
+          display: flex;
+          text-align: right;
+          justify-content: flex-end;
+      }
+      .hero-container.mobile-text-align--right .hero-text-box .hero-btn {
+        align-items: self-end;
+    }
+
+  .hero-container.mobile-text-align--center .hero-outer-text-box .hero-text-box .hero-btn{
+                align-items: center;
+      }
+  .hero-container.mobile-text-align--center .hero-text-box .hero-btn { align-items: end; }
+  
+  .hero-container.mobile-text-align--top-left {
+      align-items: self-start;
+      display: flex;
+      justify-content: flex-start;
+      text-align: left;
+  }
+  .mobile-text-align--top-left .hero-outer-text-box {
+      display: flex;
+      justify-content: flex-start;
+  }
+  .hero-container.mobile-text-align--top-left .hero-text-box .hero-btn { align-items: start; }
+  
+  .hero-container.mobile-text-align--top-center {
+      align-items: start;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+  }
+  .mobile-text-align--top-center .hero-outer-text-box {
+      display: flex;
+      justify-content: center;
+  }
+  .hero-container.mobile-text-align--top-center .hero-text-box .hero-btn { align-items: center; }
+  
+  .hero-container.mobile-text-align--top-right {
+      display: flex;
+      align-items: start;
+      justify-content: end;
+      text-align: right;
+  }
+  .mobile-text-align--top-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+  .hero-container.mobile-text-align--top-right .hero-text-box .hero-btn { align-items: end; }
+  
+  .hero-container.mobile-text-align--middle-left {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      text-align: left;
+  }
+  .mobile-text-align--middle-left.hero-outer-text-box {
+      display: flex;
+      justify-content: start;
+  }
+  .hero-container.mobile-text-align--middle-left .hero-text-box .hero-btn { align-items: start; }
+  
+  .hero-container.mobile-text-align--middle-center {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+  }
+  .mobile-text-align--middle-center .hero-outer-text-box {
+      display: flex;
+      justify-content: center;
+  }
+  .hero-container.mobile-text-align--middle-center .hero-text-box .hero-btn { align-items: center; }
+  
+  .hero-container.mobile-text-align--middle-right {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      text-align: right;
+  }
+  .mobile-text-align--middle-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+  .hero-container.mobile-text-align--middle-right .hero-text-box .hero-btn { align-items: end; }
+  
+  .hero-container.mobile-text-align--bottom-left {
+      display: flex;
+      align-items: end;
+      text-align: left;
+  }
+  .mobile-text-align--bottom-left .hero-outer-text-box {
+      display: flex;
+      align-items: end;
+      justify-content: start;
+  }
+  .hero-container.mobile-text-align--bottom-left .hero-text-box .hero-btn { align-items: start; }
+  
+  .hero-container.mobile-text-align--bottom-center {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+  }
+  .mobile-text-align--bottom-center .hero-outer-text-box {
+      display: flex;
+      align-items: end;
+      text-align: center;
+      justify-content: center;
+  }
+  .hero-container.mobile-text-align--bottom-center .hero-text-box .hero-btn { align-items: center; }
+  
+  .hero-container.mobile-text-align--bottom-right {
+      display: flex;
+      align-items: end;
+      justify-content: end;
+      text-align: right;
+  }
+  .mobile-text-align--bottom-right .hero-outer-text-box {
+      display: flex;
+      justify-content: end;
+  }
+  .hero-container.mobile-text-align--bottom-right .hero-text-box .hero-btn { align-items: end; }
+}
+
+{% endstyle %}
+
+
+
+
+<section class="hero-outer-container  hero-slider desktop-banner hero-slider-{{ section.id }}" style="overflow:hidden;">
+  <div class="row">
+    <div class="col-md-12">
+      {% for block in section.blocks %}
+        <div
+          class="hero-container text-{{ block.settings.flex_align }} height_control mobile-text-{{ block.settings.flex_align_mobile }}"
+          style="background-image:url('{% if block.settings.image != blank %}{{ block.settings.image | img_url:'1920x'}}{% endif %}');"
+        >
+          {% if block.settings.video_id != blank %}
+            <iframe
+              src="https://www.youtube.com/embed/{{ block.settings.video_id }}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+            ></iframe>
+          {% endif %}
+          <div class="hero-outer-text-box">
+            <div>
+              <div class="hero-text-box">
+                <div>
+                  <h3 style="color:{{ block.settings.text_color }}">{{ block.settings.sub_heading }}</h3>
+                  <h1 style="color:{{ block.settings.text_color }}">{{ block.settings.heading }}</h1>
+                  <div class="hero-text">
+                    <p style="color:{{ block.settings.text_color }}">{{ block.settings.text }}</p>
+                  </div>
+                  <div class="hero-btn">
+                    <a
+                      href="{{ block.settings.btn_url }}"
+                      class="btn btn-black"
+                      style="background-color:{{ block.settings.btn1_color }}; color:{{ block.settings.btn1_text_color }}"
+                    >
+                      {{ block.settings.btn_text }}
+                    </a>
+                    <a
+                      href="{{ block.settings.btn_url_2 }}"
+                      class="btn btn-black button-alt"
+                      style="background-color:{{ block.settings.btn2_color }}; color:{{ block.settings.btn2_text_color }}"
+                    >
+                      {{ block.settings.btn_text_2 }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section class="hero-outer-container hero-slider mobile-banner">
+  {% for block in section.blocks %}
+    <div
+      class="hero-container d-flex align-items-end"
+      style="background-image:url('{% if block.settings.image_mob != blank %}{{ block.settings.image_mob | img_url:'676x'}}{% endif %}')"
+    >
+      {% if block.settings.video_id != blank %}
+        <iframe
+          src="https://www.youtube.com/embed/{{ block.settings.video_id }}?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+        ></iframe>
+      {% endif %}
+      <div class="container container1">
+        <div class="row">
+          <div class="col-6">
+            <div class="text-{{ block.settings.flex_align }}">
+              <h3 style="color:{{ block.settings.text_color }}">{{ block.settings.sub_heading }}</h3>
+              <h1 style="color:{{ block.settings.text_color }}">{{ block.settings.heading }}</h1>
+              <div class="hero-text">
+                <p style="color:{{ block.settings.text_color }}">{{ block.settings.text }}</p>
+              </div>
+              <div class="hero-btn">
+                <a
+                  href="{{ block.settings.btn_url }}"
+                  class="btn btn-black"
+                  style="background-color:{{ block.settings.btn_color }}; color:{{ block.settings.text_color }}"
+                >
+                  {{ block.settings.btn_text }}
+                </a>
+                <a
+                  href="{{ block.settings.btn_url_2 }}"
+                  class="btn btn-black button-alt"
+                  style=" color:{{ block.settings.text_color }}"
+                >
+                  {{ block.settings.btn_text_2 }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+      {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "vh",
+      "label": "Desktop_height",
+      "default": 80
+    },
+      {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "vh",
+      "label": "Mobile_height",
+      "default": 80
+    }
+
+  ],
+  "blocks":[
+    {
+    "name": "Hero",
+     "type": "hero",
+    "settings": [
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#fcfbf4"
+      },
+      {
+        "type":"text",
+        "id":"sub_heading",
+        "label":"Sub Heading"
+      },
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading"
+      },
+      {
+        "type":"textarea",
+        "id":"text",
+        "label":"Text"
+      },
+      {
+        "type":"color",
+        "id":"btn1_color",
+        "label":"Button 1 Background Color",
+        "default": "#191917"
+      },
+      {
+        "type": "color",
+        "id": "btn1_text_color",
+        "label": "Button 1 Text Color",
+        "default": "#fcfbf4"
+      },
+      {
+        "type":"text",
+        "id":"btn_text",
+        "label":"Button 1 Text"
+      },
+      {
+        "type":"url",
+        "id":"btn_url",
+        "label":"Button 1 Link"
+      },
+      {
+        "type":"color",
+        "id":"btn2_color",
+        "label":"Button 2 Background Color",
+        "default": "#191917"
+      },
+      {
+        "type": "color",
+        "id": "btn2_text_color",
+        "label": "Button 2 Text Color",
+        "default": "#fcfbf4"
+      },
+      {
+        "type":"text",
+        "id":"btn_text_2",
+        "label":"Button 2 Text"
+      },
+      {
+        "type":"url",
+        "id":"btn_url_2",
+        "label":"Button 2 Link"
+      },
+      {
+  	   "type": "image_picker",
+  	   "id": "image",
+  	   "label": "Background Image"
+  	},
+       {
+  	   "type": "image_picker",
+  	   "id": "image_mob",
+  	   "label": "Background Image Mobile"
+  	},
+      {
+  	   "type": "text",
+  	   "id": "video_id",
+  	   "label": "Background Video ID"
+  	 },
+     {
+      "type": "select",
+      "id": "flex_align",
+      "label": "Desktop Block alignment",
+      "default": "align--middle-center",
+      "options": [
+        { "value": "align--top-left", "label": "Top left"},
+        { "value": "align--top-center", "label": "Top center"},
+        { "value": "align--top-right", "label": "Top right"},
+        { "value": "align--middle-left", "label": "Middle left"},
+        { "value": "align--middle-center", "label": "Absolute center"},
+        { "value": "align--middle-right", "label": "Middle right"},
+        { "value": "align--bottom-left", "label": "Bottom left"},
+        { "value": "align--bottom-center", "label": "Bottom center"},
+        { "value": "align--bottom-right", "label": "Bottom right"}
+      ]
+    },
+
+       {
+      "type": "select",
+      "id": "flex_align_mobile",
+      "label": "Mobile Block alignment",
+      "default": "mobile-align--bottom-center",
+      "options": [
+        { "value": "mobile-align--top-left", "label": "Top left"},
+        { "value": "mobile-align--top-center", "label": "Top center"},
+        { "value": "mobile-align--top-right", "label": "Top right"},
+        { "value": "mobile-align--middle-left", "label": "Middle left"},
+        { "value": "mobile-align--middle-center", "label": "Absolute center"},
+        { "value": "mobile-align--middle-right", "label": "Middle right"},
+        { "value": "mobile-align--bottom-left", "label": "Bottom left"},
+        { "value": "mobile-align--bottom-center", "label": "Bottom center"},
+        { "value": "mobile-align--bottom-right", "label": "Bottom right"}
+      ]
+    }
+     ]
+    }
+  ],
+  "presets":[
+    {
+    "name":"Hero Banner"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

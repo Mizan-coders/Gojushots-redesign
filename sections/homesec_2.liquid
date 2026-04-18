@@ -1,0 +1,62 @@
+{% style %}
+overflow:hidden;
+{% endstyle %}
+
+<section id="two" data-color="#FAF9F6" class="dksoni panel text-block-container text-center position-relative" data-color="#FFFFFF";" style="overflow:hidden;">
+    <div class="sticker-img d-md-block d-none">
+        <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/fuel-sticker.png?v=1654315634" alt="" />
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="text-block-content">
+                    <h3>{{ section.settings.heading }}</h3>
+                    {{ section.settings.paragraph }}
+                    <div class="shape-box d-flex justify-content-center">
+                        {% for block in section.blocks %}  
+                        <img src="{{ block.settings.image |img_url:'80x80' }}" alt="{{block.settings.image |alt }}" />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Straight up Goju",
+    "settings": [
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading"
+      },
+      {
+        "type":"richtext",
+        "id":"paragraph",
+        "label":"Paragraph"
+      }
+    ],
+    "blocks": [
+  	{
+    	"name": "Images",
+    	"type": "images",
+    	"settings": [
+    	{
+    	   "type": "image_picker",
+    	   "id": "image",
+    	   "label": "Image"
+    	}
+    	]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

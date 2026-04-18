@@ -1,0 +1,445 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-cro",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.custom.product_tagline.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "short_description": {
+          "type": "short_description",
+          "settings": {}
+        },
+        "benefit_pills": {
+          "type": "benefit_pills",
+          "settings": {
+            "pill_1_icon": "🌿",
+            "pill_1_text": "100% Natural",
+            "pill_2_icon": "NZ",
+            "pill_2_text": "Made in NZ",
+            "pill_3_icon": "❄️",
+            "pill_3_text": "Cold-Pressed",
+            "pill_4_icon": "🍯",
+            "pill_4_text": "NZ Manuka Honey"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_label": "Choose Pack Size",
+            "picker_type": "button"
+          }
+        },
+        "purchase_widget": {
+          "type": "purchase_widget",
+          "settings": {
+            "label_onetime": "One-time",
+            "label_sub": "Subscribe & Save",
+            "discount_percent": 10,
+            "sub_note": "Free shipping included — always",
+            "onetime_shipping": "+ $8 shipping · subscribe for free shipping always",
+            "perk_1": "10% off every order",
+            "perk_2": "Free shipping, always",
+            "perk_3": "Swap, skip or cancel anytime",
+            "freq_label": "Deliver every",
+            "freq_unit": "weeks",
+            "default_freq": "2w",
+            "plan_2w": "2724757672",
+            "hint_2w": "Daily habit — arrives just as you finish your last bottle.",
+            "plan_3w": "2724692136",
+            "hint_3w": "Most days — great buffer without over-ordering.",
+            "plan_4w": "2724724904",
+            "hint_4w": "A few times a week — clean monthly rhythm.",
+            "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
+            "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
+          }
+        },
+        "recharge_widget": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "mini_trust": {
+          "type": "mini_trust",
+          "settings": {
+            "icon_1": "🔒",
+            "text_1": "Secure checkout",
+            "icon_2": "🚚",
+            "text_2": "Free shipping w/ Subscribe",
+            "icon_3": "📋",
+            "text_3": "30-day guarantee",
+            "icon_4": "🍯",
+            "text_4": "NZ Manuka Honey"
+          }
+        },
+        "acc_how_to": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "How to Take",
+            "content": "<p>Shake well before pouring. Enjoy chilled as a daily wellness drink — take a glass each morning for best results.</p>"
+          }
+        },
+        "acc_ingredients": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Ingredients",
+            "content": "<p>Organic ginger juice, NZ Manuka honey, organic apple juice, NZ lime juice, black pepper extract. No added sugar, no preservatives.</p>"
+          }
+        },
+        "acc_shipping": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Shipping Information",
+            "content": "<p>Subscribe &amp; Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–5 business days to NZ and 3–7 business days to Australia.</p>"
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "short_description",
+        "growave_review_avg",
+        "benefit_pills",
+        "variant_picker",
+        "purchase_widget",
+        "recharge_widget",
+        "buy_buttons",
+        "mini_trust",
+        "acc_how_to",
+        "acc_ingredients",
+        "acc_shipping"
+      ],
+      "settings": {
+        "gallery_layout": "thumbnail_slider",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "enable_sticky_info": true,
+        "sticky_rating_score": "5.0",
+        "sticky_review_count": "13",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "stats-band": {
+      "type": "product-stats-band",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "94%",
+            "label": "of customers felt more energetic within 2 weeks",
+            "sub": "Based on customer survey"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "natural ingredients including authentic NZ Manuka honey",
+            "sub": "Third-party verified"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "2,100+",
+            "label": "customers choose Ginger Manuka for their daily wellness routine",
+            "sub": "And counting"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "bg_color": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "product-story": {
+      "type": "product-story",
+      "settings": {
+        "kicker": "The GOJU Story",
+        "heading": "Wellness that actually works",
+        "heading_accent_word": "actually works",
+        "body_1": "Ginger Manuka is our premium multi-dose bottle — cold-pressed ginger elevated with authentic New Zealand Manuka honey for a smoother, richer daily wellness drink.",
+        "body_2": "The antibacterial power of Manuka meets the anti-inflammatory punch of ginger. One bottle. Many days of premium goodness.",
+        "pill_1_icon": "🌱",
+        "pill_1_text": "Whole-food ingredients",
+        "pill_2_icon": "🍯",
+        "pill_2_text": "NZ Manuka Honey",
+        "pill_3_icon": "🌍",
+        "pill_3_text": "Sustainable packaging",
+        "quote": "\"Real food. Real results. No shortcuts.\"",
+        "quote_attr": "— GOJU Founder",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ingredients": {
+      "type": "product-ingredients-cro",
+      "blocks": {
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#ff6b35",
+            "emoji": "🫚",
+            "name": "Fresh Ginger",
+            "benefit": "Supports digestion, reduces nausea, and delivers powerful anti-inflammatory gingerols.",
+            "tag": "Anti-inflammatory"
+          }
+        },
+        "ing_2": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#c8963e",
+            "emoji": "🍯",
+            "name": "NZ Manuka Honey",
+            "benefit": "Authentic New Zealand Manuka honey with natural antibacterial and immune-supporting properties.",
+            "tag": "Antibacterial"
+          }
+        },
+        "ing_3": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#a7c957",
+            "emoji": "🍋",
+            "name": "Lemon Juice",
+            "benefit": "Natural source of Vitamin C to support immune function and skin health.",
+            "tag": "Vitamin C"
+          }
+        },
+        "ing_4": {
+          "type": "ingredient",
+          "settings": {
+            "card_color": "#e63946",
+            "emoji": "🌶️",
+            "name": "Black Pepper",
+            "benefit": "Enhances absorption of active compounds for maximum benefit.",
+            "tag": "Bioavailability"
+          }
+        }
+      },
+      "block_order": [
+        "ing_1",
+        "ing_2",
+        "ing_3",
+        "ing_4"
+      ],
+      "settings": {
+        "kicker": "What's Inside",
+        "heading": "Active Ingredients",
+        "heading_accent_word": "Ingredients",
+        "bg_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "how-to-use": {
+      "type": "product-how-to-use",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Shake the bottle",
+            "description": "Natural ingredients settle — give it a good shake before pouring to mix everything evenly."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Pour your daily shot",
+            "description": "Pour approximately 30–60ml into a glass each morning for your daily dose of ginger and Manuka goodness."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Keep it refrigerated",
+            "description": "Store in the fridge after opening and consume within 7 days for maximum freshness."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Make it a daily habit",
+            "description": "Best results come with consistent daily use. Subscribe so you never run out."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "kicker": "Simple Routine",
+        "heading": "How to use Ginger Manuka 500ml",
+        "heading_accent": "Ginger Manuka",
+        "visual_bg_color": "",
+        "badge_text": "30-Day Guarantee",
+        "cta_label": "Shop Ginger Manuka 500ml",
+        "cta_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "reviews-cro": {
+      "type": "product-reviews-cro",
+      "blocks": {
+        "growave_reviews": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "min_images_for_slider_visibility": 6,
+            "reviews_per_page": 5,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "growave_reviews"
+      ],
+      "settings": {
+        "rating_score": "4.9",
+        "review_count_text": "2,100+ verified reviews",
+        "heading": "What our customers say",
+        "subtext": "Real reviews from real people who made the switch to whole-food wellness.",
+        "padding_top": 80,
+        "padding_bottom": 120
+      }
+    },
+    "ugc": {
+      "type": "product-ugc",
+      "disabled": true,
+      "settings": {
+        "heading": "Loved by our community",
+        "subtext": "Tag us @goju_shots to be featured",
+        "hashtag": "#GojuShots",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq": {
+      "type": "product-faq-cro",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What makes this different from regular Ginger 500ml?",
+            "answer": "Ginger Manuka uses authentic New Zealand Manuka honey, which adds natural antibacterial and immune-supporting properties alongside a smoother, richer flavour."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How many servings are in the 500ml bottle?",
+            "answer": "The 500ml bottle provides approximately 8–16 servings depending on your pour size (30–60ml per serve)."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "Choose your delivery frequency, select 'Subscribe & Save', and we'll deliver your bottle on schedule. You save 10% on every order and get free shipping. Pause, skip or cancel anytime — no lock-in."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship to Australia?",
+            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "kicker": "Got Questions?",
+        "heading": "Frequently Asked",
+        "subtext": "Can't find what you're looking for? Reach out to our team.",
+        "contact_label": "Contact us",
+        "contact_url": "",
+        "bg_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "crosssell": {
+      "type": "product-recommendations",
+      "blocks": {
+        "collection_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "our-range-1"
+          }
+        }
+      },
+      "block_order": [
+        "collection_1"
+      ],
+      "settings": {
+        "heading": "Complete your Wellness Routine",
+        "info": ""
+      }
+    },
+    "loox-reviews": {
+      "type": "apps",
+      "settings": {
+        "include_margins": false,
+        "anchor_link_id": "reviews"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "stats-band",
+    "product-story",
+    "ingredients",
+    "how-to-use",
+    "reviews-cro",
+    "ugc",
+    "faq",
+    "crosssell",
+    "loox-reviews"
+  ]
+}

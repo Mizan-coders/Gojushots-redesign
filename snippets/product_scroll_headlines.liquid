@@ -1,0 +1,27 @@
+
+          
+<div class="scroll_headlines" {{ block.shopify_attributes }}>
+  {%- if product.metafields.custom.desc != blank -%}
+    <div class="scroll_headlines-item">
+      <a href="#{{ product.metafields.custom.desc_id | handleize }}">{{ product.metafields.custom.desc }}</a>
+    </div>
+  {%- endif -%} 
+  
+  {%- if product.metafields.custom.whats_in_it != blank -%}
+    <div class="scroll_headlines-item">
+      <a href="#{{ product.metafields.custom.whats_in_it_id | handleize }}">{{ product.metafields.custom.whats_in_it }}</a>
+    </div>
+  {%- endif -%}
+                  
+  {%- if product.metafields.custom.subscription != blank -%}
+    <div class="scroll_headlines-item">
+      <a href="#{{ product.metafields.custom.subscription_id | handleize }}">{{ product.metafields.custom.subscription }}</a>
+    </div>
+  {%- endif -%}
+                  
+  {%- if product.metafields.custom.reviews != blank -%}
+    <div class="scroll_headlines-item">
+      <a href="#{{ product.metafields.custom.reviews_id | handleize }}">{{ product.metafields.custom.reviews }}</a>
+    </div>
+  {%- endif -%}
+</div>

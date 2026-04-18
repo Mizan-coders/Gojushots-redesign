@@ -1,0 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-new-design": {
+      "type": "main-article-new-design",
+      "blocks": {
+        "c72398a6-c229-499d-97a7-1aeda2081452": {
+          "type": "share",
+          "settings": {
+            "share_label": "hgd"
+          }
+        },
+        "2c5ba4a2-3301-43cd-8bb4-8952d49748db": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "c72398a6-c229-499d-97a7-1aeda2081452",
+        "2c5ba4a2-3301-43cd-8bb4-8952d49748db"
+      ],
+      "settings": {}
+    },
+    "93767bf8-4614-4419-8785-28adcef54b5e": {
+      "type": "insta-feed",
+      "blocks": {
+        "296c32af-bd63-4086-93cc-edf36270402c": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "296c32af-bd63-4086-93cc-edf36270402c"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-new-design",
+    "93767bf8-4614-4419-8785-28adcef54b5e"
+  ]
+}

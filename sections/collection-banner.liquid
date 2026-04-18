@@ -1,0 +1,67 @@
+{{ 'collection-new.css' | asset_url | stylesheet_tag }}
+{% style %}
+
+
+{% endstyle %}
+<section class="collection-banner collection-{{ section.id }} overflow-hidden" style="background-color:{{ section.settings.background }};">
+    <div class="container container1 collection-slide">
+      <div class="collection-content">
+        <h1>{{ section.settings.heading }}</h1>
+        <div class="collection-list-wrappper">
+          {% for block in section.blocks %}  
+          <div class="collection-list">
+            <a style="background: {{ section.settings.button_color_background }};" href="{{ block.settings.collection_url }}">{{ block.settings.title }}</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Collection Banner",
+    "settings": [
+      {
+        "type": "color_background",
+        "id": "background",
+        "label": "Background Color",
+        "default": "#F7CB0F"
+      },
+      {
+        "type": "color_background",
+        "id": "button_color_background",
+        "label": "Button Background Color",
+        "default": "#99458b"
+      },
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading"
+      }
+    ],
+    "max_blocks": 5,
+    "blocks": [
+       {
+         "name": "Collection List",
+         "type": "collection_list",
+         "settings": [
+           {
+             "type": "text",
+             "id": "title",
+             "label": "Collection Title"
+           },
+           {
+             "type": "text",
+             "id": "collection_url",
+             "label": "Collection URL"
+           }
+         ]
+       }
+    ],
+    "presets": [
+      {
+        "name": "Collection Banner"
+      }
+    ]
+  }
+{% endschema %}

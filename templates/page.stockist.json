@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "stockist-sec1": {
+      "type": "stockist-sec1",
+      "settings": {
+        "block_1_title": "General Inquiries",
+        "block_1_body": "<p>For all compliments, greetins, questions or issues please fill out the contact form and we’ll get back to you.</p>",
+        "block_1_button_text": "Contact us",
+        "block_1_btn_link": "shopify://pages/contact-us",
+        "block_2_title": "Wholesale",
+        "block_2_body": "<p>Thinking of stocking Goju at your store? Awesome! We’d love to chat. Get in touch with us directly at team@gojushots.com or learn more about us by clicking the link below.</p>",
+        "block_2_button_text": "Learn about Goju",
+        "block_2_btn_link": "shopify://pages/about-us",
+        "block_3_title": "Social Media",
+        "block_3_icon_1": "shopify://shop_images/image_2023_03_27T01_34_15_587Z.png",
+        "block_3_social_text_1": "Follow us on Facebook",
+        "block_3_socail_link_1": "https://www.facebook.com/gojushots",
+        "block_3_icon_2": "shopify://shop_images/image_2023_03_27T01_36_18_060Z.png",
+        "block_3_social_text_2": "Follow us on Instagram",
+        "block_3_socail_link_2": "https://www.instagram.com/goju_shots/",
+        "block_3_social_text_3": "",
+        "block_3_socail_link_3": ""
+      }
+    },
+    "ed91ebef-db4c-4cd1-a8e7-78a60c8fc88e": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "stockist-sec1",
+    "ed91ebef-db4c-4cd1-a8e7-78a60c8fc88e"
+  ]
+}

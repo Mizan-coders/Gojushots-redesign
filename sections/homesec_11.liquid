@@ -1,0 +1,542 @@
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── HOMEPAGE BLOG ── */
+  .homepage-blog-{{ section.id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* ── Section header ── */
+  .homepage-blog-{{ section.id }} .hblog__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .homepage-blog-{{ section.id }} .hblog__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4a9c65;
+    margin: 0 0 16px;
+    display: block;
+  }
+  .homepage-blog-{{ section.id }} .hblog__title {
+    font-size: clamp(36px, 5.5vw, 62px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #191917;
+    margin: 0;
+  }
+  .homepage-blog-{{ section.id }} .hblog__title em {
+    font-style: italic;
+    font-weight: 700;
+    text-transform: none;
+    color: #2d6b45;
+    letter-spacing: 0;
+  }
+  .homepage-blog-{{ section.id }} .hblog__sub {
+    font-size: 16px;
+    color: #888888;
+    margin: 16px auto 0;
+    max-width: 480px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* ── Base reset ── */
+  .homepage-blog-{{ section.id }} .hblog__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-item {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* ── Grid mode (slider off) ── */
+  .homepage-blog-{{ section.id }} .hblog__grid:not(.hblog__grid--slider) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Slider mode ── */
+  .homepage-blog-{{ section.id }} .hblog__slider-track {
+    overflow: hidden;
+    width: 100%;
+  }
+  .homepage-blog-{{ section.id }} .hblog__grid--slider {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: scroll !important;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 20px !important;
+    grid-template-columns: unset !important;
+    padding: 4px 0 !important;
+    margin: -4px 0 !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .homepage-blog-{{ section.id }} .hblog__grid--slider::-webkit-scrollbar {
+    display: none;
+  }
+  .homepage-blog-{{ section.id }} .hblog__grid--slider .hblog__card-item {
+    flex: 0 0 360px !important;
+    width: 360px !important;
+    scroll-snap-align: start;
+  }
+  /* ── Bottom bar (nav + view-all) ── */
+  .homepage-blog-{{ section.id }} .hblog__bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .homepage-blog-{{ section.id }} .hblog__nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .homepage-blog-{{ section.id }} .hblog__nav-count {
+    font-size: 13px;
+    color: #888;
+    min-width: 40px;
+    text-align: center;
+  }
+  .homepage-blog-{{ section.id }} .hblog__nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.18);
+    background: transparent;
+    color: #191917;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .homepage-blog-{{ section.id }} .hblog__nav-btn:hover {
+    border-color: #191917;
+    background: rgba(0,0,0,0.04);
+  }
+  .homepage-blog-{{ section.id }} .hblog__nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+  /* .hblog__view-btn styles live in component-goju-btn.css (.goju-btn--primary) */
+
+  /* ── Card ── */
+  .homepage-blog-{{ section.id }} .hblog__card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ── Card image ── */
+  .homepage-blog-{{ section.id }} .hblog__card-image {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    background: #f0ede5;
+    flex-shrink: 0;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-image img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card:hover .hblog__card-image img {
+    transform: scale(1.04);
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-tag {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: #1a4a2e;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    z-index: 1;
+  }
+
+  /* ── Card body ── */
+  .homepage-blog-{{ section.id }} .hblog__card-body {
+    padding: 16px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #191917;
+    margin: 0 0 8px;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-meta {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d6b45;
+    margin-top: 10px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .homepage-blog-{{ section.id }} .hblog__card-cta:hover {
+    color: #191917;
+  }
+
+  /* ── Responsive ── */
+  @media screen and (max-width: 989px) {
+    .homepage-blog-{{ section.id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    /* Slider OFF: 2-col on tablet */
+    .homepage-blog-{{ section.id }} .hblog__grid:not(.hblog__grid--slider) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .homepage-blog-{{ section.id }} .hblog__header {
+      margin-bottom: 32px;
+    }
+    /* Slider OFF: 1-col on mobile */
+    .homepage-blog-{{ section.id }} .hblog__grid:not(.hblog__grid--slider) {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    /* Slider ON: show ~2 cards at a time on mobile */
+    .homepage-blog-{{ section.id }} .hblog__grid--slider .hblog__card-item {
+      flex: 0 0 260px !important;
+      width: 260px !important;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign blog = blogs[section.settings.blog] -%}
+
+{%- if blog != blank and blog.articles_count > 0 -%}
+
+  {%- liquid
+    assign post_limit = section.settings.post_limit
+    assign show_view_all = false
+    if section.settings.show_view_all and section.settings.view_all != blank
+      assign show_view_all = true
+    endif
+  -%}
+
+  <section class="homepage-blog-{{ section.id }} section-{{ section.id }}-padding">
+
+    {%- comment -%} ── Section header ── {%- endcomment -%}
+    <div class="hblog__header">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <p class="hblog__eyebrow">{{ section.settings.eyebrow_text | escape }}</p>
+      {%- endif -%}
+      <h2 class="hblog__title">
+        {{- section.settings.title | escape -}}
+        {%- if section.settings.heading_italic != blank -%}
+          <em> {{ section.settings.heading_italic | escape }}</em>
+        {%- endif -%}
+      </h2>
+      {%- if section.settings.sub_title != blank -%}
+        <p class="hblog__sub">{{ section.settings.sub_title | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── Blog posts ── {%- endcomment -%}
+    {%- if section.settings.enable_slider -%}
+      <div class="hblog__slider-track">
+    {%- endif -%}
+
+    <ul
+      {% if section.settings.enable_slider %}
+        id="Slider-{{ section.id }}"
+        class="hblog__grid hblog__grid--slider"
+      {% else %}
+        class="hblog__grid"
+      {% endif %}
+      role="list"
+    >
+      {%- for article in blog.articles limit: post_limit -%}
+        {%- liquid
+          assign word_count = article.content | strip_html | split: ' ' | size
+          assign read_time = word_count | divided_by: 200 | at_least: 1
+          assign first_tag = article.tags | first
+        -%}
+        <li
+          class="hblog__card-item"
+        >
+          <article>
+            <a href="{{ article.url }}" class="hblog__card" aria-label="{{ article.title | escape }}">
+
+              {%- if article.image != blank -%}
+                <div class="hblog__card-image">
+                  <img
+                    src="{{ article.image | image_url: width: 600 }}"
+                    alt="{{ article.image.alt | default: article.title | escape }}"
+                    loading="lazy"
+                    width="600"
+                    height="400"
+                  >
+                  {%- if first_tag != blank -%}
+                    <span class="hblog__card-tag">{{ first_tag | escape }}</span>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="hblog__card-image">
+                  {%- if first_tag != blank -%}
+                    <span class="hblog__card-tag">{{ first_tag | escape }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              <div class="hblog__card-body">
+                <p class="hblog__card-title">{{ article.title | escape }}</p>
+                {%- if section.settings.show_date -%}
+                  <p class="hblog__card-meta">
+                    {{- read_time }} min read
+                    {%- if first_tag != blank %} &middot; {{ first_tag | escape }}{%- endif -%}
+                  </p>
+                {%- endif -%}
+                <span class="hblog__card-cta">Learn More &rarr;</span>
+              </div>
+
+            </a>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.enable_slider -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ── Bottom bar: nav arrows + view-all ── {%- endcomment -%}
+    {%- if section.settings.enable_slider or show_view_all -%}
+      <div class="hblog__bottom-bar">
+        {%- if section.settings.enable_slider -%}
+          <div class="hblog__nav no-js-hidden">
+            <button type="button" class="hblog__nav-btn" data-hblog-prev aria-label="{{ 'general.slider.previous_slide' | t }}">&#8592;</button>
+            <button type="button" class="hblog__nav-btn" data-hblog-next aria-label="{{ 'general.slider.next_slide' | t }}">&#8594;</button>
+            <span data-hblog-total style="display:none">{{ post_limit }}</span>
+          </div>
+        {%- endif -%}
+        {%- if show_view_all -%}
+          {%- render 'goju-btn',
+            label: section.settings.view_all_text,
+            url: section.settings.view_all,
+            style: 'primary'
+          -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.enable_slider -%}
+      <script>
+        (function() {
+          var slider = document.getElementById('Slider-{{ section.id }}');
+          if (!slider) return;
+          var sectionEl = slider.closest('.homepage-blog-{{ section.id }}');
+          if (!sectionEl) return;
+          var prevBtn = sectionEl.querySelector('[data-hblog-prev]');
+          var nextBtn = sectionEl.querySelector('[data-hblog-next]');
+          var total = parseInt(sectionEl.querySelector('[data-hblog-total]').textContent, 10);
+          var currentPage = 1;
+
+          function getSlideStep() {
+            var slide = slider.querySelector('.hblog__card-item');
+            if (!slide) return 380;
+            var gap = parseFloat(window.getComputedStyle(slider).gap) || 20;
+            return slide.offsetWidth + gap;
+          }
+
+          function updateCounter() {
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= total;
+          }
+
+          function goTo(page) {
+            currentPage = Math.max(1, Math.min(total, page));
+            slider.scrollTo({ left: (currentPage - 1) * getSlideStep(), behavior: 'smooth' });
+            updateCounter();
+          }
+
+          prevBtn.addEventListener('click', function() { goTo(currentPage - 1); });
+          nextBtn.addEventListener('click', function() { goTo(currentPage + 1); });
+
+          slider.addEventListener('scroll', function() {
+            var step = getSlideStep();
+            if (step > 0) currentPage = Math.min(total, Math.max(1, Math.round(slider.scrollLeft / step) + 1));
+            updateCounter();
+          });
+
+          updateCounter();
+        })();
+      </script>
+    {%- endif -%}
+
+  </section>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "default": "Health & Wellness",
+      "label": "Eyebrow text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Dive deeper"
+    },
+    {
+      "type": "text",
+      "id": "heading_italic",
+      "default": "into health.",
+      "label": "Heading italic part"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Subtext",
+      "default": "Expert-led guides on nutrition, recovery, sleep and everyday performance."
+    },
+    {
+      "type": "header",
+      "content": "Blog posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Number of posts",
+      "min": 2,
+      "max": 9,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date & read time"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'Learn more' button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "view_all",
+      "label": "View all URL"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all button text",
+      "default": "Learn more"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "default": false,
+      "label": "Enable slider with arrows"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

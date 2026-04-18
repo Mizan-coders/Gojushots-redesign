@@ -1,0 +1,90 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- if blog.articles_count > 0 -%}
+<section class="news-post-container news-post-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="new-heading mob-center">
+                    <h3>{{ section.settings.title }}<span class="new-heading-overlay">WELLNESS</span></h3>
+                </div>
+            </div>
+            <div class="col-md-4 text-center text-md-end">
+                <a href="{{ section.settings.view_all }}" class="btn btn-white">View Wellness Hub</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="news-post-list news-post-slider  flex-wrap">
+                   {%- for article in blog.articles limit: section.settings.post_limit -%} 
+                  <li class="news-post-item">
+                        <div class="news-post-box">
+                            {%- if article.image -%}
+                             	<div class="news-post-img">
+                              	{{ article | img_url: '310x310', scale: 2 | img_tag: '' }}
+                               </div>
+                            {%- endif -%}
+                            <div class="news-post-text">
+                                <div class="news-post-date">{{ article.published_at |date: "%d. %B %y" }}</div>
+                                <h3>{{ article.title }}</h3>
+                                 {%- if article.excerpt.size > 0 -%}
+                                 <p>{{ article.excerpt }}</p>
+                                 {%- else -%}
+                                 <p>{{ article.content | strip_html | truncate: 150 }}</p>
+                                 {%- endif -%}   
+                                <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="news-post-arrow d-flex d-xl-none">
+                    <a href="#!" class="custom-arrow-btn news-post-prev"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/arrow-left.png?v=1658050161" alt="arrow-left" /></a>
+                    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                        <span class="slider__label"></span>
+                    </div>
+                    <a href="#!" class="custom-arrow-btn news-post-next"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/arrow-right.png?v=1658050161" alt="right-arrow" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blog posts"
+    },
+	{
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Heading",
+      "default": "Sub Blog posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "url",
+      "id": "view_all",
+      "label": "View all URL"
+    },
+	{
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

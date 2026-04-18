@@ -1,0 +1,149 @@
+{% style %}
+.cta-container-{{ section.id }} {
+      padding-top: {{section.settings.padding_top}}px;
+      padding-bottom: {{section.settings.padding_bottom}}px;
+  }
+.index section.cta-container-{{ section.id }} {
+    background: linear-gradient(0deg, {{section.settings.background_bottom}} 50%, {{section.settings.background_top}} 0);
+}
+
+.cta-btn .btn {
+    color: {{ section.settings.text_color }};
+    padding: 15px 4rem;
+}
+  
+.btn-outline, .btn-outline:focus {
+    color: #000;
+    background-color: transparent;
+    border: 1px solid {{ section.settings.text_color }};
+}
+  
+@media only screen and (max-width:768px){
+  .cta-box:before{
+    background:{{section.settings.mobile_image_filter}};
+    opacity:.6;
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    right:0;
+    z-index:-1;
+  }
+}
+{% endstyle %}
+
+<section class="cta-container-{{ section.id }}" style="overflow:hidden;">
+  <div class="container container1">
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="cta-box d-flex align-items-center"
+          style="background-image:url('{{ section.settings.image |img_url:'1280x' }}')"
+        >
+          <div class="cta-box-content">
+            <h3 style="{{ section.settings.text_color }}!important">{{ section.settings.title | escape }}</h3>
+            <h6 style="{{ section.settings.text_color }}!important">{{ section.settings.sub_title | escape }}</h6>
+            <div class="cta-text" style="{{ section.settings.text_color }}!important">{{ section.settings.text }}</div>
+            <div class="cta-btn" style="{{ section.settings.button_color }}!important">
+              <a href="{{ section.settings.btn_url }}" class="btn btn-outline" style="{{ section.settings.text_color }}!important">{{ section.settings.btn_text }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Call To Action",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default":0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_top",
+      "label": "Background Top"
+    },
+    {
+      "type": "color",
+      "id": "background_bottom",
+      "label": "Background Bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "mobile_image_filter",
+      "label": "Mobile Image Filter"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color"
+    },
+    {
+      "type":"text",
+      "id":"title",
+      "label":"Title"
+    },
+    {
+      "type":"text",
+      "id":"sub_title",
+      "label":"Sub Title"
+    },
+    {
+      "type":"richtext",
+      "id":"text",
+      "label":"Text"
+    },
+    {
+      "type":"text",
+      "id":"btn_text",
+      "label":"Button Text"
+    },
+    {
+      "type":"url",
+      "id":"btn_url",
+      "label":"Button Url"
+    }
+  ],
+  "presets":[
+    {
+      "name":"Call To Action"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

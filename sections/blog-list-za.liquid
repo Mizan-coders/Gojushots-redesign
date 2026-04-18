@@ -1,0 +1,41 @@
+<section class="content-container blog-container">
+  <div class="container container1">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="blog-list">
+          {% assign articles = blogs.gojushots.articles | sort: 'title' | reverse %}
+          {% for article in articles %}
+            <li class="blog-item">
+              <div class="blog-box">
+                <div class="blog-img">
+                  <img src="{{ article.image.src | img_url:'297x297' }}" alt="{{ article.title }}">
+                </div>
+                <div class="blog-text">
+                  <div class="blog-date">{{ article.published_at | time_tag: format: 'date' }}</div>
+                  <h3>{{ article.title }}</h3>
+                  {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                    <p>
+                      {%- if article.excerpt.size > 0 -%}
+                        {{ article.excerpt | strip_html | truncatewords: 30 }}
+                      {%- else -%}
+                        {{ article.content | strip_html | truncatewords: 30 }}
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+                  <a href="{{ article.url }}" class="read-more-link">Read more</a>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Z To A",
+  "settings": []
+}
+{% endschema %}

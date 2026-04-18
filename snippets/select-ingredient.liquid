@@ -1,0 +1,115 @@
+{% style %}
+          .select-ingredient {
+              display: flex;
+              padding: var(--no-space, 0px) var(--2xl-space, 80px) var(--3xl-space, 120px) var(--2xl-space, 80px);
+              flex-direction: column;
+              align-items: center;
+          }
+          .select-ingredient__content h3 {
+            color: var(--Greyscale-00-White, #FFF);
+            font-size: 34px;
+            font-weight: 900;
+            line-height: 115%;
+            margin: 0px 0 20px 0;
+        }
+        .select-ingredient__content p {
+          color: var(--Greyscale-00-White, #FFF);
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 135%;
+      }
+      .select-ingredient__content-items__item {
+          display: flex;
+          align-items: flex-start;
+          gap: var(--m-space, 20px);
+          border-radius: 8px;
+      }
+      .select-ingredient__content-items {
+          margin-top: 40px;
+          display: flex;
+          flex-direction: column;
+          row-gap: 40px;
+      }
+      .select-ingredient-icon {
+          min-width: 55px;
+      }
+      .select-ingredient-content h4 {
+          color: var(--Greyscale-00-White, #FFF);
+          font-size: 18px;
+          font-weight: 900;
+          line-height: 115%;
+          margin: 0 0 12px 0;
+      }
+      .select-ingredient__content-items__item p {
+        color: #FFF;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 135%;
+    }
+    @media(max-width:992px){
+      .select-ingredient {
+            padding: 20px;
+        }
+    }
+    
+    @media(max-width:767px){
+      
+      .product .select-ingredient {
+          display: block;
+      }
+      
+       .select-ingredient__content-items__item {
+          display: block;
+          margin-bottom:20px;
+          align-items: center;
+          gap: var(--m-space, 20px);
+          border-radius: 8px;
+          flex-direction: column;
+          justify-content: center;
+      }
+      .select-ingredient__content-items{
+          display:block;
+          gap:40px;
+      }
+      .select-ingredient-content {
+          text-align: center;
+      }
+      .select-ingredient-icon {
+      width: 55px;
+      text-align: center;
+      margin: 0 auto 15px;
+  }
+  .select-ingredient-content {
+      max-width: 320px;
+      margin: 0 auto;
+  }
+  .select-ingredient__content-items ul.slick-dots {
+      bottom: -20px;
+  }
+      .scroll_headlines-item a {
+
+         /* font-size: 10px; */
+      }
+    }
+{% endstyle %}
+
+<div class="select-ingredient">
+  <div class="select-ingredient__content">
+    <h3>{{ product.metafields.custom.product_ingredients_header }}</h3>
+    <p>{{ product.metafields.custom.product_ingredients_body }}</p>
+  </div>
+  <ul class="select-ingredient__content-items">
+    {% for ingredient in product.metafields.custom.select_ingredient.value %}
+      <li class="select-ingredient__content-items__item">
+        <div class="select-ingredient-icon">
+          <img src="{{ ingredient.icon | img_url:'master' }}" alt="{{ product.title }}">
+        </div>
+        <div class="select-ingredient-content">
+          <h4>{{ ingredient.heading }}</h4>
+          <p>{{ ingredient.body }}</p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

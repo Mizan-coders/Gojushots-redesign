@@ -1,0 +1,28 @@
+{% style %}
+
+{% endstyle %}
+<section class="instagram section-{{ section.id }}">
+    <div class="container container2">
+      <div class="insta-feed">
+        {% for block in section.blocks %}
+          {% render block %}
+        {% endfor %}
+      </div>
+     </div>
+</section>
+{% schema %}
+  {
+    "name": "Instagram App",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "@app"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Instagram App"
+      }
+    ]
+  }
+{% endschema %}

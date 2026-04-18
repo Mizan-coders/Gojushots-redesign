@@ -1,0 +1,67 @@
+<section class="logo-with-text-contaner m-scroll" style="background-color:{{ section.settings.background_color }};color:{{ section.settings.text_color }}" style="overflow:hidden;">
+  <div class="m-scroll__title">
+    <div>
+     {% for block in section.blocks %}
+     {% if block.settings.text != blank %}  
+     <div class="lwt-box d-flex align-items-center">
+      {% if block.settings.icon != blank %} 
+      <div class="lwt-img">
+        <img src="{{ block.settings.icon | img_url:'80x' }}" alt="{{ image.alt }}"/>
+      </div>
+      {% endif %} 
+      <h3>{{ block.settings.text | escape }}</h3>
+      {% endif %} 
+    </div>
+     {% endfor %}
+    </div>  
+  </div>  
+</section>
+
+{% schema %}
+  {
+    "name": "Sitewide Brand Scroller",
+    "settings": [
+        {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#F7CB0F"
+        },
+        {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#fcfbf4"
+        }
+        ],
+     "blocks": [
+    	{
+    	"name": "Logo With Text",
+    	"type": "logowithtext",
+    	"settings": [
+    	{
+    	   "type": "image_picker",
+    	   "id": "icon",
+    	   "label": "Icon"
+    	},
+        {
+    	   "type": "text",
+    	   "id": "text",
+    	   "label": "Text"
+    	}  
+        ]
+        }
+    ],
+    "presets":[
+      {
+        "name":"Sitewide Brand Scroller"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

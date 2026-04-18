@@ -1,0 +1,178 @@
+{{ 'section-product-cro.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .ugc-cro-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 749px) {
+    .ugc-cro-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.65 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.65 | round }}px;
+    }
+  }
+{% endstyle %}
+
+<section
+  class="pdp-cro cro-section--dark ugc-cro-{{ section.id }}"
+  id="ugc-cro-{{ section.id }}"
+>
+  <div class="cro-container">
+
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="cro-ugc__header cro-fade-up">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cro-heading cro-ugc__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtext != blank -%}
+        <p class="cro-ugc__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} UGC photo grid {%- endcomment -%}
+    {%- assign has_photos = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'photo' and block.settings.image != blank -%}
+        {%- assign has_photos = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_photos -%}
+      <div class="cro-ugc-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'photo' and block.settings.image != blank -%}
+            <div
+              class="cro-ugc-tile cro-fade-up delay-{{ forloop.index }}"
+              {{ block.shopify_attributes }}
+            >
+              <img
+                src="{{ block.settings.image | img_url: '500x500', crop: 'center' }}"
+                alt="{{ block.settings.image.alt | default: 'GOJU customer photo' | escape }}"
+                loading="lazy"
+                width="500"
+                height="500"
+              >
+              {%- if block.settings.handle != blank -%}
+                <div class="cro-ugc-tile__handle">@{{ block.settings.handle }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- comment -%} Placeholder grid when no photos added yet {%- endcomment -%}
+      <div class="cro-ugc-grid cro-ugc-grid--placeholder cro-fade-up delay-2">
+        {%- for i in (1..6) -%}
+          <div class="cro-ugc-tile cro-ugc-tile--empty">
+            <span aria-hidden="true">📸</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.hashtag != blank -%}
+      <p class="cro-ugc__hashtag cro-fade-up">{{ section.settings.hashtag }}</p>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  function initUGC() {
+    var section = document.getElementById('ugc-cro-{{ section.id }}');
+    if (!section) return;
+    var items = section.querySelectorAll('.cro-fade-up');
+    if (!items.length) return;
+    if (window.Shopify && window.Shopify.designMode) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+      items.forEach(function (el) { observer.observe(el); });
+    } else {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initUGC);
+  document.addEventListener('shopify:section:load', initUGC);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "UGC / Community",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Instagram handle",
+          "info": "Without the @ symbol"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by our community"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Tag us @goju_shots to be featured"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag",
+      "default": "#GojuShots"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC / Community"
+    }
+  ]
+}
+{% endschema %}

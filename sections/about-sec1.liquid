@@ -1,0 +1,58 @@
+
+<section class="content-container about-banner-container color-yellow">
+    <div class="container">
+        <div class="row d-flex flex-column-reverse flex-md-row">
+            <div class="col-md-6 col-lg-5 offset-lg-1 offset-md-0">
+                <div class="about-banner-text">
+                    <div class="new-heading">
+                        <h3>{{ section.settings.heading }}
+                            <span class="new-heading-overlay">{{ section.settings.sub_heading }}</span>
+                        </h3>
+                       {{ section.settings.body_text }}
+                    </div>
+                    <div class="about-banner-icon">
+                         <img src="{{ section.settings.bottom_image |img_url:'480x80' }}" alt="{{ section.settings.bottom_image |alt }}" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-5">
+                <div class="about-banner-img">
+                   <img src="{{ section.settings.image |img_url:'401x467' }}" alt="{{ section.settings.image |alt }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "About Goju",
+    "settings": [
+      {
+        "type" : "text",
+        "id" : "sub_heading",
+        "label" : "Sub Heading"
+      },
+      {
+        "type" : "text",
+        "id" : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "richtext",
+        "id" : "body_text",
+        "label" : "Body Text"
+      },
+      {
+        "type" : "image_picker",
+        "id" : "image",
+        "label" : "Right Image"
+      },
+      {
+        "type" : "image_picker",
+        "id" : "bottom_image",
+        "label" : "Bottom Image"
+      }
+    
+    ]
+  }
+{% endschema %}

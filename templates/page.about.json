@@ -1,0 +1,257 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "08eecab2-f331-484f-9fbc-0e4c07afafd2": {
+      "type": "hero-banner",
+      "blocks": {
+        "aa866ac0-42c9-4ae2-bbd2-cab1f7a1a023": {
+          "type": "hero",
+          "settings": {
+            "text_color": "#fcfbf4",
+            "full_url": "",
+            "sub_heading_1": "",
+            "heading": "",
+            "sub_heading_2": "",
+            "text": "",
+            "sub_heading_3": "",
+            "btn1_color": "#191917",
+            "btn1_text_color": "#fcfbf4",
+            "btn_text": "Shop Range",
+            "btn_url": "/collections/all",
+            "btn2_color": "#191917",
+            "btn2_text_color": "#fcfbf4",
+            "btn_text_2": "Wellness Hub",
+            "btn_url_2": "https://gojushots.com/blogs/gojushots",
+            "image": "shopify://shop_images/GOJU_SHOT13_Banner_1.jpg",
+            "image_mob": "shopify://shop_images/GOJU_GINGER500ml_SHOT9.jpg",
+            "video_id": "",
+            "flex_align": "align--middle-center",
+            "flex_align_mobile": "align--top-left--mobile"
+          }
+        }
+      },
+      "block_order": [
+        "aa866ac0-42c9-4ae2-bbd2-cab1f7a1a023"
+      ],
+      "settings": {
+        "desktop_height": 60,
+        "mobile_height": 50
+      }
+    },
+    "a5e32630-adf4-45a9-9e13-6417ff2e1ca8": {
+      "type": "logo-with-text",
+      "blocks": {
+        "7902cb18-020c-4b3c-a616-28b9d4f6933e": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/logo-1.png",
+            "text": "Naturally functional"
+          }
+        },
+        "52102f34-18f7-486d-aafe-bffd85721f47": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Object.png",
+            "text": "locally sourced"
+          }
+        },
+        "logowithtext_XGX9Tw": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Made_Organic.png",
+            "text": "made in nz"
+          }
+        },
+        "logowithtext_DVPywr": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Potently_Healthy_1.svg",
+            "text": "organic ingredients"
+          }
+        },
+        "8d6113e8-140c-444f-ac66-b4f1528ccce6": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_Low_Sugars.png",
+            "text": "So you know they’re good  for you"
+          }
+        },
+        "0ce993c2-f2e0-4d5f-b54d-779a6fe3d294": {
+          "type": "logowithtext",
+          "settings": {
+            "icon": "shopify://shop_images/Icon_-_No_Preservatives.png",
+            "text": "Juice on the go"
+          }
+        },
+        "d6db96a4-710a-4334-aafb-28016430df71": {
+          "type": "logowithtext",
+          "settings": {
+            "text": "Made locally"
+          }
+        }
+      },
+      "block_order": [
+        "7902cb18-020c-4b3c-a616-28b9d4f6933e",
+        "52102f34-18f7-486d-aafe-bffd85721f47",
+        "logowithtext_XGX9Tw",
+        "logowithtext_DVPywr",
+        "8d6113e8-140c-444f-ac66-b4f1528ccce6",
+        "0ce993c2-f2e0-4d5f-b54d-779a6fe3d294",
+        "d6db96a4-710a-4334-aafb-28016430df71"
+      ],
+      "settings": {
+        "background_color": "#ffc72c",
+        "text_color": "#fcfbf4"
+      }
+    },
+    "80e7eb22-860b-4969-81b4-1963a9468091": {
+      "type": "about-mission",
+      "custom_css": [
+        "p,h1,h6,twib-text {font-family: \"Ratch\", sans-serif !important;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/Untitled_809_x_1520_px_809_x_1320_px.png",
+        "title": "The Mission.",
+        "sub_title": "Setting a new standard for health beverages in New Zealand.",
+        "text": "<p>Sibling duo Tom and Belle Hartles spotted a golden opportunity in New Zealand's wellness market and set off to revolutionise it with Goju, aiming to craft not just wellness shots but a whole range wellness drinks that would be unmatched in both quality and effectiveness. </p><p>Their mission began with a bold aim: to make Goju's offerings the global gold standard in wellness beverages.</p><p>What sets Goju apart is its uncompromising ingredient list. Each product, from Goju's pioneering wellness shots to their functional juices, contain a concentration of beneficial components unrivalled by competitors. This dedication to superior quality is why Goju stands out in a crowded market of health claims - Goju’s ingredient list doesn't just talk; it sings.</p><p>Underpinning Tom and Belle's vision was an unwavering commitment to sustainability and local sourcing. Every Goju drink is a testament to this ethos, crafted from the finest organic ingredients New Zealand has to offer, ensuring every sip supports not just the wellbeing of the consumer but the health of the planet too.</p><p>Today, Goju is more than just wellness shots; it's a holistic wellness brand that continues to push the boundaries of innovation. Always striving to be the best in what we do, Goju is a beacon of quality, sustainability, and unparalleled taste in the wellness industry. For those wondering about the price point, we invite you to compare our ingredients list with others on the market. At Goju, we believe in investing in your health, and our products proudly reflect that philosophy.</p>",
+        "icon_image": "shopify://shop_images/icons_691a9ebb-fb52-4f41-895c-2648688fa7f6.png"
+      }
+    },
+    "about-sec1": {
+      "type": "about-sec1",
+      "disabled": true,
+      "settings": {
+        "sub_heading": "ABOUT  GOJU",
+        "heading": "Goju.  Straight up.",
+        "body_text": "<p>In life, it pays to be straight up. It brings the best out in people. It’s gets rid of all the bullshit.</p><p><br/>And leaves you with the bits that matter.<br/></p><p>It gets you places. We’re all about getting places.</p><p><br/>We want to become New Zealand’s favourite go-to health drink. We want to help you get to where you’re going. A little healthier, and a little happier.</p><p><br/>We want to produce New Zealand’s best wellness products and be sold all over the world. Straight up.<br/></p>",
+        "image": "shopify://shop_images/about-banner-img.png",
+        "bottom_image": "shopify://shop_images/about-banner-icons.png"
+      }
+    },
+    "517b041e-5cca-4b65-ab36-a7d4486b3380": {
+      "type": "feature-img-with-text",
+      "blocks": {
+        "528172c9-7e1a-41e5-9153-cee9ef480013": {
+          "type": "selling-point",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/black_Icon-08.png",
+            "text": "Produce from New Zealand & Fiji"
+          }
+        },
+        "989de1c2-2c4e-4825-9cc9-b13979f13856": {
+          "type": "selling-point",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/black_Icon-08.png",
+            "text": "Made with organic produce"
+          }
+        },
+        "c01eb557-2ba2-4cb0-ac1b-84bfde5c4fe1": {
+          "type": "selling-point",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/black_Icon-08.png",
+            "text": "Direct from known farmers"
+          }
+        },
+        "660d68fd-cda0-400f-bde1-f722aaf154d2": {
+          "type": "selling-point",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/black_Icon-08.png",
+            "text": "No preservatives, additives, flavours or colours."
+          }
+        }
+      },
+      "block_order": [
+        "528172c9-7e1a-41e5-9153-cee9ef480013",
+        "989de1c2-2c4e-4825-9cc9-b13979f13856",
+        "c01eb557-2ba2-4cb0-ac1b-84bfde5c4fe1",
+        "660d68fd-cda0-400f-bde1-f722aaf154d2"
+      ],
+      "custom_css": [
+        "p,h1,h6,twib-text {font-family: \"Ratch\", sans-serif !important;}"
+      ],
+      "settings": {
+        "layout": "image_first",
+        "background_color": "#faf7e9",
+        "text_color": "#32312e",
+        "title": "Ingredients.",
+        "heading_size": "h2",
+        "sub_title": "Functional, naturally.",
+        "text": "<p>We're dedicated to transparency and quality in every drop. Wondering what goes into our products? Let us break it down for you.</p><p>We pride ourselves on sourcing the freshest, highest-quality ingredients, starting with our ginger and turmeric. While these superstars aren't native to New Zealand, we've forged partnerships with organic farms in Fiji to ensure top-notch supplies. Picture lush fields, rich soil, and sustainable farming practices – that's where our ginger and turmeric come from.</p><p>But that's not all. Our commitment to local sourcing means the rest of our ingredients are sourced from New Zealand's finest farms. We prioritise organic options and support farmers who share our values of fairness and eco-friendliness. Think crisp apples, zesty lemons, and juicy blackcurrants – all carefully selected to bring you the best nature has to offer.</p><p>At Goju, we believe that what you put into your body matters. That's why our products contain no additives, preservatives, or artificial flavourings – just pure, natural goodness. Whether you're looking to boost your immune system, detoxify, or simply fuel your day, you can trust Goju to deliver products that are as good for you as they are delicious.</p>",
+        "image": "shopify://shop_images/GOJU_GINGER500ml_SHOT9_1.png",
+        "video": "",
+        "link_text": "",
+        "url": ""
+      }
+    },
+    "7e8bb320-7fb1-41a5-860f-b9a928941bb2": {
+      "type": "text-with-image",
+      "custom_css": [
+        "p,h1,h6,twib-text {font-family: \"Ratch\", sans-serif !important;}"
+      ],
+      "settings": {
+        "background_color": "#ffffff",
+        "text_color": "#32312e",
+        "layout": "text_first",
+        "image": "shopify://shop_images/belle_tom_sqaure.png",
+        "video": "",
+        "title": "The People.",
+        "heading_size": "h1",
+        "sub_title": "Meet the siblings",
+        "text": "<p>It was a passion for health and wellness and a shared gene pool that brought sibling duo, Tom and Belle Hartles together to create Goju.</p><p>Belle is the big sister of the Goju team and manages all things marketing and branding. You’ll find Belle on the other side of Goju’s social accounts and newsletter, her dedication to customer satisfaction is what drives her in the role. Belle strives to create a beautiful, fun inclusive brand for everyone to enjoy. </p><p>Tom is Goju’s Director, driving the business and keeping us all laughing at the same time. Tom is one of New Zealand’s best beach volleyball players and you’ll often find him chasing the sun playing tournaments overseas. Tom understands the importance of health and well-being in maintaining peak performance. It's this commitment to excellence that drives him to ensure Goju remains at the top of its game.</p>",
+        "link_text": "",
+        "url": ""
+      }
+    },
+    "call-to-action": {
+      "type": "call-to-action",
+      "custom_css": [
+        "p,h1,h6,twib-text {font-family: \"Ratch\", sans-serif !important;}"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "background_top": "",
+        "background_bottom": "",
+        "image": "shopify://shop_images/GOJU_500ml_Shot15_Banner.jpg",
+        "mobile_image_filter": "rgba(0,0,0,0)",
+        "text_color": "#ffffff",
+        "button_color": "#ffffff",
+        "title": "Find us.",
+        "sub_title": "We’re probably closer than you thought.",
+        "text": "",
+        "btn_text": "Find your local",
+        "btn_url": "shopify://pages/store-locator-1"
+      }
+    },
+    "cdc92122-94d8-4ca6-b432-3b41a8ac4a9b": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "08eecab2-f331-484f-9fbc-0e4c07afafd2",
+    "a5e32630-adf4-45a9-9e13-6417ff2e1ca8",
+    "80e7eb22-860b-4969-81b4-1963a9468091",
+    "about-sec1",
+    "517b041e-5cca-4b65-ab36-a7d4486b3380",
+    "7e8bb320-7fb1-41a5-860f-b9a928941bb2",
+    "call-to-action",
+    "cdc92122-94d8-4ca6-b432-3b41a8ac4a9b"
+  ]
+}

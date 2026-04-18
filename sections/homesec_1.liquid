@@ -1,0 +1,85 @@
+<div class="outer-container overflow-hidden" style="overflow:hidden;">
+<section id="one" data-color="#FFFFFF" class="dksoni hero-container panel" style="background: #FFFFFF">
+    <div class="hero-slider">
+        {% for block in section.blocks %}  
+          <div class="hero-slider-item d-flex align-items-center justify-content-center flex-column" style="background: radial-gradient({{block.settings.bg_color}});">
+              <a href="{{block.settings.url}}">
+                  <div class="hero-content-box">
+                      <div class="hero-img">
+                          <img src="{{ block.settings.image |img_url:'230x409' }}" alt="{{block.settings.desk_title}}" />
+                      </div>
+                      <span style="background-color: {{block.settings.color_text}};color: {{block.settings.heading_color}};" class="btn-buy">Buy</span>
+                      <h1 style="color: {{block.settings.heading_color}};">{{block.settings.desk_title}}</h1>
+                      <h2 style="color: {{block.settings.color_text}};">{{block.settings.color_heading}}</h2>
+                  </div>
+                  <p style="color: {{block.settings.color_text}};">{{block.settings.link_text}}</p>
+                  </a>
+          </div>
+          {% endfor %}
+    </div>
+</section>
+{% schema %}
+{
+"name": "Hero",
+"tag": "section",
+"class": "hero-section", 
+"blocks": [
+	{
+	"name": "Hero",
+	"type": "hero",
+	"settings": [
+	{
+	   "type": "text",
+	   "id": "bg_color",
+	   "label": "Background Color"
+	},
+	{
+	   "type": "image_picker",
+	   "id": "image",
+	   "label": "Image"
+	},
+	{
+	   "type": "text",
+	   "id": "desk_title",
+	   "label": "Color Heading"
+	 },
+	{
+	   "type": "color",
+	   "id": "heading_color",
+	   "label": "Heading Color"
+	 },
+	{
+	   "type": "text",
+	   "id": "color_heading",
+	   "label": "Heading"
+	 },
+	{
+	   "type": "text",
+	   "id": "text",
+	   "label": "Text"
+	 },
+    {
+	   "type": "color",
+	   "id": "color_text",
+	   "label": "Text Color"
+	},
+	{
+	   "type": "text",
+	   "id": "link_text",
+	   "label": "Link Text"
+	 },
+	{
+	   "type": "color",
+	   "id": "color_link",
+	   "label": "Link Color"
+	 },
+	{
+	   "type": "url",
+	   "id": "url",
+	   "label": "URL"
+	 }
+	]
+}
+]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+{%- comment -%}
+  Goju reusable button component.
+
+  Parameters:
+    label      {String}  Button text (required)
+    url        {String}  href — renders as <a> if provided, <button> if not
+    style      {String}  'primary' (dark bg, lime text) | 'outline' (bordered) — default: 'primary'
+    arrow      {Boolean} Append → arrow after label — default: true
+    size       {String}  'sm' | 'md' (default) | 'lg'
+    type       {String}  Button type attribute when no url: 'button' | 'submit' — default: 'button'
+    extra_class {String} Additional CSS classes
+    attr       {String}  Extra HTML attributes (e.g. 'data-foo="bar"')
+
+  Usage examples:
+    {% render 'goju-btn', label: 'Shop Now', url: routes.all_products_collection_url %}
+    {% render 'goju-btn', label: 'Learn more', url: section.settings.view_all, style: 'outline' %}
+    {% render 'goju-btn', label: 'Subscribe', type: 'submit', arrow: false %}
+{%- endcomment -%}
+
+{%- liquid
+  assign btn_style = style | default: 'primary'
+  assign btn_size  = size  | default: 'md'
+  assign btn_label = label | default: 'Button'
+  assign btn_arrow = arrow
+  if btn_arrow == nil
+    assign btn_arrow = true
+  endif
+  assign btn_classes = 'goju-btn goju-btn--' | append: btn_style | append: ' goju-btn--' | append: btn_size
+  if extra_class != blank
+    assign btn_classes = btn_classes | append: ' ' | append: extra_class
+  endif
+-%}
+
+<link rel="stylesheet" href="{{ 'component-goju-btn.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-goju-btn.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- if url != blank -%}
+  <a href="{{ url }}" class="{{ btn_classes }}"{% if attr != blank %} {{ attr }}{% endif %}>
+    {{- btn_label | escape -}}{%- if btn_arrow %} &rarr;{%- endif -%}
+  </a>
+{%- else -%}
+  <button type="{{ type | default: 'button' }}" class="{{ btn_classes }}"{% if attr != blank %} {{ attr }}{% endif %}>
+    {{- btn_label | escape -}}{%- if btn_arrow %} &rarr;{%- endif -%}
+  </button>
+{%- endif -%}

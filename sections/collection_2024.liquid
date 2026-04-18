@@ -1,0 +1,386 @@
+{{ 'collection-new.css' | asset_url | stylesheet_tag }}
+
+
+
+
+{% style %}
+  
+  .collection_content_block {
+    flex-grow: 1;
+    aspect-ratio: 2/1;
+    width:100%;
+    }
+  
+  .collection_content_block .cp-box {
+    flex-grow: 1;
+    }
+
+  .collection_content_block .cp-box .cp-text p.from {
+    margin-bottom: 0px;
+    text-align: center;
+    }
+
+  .collection_content_block .cp-box h4 {
+    flex-grow: 0;
+    display: flex;
+    width:100%;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 108%;
+    margin-bottom: 12px;
+    }
+  
+  .collection_content_block .cp-box p {
+    display: flex;
+    flex-grow: 0;
+    width: 100%;
+    margin: 0 0 2rem 0;
+    }
+  
+  .collection_content_block .cp-box h6 {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 133%;
+    color: #000;
+    margin-bottom: 20px;
+    }
+  
+  .collection_content_block .cp-box span {
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    }
+  
+  .collection_content_block .cp-box .btn {
+    width: 100%;
+    margin-top: 0;
+    padding: 17px 10px 13px 10px;
+    transition: all 0.3s;
+    }
+  
+  .collection_content_block .cp-box .btn-outline:hover, 
+  .collection_content_block .cp-box .btn-outline:active {
+    background-color: transparent;
+    transform: scale(1.2);
+  }
+  
+{% endstyle %}
+
+
+<div class="overflow-hidden coll-page">
+
+<div class="collection-outer">  
+<!--============================== collection Block Container Start ==============================-->
+
+{% for block in section.blocks %}
+  {%- assign collection = collections[block.settings.collection] -%}
+            
+<section class="collection-container">
+  <a class="anchor-offset" id="{{ block.settings.page-anchor-link }}"></a>
+    <div class="container container1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="collection-box d-flex flex-wrap">
+                    <div class="collection-box-text" data-color="#D4F5FB" data-color="light-blue">
+                        <div class="collection-text">
+                            <div class="back-img"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-img.png?v=1658675461" alt="" /></div>
+                            
+                            
+                            {% if block.settings.collection-title != blank %}
+                            <h3>{{ block.settings.collection-title | escape }}</h3>
+                            {% else %}
+                            <h3>{{ collection.title }}</h3>
+                            {% endif %}
+  
+                            {% if block.settings.collection-description != blank %}
+                            <p>{{ block.settings.collection-description | escape }}</p>
+                            {% else %}
+                            <p>{{ collection.description }}</p>
+                            {% endif %}
+  
+                        </div>
+                    </div>
+                    <div class="collection-product-list aaa">
+                        <ul class="cp-list d-flex flex-wrap">
+                            {%- for product in block.settings.collection.products -%}
+                            <li class="cp-item">
+                              <div class="newproduct-card">
+                                
+                                <div class="newproduct-head">
+                                <a style="width:100%;" href="{{ product.url }}">  
+                                {% if product.featured_image != blank %}
+                                  
+                                   <div class="npc-img">
+                                      <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />  
+                                      {% if product.images.size > 1 %}
+                                        <img class="second-img" src="{{ product.images[1] | img_url: '380x380' }}" alt="{{ product.title }}" /> 
+                                      {% endif %}
+                                   </div>
+                                {% endif %}
+                                   <div class="npc-top-element">
+
+
+{% assign all_out_of_stock = true %}
+
+{% for variant in product.variants %}
+  {% if variant.inventory_quantity > 0 or variant.available %}
+    {% assign all_out_of_stock = false %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+                     <div class="npc-element" {% unless product.available %} style="display:none;" {% endunless %} >
+                                         {% if product.type != blank %}<div class="tag">{{ product.type }} </div>{% endif %}
+                                         {% if product.metafields.custom.product_contents != blank %}<div class="tag">{{ product.metafields.custom.product_contents }}</div>{% endif %}
+                                      </div>
+
+<div class="badge_daata"  style="display:;">
+{%- liquid
+
+  assign target = product.selected_or_first_available_variant
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign available = target.available | default: false
+  assign money_price = price | money
+   if settings.currency_code_enabled_
+    assign money_price = price | money_with_currency
+  endif 
+
+-%}
+  {%- if available == false %}
+{{ settings.sold_text }}
+{% endif -%}
+
+</div>
+
+                                      {% if product.metafields.custom.rating_text != blank %}
+                                      <div class="rating">{{ product.metafields.custom.rating_text }}</div>
+                                      {% endif %}
+
+                                   </div>
+                                 </a>
+                                       
+                                       <div class="npc-btn">
+                                       {% unless product.tags contains "picknmix" %}
+                                          <form method="post" action="/cart/add">
+                                            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                                            <input class="visually-hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                                            <input type="submit" {% if product.available %} value="Add to cart" {% else %}value="Sold Out" {% endif %} class="btn" />
+                                          </form>
+                                          <a class="view-product" href="{{ product.url }}">View Product</a>
+                                       {% endunless %}
+                                       {% if product.tags contains "picknmix" %}
+                                          <a class="btn" href="{{ product.url }}">View Product</a>
+                                       {% endif %}
+                                       </div>
+                                </div>
+                                <div class="newproduct-body">
+                                  <div class="newproduct-name">
+                                     {% if product.metafields.custom.product_tagline != blank %}
+                                     <h5>{{ product.metafields.custom.product_tagline }}</h5>
+                                     {% endif %}  
+                                     <h2>{{ product.title }}</h2>
+                                  </div>
+                                  <div class="price">
+                                    {% if product.variants[0].compare_at_price > product.variants[0].price %}
+                                    <h6 class="is"><span class="from">From</span> {{ product.variants[0].price | money }} </h6>
+                                    <h6  class="was"><span class="from">{{ product.variants[0].compare_at_price | money }}</h6>
+                                    {% else %} 
+                                    <h6><span class="from">From</span> {{ product.price_min | money }} </h6>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                               {% comment %} <a href="{{ product.url }}" class="card-product-box">
+                                <div class="cpb-head">
+                                  <span>{{ product.type }}</span>
+                                  <h4>{{ product.title }}</h4>
+                                  {% if product.metafields.custom.product_tagline != blank %}
+                                        <p class="tagline">{{ product.metafields.custom.product_tagline }}</p>
+                                  {% endif %}
+                                </div>
+                                <div class="cpb-body">
+                                  {% if product.featured_image != blank %}
+                                  <div class="cpb-img">
+                                      <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />
+                                  </div>
+                                  {% endif %}
+                                  <div class="product-price">
+                                  
+                                    {% if product.compare_at_price > product.price %}
+                                    <h6 class="is"><span class="from">From</span> {{ product.price | money }} </h6>
+                                    <h6  class="was"><span class="from">Was From {{ product.compare_at_price |money }}</h6>
+                                    {% else %} 
+                                    <h6><span class="from">From</span> {{ product.price | money }} </h6>
+                                    {% endif %}
+                              
+                                    {% if product.metafields.custom.product_contents != blank %}
+                                        <p>{{ product.metafields.custom.product_contents }}</p>
+                                    {% endif %}
+                              
+                                    <div class="cpb-link">View Product</div>
+                                  </div>  
+                                </div>  
+                              </a>  {% endcomment %}
+                            </li>
+                            {% endfor %}
+                            {% if block.settings.collection.all_products_count == 1 
+                               or block.settings.collection.all_products_count == 5
+                               or block.settings.collection.all_products_count == 7
+                               or block.settings.collection.all_products_count == 9
+                               or block.settings.collection.all_products_count == 11  %}
+                            <li class="cp-item collection_large_content collection_content_block desktop_only">
+                            <div class="hero-outer-text-box text-{{ block.settings.flex_align }}"
+                            style="background-image:url('{{ block.settings.featured_content_image |img_url:'1280x' }}')">
+                              <div class="cp-box"> {%- assign icon = block.settings.icon -%}
+                              <div class="cp-text"> <h4 style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_heading | escape }}</h4> 
+                                <p style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_text | escape }}</p> 
+                                <a style="color:{{ block.settings.featured_content_text_color }}; border-color:{{ block.settings.featured_content_text_color }};" href="{{ block.settings.featured_content_button_link | escape }}" class="btn btn-outline"> {{- block.settings.featured_content_button_text -}} </a> 
+                              </div>    
+                              </div>
+                            </div>
+                            </li>
+                            {% endif %} 
+
+                            {% if block.settings.collection.all_products_count == 2
+                               or block.settings.collection.all_products_count == 4
+                               or block.settings.collection.all_products_count == 8
+                               or block.settings.collection.all_products_count == 10  %}
+                            <li class="cp-item collection_large_content collection_content_block desktop_only">
+                            <div class="hero-outer-text-box text-{{ block.settings.flex_align }}"
+                            style="background-image:url('{{ block.settings.featured_content_image |img_url:'1280x' }}')">
+                              <div class="cp-box"> {%- assign icon = block.settings.icon -%}
+                              <div class="cp-text"> <h4 style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_heading | escape }}</h4> 
+                                <p style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_text | escape }}</p> 
+                                <a style="color:{{ block.settings.featured_content_text_color }}; border-color:{{ block.settings.featured_content_text_color }};" href="{{ block.settings.featured_content_button_link | escape }}" class="btn btn-outline"> {{- block.settings.featured_content_button_text -}} </a> 
+                              </div>    
+                              </div>
+                            </div>
+                            </li>
+                            {% endif %}
+   
+                            {% if block.settings.collection.all_products_count == 3
+                               or block.settings.collection.all_products_count == 9  %}
+                            <li class="cp-item collection_large_content collection_content_block mobile_only">
+                            <div class="hero-outer-text-box text-{{ block.settings.flex_align }}"
+                            style="background-image:url('{{ block.settings.featured_content_image |img_url:'1280x' }}')">
+                              <div class="cp-box"> {%- assign icon = block.settings.icon -%}
+                              <div class="cp-text"> <h4 style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_heading | escape }}</h4> 
+                                <p style="color:{{ block.settings.featured_content_text_color }};">{{ block.settings.featured_content_text | escape }}</p> 
+                                <a style="color:{{ block.settings.featured_content_text_color }}; border-color:{{ block.settings.featured_content_text_color }};" href="{{ block.settings.featured_content_button_link | escape }}" class="btn btn-outline"> {{- block.settings.featured_content_button_text -}} </a> 
+                              </div>    
+                              </div>
+                            </div>
+                            </li>
+                            {% endif %}
+                        
+                      </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endfor %}
+
+<!--============================== collection Block Container End ==============================-->
+</div>
+</div>
+
+{% schema %}
+    {
+    "name":"Collection Blocks",
+    "settings":[
+    ],
+    "blocks": [
+    {
+    "type": "select",
+    "name": "Add Collection",
+    "settings": [
+    {
+    "id": "page-anchor-link",
+    "type": "text",
+    "label": "Page Anchor Link Id",
+    "default": "#"
+    },
+    {
+    "type":"text",
+    "id":"collection-title",
+    "label":"Collection title"
+    },
+    {
+    "type":"text",
+    "id":"collection-description",
+    "label":"Collection Description"
+    },
+    {
+    "id":"collection",
+    "type":"collection",
+    "label":"Choose Collection"
+    },
+    {
+    "type": "image_picker",
+    "id": "featured_content_image",
+    "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "flex_align",
+      "label": "Block alignment",
+      "default": "align--middle-center",
+      "options": [
+        { "value": "align--top-left", "label": "Top left"},
+        { "value": "align--top-center", "label": "Top center"},
+        { "value": "align--top-right", "label": "Top right"},
+        { "value": "align--middle-left", "label": "Middle left"},
+        { "value": "align--middle-center", "label": "Absolute center"},
+        { "value": "align--middle-right", "label": "Middle right"},
+        { "value": "align--bottom-left", "label": "Bottom left"},
+        { "value": "align--bottom-center", "label": "Bottom center"},
+        { "value": "align--bottom-right", "label": "Bottom right"}
+      ]
+    },
+    {
+    "type": "color",
+    "id": "featured_content_text_color",
+    "label": "Text Color",
+    "default": "#ffffff"
+    },
+    {
+    "type": "text",
+    "id": "featured_content_heading",
+    "label": "Heading"
+    },
+    {
+    "type": "textarea",
+    "id": "featured_content_text",
+    "label": "Text"
+    },
+    {
+    "type": "text",
+    "id": "featured_content_button_text",
+    "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "featured_content_button_link",
+      "label": "Button Link"
+    }
+    ]
+    }
+    ],
+    "presets":[
+    {
+    "name":"Collection Blocks",
+    "category":"Collection",
+    "blocks": [
+    {
+    "type": "select"
+    }
+    ]
+    }
+    ]
+    }
+{% endschema %}

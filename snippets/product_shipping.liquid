@@ -1,0 +1,11 @@
+<div class="shipping_info" {{ block.shopify_attributes }}>
+  <div class="icon-with-text">
+    <img src="{{ product.metafields.custom.free_shipping_icon | img_url:'master' }}" alt="{{ product.title }}" />
+    <h6>{{ product.metafields.custom.free_shipping_text }}</h6>
+  </div>
+  
+  <div class="icon-with-text">
+    <img src="{{ product.metafields.custom.happiness_text_icon | img_url:'master' }}" alt="{{ product.title }}" />
+    <h6>{{ product.metafields.custom.happiness_text }}</h6>
+  </div>
+</div>

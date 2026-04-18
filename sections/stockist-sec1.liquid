@@ -1,0 +1,172 @@
+{% style %}
+.search-box .input-group{
+border-bottom:none !important;
+}
+{% endstyle %}
+<div class="overflow-hidden">
+    <div class="stockist-container">
+        <div class="container container1">
+            <div class="row d-md-block d-none">
+                <div class="col-md-12">
+                    <h3>Store Locator</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                  <!-- Start Stockist.co widget -->
+                    <div data-stockist-widget-tag="u9973">Loading store locator from <a href="https://stockist.co">Stockist store locator</a>...</div>
+                    <script>// <![CDATA[
+                      (function(s,t,o,c,k){c=s.createElement(t);c.src=o;c.async=1;
+                      k=s.getElementsByTagName(t)[0];k.parentNode.insertBefore(c,k);
+                      })(document,'script','//stockist.co/embed/v1/widget.min.js');
+                    // ]]></script>
+                    <!-- End Stockist.co widget -->
+                </div>
+                <div class="col-lg-4">
+                    <div class="intro-content">
+                        <div class="intro-block">
+                            <h6>{{ section.settings.block_1_title }}</h6>
+                            {{ section.settings.block_1_body }}
+                            <a href="{{ section.settings.block_1_btn_link }}" class="read-more-link">{{ section.settings.block_1_button_text }}</a>
+                        </div>
+                        <div class="intro-block">
+                            <h6>{{ section.settings.block_2_title }}</h6>
+                            {{ section.settings.block_2_body }}
+                            <a href="{{ section.settings.block_2_btn_link }}" class="read-more-link">{{ section.settings.block_2_button_text }}</a>
+                        </div>
+                        <div class="intro-block">
+                            <h6>{{ section.settings.block_3_title }}</h6>
+                            <ul class="social-links">
+                              {% if section.settings.block_3_icon_1 != blank %}
+                                <li>
+                                    <a href="{{ section.settings.block_3_socail_link_1 }}" target="_blank" class="social-link">
+                                     
+                                       <img src="{{ section.settings.block_3_icon_1 | img_url:'28x31' }}" alt="facebook" loading="lazy"/>
+                                      <span>{{ section.settings.block_3_social_text_1 }}</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if section.settings.block_3_icon_2 != blank %}
+                                <li>
+                                    <a href="{{ section.settings.block_3_socail_link_2 }}" target="_blank" class="social-link">
+                                    
+                                       <img src="{{ section.settings.block_3_icon_2 | img_url:'28x31' }}" alt="facebook" loading="lazy"/>
+                                      <span>{{ section.settings.block_3_social_text_2 }}</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                 {% if section.settings.block_3_icon_3 != blank %}
+                                <li>
+                                    <a href="{{ section.settings.block_3_socail_link_3 }}" target="_blank" class="social-link">
+                                     
+                                       <img src="{{ section.settings.block_3_icon_3 | img_url:'28x31' }}" alt="facebook" loading="lazy"/>
+                                      <span>{{ section.settings.block_3_social_text_3 }}</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Stockist Details",
+    "settings": [
+      {
+        "type":"text",
+        "id":"block_1_title",
+        "label":"Block 1 title"
+      },
+      {
+        "type":"richtext",
+        "id":"block_1_body",
+        "label":"Block 1 body"
+      },
+      {
+        "type":"text",
+        "id":"block_1_button_text",
+        "label":"Block 1 button-text"
+      },
+      {
+        "type":"url",
+        "id":"block_1_btn_link",
+        "label":"Block 1 button link"
+      },
+      {
+        "type":"text",
+        "id":"block_2_title",
+        "label":"Block 2 title"
+      },
+      {
+        "type":"richtext",
+        "id":"block_2_body",
+        "label":"Block 2 body"
+      },
+      {
+        "type":"text",
+        "id":"block_2_button_text",
+        "label":"Block 2 button-text"
+      },
+      {
+        "type":"url",
+        "id":"block_2_btn_link",
+        "label":"Block 2 button link"
+      },
+      {
+        "type":"text",
+        "id":"block_3_title",
+        "label":"Block 3 title"
+      },
+      {
+        "type":"image_picker",
+        "id":"block_3_icon_1",
+        "label":"Block 3 social icon 1"
+      },
+      {
+        "type":"text",
+        "id":"block_3_social_text_1",
+        "label":"Block 3 social text 1"
+      },
+      {
+        "type":"url",
+        "id":"block_3_socail_link_1",
+        "label":"Block 3 social link 1"
+      },
+      {
+        "type":"image_picker",
+        "id":"block_3_icon_2",
+        "label":"Block 3 social icon 2"
+      },
+      {
+        "type":"text",
+        "id":"block_3_social_text_2",
+        "label":"Block 3 social text 2"
+      },
+      {
+        "type":"url",
+        "id":"block_3_socail_link_2",
+        "label":"Block 3 social link 2"
+      },
+      {
+        "type":"image_picker",
+        "id":"block_3_icon_3",
+        "label":"Block 3 social icon 3"
+      },
+      {
+        "type":"text",
+        "id":"block_3_social_text_3",
+        "label":"Block 3 social text 3"
+      },
+      {
+        "type":"url",
+        "id":"block_3_socail_link_3",
+        "label":"Block 3 social link 3"
+      }
+    ]
+  }
+{% endschema %}

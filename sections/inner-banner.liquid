@@ -1,0 +1,76 @@
+<section class="inner-banner-container container " style="overflow:hidden;">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        style="background-image:url('{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | img_url:'master'}}{% endif %}')"
+      >
+        <div class="inner-banner-outer-text-box">
+          <div>
+            <div class="inner-banner-text-box">
+              <div>
+                <h2>{{ section.settings.heading }}</h2>
+                <h3>{{ section.settings.sub_heading }}</h3>
+
+                <div class="inner-banner-text">
+                  <p>{{ section.settings.info }}</p>
+                </div>
+                <div class="inner-banner-btn">
+                  <a
+                    href="{{ section.settings.btn_url }}"
+                    class="btn btn-black"
+                    style="background-color:{{ section.settings.btn_color }}; color:{{ section.settings.text_color }}"
+                  >
+                    {{ section.settings.btn_text }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+  "name": "Inner Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "BG Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "info",
+      "label": "Info"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inner Banner"
+    }
+  ]
+}
+{% endschema %}

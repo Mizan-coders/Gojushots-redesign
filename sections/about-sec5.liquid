@@ -1,0 +1,51 @@
+<section class="content-container find-us-container color-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="find-us-content text-center">
+                    <h2>{{ section.settings.heading }}</h2>
+                    <h6>{{ section.settings.sub_heading }}</h6>
+                    <ul class="find-us-icon-list d-flex flex-wrap justify-content-center">
+                        {% for block in section.blocks %}
+                        <li>
+                            <div class="find-us-icon">
+                                <img src="{{ block.settings.image |img_url:'68x50' }}" alt="{{ block.settings.image |alt }}" />
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Find Us",
+    "settings": [
+      {
+        "type" : "text",
+        "id" : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "text",
+        "id" : "sub_heading",
+        "label" : "Sub Heading"
+      }
+    ],
+    "blocks": [
+         {
+           "name": "Image List",
+           "type": "imagelist",
+           "settings": [
+             {
+               "type": "image_picker",
+               "id": "image",
+               "label": "Image"
+             }
+           ]
+         }
+      ]
+  }
+{% endschema %}

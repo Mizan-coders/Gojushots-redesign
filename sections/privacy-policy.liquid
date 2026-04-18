@@ -1,0 +1,78 @@
+<section class="privacy-policy-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="pp-content-box">
+                    <div class="pp-content-head d-flex align-items-center justify-content-between">
+                        <h3>{{ page.title }}</h3>
+                        <a href="/" class="btn">{% render 'arrow-icon' %} Back</a>
+                    </div>
+                    <div class="pp-content-body">
+                        {{ page.content }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="help-intro-content">
+                    <div class="help-intro-block">
+                        <h6>{{ section.settings.heading }}</h6>
+                        <p>{{ section.settings.short_text }}</p>
+                        <ul class="help-intro-links d-flex flex-wrap">
+                            <li>
+                                <a href="{{ section.settings.live_chat }}" target="_blank" class="help-intro-link">{% render 'chat-icon' %}<span> Live Chat</span></a>
+                            </li>
+                            <li>
+                                <a href="mailto:{{ section.settings.email }}" target="_blank" class="help-intro-link">{% render 'mail-icon' %}<span> {{ section.settings.email }}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="help-intro-block">
+                        <h6>Popular Topics</h6>
+                        <ul>
+                            {{ section.settings.popular_topics }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Get in touch",
+    "settings": [
+      {
+        "type" : "text",
+        "id" : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "textarea",
+        "id" : "short_text",
+        "label" : "Text"
+      },
+      {
+        "type" : "url",
+        "id" : "live_chat",
+        "label" : "Chat URL"
+      },
+      {
+        "type" : "text",
+        "id" : "email",
+        "label" : "Email"
+      },
+      {
+        "type" : "html",
+        "id" : "popular_topics",
+        "label" : "Popular Topics"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

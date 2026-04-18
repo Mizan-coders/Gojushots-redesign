@@ -1,0 +1,450 @@
+{% style %}
+  /* ── GOJU FOOTER REDESIGN ── */
+  #footer-goju {
+    background: {{ section.settings.bg_color | default: '#191917' }};
+    color: rgba(255,255,255,0.6);
+    padding: 60px 40px 0;
+  }
+  #footer-goju .footer-goju__top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+  }
+
+  /* ── Brand column ── */
+  #footer-goju .footer-goju__brand-logo {
+    display: block;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+  #footer-goju .footer-goju__brand-logo img {
+    height: 60px;
+    width: auto;
+    display: block;
+  }
+  #footer-goju .footer-goju__brand-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+  #footer-goju .footer-goju__tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 260px;
+    color: rgba(255,255,255,0.6);
+    margin: 0 0 20px;
+  }
+
+  /* ── Newsletter form ── */
+  #footer-goju .footer-goju__form .input-group {
+    display: flex;
+    gap: 8px;
+    border: none;
+  }
+  #footer-goju .footer-goju__form .form-control {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    height: auto;
+  }
+  #footer-goju .footer-goju__form .form-control::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
+  #footer-goju .footer-goju__form .form-control:focus {
+    border-color: rgba(255,255,255,0.35) !important;
+    box-shadow: none;
+  }
+  #footer-goju .footer-goju__form .footer-goju__subscribe-btn {
+    background: var(--goju-accent);
+    color: var(--goju-accent-text);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  #footer-goju .footer-goju__form .footer-goju__subscribe-btn:hover {
+    background: #c4e03a;
+  }
+  #footer-goju .footer-goju__form .newsletter-form__message {
+    font-size: 12px;
+    margin-top: 8px;
+    color: rgba(255,255,255,0.6);
+  }
+  #footer-goju .footer-goju__form .newsletter-form__message--success {
+    color: var(--goju-accent);
+  }
+
+  /* ── Social icons ── */
+  #footer-goju .footer-goju__social {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  #footer-goju .footer-goju__social-link {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  #footer-goju .footer-goju__social-link:hover {
+    border-color: var(--goju-accent);
+    color: var(--goju-accent);
+    background: rgba(212,242,74,0.08);
+  }
+  #footer-goju .footer-goju__social-link svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── Link columns ── */
+  #footer-goju .footer-goju__col ul li::before,
+  #footer-goju .footer-goju__col ul li::after,
+  #footer-goju .footer-goju__col ul li a::before,
+  #footer-goju .footer-goju__col ul li a::after {
+    display: none !important;
+    content: none !important;
+  }
+  #footer-goju .footer-goju__col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 16px;
+    padding: 0;
+    border: none;
+    border-left: none;
+    overflow: visible;
+  }
+  #footer-goju .footer-goju__col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: none;
+  }
+  #footer-goju .footer-goju__col ul li {
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-left: none;
+    background: none;
+  }
+  #footer-goju .footer-goju__col a {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 0;
+    border: none;
+    border-left: none;
+  }
+  #footer-goju .footer-goju__col a:hover {
+    color: white;
+  }
+
+  /* ── Footer bottom bar ── */
+  #footer-goju .footer-goju__bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Responsive: 900px ── */
+  @media (max-width: 899px) {
+    #footer-goju {
+      padding: 48px 20px 0;
+    }
+    #footer-goju .footer-goju__top {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    #footer-goju .footer-goju__brand {
+      grid-column: 1 / -1;
+      margin-bottom: 32px;
+    }
+    #footer-goju .footer-goju__form .input-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+    #footer-goju .footer-goju__form .form-control {
+      width: 100% !important;
+      min-width: 0;
+      flex: none;
+      display: block;
+    }
+    #footer-goju .footer-goju__form .footer-goju__subscribe-btn {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+    #footer-goju .footer-goju__bottom {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+  }
+
+  /* ── Responsive: mobile (single col + 2-col link grid) ── */
+  @media (max-width: 749px) {
+    #footer-goju .footer-goju__col {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      margin-top: 4px;
+    }
+    #footer-goju .footer-goju__col ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+  }
+{% endstyle %}
+
+<footer id="footer-goju">
+  <div class="footer-goju__top">
+
+    {%- comment -%} ── Brand column ── {%- endcomment -%}
+    <div class="footer-goju__brand">
+      <a href="{{ routes.root_url }}" class="footer-goju__brand-logo">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | img_url: '240x' }}"
+            alt="{{ shop.name }}"
+            loading="lazy"
+            width="120"
+          >
+        {%- else -%}
+          <span class="footer-goju__brand-name">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="footer-goju__tagline">{{ section.settings.tagline | escape }}</p>
+      {%- endif -%}
+
+      {%- comment -%} Newsletter form {%- endcomment -%}
+      {%- form 'customer', id: 'ContactFooter', class: 'footer-goju__form form-subscribe' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="input-group">
+          <input
+            id="NewsletterForm--{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            class="form-control"
+            value="{{ form.email }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              autofocus
+              aria-invalid="true"
+              aria-describedby="ContactFooter-error"
+            {% elsif form.posted_successfully? %}
+              aria-describedby="ContactFooter-success"
+            {% endif %}
+            placeholder="Your email address"
+            required
+          >
+          <button type="submit" class="footer-goju__subscribe-btn" name="commit">Subscribe</button>
+        </div>
+        {%- if form.errors -%}
+          <small class="newsletter-form__message" id="ContactFooter-error">
+            {%- render 'icon-error' -%}
+            {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+          </small>
+        {%- endif -%}
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter-form__message newsletter-form__message--success" id="ContactFooter-success" tabindex="-1" autofocus>
+            {%- render 'icon-success' -%}
+            {{ 'newsletter.success' | t }}
+          </p>
+        {%- endif -%}
+      {%- endform -%}
+
+      {%- comment -%} Social icons ── uses existing social URL settings {%- endcomment -%}
+      <div class="footer-goju__social">
+        {%- if section.settings.insta_url != blank -%}
+          <a href="{{ section.settings.insta_url }}" class="footer-goju__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.fb_url != blank -%}
+          <a href="{{ section.settings.fb_url }}" class="footer-goju__social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.tiktok_url != blank -%}
+          <a href="{{ section.settings.tiktok_url }}" class="footer-goju__social-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.youtube_url != blank -%}
+          <a href="{{ section.settings.youtube_url }}" class="footer-goju__social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} ── Link columns ── {%- endcomment -%}
+    <div class="footer-goju__col">
+      <h4>Goju</h4>
+      <ul>
+        {%- for link in linklists['goju-footer-2k22'].links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer-goju__col">
+      <h4>Retailers</h4>
+      <ul>
+        {%- for link in linklists['retailers'].links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer-goju__col">
+      <h4>Help</h4>
+      <ul>
+        {%- for link in linklists['help-2k22'].links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+
+  {%- comment -%} ── Footer bottom bar ── {%- endcomment -%}
+  <div class="footer-goju__bottom">
+    <span>
+      {%- if section.settings.copyright != blank -%}
+        {{ section.settings.copyright }} {{ 'now' | date: "%Y" }}
+      {%- else -%}
+        &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
+      {%- endif -%}
+    </span>
+    {%- if section.settings.have_question != blank -%}
+      <span>{{ section.settings.have_question }}</span>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#191917"
+    },
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "default": "Real ingredients. Built to work. Crafted in New Zealand for people who take their health seriously.",
+      "label": "Brand tagline"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph",
+      "label": "Paragraph"
+    },
+    {
+      "type": "header",
+      "content": "Social links"
+    },
+    {
+      "type": "url",
+      "id": "insta_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "fb_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer bottom"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright text"
+    },
+    {
+      "type": "text",
+      "id": "have_question",
+      "label": "Right side note",
+      "default": "Made with care in New Zealand 🇳🇿"
+    }
+  ]
+}
+{% endschema %}

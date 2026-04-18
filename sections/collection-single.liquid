@@ -1,0 +1,207 @@
+{{ 'collection-new.css' | asset_url | stylesheet_tag }}
+<div class="overflow-hidden coll-page">
+
+<div class="collection-outer">  
+<!--============================== collection Block Container Start ==============================-->
+{% assign collection_shots = 'wellness-shots' %}
+{%- assign collection = block.settings.collection -%}
+{%- assign collection_products = collection.products -%}
+            
+<section class="collection-container" id="{{section.settings.page-anchor-link}}">
+    <div class="container container1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="collection-box d-flex flex-wrap">
+                    <div class="collection-box-text" data-color="#D4F5FB" data-color="light-blue">
+                        <div class="collection-text">
+                            <div class="back-img"><img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/shape-img.png?v=1658675461" alt="" /></div>
+                            <a class="anchor-offset-first" id="shots"></a>
+                            <h3>{{- collections['wellness-shots'].title  | escape -}}</h3>
+                            {{- collections['wellness-shots'].description -}}
+                        </div>
+                    </div>
+                    <div class="collection-product-list">
+                        <ul class="cp-list d-flex flex-wrap">
+                            
+                            {% for product in collections[collection_shots].products %}
+                            <li class="cp-item">
+                              
+                              <div class="newproduct-card">
+                                <div class="newproduct-head">
+                                {% if product.featured_image != blank %}
+                                   <div class="npc-img">
+                                      <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />  
+                                      {% if product.images.size > 1 %}
+                                        <img class="second-img" src="{{ product.images[1] | img_url: '380x380' }}" alt="{{ product.title }}" /> 
+                                      {% endif %}
+                                   </div>
+                                {% endif %}
+                                   <div class="npc-top-element">
+                                      <div class="npc-element">
+                                         {% if product.type != blank %}<div class="tag">{{ product.type }} </div>{% endif %}
+                                         {% if product.metafields.custom.product_contents != blank %}<div class="tag">{{ product.metafields.custom.product_contents }}</div>{% endif %}
+                                      </div>
+                                      {% if product.metafields.custom.rating_text != blank %}
+                                      <div class="rating">{{ product.metafields.custom.rating_text }}</div>
+                                      {% endif %}
+                                   </div>
+
+                                    <div class="npc-btn">
+                                      {% unless product.tags contains "picknmix" %}
+                                      <form method="post" action="/cart/add">
+                                        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                                        <input class="visually-hidden" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                                        <input type="submit" value="Add to cart" class="btn" />
+                                      </form>
+                                      <a class="view-product" href="{{ product.url }}">View Product</a>
+                                      {% endunless %}
+                                      {% if product.tags contains "picknmix" %}
+                                        <a class="btn" href="{{ product.url }}">View Product</a>
+                                      {% endif %}
+                                    </div>
+                                </div>
+                                <div class="newproduct-body">
+                                  <div class="newproduct-name">
+                                     {% if product.metafields.custom.product_tagline != blank %}
+                                     <h5>{{ product.metafields.custom.product_tagline }}</h5>
+                                     {% endif %}  
+                                     <h2>{{ product.title }}</h2>
+                                  </div>
+                                  <div class="price">
+                                    {% if product.variants[0].compare_at_price > product.variants[0].price %}
+                                    <h6 class="is"><span class="from">From</span> {{ product.variants[0].price | money }} </h6>
+                                    <h6  class="was"><span class="from">{{ product.variants[0].compare_at_price | money }}</h6>
+                                    {% else %} 
+                                    <h6><span class="from">From</span> {{ product.price_min | money }} </h6>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                              </div>
+                              
+                               {% comment %} <a href="{{ product.url }}" class="card-product-box">
+                                <div class="cpb-head">
+                                  <span>{{ product.type }}</span>
+                                  <h4>{{ product.title }}</h4>
+                                  {% if product.metafields.custom.product_tagline != blank %}
+                                        <p class="tagline">{{ product.metafields.custom.product_tagline }}</p>
+                                  {% endif %}
+                                </div>
+                                <div class="cpb-body">
+                                  {% if product.featured_image != blank %}
+                                  <div class="cpb-img">
+                                      <img src="{{ product.featured_image | img_url:'380x380' }}" alt="{{ product.title }}" />
+                                  </div>
+                                  {% endif %}
+                                  <div class="product-price">
+                                  
+                                    {% if product.compare_at_price > product.price %}
+                                    <h6 class="is"><span class="from">From</span> {{ product.price | money }} </h6>
+                                    <h6  class="was"><span class="from">Was From {{ product.compare_at_price |money }}</h6>
+                                    {% else %} 
+                                    <h6><span class="from">From</span> {{ product.price | money }} </h6>
+                                    {% endif %}
+                              
+                                    {% if product.metafields.custom.product_contents != blank %}
+                                        <p>{{ product.metafields.custom.product_contents }}</p>
+                                    {% endif %}
+                              
+                                    <div class="cpb-link">View Product</div>
+                                  </div>  
+                                </div>  
+                              </a>  {% endcomment %}
+                            </li>
+                            {% endfor %}
+                            <li>
+                               <div class="sticker-img-box">
+                                  <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/sticker-1.png?v=1658758817" alt="" /> 
+                               </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--============================== collection Block Container End ==============================-->
+
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+          "type": "collection",
+          "label": "Collection",
+          "id": "collection"
+        },
+    {
+        "id": "page-anchor-link",
+        "type": "text",
+        "label": "Page Anchor Link Id",
+        "default": "ingredient-science-02"
+    },
+    
+  {
+    "type": "header",
+    "content": "Combos Content"
+  },
+  {
+    "type": "image_picker",
+    "id": "combos_image",
+    "label": "Image"
+  },
+  {
+    "type": "text",
+    "id": "combos_heading",
+    "label": "Heading"
+  },
+  {
+    "type": "textarea",
+    "id": "combos_text",
+    "label": "Text"
+  },
+  {
+    "type": "text",
+    "id": "combos_button_text",
+    "label": "Button Text"
+  },
+  {
+    "type": "url",
+    "id": "combos_button_link",
+    "label": "Button Link"
+  },
+      {
+    "type": "header",
+    "content": "Merch Content"
+  },
+  {
+    "type": "image_picker",
+    "id": "merch_image",
+    "label": "Image"
+  },
+  {
+    "type": "text",
+    "id": "merch_heading",
+    "label": "Heading"
+  },
+  {
+    "type": "textarea",
+    "id": "merch_text",
+    "label": "Text"
+  },
+  {
+    "type": "text",
+    "id": "merch_button_text",
+    "label": "Button Text"
+  },
+  {
+    "type": "url",
+    "id": "merch_button_link",
+    "label": "Button Link"
+  }
+  ]
+}
+{% endschema %}

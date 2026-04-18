@@ -1,0 +1,313 @@
+{{ 'section-product-cro.css' | asset_url | stylesheet_tag }}
+
+{%- assign story_image = section.settings.image -%}
+{%- if story_image == blank and product.metafields.cro.story_image != blank -%}
+  {%- assign story_image = product.metafields.cro.story_image.value -%}
+{%- endif -%}
+{%- if story_image == blank and product.metafields.custom.wellness_image != blank -%}
+  {%- assign story_image = product.metafields.custom.wellness_image -%}
+{%- endif -%}
+{%- assign primary_color = product.metafields.custom.primary_color | default: '#191917' -%}
+{%- assign pc_accent = product.metafields.custom.primary_color -%}
+{%- assign s_heading        = product.metafields.cro.story_heading.value        | default: section.settings.heading -%}
+{%- assign s_heading_accent = product.metafields.cro.story_heading_accent.value | default: section.settings.heading_accent_word -%}
+{%- assign s_body_1         = product.metafields.cro.story_body_1.value         | default: section.settings.body_1 -%}
+{%- assign s_body_2         = product.metafields.cro.story_body_2.value         | default: section.settings.body_2 -%}
+{%- assign s_quote          = product.metafields.cro.story_quote.value          | default: section.settings.quote -%}
+{%- assign s_quote_attr     = product.metafields.cro.story_quote_attr.value     | default: section.settings.quote_attr -%}
+
+{% style %}
+  .pdp-cro.product-story-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- assign _accent = section.settings.accent_color -%}
+    {%- if _accent == blank or _accent == 'rgba(0,0,0,0)' -%}{%- assign _accent = pc_accent -%}{%- endif -%}
+    {% if _accent != blank and _accent != 'rgba(0,0,0,0)' %}
+    --cro-accent: {{ _accent }};
+    --cro-accent-light: {{ _accent }}14;
+    {% endif %}
+  }
+  @media screen and (max-width: 749px) {
+    .pdp-cro.product-story-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.65 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.65 | round }}px;
+    }
+  }
+{% endstyle %}
+
+<section
+  class="pdp-cro product-story-{{ section.id }}"
+  id="product-story-{{ section.id }}"
+>
+  <div class="cro-container">
+    <div class="cro-story">
+
+      {%- comment -%} ── LEFT: Text content ── {%- endcomment -%}
+      <div class="cro-story__text cro-fade-up">
+
+        {%- if section.settings.kicker != blank -%}
+          <span class="cro-kicker cro-kicker--accent">{{ section.settings.kicker }}</span>
+        {%- endif -%}
+
+        {%- if s_heading != blank -%}
+          <h2 class="cro-heading cro-story__heading">
+            {%- if s_heading_accent != blank -%}
+              {%- assign plain = s_heading | remove: s_heading_accent -%}
+              {{ plain }}<em>{{ s_heading_accent }}</em>
+            {%- else -%}
+              {{ s_heading }}
+            {%- endif -%}
+          </h2>
+        {%- endif -%}
+
+        {%- if s_body_1 != blank -%}
+          <p class="cro-story__body">{{ s_body_1 }}</p>
+        {%- endif -%}
+
+        {%- if s_body_2 != blank -%}
+          <p class="cro-story__body">{{ s_body_2 }}</p>
+        {%- endif -%}
+
+        {%- comment -%} Benefit pills row {%- endcomment -%}
+        {%- assign has_pills = false -%}
+        {%- if section.settings.pill_1_text != blank
+             or section.settings.pill_2_text != blank
+             or section.settings.pill_3_text != blank -%}
+          {%- assign has_pills = true -%}
+        {%- endif -%}
+
+        {%- if has_pills -%}
+          <div class="cro-pills cro-story__pills">
+            {%- if section.settings.pill_1_text != blank -%}
+              <span class="cro-pill">
+                {%- if section.settings.pill_1_icon != blank -%}
+                  <span class="cro-pill-icon" aria-hidden="true">{{ section.settings.pill_1_icon }}</span>
+                {%- endif -%}
+                {{ section.settings.pill_1_text }}
+              </span>
+            {%- endif -%}
+            {%- if section.settings.pill_2_text != blank -%}
+              <span class="cro-pill">
+                {%- if section.settings.pill_2_icon != blank -%}
+                  <span class="cro-pill-icon" aria-hidden="true">{{ section.settings.pill_2_icon }}</span>
+                {%- endif -%}
+                {{ section.settings.pill_2_text }}
+              </span>
+            {%- endif -%}
+            {%- if section.settings.pill_3_text != blank -%}
+              <span class="cro-pill">
+                {%- if section.settings.pill_3_icon != blank -%}
+                  <span class="cro-pill-icon" aria-hidden="true">{{ section.settings.pill_3_icon }}</span>
+                {%- endif -%}
+                {{ section.settings.pill_3_text }}
+              </span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      </div>{%- comment -%} /.cro-story__text {%- endcomment -%}
+
+      {%- comment -%} ── RIGHT: Visual card ── {%- endcomment -%}
+      <div class="cro-story__visual cro-fade-up delay-2">
+        <div class="cro-visual-card cro-story__card" style="background-color: {{ primary_color }};">
+
+          {%- comment -%} Image: section setting first, then product wellness_image metafield {%- endcomment -%}
+          {%- if story_image != blank -%}
+            <img
+              src="{{ story_image | img_url: '800x' }}"
+              alt="{{ story_image.alt | default: section.settings.quote | strip_html | escape }}"
+              loading="lazy"
+              width="{{ story_image.width }}"
+              height="{{ story_image.height }}"
+            >
+            <div class="cro-story__card-overlay"></div>
+          {%- else -%}
+            {%- comment -%} Decorative gradient blob {%- endcomment -%}
+            <div class="cro-story__card-blob" aria-hidden="true"></div>
+          {%- endif -%}
+
+          {%- comment -%} Quote overlay {%- endcomment -%}
+          {%- if s_quote != blank or s_quote_attr != blank -%}
+            <div class="cro-visual-card-content cro-story__card-content">
+              {%- if s_quote != blank -%}
+                <p class="cro-visual-card-quote">{{ s_quote }}</p>
+              {%- endif -%}
+              {%- if s_quote_attr != blank -%}
+                <span class="cro-visual-card-attr">{{ s_quote_attr }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        </div>
+      </div>{%- comment -%} /.cro-story__visual {%- endcomment -%}
+
+    </div>{%- comment -%} /.cro-story {%- endcomment -%}
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.getElementById('product-story-{{ section.id }}');
+  if (!section) return;
+
+  var items = section.querySelectorAll('.cro-fade-up');
+  if (!items.length) return;
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    items.forEach(function (el) { observer.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product Story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left — Text"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker label",
+      "default": "The GOJU Story",
+      "info": "Small uppercase label above the heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wellness that actually works"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent_word",
+      "label": "Accent word(s) in heading",
+      "default": "actually works",
+      "info": "These exact words will be highlighted in accent colour. Must match text in Heading exactly."
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "label": "Body paragraph 1",
+      "default": "We built GOJU because we were tired of wellness products that were all label and no results. Action Shot is a concentrated, cold-pressed blend of ginger root, turmeric, lemon and apple — nothing hidden, nothing artificial."
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Body paragraph 2",
+      "default": "One shot in the morning, and your body gets exactly what it needs to fight inflammation, support immunity, and power through the day. It's not a supplement. It's food."
+    },
+    {
+      "type": "header",
+      "content": "Benefit Pills"
+    },
+    {
+      "type": "text",
+      "id": "pill_1_icon",
+      "label": "Pill 1 — Icon (emoji)",
+      "default": "🌱"
+    },
+    {
+      "type": "text",
+      "id": "pill_1_text",
+      "label": "Pill 1 — Text",
+      "default": "Whole-food ingredients"
+    },
+    {
+      "type": "text",
+      "id": "pill_2_icon",
+      "label": "Pill 2 — Icon (emoji)",
+      "default": "🧪"
+    },
+    {
+      "type": "text",
+      "id": "pill_2_text",
+      "label": "Pill 2 — Text",
+      "default": "Lab tested"
+    },
+    {
+      "type": "text",
+      "id": "pill_3_icon",
+      "label": "Pill 3 — Icon (emoji)",
+      "default": "🌍"
+    },
+    {
+      "type": "text",
+      "id": "pill_3_text",
+      "label": "Pill 3 — Text",
+      "default": "Sustainable packaging"
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#1D7A3F",
+      "info": "Controls the kicker label and heading accent word colour."
+    },
+    {
+      "type": "header",
+      "content": "Right — Visual Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Optional. If blank, a dark gradient with decorative blob is shown."
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote text",
+      "default": "\"Real food. Real results. No shortcuts.\""
+    },
+    {
+      "type": "text",
+      "id": "quote_attr",
+      "label": "Quote attribution",
+      "default": "— GOJU Founder"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Story"
+    }
+  ]
+}
+{% endschema %}

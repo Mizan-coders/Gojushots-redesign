@@ -1,0 +1,105 @@
+<section class="feedback-section" id="reviews">
+  <div class="container container1">
+    <div class="row">
+      <div class="col-md-4">
+        {% comment %}
+          <div class="fs-title">
+             <h4>Customer reviews</h4>
+             <h6>FEEDBACK</h6>
+          </div>
+        {% endcomment %}
+        {% if product.metafields.custom.review_image != blank %}
+          <div class="fs-img d-flex align-items-center">
+            <img
+              class="d-md-block d-none"
+              src="{{ product.metafields.custom.review_image.value |img_url:'original' }}"
+              alt="{{ product.title }}"
+            >
+            <!--
+              <div class="review-img">
+               <img class="d-md-block d-none" src="{{ product.metafields.custom.review_image.value |img_url:'280x499' }}" alt="{{ product.title }}"/>
+              <img class="d-md-none d-block" src="{{ product.metafields.custom.review_image.value |img_url:'280x499' }}" alt="{{ product.title }}"/>
+              </div>
+              <div class="review-text">
+                {% if product.metafields.custom.rating_text !=blank %}
+                <p class="rating">{{ product.metafields.custom.rating_text }}</p>
+                {% endif %}
+                <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/star-icon.png?v=1661074775" alt="rating"/>
+                {% if product.metafields.custom.number_of_reviews_text !=blank %}
+                <p>{{ product.metafields.custom.number_of_reviews_text }}</p>
+                {% endif %}
+              </div>
+            -->
+          </div>
+        {% else %}
+          <div class="fs-img">
+            <div class="review-img">
+              <img
+                class="d-md-block d-none"
+                src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/goju-img.png?v=1659978191"
+                alt="files/insta-img4.jpg"
+              >
+              <img
+                class="d-md-none d-block"
+                src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/goju-img2.png?v=1660298332"
+                alt=""
+              >
+            </div>
+            <div class="review-text">
+              {% if product.metafields.custom.rating_text != blank %}
+                <p>{{ product.metafields.custom.rating_text }}</p>
+              {% endif %}
+              <img src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/star-icon.png?v=1661074775" alt="rating">
+              {% if product.metafields.custom.number_of_reviews_text != blank %}
+                <p>{{ product.metafields.custom.number_of_reviews_text }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-md-8 offset-md-0">
+        <div class="health-hub-content">
+          <div class="fs-title">
+            <h4>Customer reviews</h4>
+          </div>
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when '@app' %}
+                {% render block %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "App Review",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_padding",
+      "default": true,
+      "label": "Make section margins the same as theme"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "App wrapper"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,193 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "46471395-9775-4dfd-b79e-b3d65702f141": {
+      "type": "collection-banner",
+      "blocks": {
+        "0fe1829d-d5b8-4c7e-9a56-d1a3898224c0": {
+          "type": "collection_list",
+          "disabled": true,
+          "settings": {
+            "title": "Shots",
+            "collection_url": "#shots"
+          }
+        },
+        "40842924-adb4-411a-8008-ec7007b24abc": {
+          "type": "collection_list",
+          "settings": {
+            "title": "Functional Juices",
+            "collection_url": "https://gojushots.com/collections/all#juices"
+          }
+        },
+        "54ee700f-3820-4c4e-a96d-6e6e19718b8f": {
+          "type": "collection_list",
+          "settings": {
+            "title": "Mixed Packs",
+            "collection_url": "#combos"
+          }
+        },
+        "931a69b6-b722-46ed-ab0c-253adc69855e": {
+          "type": "collection_list",
+          "settings": {
+            "title": "Bottles",
+            "collection_url": "#bottles"
+          }
+        },
+        "aef65b05-979c-4318-8b70-b46cfc798a80": {
+          "type": "collection_list",
+          "disabled": true,
+          "settings": {
+            "title": "Merch",
+            "collection_url": "#merch"
+          }
+        }
+      },
+      "block_order": [
+        "0fe1829d-d5b8-4c7e-9a56-d1a3898224c0",
+        "40842924-adb4-411a-8008-ec7007b24abc",
+        "54ee700f-3820-4c4e-a96d-6e6e19718b8f",
+        "931a69b6-b722-46ed-ab0c-253adc69855e",
+        "aef65b05-979c-4318-8b70-b46cfc798a80"
+      ],
+      "custom_css": [
+        ".collection-content h1 {color: #000000 !important;}"
+      ],
+      "settings": {
+        "background": "#e7e2de",
+        "button_color_background": "#272727",
+        "heading": "Take me to..."
+      }
+    },
+    "new-collection-template": {
+      "type": "collection_2024",
+      "blocks": {
+        "select_BExJhr": {
+          "type": "select",
+          "settings": {
+            "page-anchor-link": "shots",
+            "collection-title": "",
+            "collection-description": "",
+            "collection": "wellness-shots",
+            "featured_content_image": "shopify://shop_images/Screenshot_2026-04-08_at_10.54.27_AM.png",
+            "flex_align": "align--bottom-left",
+            "featured_content_text_color": "#ffffff",
+            "featured_content_heading": "",
+            "featured_content_text": "",
+            "featured_content_button_text": "",
+            "featured_content_button_link": ""
+          }
+        },
+        "select_m8rmgT": {
+          "type": "select",
+          "settings": {
+            "page-anchor-link": "juices",
+            "collection-title": "",
+            "collection-description": "",
+            "collection": "functional-juices",
+            "featured_content_image": "shopify://shop_images/Screenshot_2026-04-08_at_10.54.27_AM.png",
+            "flex_align": "align--middle-center",
+            "featured_content_text_color": "#ffffff",
+            "featured_content_heading": "",
+            "featured_content_text": "",
+            "featured_content_button_text": "",
+            "featured_content_button_link": ""
+          }
+        },
+        "select_qGxraP": {
+          "type": "select",
+          "settings": {
+            "page-anchor-link": "combos",
+            "collection-title": "",
+            "collection-description": "",
+            "collection": "combos",
+            "featured_content_image": "shopify://shop_images/Screenshot_2026-04-08_at_10.54.27_AM.png",
+            "flex_align": "align--bottom-left",
+            "featured_content_text_color": "#ffffff",
+            "featured_content_heading": "",
+            "featured_content_text": "",
+            "featured_content_button_text": "",
+            "featured_content_button_link": ""
+          }
+        },
+        "select_JXGAPn": {
+          "type": "select",
+          "settings": {
+            "page-anchor-link": "bottles",
+            "collection-title": "",
+            "collection-description": "",
+            "collection": "500ml-bottles",
+            "featured_content_image": "shopify://shop_images/Screenshot_2026-04-08_at_10.54.27_AM.png",
+            "flex_align": "align--middle-center",
+            "featured_content_text_color": "#ffffff",
+            "featured_content_heading": "",
+            "featured_content_text": "",
+            "featured_content_button_text": "",
+            "featured_content_button_link": ""
+          }
+        },
+        "select_fATtNQ": {
+          "type": "select",
+          "disabled": true,
+          "settings": {
+            "page-anchor-link": "merch",
+            "collection-title": "",
+            "collection-description": "",
+            "collection": "merch",
+            "featured_content_image": "shopify://shop_images/mockup-of-a-bucket-hat-floating-over-a-customizable-surface-3033-el1_2.png",
+            "flex_align": "align--middle-center",
+            "featured_content_text_color": "#ffffff",
+            "featured_content_heading": "",
+            "featured_content_text": "",
+            "featured_content_button_text": "",
+            "featured_content_button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "select_BExJhr",
+        "select_m8rmgT",
+        "select_qGxraP",
+        "select_JXGAPn",
+        "select_fATtNQ"
+      ],
+      "custom_css": [
+        "span {font-family: \"Ratch\", sans-serif !important;}",
+        ".collection-text h3 {font-family: \"Ratch\", sans-serif !important;}"
+      ],
+      "settings": {}
+    },
+    "blog-section": {
+      "type": "about-sec8",
+      "disabled": true,
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "BANTER",
+        "blog": "gojushots",
+        "view_all": "shopify://blogs/gojushots",
+        "post_limit": 4
+      }
+    },
+    "2e96f8a2-e8d1-4ef2-baae-8f35234baeb3": {
+      "type": "instafeed",
+      "settings": {
+        "heading_size": 20,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    }
+  },
+  "order": [
+    "46471395-9775-4dfd-b79e-b3d65702f141",
+    "new-collection-template",
+    "blog-section",
+    "2e96f8a2-e8d1-4ef2-baae-8f35234baeb3"
+  ]
+}

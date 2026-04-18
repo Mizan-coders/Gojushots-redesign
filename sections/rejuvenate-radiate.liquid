@@ -1,0 +1,158 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+  }
+{%- endstyle -%}
+
+<style>
+  .accordion{
+    padding-top:80px;
+    padding-bottom:40px;
+  }
+  .accordion .faq-heading{
+      color:#080808;
+
+      font-weight: 900;
+      line-height: 115%;
+    }
+</style>
+
+<section class="what-inside-container section-{{ section.id }}-padding" id="product-details">
+  <div class="container container1">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wi-box d-flex flex-wrap">
+          <div class="wi-text sdb-text-box" id="description">
+            <div class="wi-heading">
+              <h4>{{ product.metafields.custom.product_description_header }}</h4>
+              {{ product.description }}
+            </div>
+            <div class="accordion" id="wi_1">
+              <h5 class="faq-heading">Frequently Asked Questions</h5>
+              {% for faq in product.metafields.custom.select_faq.value %}
+                <div class="accordion-item">
+                  <div class="accordion-header" id="heading{{ forloop.index }}">
+                    <a
+                      href="javascript:void(0)"
+                      class="accordion-button collapsed"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapse{{ forloop.index }}"
+                      aria-expanded="false"
+                      aria-controls="collapse{{ forloop.index }}"
+                    >
+                      {{ faq.question }}
+                    </a>
+                  </div>
+                  <div
+                    id="collapse{{ forloop.index }}"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="heading{{ forloop.index }}"
+                    data-bs-parent="#wi_{{ forloop.index }}"
+                  >
+                    <div class="accordion-body">
+                      {{ faq.answer }}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="wi-img-box">
+            {% if product.metafields.custom.inside_count_image != blank %}
+              <div class="wi-img">
+                <img
+                  src="{{ product.metafields.custom.inside_count_image.value |img_url:'640x766' }}"
+                  alt="{{ product.title }}"
+                >
+              </div>
+            {% else %}
+              <div class="wi-img">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/image.jpg?v=1665816778"
+                  alt="{{ product.title }}"
+                >
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  class="custom-modal modal fade"
+  id="custom-popup"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="custom-popupLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="navbar-brand" href="/"
+          ><img
+            src="https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Goju_logo_pos_1_14cf97aa-3101-4df8-a8d3-7fffa703b496.png?v=1658043940"
+            alt="Goju Shots"
+        ></a>
+        <div class="close-btn" data-bs-dismiss="modal" aria-label="Close">{% include 'close' %}</div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content-text">
+          <h4>{{ product.metafields.custom.popup_heading }}</h4>
+          <p>{{ product.metafields.custom.popup_paragraph }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Details",
+  "settings": [
+      {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 80
+      },
+      {
+      "type":"text",
+      "id":"heading",
+      "label":"Heading"
+    }
+
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

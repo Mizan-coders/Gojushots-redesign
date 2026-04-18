@@ -1,0 +1,79 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="sign-up-container section-{{ section.id }}-padding">
+    <div class="container">
+        <div class="row">
+          <div class="su-content-box d-flex flex-wrap">
+                  <div class="su-content-text col-md-6">
+                       <div class=“klaviyo-form-VRup8r”></div>
+                    </div>
+                  <div class="su-content-img col-md-6">
+                      {% if section.settings.video != blank %}
+                      <video width="630px" height="770px" loop="true" autoplay="autoplay" controls muted>
+                      <source src="{{ section.settings.video }}" type="video/mp4" />
+                      </video>
+                      {% else %}
+                      <img src="{{ section.settings.image | img_url:'640x' }}" alt="{{ section.settings.image.alt }}" />
+                      {% endif %}
+                  </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Sign Up Container",
+    "settings": [
+      {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+      },
+      {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+      },
+      {
+	   "type": "image_picker",
+	   "id": "image",
+	   "label": "Image"
+	  },
+      {
+        "type": "url",
+        "id": "video",
+        "label": "Video",
+        "info":"Image will show, if there is no video"
+      } 
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

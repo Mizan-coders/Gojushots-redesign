@@ -1,0 +1,63 @@
+<section class="content-container health-hub-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-5 offset-lg-1 offset-md-0">
+                <div class="health-hub-content">
+                    <div class="new-heading">
+                        <h4>
+                            {{ section.settings.heading }}
+                            <span class="new-heading-overlay">{{ section.settings.sub_heading }}</span>
+                        </h4>
+                        {{ section.settings.body_text }}
+                    </div>
+                    <div class="health-hub-cta">
+                        <a href="{{ section.settings.btn_link }}" class="btn btn-secondary">{{ section.settings.btn_text }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="health-hub-img">
+                    <img src="{{ section.settings.image |img_url:'441x441' }}" alt="{{ section.settings.image |alt }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Household Wellness",
+    "settings": [
+      {
+        "type" : "text",
+        "id" : "sub_heading",
+        "label" : "Sub Heading"
+      },
+      {
+        "type" : "text",
+        "id" : "heading",
+        "label" : "Heading"
+      },
+      {
+        "type" : "richtext",
+        "id" : "body_text",
+        "label" : "Body Text"
+      },
+      {
+        "type" : "text",
+        "id" : "btn_text",
+        "label" : "Button Text"
+      },
+      {
+        "type" : "url",
+        "id" : "btn_link",
+        "label" : "Button Link"
+      },
+      {
+        "type" : "image_picker",
+        "id" : "image",
+        "label" : "Image"
+      }
+    
+    ]
+  }
+{% endschema %}

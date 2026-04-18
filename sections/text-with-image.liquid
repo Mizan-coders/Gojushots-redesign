@@ -1,0 +1,147 @@
+<section class="text-with-image-container" style="overflow:hidden;">
+  <div class="container container1">
+     <div class="row">
+        <div class="col-md-12">
+           <div class="text-with-image-box {{ section.settings.layout }} d-flex flex-wrap">
+          
+             <div class="fiwt-img-box">
+                {% if section.settings.video != blank %}
+                 <video style="display: block; width:100%; text-align: center;" width="auto" height="100%" loop="true" autoplay="autoplay" controls muted>
+                  <source src="{{ section.settings.video }}" type="video/mp4" />
+                </video>
+                {% else %}
+                 <img src="{{ section.settings.image | img_url:'640x' }}" alt="{{ section.settings.image.alt }}" />
+                {% endif %}
+            </div>
+
+            <div class="fiwt-text-box" style="background-color:{{ section.settings.background_color }};color:{{ section.settings.text_color }}">
+               <h2 class="text-with-image {{ section.settings.heading_size }}" style="color:{{ section.settings.text_color }}">{{ section.settings.title | escape }}</h2> 
+                 <h6 class="text-with-image" style="color:{{ section.settings.text_color }}">{{ section.settings.sub_title | escape }}</h6>
+                 <div class="twib-text">
+                  {{ section.settings.text }}
+                 </div>
+                 {% if section.settings.url != blank %}
+                 <div class="twib-link text-with image">
+                  <a href="{{ section.settings.url | escape }}">{{ section.settings.link_text | escape }}</a>
+                 </div>
+                 {% endif %}
+            </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Text With Image",
+    "settings": [
+        {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFFFFF"
+        },
+        {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#32312E"
+          },
+            {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image First"
+        },
+        {
+          "value": "text_first",
+          "label": "Text First"
+        }
+        ],
+        "default": "image_first",
+        "label": "Desktop image placement",
+        "info": "Content first is the default mobile layout."
+      },
+      {
+	   "type": "image_picker",
+	   "id": "image",
+	   "label": "Image"
+	  },
+      {
+        "type": "url",
+        "id": "video",
+        "label": "Video",
+        "info":"Image will show, if there is no video"
+      },
+      {
+	   "type": "text",
+	   "id": "title",
+	   "label": "Title"
+	  },
+      {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h0",
+          "label": "Title Size"
+        },
+      {
+	   "type": "text",
+	   "id": "sub_title",
+	   "label": "Sub Title"
+	  },
+      {
+        "type":"richtext",
+        "id":"text",
+        "label":"Text"
+      },
+      {
+	   "type": "text",
+	   "id": "link_text",
+	   "label": "Button Text"
+	  },
+      {
+	   "type": "url",
+	   "id": "url",
+	   "label": "Button Url"
+	  }
+    ],
+    "presets":[
+      {
+        "name":"Text With Image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+ .fiwt-text-box h2.text-with-image, .fiwt-text-box h6.text-with-image {
+   color:{{ section.settings.text_color }};
+ }
+ .fiwt-text-box .twib-link {
+  color:{{ section.settings.text_color }}; 
+  opacity: 1;
+ }
+  .fiwt-text-box .twib-link:hover {
+  color:{{ section.settings.text_color }}; 
+  opacity: .8;
+ }
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "help-topic": {
+      "type": "help-topic",
+      "blocks": {
+        "9b7669ef-afff-4bc6-9aad-cdd62a651303": {
+          "type": "block",
+          "settings": {
+            "heading": "Subscriptions on autopilot",
+            "body_text": "<p>Simply subscribe to your favourite products and choose how regularly you would like to receive them. We look after everything else.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "7d4ea437-2945-486d-a9d9-12617e32bdc1": {
+          "type": "block",
+          "settings": {
+            "heading": "Pause, skip and cancel whenever you like",
+            "body_text": "<p>Please note that subscribers save 10% on every order. If you cancel before the second shipment, we will charge the difference between the regular and subscription prices to the card on your file.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "83ce1b09-81df-43e3-ba87-3e43905e52b8": {
+          "type": "block",
+          "settings": {
+            "heading": "Flexible delivery dates",
+            "body_text": "<p>Effortlessly manage what you receive, when it arrives and the way you pay. Login to your dedicated portal from any device and easily update your settings.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "f54560ff-fbeb-4461-a8c5-68c39a474dc7": {
+          "type": "block",
+          "settings": {
+            "heading": "Real-time notifications",
+            "body_text": "<p>We alert you before each delivery or if there are any problems with your account, making it easy for you to keep track of your subscriptions.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "5c005852-edec-46e0-9195-a04efae9fb6b": {
+          "type": "block",
+          "settings": {
+            "heading": "How can I manage my subscription?",
+            "body_text": "<p>You can access your subscription by logging into your account on our website and selecting “subscriptions” on your account dashboard. Can’t remember if you have an account or not? All subscribers have accounts linked to the email they purchased with — it just may not be setup yet. Activate your account below</p>",
+            "btn_link": "https://goju-shots.myshopify.com/account/login",
+            "btn_text": "Set up your account"
+          }
+        },
+        "d06699fb-a27e-47fb-899f-d3df93bcf867": {
+          "type": "block",
+          "settings": {
+            "heading": "How do I pause or skip my order?",
+            "body_text": "<p>If your Goju stock is stacking up, just log into your account and navigate to “subscriptions” to pause or skip your order.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "7e60e691-cb36-4fc5-9835-d1bf6fb74482": {
+          "type": "block",
+          "settings": {
+            "heading": "How can I change the quantity or change my products in my subscription?",
+            "body_text": "<p>Just like you can pause and skip your deliveries from your account, you can adjust the number of items you receive as well. Simply log into your account and navigate to “subscriptions” to change your subscription quantity or items.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "a0e6f852-07b0-4190-acb8-1ed71d9e1ff7": {
+          "type": "block",
+          "settings": {
+            "heading": "How do I change my delivery frequency?",
+            "body_text": "<p>You can choose to receive your shipment every 7, 14, 21 or 30 days. To adjust your delivery frequency log into your account and navigate to “subscriptions.” Everything can be managed from your dashboard.</p>",
+            "btn_link": "",
+            "btn_text": ""
+          }
+        },
+        "51f8f903-355f-4bda-93aa-9b7135e59734": {
+          "type": "block",
+          "settings": {
+            "heading": "How can I cancel my subscription?",
+            "body_text": "<p>No problem. Login to your account, navigate to “subscriptions” and select “cancel”. If you could please, leave us a comment so we know how to make your next experience better. If you&nbsp;need some more time to&nbsp;get through your supply? You can always pause your account from that page as well.</p>",
+            "btn_link": "https://goju-shots.myshopify.com/account/login",
+            "btn_text": "Login now"
+          }
+        }
+      },
+      "block_order": [
+        "9b7669ef-afff-4bc6-9aad-cdd62a651303",
+        "7d4ea437-2945-486d-a9d9-12617e32bdc1",
+        "83ce1b09-81df-43e3-ba87-3e43905e52b8",
+        "f54560ff-fbeb-4461-a8c5-68c39a474dc7",
+        "5c005852-edec-46e0-9195-a04efae9fb6b",
+        "d06699fb-a27e-47fb-899f-d3df93bcf867",
+        "7e60e691-cb36-4fc5-9835-d1bf6fb74482",
+        "a0e6f852-07b0-4190-acb8-1ed71d9e1ff7",
+        "51f8f903-355f-4bda-93aa-9b7135e59734"
+      ],
+      "settings": {
+        "heading": "About Subscriptions",
+        "subheading": "Get in touch",
+        "text": "Need a hand? Don’t hesitate to contact us for any questions or queries that you may have.",
+        "live_chat": "",
+        "email": "info@gojushots.com",
+        "topics": "<li>When can I cancel my subscription?</li>\n                            <li>How long will it take my order to arrive?</li>\n                            <li>How long will my products stay fresh?</li>\n                            <li>What is your returns policy?</li>"
+      }
+    },
+    "about-sec8": {
+      "type": "about-sec8",
+      "settings": {
+        "title": "You might be interested in…",
+        "sub_title": "BANTER",
+        "blog": "gojushots",
+        "view_all": "",
+        "post_limit": 4
+      }
+    }
+  },
+  "order": [
+    "help-topic",
+    "about-sec8"
+  ]
+}
