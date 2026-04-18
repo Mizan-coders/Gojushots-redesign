@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "collection-goju-main": {
+      "type": "collection-goju",
+      "settings": {
+        "show_hero": true,
+        "tab_all_label": "All Products",
+        "tab_1_icon": "⚡",
+        "tab_1_label": "Energy",
+        "tab_2_icon": "🛡️",
+        "tab_2_label": "Immunity",
+        "tab_3_icon": "😴",
+        "tab_3_label": "Sleep",
+        "tab_4_icon": "💪",
+        "tab_4_label": "Recovery",
+        "tab_5_icon": "🌿",
+        "tab_5_label": "Digestion",
+        "columns": "3",
+        "products_limit": 48,
+        "bg_color": "#f5f0e8",
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "collection-goju-main"
+  ]
+}

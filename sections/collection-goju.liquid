@@ -1,0 +1,1020 @@
+{%- style -%}
+  .cg-{{ section.id }} {
+    background: {{ section.settings.bg_color | default: '#f5f0e8' }};
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+  }
+
+  /* ── Hero ── */
+  .cg-{{ section.id }} .cg__hero {
+    background: #1a1a18;
+    padding: 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cg-{{ section.id }} .cg__hero--has-image {
+    background-size: cover;
+    background-position: center;
+  }
+  .cg-{{ section.id }} .cg__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(10,10,10,0.85) 40%, rgba(10,10,10,0.4) 100%);
+    pointer-events: none;
+  }
+  .cg-{{ section.id }} .cg__hero-left {
+    position: relative;
+    z-index: 2;
+  }
+  .cg-{{ section.id }} .cg__hero-breadcrumb {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cg-{{ section.id }} .cg__hero-breadcrumb a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .cg-{{ section.id }} .cg__hero-breadcrumb a:hover {
+    color: rgba(255,255,255,0.8);
+  }
+  .cg-{{ section.id }} .cg__hero h1 {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 16px;
+  }
+  .cg-{{ section.id }} .cg__hero h1 em {
+    font-style: italic;
+    color: #d4f24a;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .cg-{{ section.id }} .cg__hero-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    max-width: 440px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .cg-{{ section.id }} .cg__hero-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .cg-{{ section.id }} .cg__hero-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 50px;
+  }
+  .cg-{{ section.id }} .cg__hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .cg-{{ section.id }} .cg__hero-stat-num {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    color: #d4f24a;
+    text-align: right;
+  }
+  .cg-{{ section.id }} .cg__hero-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+    margin-top: 2px;
+    text-align: right;
+  }
+
+  /* ── Toolbar ── */
+  .cg-{{ section.id }} .cg__toolbar {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 0 40px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0;
+    position: sticky;
+    top: var(--sticky-header-height, 0px);
+    z-index: 90;
+  }
+  .cg-{{ section.id }} .cg__filters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 16px 0;
+  }
+  .cg-{{ section.id }} .cg__filters::-webkit-scrollbar { display: none; }
+  .cg-{{ section.id }} .cg-filter-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid rgba(0,0,0,0.2);
+    background: transparent;
+    color: #191917;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .cg-{{ section.id }} .cg-filter-btn.is-active {
+    background: #1a4a2e;
+    color: #ffffff;
+    border-color: #1a4a2e;
+  }
+  .cg-{{ section.id }} .cg-filter-btn:not(.is-active):hover {
+    border-color: #191917;
+    background: rgba(0,0,0,0.04);
+  }
+  .cg-{{ section.id }} .cg__toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-left: 1px solid rgba(0,0,0,0.07);
+    padding-left: 24px;
+    flex-shrink: 0;
+  }
+  .cg-{{ section.id }} .cg__count {
+    font-size: 13px;
+    color: rgba(0,0,0,0.45);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .cg-{{ section.id }} .cg__count strong {
+    color: #191917;
+  }
+
+  /* ── Grid ── */
+  .cg-{{ section.id }} .cg__grid-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 40px;
+  }
+  .cg-{{ section.id }} .cg__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns | default: 3 }}, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Product card ── */
+  .cg-{{ section.id }} .pg__card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+  }
+  .cg-{{ section.id }} .pg__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .cg-{{ section.id }} .pg__card:hover .pg__quick-add {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cg-{{ section.id }} .pg__card:hover .pg__card-info {
+    padding-bottom: 56px;
+  }
+  .cg-{{ section.id }} .pg__card:hover .pg__card-img img {
+    transform: scale(1.04);
+  }
+
+  /* Image */
+  .cg-{{ section.id }} .pg__card-img {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    padding: 20px;
+  }
+  .cg-{{ section.id }} .pg__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+  /* Badge */
+  .cg-{{ section.id }} .pg__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    z-index: 2;
+  }
+  .cg-{{ section.id }} .pg__badge--bestseller {
+    background: var(--goju-accent, #d4f24a);
+    color: #191917;
+  }
+  .cg-{{ section.id }} .pg__badge--new {
+    background: #1d7a3f;
+    color: #ffffff;
+  }
+  .cg-{{ section.id }} .pg__badge--sale {
+    background: #e74c3c;
+    color: #ffffff;
+  }
+
+  /* Card info */
+  .cg-{{ section.id }} .pg__card-info {
+    padding: 16px 18px 20px;
+    position: relative;
+    z-index: 2;
+    background: white;
+    transition: padding-bottom 0.35s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .cg-{{ section.id }} .pg__goal-tags {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #1d7a3f;
+    margin-bottom: 4px;
+  }
+  .cg-{{ section.id }} .pg__card-name {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #191917;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+  }
+  .cg-{{ section.id }} .pg__card-desc {
+    font-size: 13px;
+    color: rgba(25,25,23,0.55);
+    line-height: 1.4;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .cg-{{ section.id }} .pg__card-footer {
+    display: flex;
+    flex-direction: column;
+  }
+  .cg-{{ section.id }} .pg__price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #191917;
+  }
+  .cg-{{ section.id }} .pg__price span {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(25,25,23,0.5);
+  }
+  .cg-{{ section.id }} .pg__price--sale {
+    color: #e74c3c;
+  }
+  .cg-{{ section.id }} .pg__price-was {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(25,25,23,0.4);
+    text-decoration: line-through;
+    margin-left: 6px;
+  }
+  .cg-{{ section.id }} .pg__stars {
+    font-size: 13px;
+    color: rgba(25,25,23,0.5);
+    margin-top: 4px;
+  }
+  .cg-{{ section.id }} .pg__stars strong {
+    color: #fbbf24;
+  }
+
+  /* Quick-add */
+  .cg-{{ section.id }} .pg__quick-add {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--goju-btn-primary-bg, #1d7a3f);
+    color: var(--goju-btn-primary-text, #ffffff);
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 3;
+    border: none;
+    width: 100%;
+    text-decoration: none;
+  }
+  .cg-{{ section.id }} .pg__quick-add::before {
+    content: '+';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .cg-{{ section.id }} .pg__quick-add[disabled] {
+    background: rgba(0,0,0,0.3);
+    cursor: not-allowed;
+  }
+
+  /* Empty state */
+  .cg-{{ section.id }} .cg__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 40px;
+  }
+  .cg-{{ section.id }} .cg__empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .cg-{{ section.id }} .cg__empty h3 {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cg-{{ section.id }} .cg__empty p {
+    font-size: 14px;
+    color: rgba(25,25,23,0.5);
+  }
+  .cg-{{ section.id }} .cg__empty-reset {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: inherit;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* ── Tablet ── */
+  @media screen and (max-width: 989px) {
+    .cg-{{ section.id }} .cg__hero { padding: 40px 20px; grid-template-columns: 1fr; min-height: auto; }
+    .cg-{{ section.id }} .cg__hero-right { display: none; }
+    .cg-{{ section.id }} .cg__toolbar { padding: 0 20px; }
+    .cg-{{ section.id }} .cg__grid-wrap { padding: 24px 20px; }
+    .cg-{{ section.id }} .cg__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .cg-{{ section.id }} .pg__quick-add { opacity: 1; transform: translateY(0); font-size: 14px; padding: 12px 16px; }
+    .cg-{{ section.id }} .pg__card-info { padding-bottom: 56px !important; }
+    /* Portrait aspect ratio + reduced padding so images look larger on smaller screens */
+    .cg-{{ section.id }} .pg__card-img { aspect-ratio: 4 / 5; padding: 12px; }
+  }
+
+  /* ── Mobile hero image swap ── */
+  @media screen and (max-width: 767px) {
+    {%- if section.settings.hero_image_mobile != blank -%}
+    .cg-{{ section.id }} .cg__hero--has-image {
+      background-image: url('{{ section.settings.hero_image_mobile | image_url: width: 1200 }}') !important;
+    }
+    {%- endif -%}
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 479px) {
+    .cg-{{ section.id }} .cg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile | default: 2 }}, 1fr); gap: 10px; }
+    .cg-{{ section.id }} .pg__card-name { font-size: {%- if section.settings.columns_mobile == '1' -%}18px{%- else -%}14px{%- endif -%}; }
+    .cg-{{ section.id }} .pg__price { font-size: 16px; }
+    .cg-{{ section.id }} .pg__quick-add { font-size: 13px; padding: 11px 14px; }
+    .cg-{{ section.id }} .cg__toolbar-right { display: none; }
+    /* Remove padding entirely on mobile — images fill the full card width */
+    .cg-{{ section.id }} .pg__card-img { aspect-ratio: 4 / 5; padding: 0; }
+    {%- if section.settings.hide_desc_mobile -%}
+    .cg-{{ section.id }} .pg__card-desc { display: none; }
+    {%- endif -%}
+  }
+{%- endstyle -%}
+
+<div class="cg-{{ section.id }}">
+
+  {%- comment -%} ── Hero Banner ── {%- endcomment -%}
+  {%- if section.settings.show_hero -%}
+    {%- assign hero_img_src = '' -%}
+    {%- if section.settings.hero_image != blank -%}
+      {%- assign hero_img_src = section.settings.hero_image | image_url: width: 2400 -%}
+    {%- elsif collection.image != blank -%}
+      {%- assign hero_img_src = collection.image | image_url: width: 2400 -%}
+    {%- endif -%}
+    <div
+      class="cg__hero{% if hero_img_src != '' %} cg__hero--has-image{% endif %}"
+      {% if hero_img_src != '' %}style="background-image: url('{{ hero_img_src }}')"{% endif %}
+    >
+      {%- if hero_img_src != '' -%}<div class="cg__hero-overlay"></div>{%- endif -%}
+      <div class="cg__hero-left">
+        <div class="cg__hero-breadcrumb">
+          <a href="/">Home</a>
+          <span>/</span>
+          <span>{{ collection.title | escape }}</span>
+        </div>
+        <h1>
+          {{- section.settings.hero_heading | default: collection.title | escape -}}
+          {%- if section.settings.hero_heading_accent != blank %} <em>{{ section.settings.hero_heading_accent | escape }}</em>{%- endif -%}
+        </h1>
+        {%- assign hero_desc = section.settings.hero_desc -%}
+        {%- if hero_desc == blank and collection.description != blank -%}
+          {%- assign hero_desc = collection.description | strip_html -%}
+        {%- endif -%}
+        {%- if hero_desc != blank -%}
+          <p class="cg__hero-desc">{{ hero_desc }}</p>
+        {%- endif -%}
+        {%- assign has_pills = false -%}
+        {%- if section.settings.hero_pill_1 != blank or section.settings.hero_pill_2 != blank or section.settings.hero_pill_3 != blank -%}
+          <div class="cg__hero-pills">
+            {%- if section.settings.hero_pill_1 != blank -%}<span class="cg__hero-pill">{{ section.settings.hero_pill_1 | escape }}</span>{%- endif -%}
+            {%- if section.settings.hero_pill_2 != blank -%}<span class="cg__hero-pill">{{ section.settings.hero_pill_2 | escape }}</span>{%- endif -%}
+            {%- if section.settings.hero_pill_3 != blank -%}<span class="cg__hero-pill">{{ section.settings.hero_pill_3 | escape }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.stat_1_num != blank or section.settings.stat_2_num != blank -%}
+        <div class="cg__hero-right">
+          {%- if section.settings.stat_1_num != blank -%}
+            <div>
+              <div class="cg__hero-stat-num">{{ section.settings.stat_1_num | escape }}</div>
+              {%- if section.settings.stat_1_label != blank -%}
+                <div class="cg__hero-stat-label">{{ section.settings.stat_1_label | escape }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_2_num != blank -%}
+            <div>
+              <div class="cg__hero-stat-num">{{ section.settings.stat_2_num | escape }}</div>
+              {%- if section.settings.stat_2_label != blank -%}
+                <div class="cg__hero-stat-label">{{ section.settings.stat_2_label | escape }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Filter Toolbar ── {%- endcomment -%}
+  <div class="cg__toolbar">
+    <div class="cg__filters" id="CgFilters-{{ section.id }}">
+      <button class="cg-filter-btn is-active" data-goal="all">
+        {{- section.settings.tab_all_label | default: 'All Products' | escape -}}
+      </button>
+      {%- for i in (1..6) -%}
+        {%- assign icon_key  = 'tab_' | append: i | append: '_icon' -%}
+        {%- assign label_key = 'tab_' | append: i | append: '_label' -%}
+        {%- if section.settings[label_key] != blank -%}
+          <button
+            class="cg-filter-btn"
+            data-goal="{{ section.settings[label_key] | downcase | strip | escape }}"
+          >
+            {%- if section.settings[icon_key] != blank -%}{{ section.settings[icon_key] }} {%- endif -%}
+            {{- section.settings[label_key] | escape -}}
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="cg__toolbar-right">
+      <span class="cg__count" id="CgCount-{{ section.id }}">
+        <strong>{{ collection.products_count }}</strong> products
+      </span>
+    </div>
+  </div>
+
+  {%- comment -%} ── Products Grid ── {%- endcomment -%}
+  <div class="cg__grid-wrap">
+    <div class="cg__grid" id="CgGrid-{{ section.id }}">
+      {%- assign products_limit = section.settings.products_limit | default: 48 -%}
+      {%- for product in collection.products limit: products_limit -%}
+
+        {%- comment -%} Build comma-separated lowercase tag string for JS filtering {%- endcomment -%}
+        {%- assign product_tags_str = product.tags | join: ',' | downcase -%}
+
+        {%- comment -%} Auto-detect badge from product tags or compare price {%- endcomment -%}
+        {%- assign badge_type = '' -%}
+        {%- assign badge_text = '' -%}
+        {%- if product.tags contains 'bestseller' -%}
+          {%- assign badge_type = 'bestseller' -%}
+          {%- assign badge_text = 'Best Seller' -%}
+        {%- elsif product.tags contains 'new' -%}
+          {%- assign badge_type = 'new' -%}
+          {%- assign badge_text = 'New' -%}
+        {%- elsif product.variants[0].compare_at_price > product.variants[0].price -%}
+          {%- assign badge_type = 'sale' -%}
+          {%- assign badge_text = 'Sale' -%}
+        {%- endif -%}
+
+        {%- comment -%} Goal/benefit label: use product_tagline metafield first (same source as old sections),
+            fall back to matching product tags against filter tab labels {%- endcomment -%}
+        {%- assign goal_labels = '' -%}
+        {%- if product.metafields.custom.product_tagline != blank -%}
+          {%- assign goal_labels = product.metafields.custom.product_tagline -%}
+        {%- else -%}
+          {%- for i in (1..6) -%}
+            {%- assign lk = 'tab_' | append: i | append: '_label' -%}
+            {%- assign tab_label = section.settings[lk] -%}
+            {%- if tab_label != blank -%}
+              {%- assign tab_lower = tab_label | downcase | strip -%}
+              {%- if product_tags_str contains tab_lower -%}
+                {%- if goal_labels == '' -%}
+                  {%- assign goal_labels = tab_label -%}
+                {%- else -%}
+                  {%- assign goal_labels = goal_labels | append: ' · ' | append: tab_label -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- assign first_variant = product.selected_or_first_available_variant -%}
+
+        <div class="pg__card" data-goals="{{ product_tags_str | escape }}">
+
+          {%- comment -%} Image + badge {%- endcomment -%}
+          <a href="{{ product.url }}" class="pg__card-img" aria-label="{{ product.title | escape }}" tabindex="-1">
+            {%- if product.featured_image != blank -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                width="600"
+                height="600"
+                loading="lazy"
+              >
+            {%- endif -%}
+            {%- if badge_type != '' -%}
+              <div class="pg__badge pg__badge--{{ badge_type }}">{{ badge_text | escape }}</div>
+            {%- endif -%}
+          </a>
+
+          {%- comment -%} Card info {%- endcomment -%}
+          <div class="pg__card-info">
+            {%- if goal_labels != '' -%}
+              <div class="pg__goal-tags">{{ goal_labels }}</div>
+            {%- endif -%}
+            <a href="{{ product.url }}" style="text-decoration:none;">
+              <h3 class="pg__card-name">{{ product.title | escape }}</h3>
+            </a>
+            {%- if product.description != blank -%}
+              <p class="pg__card-desc">{{ product.description | strip_html | truncatewords: 12 }}</p>
+            {%- endif -%}
+            <div class="pg__card-footer">
+              <div class="pg__price{% if product.variants[0].compare_at_price > product.variants[0].price %} pg__price--sale{% endif %}">
+                {%- if product.variants[0].compare_at_price > product.variants[0].price -%}
+                  {{ product.variants[0].price | money }}
+                  <span class="pg__price-was">{{ product.variants[0].compare_at_price | money }}</span>
+                {%- else -%}
+                  {%- if product.variants.size > 1 -%}
+                    <span>From</span> {{ product.price_min | money }}
+                  {%- else -%}
+                    {{ product.price_min | money }}
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+              {%- if product.metafields.custom.rating_text != blank -%}
+                <div class="pg__stars">
+                  <strong>★★★★★</strong>
+                  {{ product.metafields.custom.rating_text | escape }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- comment -%} Quick-add or View Product for picknmix {%- endcomment -%}
+          {%- if product.tags contains 'picknmix' -%}
+            <a href="{{ product.url }}" class="pg__quick-add" style="text-decoration:none;">
+              <span class="pg__quick-add-text">View Product</span>
+            </a>
+          {%- elsif first_variant != blank -%}
+            <button
+              class="pg__quick-add"
+              data-variant-id="{{ first_variant.id }}"
+              {% unless product.available %}disabled aria-disabled="true"{% endunless %}
+              aria-label="Add {{ product.title | escape }} to cart"
+            >
+              <span class="pg__quick-add-text">
+                {%- if product.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+              </span>
+            </button>
+          {%- endif -%}
+
+        </div>
+      {%- else -%}
+        <div class="cg__empty">
+          <div class="cg__empty-icon">🌿</div>
+          <h3>Nothing here yet</h3>
+          <p>Check back soon or browse our other collections.</p>
+        </div>
+      {%- endfor -%}
+
+      {%- comment -%} JS-driven empty state (shown when filter has no matches) {%- endcomment -%}
+      <div class="cg__empty" id="CgEmpty-{{ section.id }}" style="display:none;">
+        <div class="cg__empty-icon">🔍</div>
+        <h3>No products match</h3>
+        <p>
+          Try a different filter or
+          <button class="cg__empty-reset" id="CgReset-{{ section.id }}">view all products</button>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var _nativeFetch = window.fetch.bind(window);
+
+  var section    = document.querySelector('.cg-{{ section.id }}');
+  if (!section) return;
+
+  var filterBtns = Array.from(section.querySelectorAll('.cg-filter-btn'));
+  var cards      = Array.from(section.querySelectorAll('.pg__card'));
+  var countEl    = document.getElementById('CgCount-{{ section.id }}');
+  var emptyEl    = document.getElementById('CgEmpty-{{ section.id }}');
+  var resetBtn   = document.getElementById('CgReset-{{ section.id }}');
+
+  function updateCount(n) {
+    if (!countEl) return;
+    var strong = countEl.querySelector('strong');
+    if (strong) strong.textContent = n;
+  }
+
+  function applyFilter(goal) {
+    var visible = 0;
+    cards.forEach(function(card) {
+      if (goal === 'all') {
+        card.style.display = '';
+        visible++;
+      } else {
+        var cardGoals = (card.dataset.goals || '').toLowerCase();
+        var show = cardGoals.indexOf(goal) !== -1;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      }
+    });
+    if (emptyEl) emptyEl.style.display = visible === 0 ? '' : 'none';
+    updateCount(visible);
+  }
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      applyFilter(btn.dataset.goal);
+    });
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      var allBtn = section.querySelector('.cg-filter-btn[data-goal="all"]');
+      if (allBtn) allBtn.click();
+    });
+  }
+
+  // Quick-add: capture native fetch before any app patches it
+  section.querySelectorAll('.pg__quick-add[data-variant-id]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var variantId = parseInt(btn.dataset.variantId);
+      if (!variantId) return;
+
+      var label = btn.querySelector('.pg__quick-add-text');
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      if (label) label.textContent = 'Adding…';
+
+      _nativeFetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+      })
+      .then(function(res) {
+        if (!res.ok) return res.json().then(function(err) { throw new Error(err.description || 'Error'); });
+        return res.json();
+      })
+      .then(function() {
+        if (label) label.textContent = '✓ Added!';
+        btn.style.opacity = '1';
+
+        var cart = document.querySelector('cart-drawer');
+        if (!cart) { window.location.href = '/cart'; return; }
+
+        cart.classList.remove('is-empty');
+        fetch('/?sections=cart-drawer,cart-icon-bubble')
+          .then(function(r) { return r.json(); })
+          .then(function(sections) {
+            cart.renderContents({ id: variantId, sections: sections });
+          })
+          .catch(function() { window.location.href = '/cart'; });
+
+        setTimeout(function() {
+          if (label) label.textContent = 'Add to Cart';
+          btn.disabled = false;
+          btn.style.opacity = '';
+        }, 2000);
+      })
+      .catch(function(err) {
+        if (label) label.textContent = err.message || 'Try again';
+        setTimeout(function() {
+          if (label) label.textContent = 'Add to Cart';
+          btn.disabled = false;
+          btn.style.opacity = '';
+        }, 2000);
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Collection — Goju",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image (desktop)",
+      "info": "Overrides the collection image. Min 2400px wide."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Leave blank to use the desktop image on mobile."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "info": "Leave blank to use collection title"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_accent",
+      "label": "Heading italic accent",
+      "info": "Rendered in accent colour (lime) after the main heading"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_desc",
+      "label": "Description",
+      "info": "Leave blank to use collection description"
+    },
+    {
+      "type": "text",
+      "id": "hero_pill_1",
+      "label": "Pill 1",
+      "info": "Short label shown as a pill e.g. Cold-pressed"
+    },
+    {
+      "type": "text",
+      "id": "hero_pill_2",
+      "label": "Pill 2"
+    },
+    {
+      "type": "text",
+      "id": "hero_pill_3",
+      "label": "Pill 3"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_num",
+      "label": "Stat 1 — number",
+      "info": "e.g. 500+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 — label",
+      "info": "e.g. 5-star reviews"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_num",
+      "label": "Stat 2 — number"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 — label"
+    },
+    {
+      "type": "header",
+      "content": "Filter Tabs"
+    },
+    {
+      "type": "paragraph",
+      "content": "Each tab filters by matching product tags. Tab label must match the product tag exactly (case-insensitive)."
+    },
+    {
+      "type": "text",
+      "id": "tab_all_label",
+      "label": "All tab label",
+      "default": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_icon",
+      "label": "Tab 1 icon (emoji)",
+      "default": "⚡"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Tab 1 label",
+      "default": "Energy"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_icon",
+      "label": "Tab 2 icon (emoji)",
+      "default": "🛡️"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Tab 2 label",
+      "default": "Immunity"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_icon",
+      "label": "Tab 3 icon (emoji)",
+      "default": "😴"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_label",
+      "label": "Tab 3 label",
+      "default": "Sleep"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_icon",
+      "label": "Tab 4 icon (emoji)",
+      "default": "💪"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_label",
+      "label": "Tab 4 label",
+      "default": "Recovery"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_icon",
+      "label": "Tab 5 icon (emoji)",
+      "default": "🌿"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_label",
+      "label": "Tab 5 label",
+      "default": "Digestion"
+    },
+    {
+      "type": "text",
+      "id": "tab_6_icon",
+      "label": "Tab 6 icon (emoji)"
+    },
+    {
+      "type": "text",
+      "id": "tab_6_label",
+      "label": "Tab 6 label"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desc_mobile",
+      "label": "Hide product description on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Max products to display",
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "default": 48,
+      "info": "Client-side filtering works across all loaded products. Keep high for small collections."
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Products per row (desktop)",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#f5f0e8"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection — Goju",
+      "settings": {
+        "show_hero": true,
+        "tab_all_label": "All Products",
+        "tab_1_icon": "⚡",
+        "tab_1_label": "Energy",
+        "tab_2_icon": "🛡️",
+        "tab_2_label": "Immunity",
+        "tab_3_icon": "😴",
+        "tab_3_label": "Sleep",
+        "tab_4_icon": "💪",
+        "tab_4_label": "Recovery",
+        "tab_5_icon": "🌿",
+        "tab_5_label": "Digestion",
+        "columns": "3",
+        "products_limit": 48
+      }
+    }
+  ]
+}
+{% endschema %}
