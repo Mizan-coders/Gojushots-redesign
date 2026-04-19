@@ -15,10 +15,11 @@
     padding: 0 !important; /* sections handle their own padding */
   }
 
-  /* ── Fix: Dawn forces display:grid on empty cart which stretches our header ── */
+  /* ── Fix: Dawn forces display:grid + align-items:center on empty cart ── */
   cart-drawer.is-empty .drawer__inner {
     display: flex !important;
     flex-direction: column !important;
+    align-items: stretch !important;
     grid-template-rows: unset !important;
   }
 
@@ -141,6 +142,36 @@
     display: none !important;
   }
 
+  /* Hide footer (View Cart + Checkout) when cart is empty */
+  cart-drawer.is-empty .drawer__footer {
+    display: none !important;
+  }
+
+  /* ── With-items scroll layout: whole middle scrolls, header + footer sticky ── */
+  cart-drawer:not(.is-empty) .drawer__inner {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  /* Header sticks to top as user scrolls */
+  cart-drawer:not(.is-empty) .cd-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 5 !important;
+    background: #fff !important;
+  }
+  /* Let cart-drawer-items expand naturally — no internal scroll */
+  cart-drawer:not(.is-empty) cart-drawer-items {
+    flex: 0 0 auto !important;
+    overflow: visible !important;
+  }
+  /* Footer sticks to bottom */
+  cart-drawer:not(.is-empty) .drawer__footer {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 5 !important;
+    background: #fff !important;
+  }
+
   .cd-empty {
     text-align: center;
     padding: 48px 24px 32px;
@@ -181,7 +212,7 @@
     grid-template-columns: 90px 1fr auto;
     grid-template-rows: auto auto;
     gap: 8px 12px;
-    padding: 16px 20px;
+    padding: 10px 16px;
     border-bottom: 1px solid #f0f0f0;
     align-items: start;
   }
@@ -1052,6 +1083,10 @@
 
                 var cartItemsEl = document.querySelector('cart-drawer-items');
                 if (cartItemsEl) cartItemsEl.classList.remove('is-empty');
+
+                // Re-enable checkout button (was disabled when cart was empty)
+                var drawerCheckoutBtn = document.querySelector('.cd-footer__checkout');
+                if (drawerCheckoutBtn) drawerCheckoutBtn.disabled = false;
               }
 
               // Update header cart icon bubble
