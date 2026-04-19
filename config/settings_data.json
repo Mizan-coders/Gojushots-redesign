@@ -133,7 +133,7 @@
         "settings": {
           "color_scheme": "background-1",
           "logo": "shopify://shop_images/New_1_2x_2.png",
-          "logo_width": 130,
+          "logo_width": 110,
           "logo_position": "middle-left",
           "menu": "goju-2k22-menu",
           "menu_type_desktop": "dropdown",

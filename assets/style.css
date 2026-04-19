@@ -239,7 +239,7 @@ p:last-child { margin-bottom: 0; }
 
 .header__inline-menu, .header--middle-left .header__inline-menu{margin-left:auto !important;}
 
-#shopify-section-header{background: #fff; position:relative;width:100%;top:4rem;transition:all 0.2s ease-in;-webkit-transition:all 0.2s ease-in;height:80px;}
+#shopify-section-header{background: #fff; position:relative;width:100%;top:4rem;transition:all 0.2s ease-in;-webkit-transition:all 0.2s ease-in;height:auto;}
 #shopify-section-announcement-bar{position:fixed;width:100%;top:0}
 #shopify-section-header .header {padding-top: 12px;padding-bottom: 13px;}
 #shopify-section-header .header .header__icon--account{display:flex!important;}
