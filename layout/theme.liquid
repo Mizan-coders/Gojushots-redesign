@@ -383,7 +383,6 @@ Disabled Shopify font-face output — using custom Ratch font
     {{ 'style.css' | asset_url | stylesheet_tag }}
     {{ 'new-style.css' | asset_url | stylesheet_tag }}
     <script src="https://kit.fontawesome.com/20dd01c86d.js" crossorigin="anonymous"></script>
-    <script src="https://shopoe.net/app.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-369582829"></script>
     <script>
@@ -404,39 +403,9 @@ Disabled Shopify font-face output — using custom Ratch font
     <!-- End Google Tag Manager -->
 
     {{ shop.metafields.loox.global_html_head }}
-    {% include 'pagefly-app-header' %}
   </head>
 
   <body class="gradient {{ template }} bg-{{ product.id }}">
-    <!-- Slide Cart Edits — DISABLED: conflicts with Dawn cart-drawer (cart_type=drawer) -->
-    <!--
-    <script>
-      !function(){window.SLIDECART=!0;window.SLIDECART_FORMAT='{{shop.money_format}}';var e="https://cdn.jsdelivr.net/gh/apphq/slidecart-dist@master/slidecarthq.js?"+(new Date).getTime(),t=document.createElement("script");t.type="text/javascript",t.src=e,document.querySelector("body").appendChild(t)}();
-    </script>
-    <script>
-      window.SLIDECART_UPDATED = function(cart) {
-        let newCart = cart
-        let items = newCart.items
-
-        items.forEach((item)=>{
-          console.log(item)
-          if(item.properties['shipping_interval_unit_type']){
-            item.properties['Delivery every'] = ` ${item.properties['shipping_interval_frequency']} week(s)`
-          }
-        })
-        window.SLIDECART_SET_CART(newCart)
-      }
-    </script>
-    <style>
-      #slidecarthq .item li[data-key="shipping_interval_unit_type"],
-      #slidecarthq .item li[data-key="shipping_interval_frequency"],
-      #slidecarthq .item li[data-key="Delivery every"] .properties-key-value-spacer {
-        display: none !important;
-      }
-    </style>
-    -->
-    <!-- END Slide Cart Edits -->
-
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -583,10 +552,6 @@ Disabled Shopify font-face output — using custom Ratch font
         });
       });
     </script>
-    {% render 'ps-announcement-popup' %}
-    {% render 'ps-footer-payment-icons' %}
-    {%- render 'ecom_footer' -%}
-
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -598,9 +563,7 @@ Disabled Shopify font-face output — using custom Ratch font
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- BeeAppContactForm -->
-    <div id="bap-cot-fm-wp" style="float: left; clear: both; width: 100%"></div>
-    {{ shop.metafields.cnt_frm_nm_spac.cnt_frm_nm_content }}
+
     <script>
       window.addEventListener('load', function(){
         document.querySelector('button[name="checkout"]').addEventListener('click',function(){
