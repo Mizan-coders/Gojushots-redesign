@@ -21,7 +21,7 @@
     "colors_background_2": "#f3f3f3",
     "gradient_background_2": "",
     "type_header_font": "assistant_n4",
-    "heading_scale": 100,
+    "heading_scale": 120,
     "type_body_font": "assistant_n4",
     "body_scale": 100,
     "page_width": 1200,
@@ -139,10 +139,6 @@
           "menu_type_desktop": "dropdown",
           "show_line_separator": true,
           "enable_sticky_header": false,
-          "cta_nav_label": "Subscribe & Save",
-          "cta_nav_url": "shopify://collections/collagen-promotion",
-          "shop_btn_label": "Shop Now",
-          "shop_btn_url": "",
           "margin_bottom": 0,
           "padding_top": 20,
           "padding_bottom": 20
@@ -164,13 +160,24 @@
               "heading": "Info",
               "menu": "footer"
             }
-          }
+          },
         },
         "block_order": [
           "footer-0",
           "footer-1"
         ],
-        "settings": {}
+        "settings": {
+          "color_scheme": "background-1",
+          "newsletter_enable": true,
+          "newsletter_heading": "Subscribe to our emails",
+          "show_social": true,
+          "enable_country_selector": false,
+          "enable_language_selector": false,
+          "payment_enable": true,
+          "margin_top": 48,
+          "padding_top": 36,
+          "padding_bottom": 36
+        }
       },
       "main-password-header": {
         "type": "main-password-header",
@@ -193,14 +200,14 @@
           ".form-subscribe .suscribe-button {border-left: 1px solid #e5e5e5;}"
         ],
         "settings": {
-          "logo": "shopify://shop_images/Yello-version-removebg-preview.png",
-          "tagline": "Real ingredients. Built to work. Crafted in New Zealand for people who take their health seriously.",
           "heading": "Want $10 off your first purchase?",
           "paragraph": "Subscribe to our mailing list for exclusive Goju offers and the latest on health and wellness, and you'll get $10 off your first purchase.",
+          "goju": "goju-footer-2k22",
+          "retailers": "retailers",
+          "help": "help-2k22",
+          "logo": "shopify://shop_images/New_1_2x_2.png",
           "insta_url": "https://www.instagram.com/goju_shots/",
           "fb_url": "https://www.facebook.com/gojushots",
-          "tiktok_url": "https://www.tiktok.com/en/",
-          "youtube_url": "",
           "copyright": "© Copyright Goju",
           "have_question": "Have questions? Reach out to our team at team@gojushots.com"
         }
@@ -249,7 +256,7 @@
       },
       "pagefly-page-builder": {
         "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     }
@@ -405,18 +412,10 @@
                 "menu": "footer"
               }
             },
-            "footer-2": {
-              "type": "text",
-              "settings": {
-                "heading": "Our mission",
-                "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
-              }
-            }
           },
           "block_order": [
             "footer-0",
-            "footer-1",
-            "footer-2"
+            "footer-1"
           ],
           "settings": {
             "color_scheme": "background-1",
