@@ -138,6 +138,55 @@
   @media screen and (max-width: 989px) {
     .header__nav-cta { display: none !important; }
   }
+
+  /* ── Header icon sizes normalised for visual parity (~25px drawn content each) ── */
+  .header__icon--search .icon-search { width: 27px; height: 27px; }
+  .header__icon--account svg         { width: 25px !important; height: 25px !important; }
+  .header__icon--cart .icon-cart     { width: 45px; height: 45px; }
+
+  /* ── Search modal — branded styling ── */
+  .search-modal {
+    background: #f5f0e8;
+    border-bottom: 2px solid #1a4a2e;
+  }
+  .search-modal .field__input,
+  .search-modal .search__input {
+    background: #f5f0e8;
+    border-radius: 8px;
+    color: #191917;
+  }
+  /* Brand-colour border via Dawn's pseudo-element */
+  .search-modal .field:after {
+    box-shadow: 0 0 0 1px #1a4a2e !important;
+    border-radius: 10px !important;
+  }
+  .search-modal .field:hover.field:after,
+  .search-modal .field:focus-within.field:after {
+    box-shadow: 0 0 0 1px #1a4a2e !important;
+    border-radius: 10px !important;
+  }
+  .search-modal .field__input,
+  .search-modal .search__input {
+    border-radius: 10px;
+  }
+  .search-modal .field__input:focus,
+  .search-modal .search__input:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+  .search-modal .field__label {
+    color: rgba(25,25,23,0.5);
+  }
+  .search-modal .search__button .icon,
+  .search-modal .field__button .icon {
+    color: #1a4a2e;
+  }
+  .search-modal__close-button .icon {
+    color: #191917;
+  }
+  .search-modal__close-button:hover .icon {
+    color: #1a4a2e;
+  }
 </style>
 
 {%- style -%}
@@ -559,7 +608,7 @@
     {%- endif -%}
 
     <div class="header__icons">
-{% comment %}       <details-modal class="header__search">
+      <details-modal class="header__search">
         <details>
           <summary class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
             <span>
@@ -630,7 +679,7 @@
             </div>
           </div>
         </details>
-      </details-modal> {% endcomment %}
+      </details-modal>
 
 
       {%- if shop.customer_accounts_enabled -%}
