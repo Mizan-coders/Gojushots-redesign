@@ -1,55 +1,466 @@
 {% comment %}
-    Renders cart drawer
-
-    Usage:
-    {% render 'cart-drawer' %}
+    Renders cart drawer — BrainMD-inspired layout with GOJU brand colours
+    Usage: {% render 'cart-drawer' %}
 {% endcomment %}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
 <style>
-  .drawer {
-    visibility: hidden;
+  .drawer { visibility: hidden; }
+
+  /* ── Width — target the actual sliding panel, not #CartDrawer ── */
+  .drawer__inner {
+    width: 500px !important;
+    max-width: 100vw !important;
+    padding: 0 !important; /* sections handle their own padding */
   }
+
+  /* ── Fix: Dawn forces display:grid on empty cart which stretches our header ── */
+  cart-drawer.is-empty .drawer__inner {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-rows: unset !important;
+  }
+
+  /* ── Hide original Dawn header ── */
+  .drawer__header { display: none !important; }
+
+  /* ════════════════════════════════
+     CUSTOM HEADER
+  ════════════════════════════════ */
+  .cd-header {
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  .cd-header__title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 52px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .cd-header__title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+    color: #191917;
+    align-self: center;
+  }
+
+  .cd-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: center;
+  }
+
+  .cd-header__login-btn {
+    background: #f5f0e8;
+    color: #191917;
+    border: 1px solid #f5f0e8;
+    border-radius: 32px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+  }
+  .cd-header__login-btn:hover { background: #e8e3d9; }
+
+  .cd-header__close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #191917;
+    display: flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .cd-header__close-btn:hover { color: #1a4a2e; }
+
+  /* Welcome banner */
+  .cd-header__banner {
+    background: #1a4a2e;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    padding: 6px 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Free shipping bar */
+  .cd-shipping-bar {
+    padding: 10px 20px 12px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .cd-shipping-bar__text {
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 6px;
+    color: #191917;
+    min-height: 16px;
+  }
+  .cd-shipping-bar__text strong { font-weight: 700; }
+  .cd-shipping-bar__track {
+    background: #e8e8e8;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cd-shipping-bar__fill {
+    background: #1a4a2e;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  /* ════════════════════════════════
+     EMPTY STATE
+  ════════════════════════════════ */
+
+  /* Dawn sets height:100% on this wrapper — override so it doesn't fill the
+     entire drawer height and create a gap before the upsell section */
+  .drawer__inner-empty {
+    height: auto !important;
+    padding: 0 !important;  /* .cd-empty handles its own padding */
+    flex-shrink: 0;
+  }
+
+  /* Hide empty-state wrapper once cart has items (is-empty class removed) */
+  cart-drawer:not(.is-empty) .drawer__inner-empty {
+    display: none !important;
+  }
+
+  .cd-empty {
+    text-align: center;
+    padding: 48px 24px 32px;
+  }
+  .cd-empty h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #191917;
+  }
+  .cd-empty p {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 24px;
+  }
+  .cd-empty__shop-btn {
+    display: inline-block;
+    background: #1a4a2e;
+    color: #fff;
+    border: none;
+    border-radius: 32px;
+    padding: 14px 48px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .cd-empty__shop-btn:hover { background: #133820; }
+
+  /* ════════════════════════════════
+     CART ITEMS
+  ════════════════════════════════ */
+  .cart-drawer__form .cart-items thead { display: none; }
+
+  .cart-drawer__form .cart-item {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: start;
+  }
+
+  .cart-item__media {
+    grid-row: 1 / 3;
+    width: 90px;
+    height: 90px;
+  }
+  .cart-item__media img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .cart-item__name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #191917;
+    text-decoration: none;
+  }
+
+  .cart-item__totals {
+    font-size: 14px;
+    font-weight: 600;
+    color: #191917;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .cart-item__quantity { grid-column: 2; }
+
+  /* Pill quantity widget — BrainMD style */
+  .cart-item__quantity .quantity {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 36px;
+    background: #fff;
+  }
+  .cart-item__quantity .quantity__button {
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    color: #191917;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.1s;
+    font-size: 0; /* hide any text */
+    position: relative;
+  }
+  /* Hide blurry SVG icons, use crisp text characters */
+  .cart-item__quantity .quantity__button svg { display: none !important; }
+  .cart-item__quantity .quantity__button[name="minus"]::after {
+    content: '−';
+    font-size: 18px;
+    line-height: 1;
+    color: #191917;
+  }
+  .cart-item__quantity .quantity__button[name="plus"]::after {
+    content: '+';
+    font-size: 18px;
+    line-height: 1;
+    color: #191917;
+  }
+  .cart-item__quantity .quantity__button:hover { background: #f5f5f5; }
+  .cart-item__quantity .quantity__input {
+    width: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-left: 1.5px solid #ddd;
+    border-right: 1.5px solid #ddd;
+    background: #fff;
+    color: #191917;
+    height: 36px;
+  }
+
+  /* ════════════════════════════════
+     YOU MAY ALSO LIKE
+  ════════════════════════════════ */
+  .cd-upsell {
+    padding: 20px;
+    border-top: 1px solid #f0f0f0;
+    background: #fff;
+  }
+  .cd-upsell__title {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #191917;
+    margin: 0 0 16px;
+  }
+  .cd-upsell__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .cd-upsell__item:last-child { border-bottom: none; }
+  .cd-upsell__img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f5f0e8;
+  }
+  .cd-upsell__img img { width: 100%; height: 100%; object-fit: cover; }
+  .cd-upsell__info { flex: 1; min-width: 0; }
+  .cd-upsell__name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #191917;
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cd-upsell__price { font-size: 13px; color: #555; margin: 0; }
+  .cd-upsell__add-btn {
+    background: #f5f0e8;
+    color: #191917;
+    border: none;
+    border-radius: 32px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cd-upsell__add-btn:hover { background: #1a4a2e; color: #fff; }
+  .cd-upsell__add-btn:disabled { opacity: 0.6; cursor: default; }
+
+  /* ════════════════════════════════
+     FOOTER
+  ════════════════════════════════ */
+
+  /* Hide original Dawn footer elements */
+  /* Scope to cart-drawer only — do NOT hide .cart__ctas globally
+     (that class is also used on the /cart page checkout button) */
+  cart-drawer .cart-drawer__footer .totals,
+  cart-drawer .cart-drawer__footer .cart__ctas .cart__checkout-button,
+  cart-drawer .cart-drawer__footer details,
+  cart-drawer .cart-drawer__footer .tax-note,
+  cart-drawer .cart__ctas { display: none !important; }
+
+  .drawer__footer {
+    border-top: 1px solid #e8e8e8 !important;
+    padding: 0 !important;
+    background: #fff;
+  }
+
+  .cd-footer {
+    padding: 14px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cd-footer__subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 15px;
+    font-weight: 700;
+    color: #191917;
+  }
+  .cd-footer__subtotal-label { font-weight: 700; }
+  .cd-footer__subtotal-price { font-weight: 700; }
+
+  .cd-footer__ctas {
+    display: flex;
+    gap: 8px;
+  }
+
+  .cd-footer__view-cart {
+    flex: 1;
+    background: #f5f0e8;
+    color: #191917;
+    border: 1px solid #f5f0e8;
+    border-radius: 32px;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .cd-footer__view-cart:hover { background: #e8e3d9; }
+
+  .cd-footer__checkout {
+    flex: 2;
+    background: #1a4a2e;
+    color: #fff;
+    border: none;
+    border-radius: 32px;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .cd-footer__checkout:hover { background: #133820; }
+  .cd-footer__checkout:disabled { opacity: 0.5; cursor: default; }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
   <div id="CartDrawer" class="cart-drawer">
-    <div id="CartDrawer-Overlay"class="cart-drawer__overlay"></div>
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
     <div class="drawer__inner" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}" tabindex="-1">
-       {%- if cart == empty -%}
-        <div class="drawer__inner-empty">
-          <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
-            <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
-              <button class="drawer__close" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
-              <a href="{{ routes.all_products_collection_url }}" class="button">
-                {{ 'general.continue_shopping' | t }}
-              </a>
 
-              {%- if shop.customer_accounts_enabled and customer == nil -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
-                <p class="cart__login-paragraph">
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
+      {%- comment -%} ── Custom Header ── {%- endcomment -%}
+      <div class="cd-header">
+        <div class="cd-header__title-bar">
+          <h2 class="cd-header__title">Your Cart</h2>
+          <div class="cd-header__actions">
+            {%- if shop.customer_accounts_enabled -%}
+              {%- if customer -%}
+                <a href="{{ routes.account_url }}" class="cd-header__login-btn">Account</a>
+              {%- else -%}
+                <a href="{{ routes.account_login_url }}" class="cd-header__login-btn">Login</a>
               {%- endif -%}
-            </div>
+            {%- endif -%}
+            <button class="cd-header__close-btn" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M1 1L15 15M15 1L1 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
           </div>
-          {%- if settings.cart_drawer_collection != blank -%}
-            <div class="cart-drawer__collection">
-              {% render 'card-collection',
-                card_collection: settings.cart_drawer_collection,
-                columns: 1
-              %}
-            </div>
-          {%- endif -%}
         </div>
-      {%- endif -%}
-      <div class="drawer__header">
+        <div class="cd-header__banner">Welcome to {{ shop.name }}</div>
+        <div class="cd-shipping-bar">
+          <p class="cd-shipping-bar__text"><span class="cd-shipping-bar__msg"></span></p>
+          <div class="cd-shipping-bar__track">
+            <div class="cd-shipping-bar__fill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Dawn header hidden via CSS above but kept for JS compatibility {%- endcomment -%}
+      <div class="drawer__header" aria-hidden="true">
         <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
         <button class="drawer__close" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">{% render 'icon-close' %}</button>
       </div>
-      <cart-drawer-items {% if cart == empty %}class=" is-empty"{% endif %}>
+
+      {%- comment -%} ── Empty State ── {%- endcomment -%}
+      {%- if cart == empty -%}
+        <div class="drawer__inner-empty">
+          <div class="cd-empty">
+            <h2>Your cart is empty!</h2>
+            <p>Add your favourite products to get started.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="cd-empty__shop-btn" onclick="this.closest('cart-drawer').close()">
+              Shop Now
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} ── Cart Items (Dawn re-renders this block) ── {%- endcomment -%}
+      <cart-drawer-items {% if cart == empty %}class="is-empty"{% endif %}>
         <form action="{{ routes.cart_url }}" id="CartDrawer-Form" class="cart__contents cart-drawer__form" method="post">
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
             {%- if cart != empty -%}
@@ -63,13 +474,11 @@
                       <th id="CartDrawer-ColumnQuantity" role="columnheader"><span class="visually-hidden">{{ 'sections.cart.headings.quantity' | t }}</span></th>
                     </tr>
                   </thead>
-
                   <tbody role="rowgroup">
                     {%- for item in cart.items -%}
                       <tr id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item" role="row">
                         <td class="cart-item__media" role="cell" headers="CartDrawer-ColumnProductImage">
                           {% if item.image %}
-                            {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
                             <a href="{{ item.url }}" class="cart-item__link" tabindex="-1" aria-hidden="true"> </a>
                             <img class="cart-item__image"
                               src="{{ item.image | image_url: width: 300 }}"
@@ -80,35 +489,21 @@
                             >
                           {% endif %}
                         </td>
-
                         <td class="cart-item__details" role="cell" headers="CartDrawer-ColumnProduct">
                           {%- if settings.show_vendor -%}
                             <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
                           {%- endif -%}
-
                           <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
-
                           {%- if item.original_price != item.final_price -%}
                             <div class="cart-item__discounted-prices">
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.regular_price' | t }}
-                              </span>
-                              <s class="cart-item__old-price product-option">
-                                {{- item.original_price | money -}}
-                              </s>
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.sale_price' | t }}
-                              </span>
-                              <strong class="cart-item__final-price product-option">
-                                {{ item.final_price | money }}
-                              </strong>
+                              <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                              <s class="cart-item__old-price product-option">{{- item.original_price | money -}}</s>
+                              <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                              <strong class="cart-item__final-price product-option">{{ item.final_price | money }}</strong>
                             </div>
                           {%- else -%}
-                            <div class="product-option">
-                              {{ item.original_price | money }}
-                            </div>
+                            <div class="product-option">{{ item.original_price | money }}</div>
                           {%- endif -%}
-
                           {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                             <dl>
                               {%- if item.product.has_only_default_variant == false -%}
@@ -119,7 +514,6 @@
                                   </div>
                                 {%- endfor -%}
                               {%- endif -%}
-
                               {%- for property in item.properties -%}
                                 {%- assign property_first_char = property.first | slice: 0 -%}
                                 {%- if property.last != blank and property.first != "subscription_id" and property.first != "shipping_interval_frequency" and property.first != "shipping_interval_unit_type" and property_first_char != '_' -%}
@@ -127,9 +521,7 @@
                                     <dt>{{ property.first }}: </dt>
                                     <dd>
                                       {%- if property.last contains '/uploads/' -%}
-                                        <a href="{{ property.last }}" class="link" target="_blank" aria-describedby="a11y-new-window-message">
-                                          {{ property.last | split: '/' | last }}
-                                        </a>
+                                        <a href="{{ property.last }}" class="link" target="_blank">{{ property.last | split: '/' | last }}</a>
                                       {%- else -%}
                                         {{ property.last }}
                                       {%- endif -%}
@@ -138,66 +530,33 @@
                                 {%- endif -%}
                               {%- endfor -%}
                             </dl>
-
                             <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                           {%- endif -%}
-
                           <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                             {%- for discount in item.discounts -%}
-                              <li class="discounts__discount">
-                                {%- render 'icon-discount' -%}
-                                {{ discount.title }}
-                              </li>
+                              <li class="discounts__discount">{%- render 'icon-discount' -%}{{ discount.title }}</li>
                             {%- endfor -%}
                           </ul>
                         </td>
-
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
                           <div class="loading-overlay hidden">
                             <div class="loading-overlay__spinner">
-                              <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
                               </svg>
                             </div>
                           </div>
-
                           <div class="cart-item__price-wrapper">
                             {%- if item.original_line_price != item.final_line_price -%}
                               <div class="cart-item__discounted-prices">
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </span>
-                                <s class="cart-item__old-price price price--end">
-                                  {{ item.original_line_price | money }}
-                                </s>
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </span>
-                                <span class="price price--end">
-                                  {{ item.final_line_price | money }}
-                                </span>
+                                <s class="cart-item__old-price price price--end">{{ item.original_line_price | money }}</s>
+                                <span class="price price--end">{{ item.final_line_price | money }}</span>
                               </div>
                             {%- else -%}
-                              <span class="price price--end">
-                                {{ item.original_line_price | money }}
-                              </span>
-                            {%- endif -%}
-
-                            {%- if item.variant.available and item.unit_price_measurement -%}
-                              <div class="unit-price caption">
-                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                                {{ item.variant.unit_price | money }}
-                                <span aria-hidden="true">/</span>
-                                <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
-                                {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
-                                  {{- item.variant.unit_price_measurement.reference_value -}}
-                                {%- endif -%}
-                                {{ item.variant.unit_price_measurement.reference_unit }}
-                              </div>
+                              <span class="price price--end">{{ item.original_line_price | money }}</span>
                             {%- endif -%}
                           </div>
                         </td>
-
                         <td class="cart-item__quantity" role="cell" headers="CartDrawer-ColumnQuantity">
                           <div class="cart-item__quantity-wrapper">
                             <quantity-input class="quantity">
@@ -219,21 +578,18 @@
                                 {% render 'icon-plus' %}
                               </button>
                             </quantity-input>
-
                             <cart-remove-button id="CartDrawer-Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                               <button class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                                 {% render 'icon-remove' %}
                               </button>
                             </cart-remove-button>
                           </div>
-
                           <div id="CartDrawer-LineItemError-{{ item.index | plus: 1 }}" class="cart-item__error" role="alert">
                             <small class="cart-item__error-text"></small>
-                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                            <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
                               <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
                               <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
                               <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
-                              <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
                             </svg>
                           </div>
                         </td>
@@ -249,46 +605,79 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
       </cart-drawer-items>
+
+      {%- comment -%} ── You May Also Like ── {%- endcomment -%}
+      {%- assign upsell_collection = collections['all'] -%}
+      {%- assign upsell_shown = 0 -%}
+      {%- assign cart_product_ids = '' -%}
+      {%- for item in cart.items -%}
+        {%- assign cart_product_ids = cart_product_ids | append: item.product_id | append: ',' -%}
+      {%- endfor -%}
+      {%- assign upsell_products = '' -%}
+      {%- for product in upsell_collection.products limit: 12 -%}
+        {%- assign pid_str = product.id | append: ',' -%}
+        {%- unless cart_product_ids contains pid_str -%}
+          {%- if upsell_shown < 3 -%}
+            {%- assign upsell_shown = upsell_shown | plus: 1 -%}
+            <div class="cd-upsell" style="{% if upsell_shown > 1 %}display:none{% endif %}"></div>
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endfor -%}
+
+      <div class="cd-upsell" id="CdUpsell">
+        <h4 class="cd-upsell__title">You May Also Like</h4>
+        {%- assign upsell_count = 0 -%}
+        {%- for product in collections['all'].products limit: 10 -%}
+          {%- assign is_in_cart = false -%}
+          {%- for item in cart.items -%}
+            {%- if item.product_id == product.id -%}{%- assign is_in_cart = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- if is_in_cart == false and upsell_count < 3 -%}
+            {%- assign upsell_count = upsell_count | plus: 1 -%}
+            <div class="cd-upsell__item">
+              <div class="cd-upsell__img">
+                {%- if product.featured_image -%}
+                  <img src="{{ product.featured_image | image_url: width: 128 }}" alt="{{ product.title | escape }}" loading="lazy" width="64" height="64">
+                {%- endif -%}
+              </div>
+              <div class="cd-upsell__info">
+                <p class="cd-upsell__name">{{ product.title | escape }}</p>
+                <p class="cd-upsell__price">{{ product.price | money }}</p>
+              </div>
+              <button type="button" class="cd-upsell__add-btn" data-variant-id="{{ product.variants.first.id }}">Add</button>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} ── Footer ── {%- endcomment -%}
       <div class="drawer__footer">
+        {%- comment -%} Keep Dawn's note / discounts / tax note (hidden via CSS) {%- endcomment -%}
         {%- if settings.show_cart_note -%}
-          <details id="Details-CartDrawer">
-            <summary>
-              <span class="summary__title">
-                {{ 'sections.cart.note' | t }}
-                {% render 'icon-caret' %}
-              </span>
-            </summary>
+          <details id="Details-CartDrawer" style="display:none">
+            <summary><span class="summary__title">{{ 'sections.cart.note' | t }}{% render 'icon-caret' %}</span></summary>
             <cart-note class="cart__note field">
               <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
-              <textarea id="CartDrawer-Note" class="text-area text-area--resize-vertical field__input" name="note" placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
+              <textarea id="CartDrawer-Note" class="text-area field__input" name="note">{{ cart.note }}</textarea>
             </cart-note>
           </details>
         {%- endif -%}
 
-        <!-- Start blocks-->
-        <!-- Subtotals-->
-
-        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
-          <div class="totals" role="status">
+        <div class="cart-drawer__footer">
+          <div class="totals" role="status" style="display:none">
             <h2 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h2>
             <p class="totals__subtotal-value">{{ cart.total_price | money_with_currency }}</p>
           </div>
-
-          <div>
-            {%- if cart.cart_level_discount_applications.size > 0 -%}
-              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                {%- for discount in cart.cart_level_discount_applications -%}
-                  <li class="discounts__discount discounts__discount--end">
-                    {%- render 'icon-discount' -%}
-                    {{ discount.title }}
-                    (-{{ discount.total_allocated_amount | money }})
-                  </li>
-                {%- endfor -%}
-              </ul>
-            {%- endif -%}
-          </div>
-
-          <small class="tax-note caption-large rte">
+          {%- if cart.cart_level_discount_applications.size > 0 -%}
+            <ul class="discounts list-unstyled" role="list" style="display:none">
+              {%- for discount in cart.cart_level_discount_applications -%}
+                <li class="discounts__discount discounts__discount--end">
+                  {%- render 'icon-discount' -%}{{ discount.title }} (-{{ discount.total_allocated_amount | money }})
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <small class="tax-note caption-large rte" style="display:none">
             {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
               {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
             {%- elsif cart.taxes_included -%}
@@ -301,40 +690,253 @@
           </small>
         </div>
 
-        <!-- CTAs -->
-
-        <div class="cart__ctas" {{ block.shopify_attributes }}>
-          <noscript>
-            <button type="submit" class="cart__update-button button button--secondary" form="CartDrawer-Form">
-              {{ 'sections.cart.update' | t }}
-            </button>
-          </noscript>
-
+        {%- comment -%} Hidden Dawn checkout button — required for form submission {%- endcomment -%}
+        <div class="cart__ctas" style="display:none">
           <button type="submit" id="CartDrawer-Checkout" class="cart__checkout-button button" name="checkout" form="CartDrawer-Form"{% if cart == empty %} disabled{% endif %}>
             {{ 'sections.cart.checkout' | t }}
           </button>
         </div>
+
+        {%- comment -%} Our custom footer UI {%- endcomment -%}
+        <div class="cd-footer">
+          <div class="cd-footer__subtotal">
+            <span class="cd-footer__subtotal-label">
+              Subtotal
+              {%- if cart.item_count == 1 -%}&nbsp;({{ cart.item_count }} item)
+              {%- elsif cart.item_count > 1 -%}&nbsp;({{ cart.item_count }} items)
+              {%- endif -%}
+            </span>
+            <span class="cd-footer__subtotal-price">{{ cart.total_price | money }}</span>
+          </div>
+          <div class="cd-footer__ctas">
+            <a href="{{ routes.cart_url }}" class="cd-footer__view-cart">View Cart</a>
+            <button type="submit" class="cd-footer__checkout" name="checkout" form="CartDrawer-Form"{% if cart == empty %} disabled{% endif %}>
+              Checkout &rarr;
+            </button>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </cart-drawer>
 
 <script>
+(function() {
+  // Capture native fetch before any app (SlideCart) can patch it
+  var _nativeFetch = window.fetch.bind(window);
+
+  // ── Free Shipping Bar ──────────────────────────────────────
+  // Set your free shipping threshold in cents (e.g. 8000 = $80.00 NZD)
+  var FREE_SHIPPING_CENTS = 8000;
+
+  function updateShippingBar(totalCents) {
+    var fill = document.querySelector('.cd-shipping-bar__fill');
+    var msg  = document.querySelector('.cd-shipping-bar__msg');
+    if (!fill || !msg) return;
+    var pct = Math.min((totalCents / FREE_SHIPPING_CENTS) * 100, 100);
+    fill.style.width = pct + '%';
+    if (totalCents >= FREE_SHIPPING_CENTS) {
+      msg.innerHTML = '🎉 Congrats! You\'ve unlocked <strong>FREE SHIPPING!</strong>';
+    } else {
+      var remaining = ((FREE_SHIPPING_CENTS - totalCents) / 100).toFixed(2);
+      msg.innerHTML = 'You\'re <strong>$' + remaining + '</strong> away from <strong>FREE SHIPPING!</strong>';
+    }
+  }
+
+  function fetchAndUpdateBar() {
+    _nativeFetch('/cart.js')
+      .then(function(r) { return r.json(); })
+      .then(function(cart) { updateShippingBar(cart.total_price); })
+      .catch(function() {});
+  }
+
+  // Detect cart page — drawer is not needed there
+  var onCartPage = window.location.pathname === '/cart';
+
+  // ── On /cart page: disable drawer opening ─────────────────
+  // Cart icon should behave as a normal link (user is already viewing cart)
+  if (onCartPage) {
+    var patchDrawerOpen = function() {
+      var cartDrawerEl = document.querySelector('cart-drawer');
+      if (cartDrawerEl) {
+        cartDrawerEl.open = function() {}; // no-op — already on cart page
+      }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', patchDrawerOpen);
+    } else {
+      patchDrawerOpen();
+    }
+    setTimeout(patchDrawerOpen, 300); // ensure CartDrawer custom element is defined
+  }
+
+  // ── Upsell Add-to-Cart (AJAX — no page reload) ────────────
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.cd-upsell__add-btn');
+    if (!btn) return;
+    var variantId = btn.dataset.variantId;
+    if (!variantId) return;
+
+    btn.disabled = true;
+    btn.textContent = '…';
+
+    var formData = new FormData();
+    formData.append('id', variantId);
+    formData.append('quantity', '1');
+
+    _nativeFetch('/cart/add.js', { method: 'POST', body: formData })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        btn.textContent = '✓ Added!';
+
+        // Hide this upsell row after brief confirmation
+        var upsellItem = btn.closest('.cd-upsell__item');
+        if (upsellItem) {
+          setTimeout(function() { upsellItem.style.display = 'none'; }, 600);
+        }
+
+        if (onCartPage) {
+          // ── Cart page path: update page items + badge + subtotal ──
+          // Don't touch the drawer at all; leave payment buttons untouched
+          return _nativeFetch('/?sections=main-cart-items,cart-icon-bubble')
+            .then(function(r) { return r.json(); })
+            .then(function(sections) {
+              var parser = new DOMParser();
+
+              // Update cart items table
+              var mainCartItemsEl = document.getElementById('main-cart-items');
+              if (mainCartItemsEl && sections['main-cart-items']) {
+                var cartPageDoc = parser.parseFromString(sections['main-cart-items'], 'text/html');
+                var newCartItems = cartPageDoc.getElementById('main-cart-items');
+                if (newCartItems) mainCartItemsEl.innerHTML = newCartItems.innerHTML;
+              }
+
+              // Update cart icon badge
+              if (sections['cart-icon-bubble']) {
+                var bubbleDoc = parser.parseFromString(sections['cart-icon-bubble'], 'text/html');
+                var newBubble = bubbleDoc.querySelector('.shopify-section');
+                var curBubble = document.getElementById('cart-icon-bubble');
+                if (newBubble && curBubble) curBubble.innerHTML = newBubble.innerHTML;
+              }
+
+              // Update subtotal price text safely (no innerHTML swap of the whole footer)
+              return _nativeFetch('/cart.js').then(function(r) { return r.json(); });
+            })
+            .then(function(cart) {
+              if (!cart) return;
+              // Update the subtotal value text only
+              var subtotalEl = document.querySelector('.totals__subtotal-value');
+              if (subtotalEl) {
+                // Re-render price using same format as Liquid's money_with_currency
+                var fmt = (window.Shopify && window.Shopify.money_with_currency_format)
+                       || (window.theme && window.theme.moneyWithCurrencyFormat)
+                       || '${{amount}} NZD';
+                subtotalEl.textContent = fmt.replace('{{amount}}', (cart.total_price / 100).toFixed(2))
+                                           .replace('{{amount_no_decimals}}', Math.round(cart.total_price / 100));
+              }
+              // Enable checkout button now cart has items
+              var checkoutBtn = document.getElementById('checkout');
+              if (checkoutBtn) checkoutBtn.disabled = false;
+            });
+
+        } else {
+          // ── Drawer path: update cart drawer + badge ───────────────
+          return _nativeFetch('/?sections=cart-drawer,cart-icon-bubble')
+            .then(function(r) { return r.json(); })
+            .then(function(sections) {
+              var parser = new DOMParser();
+
+              if (sections['cart-drawer']) {
+                var doc = parser.parseFromString(sections['cart-drawer'], 'text/html');
+
+                // Swap cart items list
+                var newItems = doc.querySelector('#CartDrawer-CartItems');
+                var curItems = document.querySelector('#CartDrawer-CartItems');
+                if (newItems && curItems) curItems.innerHTML = newItems.innerHTML;
+
+                // Update subtotal price (Liquid-formatted, currency correct)
+                var newPrice = doc.querySelector('.cd-footer__subtotal-price');
+                var curPrice = document.querySelector('.cd-footer__subtotal-price');
+                if (newPrice && curPrice) curPrice.textContent = newPrice.textContent;
+
+                // Update item count label
+                var newLabel = doc.querySelector('.cd-footer__subtotal-label');
+                var curLabel = document.querySelector('.cd-footer__subtotal-label');
+                if (newLabel && curLabel) curLabel.innerHTML = newLabel.innerHTML;
+
+                // Remove is-empty states (cart now has items)
+                var drawerEl = document.querySelector('cart-drawer');
+                if (drawerEl) drawerEl.classList.remove('is-empty');
+
+                var cartItemsEl = document.querySelector('cart-drawer-items');
+                if (cartItemsEl) cartItemsEl.classList.remove('is-empty');
+              }
+
+              // Update header cart icon bubble
+              if (sections['cart-icon-bubble']) {
+                var bubbleDoc = parser.parseFromString(sections['cart-icon-bubble'], 'text/html');
+                var newBubble = bubbleDoc.querySelector('.shopify-section');
+                var curBubble = document.getElementById('cart-icon-bubble');
+                if (newBubble && curBubble) curBubble.innerHTML = newBubble.innerHTML;
+              }
+
+              // Refresh shipping bar
+              fetchAndUpdateBar();
+            });
+        }
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Add';
+      });
+  });
+
+  // ── Init ───────────────────────────────────────────────────
+  // Run immediately, on DOMContentLoaded, and with a fallback delay
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fetchAndUpdateBar);
+  } else {
+    fetchAndUpdateBar();
+  }
+  setTimeout(fetchAndUpdateBar, 800); // fallback for slow fetch
+
+  // Re-run when cart drawer opens or cart updates
+  document.addEventListener('cart:refresh', fetchAndUpdateBar);
+
+  // Watch for cart-drawer getting the 'active' class (user opens it)
+  function initObserver() {
+    var cartDrawerEl = document.querySelector('cart-drawer');
+    if (cartDrawerEl) {
+      new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          if (m.attributeName === 'class' && cartDrawerEl.classList.contains('active')) {
+            fetchAndUpdateBar();
+          }
+        });
+      }).observe(cartDrawerEl, { attributes: true });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initObserver);
+  } else {
+    initObserver();
+  }
+})();
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', function() {
     function isIE() {
-      const ua = window.navigator.userAgent;
-      const msie = ua.indexOf('MSIE ');
-      const trident = ua.indexOf('Trident/');
-
-      return (msie > 0 || trident > 0);
+      var ua = window.navigator.userAgent;
+      return ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0;
     }
-
     if (!isIE()) return;
-    const cartSubmitInput = document.createElement('input');
+    var cartSubmitInput = document.createElement('input');
     cartSubmitInput.setAttribute('name', 'checkout');
     cartSubmitInput.setAttribute('type', 'hidden');
     document.querySelector('#cart').appendChild(cartSubmitInput);
-    document.querySelector('#checkout').addEventListener('click', function(event) {
+    document.querySelector('#checkout').addEventListener('click', function() {
       document.querySelector('#cart').submit();
     });
   });
