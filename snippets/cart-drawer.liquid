@@ -485,6 +485,69 @@
   }
   .cd-footer__checkout:hover { background: #133820; }
   .cd-footer__checkout:disabled { opacity: 0.5; cursor: default; }
+
+  /* ── Cart page mobile: restructure grid so quantity aligns with Size option ── */
+  @media screen and (max-width: 749px) {
+    /* 3-col grid: image | details | right-column(price top, qty bottom) */
+    #main-cart-items .cart-item {
+      display: grid !important;
+      grid-template-columns: auto 1fr auto !important;
+      grid-template-rows: 1fr auto !important;
+      gap: 0.4rem 1.2rem !important;
+      align-items: stretch !important;
+    }
+
+    /* Image spans both rows */
+    #main-cart-items .cart-item__media {
+      grid-column: 1 !important;
+      grid-row: 1 / 3 !important;
+      align-self: start !important;
+    }
+
+    /* Details (name, price, size) fills the left content column across both rows */
+    #main-cart-items .cart-item__details {
+      grid-column: 2 !important;
+      grid-row: 1 / 3 !important;
+    }
+
+    /* Price sits top-right */
+    #main-cart-items .cart-item__totals {
+      grid-column: 3 !important;
+      grid-row: 1 !important;
+      align-self: start !important;
+      justify-self: end !important;
+      white-space: nowrap !important;
+    }
+
+    /* Quantity+trash sits bottom-right — aligns with "Size:" at bottom of details */
+    #main-cart-items .cart-item__quantity {
+      grid-column: 3 !important;
+      grid-row: 2 !important;
+      align-self: end !important;
+      justify-self: start !important;
+    }
+
+    #main-cart-items .cart-item__quantity-wrapper {
+      width: fit-content;
+      gap: 8px;
+    }
+  }
+
+  /* ── Cart page checkout button — brand colour + pill shape ── */
+  #main-cart-footer .cart__checkout-button {
+    background: #1a4a2e !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 32px !important;
+    height: 52px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    transition: background 0.15s !important;
+    width: 100% !important;
+  }
+  #main-cart-footer .cart__checkout-button:hover { background: #133820 !important; }
+  #main-cart-footer .cart__checkout-button:disabled { opacity: 0.5 !important; cursor: default !important; }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
