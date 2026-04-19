@@ -215,56 +215,136 @@
 
   .cart-item__quantity { grid-column: 2; }
 
-  /* Pill quantity widget — BrainMD style */
-  .cart-item__quantity .quantity {
-    display: inline-flex;
-    align-items: center;
-    border: 1.5px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    height: 36px;
-    background: #fff;
-  }
-  .cart-item__quantity .quantity__button {
-    width: 36px;
-    height: 36px;
-    background: #fff;
-    border: none;
-    cursor: pointer;
-    color: #191917;
+  /* Align quantity pill + delete icon on the same row */
+  .cart-item__quantity-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: background 0.1s;
-    font-size: 0; /* hide any text */
-    position: relative;
+    gap: 10px;
   }
-  /* Hide blurry SVG icons, use crisp text characters */
-  .cart-item__quantity .quantity__button svg { display: none !important; }
-  .cart-item__quantity .quantity__button[name="minus"]::after {
-    content: '−';
-    font-size: 18px;
-    line-height: 1;
-    color: #191917;
+
+  /* ── Quantity widget — BrainMD exact measurements (cart drawer + cart page) ── */
+  /* Outer container: slim pill, 26px tall × 110px wide */
+  cart-drawer quantity-input.quantity,
+  #main-cart-items quantity-input.quantity {
+    width: 110px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    border: 1px solid #e3e3e3 !important;
+    border-radius: 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    box-shadow: none !important;
   }
-  .cart-item__quantity .quantity__button[name="plus"]::after {
-    content: '+';
-    font-size: 18px;
-    line-height: 1;
-    color: #191917;
+  /* Remove Dawn pseudo-element borders */
+  cart-drawer quantity-input.quantity::before,
+  cart-drawer quantity-input.quantity::after,
+  #main-cart-items quantity-input.quantity::before,
+  #main-cart-items quantity-input.quantity::after {
+    display: none !important;
+    box-shadow: none !important;
   }
-  .cart-item__quantity .quantity__button:hover { background: #f5f5f5; }
-  .cart-item__quantity .quantity__input {
-    width: 40px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-left: 1.5px solid #ddd;
-    border-right: 1.5px solid #ddd;
-    background: #fff;
-    color: #191917;
-    height: 36px;
+
+  /* Minus button — left pill corner */
+  cart-drawer quantity-input.quantity .quantity__button[name="minus"],
+  #main-cart-items quantity-input.quantity .quantity__button[name="minus"] {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+    background: #fff !important;
+    border: none !important;
+    border-radius: 12px 0 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* Plus button — right pill corner */
+  cart-drawer quantity-input.quantity .quantity__button[name="plus"],
+  #main-cart-items quantity-input.quantity .quantity__button[name="plus"] {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0 12px 12px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* SVG icons — keep them, just scale down to 10px */
+  cart-drawer quantity-input.quantity .quantity__button svg,
+  #main-cart-items quantity-input.quantity .quantity__button svg {
+    width: 10px !important;
+    height: 10px !important;
+    pointer-events: none !important;
+  }
+  /* Remove any ::after text character fallback */
+  cart-drawer quantity-input.quantity .quantity__button[name="minus"]::after,
+  cart-drawer quantity-input.quantity .quantity__button[name="plus"]::after,
+  #main-cart-items quantity-input.quantity .quantity__button[name="minus"]::after,
+  #main-cart-items quantity-input.quantity .quantity__button[name="plus"]::after {
+    content: none !important;
+  }
+
+  /* Hover */
+  cart-drawer quantity-input.quantity .quantity__button:hover,
+  #main-cart-items quantity-input.quantity .quantity__button:hover {
+    background: #f5f5f5 !important;
+  }
+
+  /* Number input — compact centre */
+  cart-drawer quantity-input.quantity .quantity__input,
+  #main-cart-items quantity-input.quantity .quantity__input {
+    width: 36px !important;
+    min-width: 36px !important;
+    flex-grow: 0 !important;
+    height: 24px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #191917 !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+    border-left: 1px solid #e3e3e3 !important;
+    border-right: 1px solid #e3e3e3 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 24px !important;
+    opacity: 1 !important;
+  }
+  /* Hide number spinner arrows */
+  cart-drawer .quantity__input::-webkit-outer-spin-button,
+  cart-drawer .quantity__input::-webkit-inner-spin-button,
+  #main-cart-items .quantity__input::-webkit-outer-spin-button,
+  #main-cart-items .quantity__input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+  }
+  cart-drawer .quantity__input[type=number],
+  #main-cart-items .quantity__input[type=number] { -moz-appearance: textfield !important; }
+
+  /* Focus cleanup */
+  cart-drawer quantity-input.quantity .quantity__button:focus,
+  cart-drawer quantity-input.quantity .quantity__input:focus,
+  cart-drawer quantity-input.quantity .quantity__button:focus-visible,
+  cart-drawer quantity-input.quantity .quantity__input:focus-visible,
+  #main-cart-items quantity-input.quantity .quantity__button:focus,
+  #main-cart-items quantity-input.quantity .quantity__input:focus,
+  #main-cart-items quantity-input.quantity .quantity__button:focus-visible,
+  #main-cart-items quantity-input.quantity .quantity__input:focus-visible {
+    box-shadow: none !important;
+    outline: none !important;
+    background: #fff !important;
   }
 
   /* ════════════════════════════════
