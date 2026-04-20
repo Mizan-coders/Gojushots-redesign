@@ -1,332 +1,204 @@
 {%- style -%}
   .hero-{{ section.id }} {
-    background: {{ section.settings.bg_color | default: 'var(--goju-page-bg, #f5f0e8)' }};
-    min-height: 90vh;
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    align-items: center;
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 80px;
-    gap: 0;
     position: relative;
+    min-height: {{ section.settings.hero_height | default: 80 }}vh;
+    display: flex;
+    align-items: center;
     overflow: hidden;
+    background: #1F1A17;
+    --hero-overlay: {{ section.settings.overlay_opacity | default: 45 | times: 0.01 }};
   }
 
-  /* Radial green glow */
-  .hero-{{ section.id }}::before {
+  /* ── Background image ── */
+  .hero-{{ section.id }} .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-{{ section.id }} .hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position | default: 'center center' }};
+    display: block;
+  }
+
+  /* ── Overlay ── */
+  .hero-{{ section.id }}::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(26,74,46,0.5) 0%, transparent 70%);
+    background: rgba(31, 26, 23, var(--hero-overlay, 0.45));
+    z-index: 1;
     pointer-events: none;
   }
 
-  /* ── Left column ── */
+  /* ── Content ── */
   .hero-{{ section.id }} .hero__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
+    padding-left: 80px;
+    padding-right: 80px;
+    max-width: 780px;
   }
 
-  /* Rating row */
-  .hero-{{ section.id }} .hero__rating {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-  .hero-{{ section.id }} .hero__stars {
-    color: #fbbf24;
-    font-size: 16px;
-    letter-spacing: 2px;
-  }
-  .hero-{{ section.id }} .hero__rating-text {
-    font-size: 13px;
-    color: rgba(255,255,255,0.65);
-  }
-  .hero-{{ section.id }} .hero__rating-text strong {
-    color: white;
-  }
-
-  /* Heading */
-  .hero-{{ section.id }} .hero__heading {
-    font-size: clamp(56px, 5.5vw, 140px);
-    font-weight: 600;
-    line-height: 0.95;
-    color: white;
-    letter-spacing: 1px;
-    margin: 0 0 20px;
+  /* ── Eyebrow ── */
+  .hero-{{ section.id }} .hero__eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    color: rgba(247, 241, 228, 0.6);
+    margin-bottom: 20px;
+  }
+
+  /* ── Heading ── */
+  .hero-{{ section.id }} .hero__heading {
+    font-size: clamp(56px, 6vw, 100px);
+    font-weight: 700;
+    line-height: 0.95;
+    color: #F7F1E4;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0 0 24px;
   }
   .hero-{{ section.id }} .hero__heading em {
+    display: block;
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: var(--goju-accent);
-    font-size: 0.9em;
+    color: #F7F1E4;
+    opacity: 0.75;
     letter-spacing: 0;
+    font-size: 0.85em;
   }
 
-  /* Subtext */
+  /* ── Subtext ── */
   .hero-{{ section.id }} .hero__sub {
     font-size: 17px;
-    color: rgba(255,255,255,0.65);
+    color: rgba(247, 241, 228, 0.9);
     line-height: 1.6;
-    margin-bottom: 36px;
-    max-width: 420px;
-  }
-  .hero-{{ section.id }} .hero__sub strong {
-    color: white;
+    margin: 0 0 40px;
+    max-width: 480px;
   }
 
-  /* Price anchor */
-  .hero-{{ section.id }} .hero__price {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-  .hero-{{ section.id }} .hero__price-original {
-    font-size: 18px;
-    color: rgba(255,255,255,0.35);
-    text-decoration: line-through;
-    font-weight: 400;
-  }
-  .hero-{{ section.id }} .hero__price-current {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--goju-accent);
-    line-height: 1;
-  }
-  .hero-{{ section.id }} .hero__price-pack {
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-  }
-  .hero-{{ section.id }} .hero__price-per {
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    font-style: italic;
-  }
-
-  /* CTAs */
+  /* ── CTAs ── */
   .hero-{{ section.id }} .hero__ctas {
     display: flex;
     gap: 14px;
     align-items: center;
-    margin-bottom: 36px;
     flex-wrap: wrap;
   }
-  .hero-{{ section.id }} .hero__btn-primary {
-    background: var(--goju-btn-primary-bg, #1d7a3f);
-    color: var(--goju-btn-primary-text, #ffffff);
-    padding: 16px 32px;
-    border-radius: 50px;
+  /* Primary CTA size override for hero */
+  .hero-{{ section.id }} .goju-btn--lg {
+    padding: 16px 36px;
     font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  /* Secondary CTA — outlined style on dark background */
+  .hero-{{ section.id }} .hero__btn-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-  }
-  .hero-{{ section.id }} .hero__btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(255,255,255,0.2);
-    color: var(--goju-btn-primary-text, #ffffff);
-  }
-  .hero-{{ section.id }} .hero__btn-secondary {
     background: transparent;
-    color: white;
-    padding: 16px 32px;
+    color: #F7F1E4;
+    padding: 16px 36px;
     border-radius: 50px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1.5px solid rgba(247, 241, 228, 0.4);
+    white-space: nowrap;
     transition: border-color 0.2s, background 0.2s;
-    display: inline-flex;
-    align-items: center;
   }
   .hero-{{ section.id }} .hero__btn-secondary:hover {
-    border-color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.06);
-    color: white;
-  }
-
-  /* Urgency */
-  .hero-{{ section.id }} .hero__urgency-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 28px;
-  }
-  .hero-{{ section.id }} .hero__urgency {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .hero-{{ section.id }} .hero__urgency-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    animation: hero-pulse-{{ section.id }} 1.5s ease-in-out infinite;
-  }
-  @keyframes hero-pulse-{{ section.id }} {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.6; transform: scale(1.3); }
-  }
-  .hero-{{ section.id }} .hero__urgency-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 0.01em;
-  }
-
-  /* Trust pills */
-  .hero-{{ section.id }} .hero__pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .hero-{{ section.id }} .hero__pill {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.7);
-    font-size: 12px;
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  /* ── Right column ── */
-  .hero-{{ section.id }} .hero__visual {
-    align-self: stretch;
-    overflow: hidden;
-    position: relative;
-    z-index: 2;
-  }
-  .hero-{{ section.id }} .hero__img-wrap {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  .hero-{{ section.id }} .hero__img-badge {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--goju-accent);
-    color: var(--goju-accent-text);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 20px;
-    border-radius: 50px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    z-index: 3;
-    box-shadow: 0 4px 16px rgba(255,255,255,0.25);
-  }
-  .hero-{{ section.id }} .hero__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-  }
-
-  /* ── Tablet ── */
-  @media screen and (max-width: 989px) {
-    .hero-{{ section.id }} {
-      grid-template-columns: 1fr;
-      padding: 60px 20px 40px;
-      min-height: auto;
-      text-align: center;
-    }
-    .hero-{{ section.id }}::before {
-      background: radial-gradient(ellipse at 50% 30%, rgba(26,74,46,0.5) 0%, transparent 70%);
-    }
-    .hero-{{ section.id }} .hero__rating { justify-content: center; }
-    .hero-{{ section.id }} .hero__sub { margin-left: auto; margin-right: auto; }
-    .hero-{{ section.id }} .hero__ctas { justify-content: center; }
-    .hero-{{ section.id }} .hero__urgency-stack { align-items: center; }
-    .hero-{{ section.id }} .hero__pills { justify-content: center; }
-    .hero-{{ section.id }} .hero__price { justify-content: center; }
-    .hero-{{ section.id }} .hero__visual { min-height: 360px; margin-top: 24px; }
-    .hero-{{ section.id }} .hero__img { position: static; height: 360px; border-radius: 14px; object-position: center top; }
-    .hero-{{ section.id }} .hero__heading { font-size: clamp(40px, 10vw, 72px) !important; }
+    border-color: rgba(247, 241, 228, 0.75);
+    background: rgba(247, 241, 228, 0.08);
+    color: #F7F1E4;
   }
 
   /* ── Mobile ── */
-  @media screen and (max-width: 479px) {
-    .hero-{{ section.id }} { padding: 40px 20px; }
-    .hero-{{ section.id }} .hero__heading { font-size: clamp(32px, 12.5vw, 56px) !important; line-height: 0.92; }
-    .hero-{{ section.id }} .hero__sub { font-size: 14px; }
-    .hero-{{ section.id }} .hero__ctas { flex-direction: column; width: 100%; }
+  @media screen and (max-width: 749px) {
+    .hero-{{ section.id }} {
+      min-height: {{ section.settings.hero_height_mobile | default: 90 }}vh;
+      align-items: flex-end;
+      padding-bottom: 52px;
+    }
+    .hero-{{ section.id }}::after {
+      background: linear-gradient(to top, rgba(31, 26, 23, 0.65) 0%, transparent 65%);
+    }
+    .hero-{{ section.id }} .hero__content {
+      padding-left: 24px;
+      padding-right: 24px;
+      max-width: 100%;
+    }
+    .hero-{{ section.id }} .hero__heading {
+      font-size: clamp(40px, 11vw, 64px);
+    }
+    .hero-{{ section.id }} .hero__sub {
+      font-size: 15px;
+      max-width: 100%;
+    }
+    .hero-{{ section.id }} .hero__ctas {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
     .hero-{{ section.id }} .hero__btn-primary,
-    .hero-{{ section.id }} .hero__btn-secondary { justify-content: center; width: 100%; }
-    .hero-{{ section.id }} .hero__img { height: 280px; border-radius: 14px; }
-    .hero-{{ section.id }} .hero__pills { gap: 6px; }
+    .hero-{{ section.id }} .hero__btn-secondary {
+      justify-content: center;
+    }
   }
 {%- endstyle -%}
 
 <section class="hero-{{ section.id }}">
 
-  {%- comment -%} Left — content {%- endcomment -%}
+  {%- if section.settings.image != blank -%}
+    <div class="hero__bg">
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 1200 }}"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 2400 }}"
+          alt="{{ section.settings.image.alt | default: '' | escape }}"
+          class="hero__bg-img"
+          width="2400"
+          height="1350"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </picture>
+    </div>
+  {%- endif -%}
+
   <div class="hero__content">
 
-    {%- comment -%} Rating — always rendered; setting overrides the fallback default {%- endcomment -%}
-    <div class="hero__rating">
-      <span class="hero__stars">
-        {%- assign star_count = section.settings.star_count | default: 5 -%}
-        {%- for i in (1..star_count) -%}★{%- endfor -%}
-      </span>
-      <span class="hero__rating-text">
-        {%- if section.settings.rating_text != blank -%}
-          {{ section.settings.rating_text }}
-        {%- else -%}
-          <strong>4.9</strong> stars &middot; <strong>2,100+</strong> happy customers
-        {%- endif -%}
-      </span>
-    </div>
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+    {%- endif -%}
 
-    {%- comment -%} Heading {%- endcomment -%}
     <h1 class="hero__heading">
       {{- section.settings.heading_line1 | escape -}}
-      {%- if section.settings.heading_italic != blank %} <em>{{ section.settings.heading_italic | escape }}</em>{%- endif -%}
-      {%- if section.settings.heading_line2 != blank -%}<br>{{ section.settings.heading_line2 | escape }}{%- endif -%}
+      {%- if section.settings.heading_italic != blank -%}
+        <em>{{ section.settings.heading_italic | escape }}</em>
+      {%- endif -%}
+      {%- if section.settings.heading_line2 != blank -%}
+        <br>{{ section.settings.heading_line2 | escape }}
+      {%- endif -%}
     </h1>
 
-    {%- comment -%} Subtext {%- endcomment -%}
     {%- if section.settings.subtext != blank -%}
       <p class="hero__sub">{{ section.settings.subtext }}</p>
     {%- endif -%}
 
-    {%- comment -%} Price anchor {%- endcomment -%}
-    {%- if section.settings.price_current != blank -%}
-      <div class="hero__price">
-        {%- if section.settings.price_original != blank -%}
-          <span class="hero__price-original">{{ section.settings.price_original | escape }}</span>
-        {%- endif -%}
-        <span class="hero__price-current">{{ section.settings.price_current | escape }}</span>
-        {%- if section.settings.price_pack != blank -%}
-          <span class="hero__price-pack">{{ section.settings.price_pack | escape }}</span>
-        {%- endif -%}
-        {%- if section.settings.price_per != blank -%}
-          <span class="hero__price-per">{{ section.settings.price_per | escape }}</span>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    {%- comment -%} CTAs {%- endcomment -%}
     {%- if section.settings.cta1_label != blank or section.settings.cta2_label != blank -%}
       <div class="hero__ctas">
         {%- if section.settings.cta1_label != blank -%}
-          <a href="{{ section.settings.cta1_url | default: '#' }}" class="hero__btn-primary">
+          <a href="{{ section.settings.cta1_url | default: '#' }}" class="goju-btn goju-btn--primary goju-btn--lg">
             {{- section.settings.cta1_label | escape -}}
           </a>
         {%- endif -%}
@@ -338,66 +210,7 @@
       </div>
     {%- endif -%}
 
-    {%- comment -%} Urgency {%- endcomment -%}
-    {%- if section.settings.urgency1_text != blank or section.settings.urgency2_text != blank -%}
-      <div class="hero__urgency-stack">
-        {%- if section.settings.urgency1_text != blank -%}
-          <div class="hero__urgency">
-            <span class="hero__urgency-dot" style="background: {{ section.settings.urgency1_color | default: '#ff4d4d' }};"></span>
-            <span class="hero__urgency-text">{{ section.settings.urgency1_text | escape }}</span>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.urgency2_text != blank -%}
-          <div class="hero__urgency">
-            <span class="hero__urgency-dot" style="background: {{ section.settings.urgency2_color | default: '#f59e0b' }};"></span>
-            <span class="hero__urgency-text">{{ section.settings.urgency2_text | escape }}</span>
-          </div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    {%- comment -%} Trust pills {%- endcomment -%}
-    {%- assign has_pills = false -%}
-    {%- for i in (1..4) -%}
-      {%- assign pill_key = 'pill_' | append: i | append: '_text' -%}
-      {%- if section.settings[pill_key] != blank -%}{%- assign has_pills = true -%}{%- endif -%}
-    {%- endfor -%}
-    {%- if has_pills -%}
-      <div class="hero__pills">
-        {%- for i in (1..4) -%}
-          {%- assign icon_key = 'pill_' | append: i | append: '_icon' -%}
-          {%- assign text_key = 'pill_' | append: i | append: '_text' -%}
-          {%- if section.settings[text_key] != blank -%}
-            <span class="hero__pill">
-              {%- if section.settings[icon_key] != blank -%}{{ section.settings[icon_key] }} {%- endif -%}
-              {{- section.settings[text_key] | escape -}}
-            </span>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-
   </div>
-
-  {%- comment -%} Right — image {%- endcomment -%}
-  {%- if section.settings.image != blank -%}
-    <div class="hero__visual">
-      <div class="hero__img-wrap">
-        {%- if section.settings.img_badge != blank -%}
-          <div class="hero__img-badge">{{ section.settings.img_badge | escape }}</div>
-        {%- endif -%}
-        <img
-          src="{{ section.settings.image | image_url: width: 1200 }}"
-          alt="{{ section.settings.image.alt | default: 'Hero image' | escape }}"
-          class="hero__img"
-          width="1200"
-          height="560"
-          loading="eager"
-          fetchpriority="high"
-        >
-      </div>
-    </div>
-  {%- endif -%}
 
 </section>
 
@@ -407,27 +220,80 @@
   "settings": [
     {
       "type": "header",
-      "content": "Rating"
+      "content": "Image"
     },
     {
-      "type": "range",
-      "id": "star_count",
-      "label": "Star count",
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 5
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image (desktop)"
     },
     {
-      "type": "text",
-      "id": "rating_text",
-      "label": "Rating text",
-      "default": "<strong>4.9</strong> stars · <strong>2,100+</strong> happy customers",
-      "info": "Wrap words in <strong> for bold"
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Optional. If left empty, the desktop image is used on mobile."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focus point",
+      "options": [
+        { "value": "center center", "label": "Centre" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "center center"
     },
     {
       "type": "header",
-      "content": "Heading"
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Height (desktop)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 80,
+      "unit": "vh"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Height (mobile)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 90,
+      "unit": "vh"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness (desktop)",
+      "info": "Higher = darker overlay. Mobile always uses a gradient.",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 45,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "info": "Small uppercase label above the heading. Leave blank to hide."
     },
     {
       "type": "text",
@@ -438,7 +304,7 @@
     {
       "type": "text",
       "id": "heading_italic",
-      "label": "Heading italic accent (yellow-green)",
+      "label": "Heading italic line",
       "default": "All day"
     },
     {
@@ -448,43 +314,10 @@
       "default": "ENERGY."
     },
     {
-      "type": "header",
-      "content": "Subtext"
-    },
-    {
       "type": "textarea",
       "id": "subtext",
       "label": "Subtext",
-      "default": "The daily wellness shot <strong>that actually works.</strong><br>Cold-pressed. No sugar. No crash. Just results.",
-      "info": "Supports <strong> for bold and <br> for line break"
-    },
-    {
-      "type": "header",
-      "content": "Price Anchor"
-    },
-    {
-      "type": "text",
-      "id": "price_original",
-      "label": "Original price (strikethrough)",
-      "default": "$95"
-    },
-    {
-      "type": "text",
-      "id": "price_current",
-      "label": "Current price",
-      "default": "$85"
-    },
-    {
-      "type": "text",
-      "id": "price_pack",
-      "label": "Pack size",
-      "default": "/ 12 pack"
-    },
-    {
-      "type": "text",
-      "id": "price_per",
-      "label": "Per unit text",
-      "default": "— just $7.08 per shot"
+      "default": "Cold-pressed. No sugar. No crash. Just results."
     },
     {
       "type": "header",
@@ -511,135 +344,6 @@
       "type": "url",
       "id": "cta2_url",
       "label": "Secondary button URL"
-    },
-    {
-      "type": "header",
-      "content": "Urgency"
-    },
-    {
-      "type": "text",
-      "id": "urgency1_text",
-      "label": "Urgency line 1",
-      "default": "🚚 Order within 3h 20m — ships today"
-    },
-    {
-      "type": "color",
-      "id": "urgency1_color",
-      "label": "Urgency 1 dot colour",
-      "default": "#ff4d4d"
-    },
-    {
-      "type": "text",
-      "id": "urgency2_text",
-      "label": "Urgency line 2",
-      "default": "⚡ Selling fast this week"
-    },
-    {
-      "type": "color",
-      "id": "urgency2_color",
-      "label": "Urgency 2 dot colour",
-      "default": "#f59e0b"
-    },
-    {
-      "type": "header",
-      "content": "Trust Pills"
-    },
-    {
-      "type": "text",
-      "id": "pill_1_icon",
-      "label": "Pill 1 icon",
-      "default": "🌿"
-    },
-    {
-      "type": "text",
-      "id": "pill_1_text",
-      "label": "Pill 1 text",
-      "default": "100% Natural"
-    },
-    {
-      "type": "text",
-      "id": "pill_2_icon",
-      "label": "Pill 2 icon",
-      "default": "🇳🇿"
-    },
-    {
-      "type": "text",
-      "id": "pill_2_text",
-      "label": "Pill 2 text",
-      "default": "NZ Made"
-    },
-    {
-      "type": "text",
-      "id": "pill_3_icon",
-      "label": "Pill 3 icon",
-      "default": "❄️"
-    },
-    {
-      "type": "text",
-      "id": "pill_3_text",
-      "label": "Pill 3 text",
-      "default": "Cold-Pressed"
-    },
-    {
-      "type": "text",
-      "id": "pill_4_icon",
-      "label": "Pill 4 icon",
-      "default": "✓"
-    },
-    {
-      "type": "text",
-      "id": "pill_4_text",
-      "label": "Pill 4 text",
-      "default": "No Preservatives"
-    },
-    {
-      "type": "header",
-      "content": "Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Hero image"
-    },
-    {
-      "type": "text",
-      "id": "img_badge",
-      "label": "Image badge text",
-      "default": "⭐ Best Seller"
-    },
-    {
-      "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background colour",
-      "default": "#F5F0E8"
-    },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding top",
-      "min": 40,
-      "max": 160,
-      "step": 4,
-      "default": 80,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding bottom",
-      "min": 40,
-      "max": 160,
-      "step": 4,
-      "default": 80,
-      "unit": "px"
     }
   ],
   "presets": [
