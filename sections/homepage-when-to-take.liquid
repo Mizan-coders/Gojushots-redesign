@@ -24,7 +24,7 @@
   }
   .ws-{{ section.id }} .ws__eyebrow {
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(31,26,23,0.6);
@@ -33,19 +33,16 @@
   }
   .ws-{{ section.id }} .ws__title {
     font-size: clamp(32px, 4vw, 52px);
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #0a0a0a;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #1F1A17;
     line-height: 1.05;
     margin: 0;
   }
   .ws-{{ section.id }} .ws__title em {
     font-style: italic;
     font-weight: 700;
-    text-transform: none;
     color: rgba(31,26,23,0.7);
-    letter-spacing: 0;
   }
   .ws-{{ section.id }} .ws__subtitle {
     font-size: 16px;
@@ -60,121 +57,84 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+    align-items: start;
   }
 
   /* ── Card ── */
   .ws-{{ section.id }} .ws__card {
-    background: white;
-    border: 1px solid rgba(0,0,0,0.07);
     border-radius: 20px;
-    padding: 28px 24px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    background: #F7F1E4;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   }
   .ws-{{ section.id }} .ws__card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.11);
   }
 
-  /* Featured (dark) card */
+  /* Featured card — deeper warm accent, same style as others */
   .ws-{{ section.id }} .ws__card--featured {
-    background: #1F1A17;
-    border-color: #1F1A17;
-    box-shadow: 0 8px 32px rgba(31,26,23,0.2);
-  }
-  .ws-{{ section.id }} .ws__card--featured:hover {
-    background: #6B5E52;
-    transform: translateY(-4px);
+    background: #D4C4A8;
   }
 
-  /* Product image */
-  .ws-{{ section.id }} .ws__img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    display: block;
+  /* ── Card image ── */
+  .ws-{{ section.id }} .ws__card-image {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+    background: rgba(31,26,23,0.06);
+    flex-shrink: 0;
   }
-  .ws-{{ section.id }} .ws__img-placeholder {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    background: rgba(31,26,23,0.1);
+  .ws-{{ section.id }} .ws__card-image img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .ws-{{ section.id }} .ws__card:hover .ws__card-image img {
+    transform: scale(1.04);
+  }
+
+  /* ── Card body ── */
+  .ws-{{ section.id }} .ws__card-body {
+    padding: 20px 20px 24px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    flex-direction: column;
+    flex: 1;
   }
 
-  /* Multi-image layout */
-  .ws-{{ section.id }} .ws__multi-imgs {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .ws-{{ section.id }} .ws__product-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 12px;
-    display: block;
-    flex-shrink: 0;
-  }
-  .ws-{{ section.id }} .ws__product-img-sm {
-    width: 56px;
-    height: 56px;
-    object-fit: cover;
-    border-radius: 10px;
-    display: block;
-    flex-shrink: 0;
-    opacity: 0.85;
-  }
-
-  /* Time label */
+  /* Time label — eyebrow caps */
   .ws-{{ section.id }} .ws__time {
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: rgba(31,26,23,0.6);
-    margin-bottom: 6px;
+    color: rgba(31,26,23,0.5);
+    margin-bottom: 8px;
   }
-  .ws-{{ section.id }} .ws__card--featured .ws__time {
-    color: rgba(255,255,255,0.7);
-  }
-
   /* Card title */
   .ws-{{ section.id }} .ws__card-title {
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: #0a0a0a;
-    margin: 0 0 12px;
-    line-height: 1;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1F1A17;
+    margin: 0 0 10px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
-  .ws-{{ section.id }} .ws__card--featured .ws__card-title {
-    color: white;
-  }
-
   /* Description */
   .ws-{{ section.id }} .ws__desc {
     font-size: 13px;
-    color: #888;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    color: rgba(31,26,23,0.6);
+    line-height: 1.65;
+    margin-bottom: 16px;
     flex: 1;
   }
-  .ws-{{ section.id }} .ws__card--featured .ws__desc {
-    color: rgba(255,255,255,0.75);
-  }
-
   /* Tags */
   .ws-{{ section.id }} .ws__tags {
     display: flex;
@@ -183,8 +143,8 @@
     margin-top: auto;
   }
   .ws-{{ section.id }} .ws__tag {
-    background: rgba(31,26,23,0.08);
-    border: 1px solid rgba(31,26,23,0.2);
+    background: rgba(31,26,23,0.07);
+    border: 1px solid rgba(31,26,23,0.14);
     color: #1F1A17;
     font-size: 11px;
     font-weight: 600;
@@ -192,12 +152,6 @@
     border-radius: 50px;
     white-space: nowrap;
   }
-  .ws-{{ section.id }} .ws__card--featured .ws__tag {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.2);
-    color: white;
-  }
-
   /* ── Mobile ── */
   @media screen and (max-width: 989px) {
     .ws-{{ section.id }} {
@@ -237,86 +191,76 @@
     {%- if section.blocks.size > 0 -%}
       <div class="ws__grid">
         {%- for block in section.blocks -%}
-          {%- assign card_class = 'ws__card' -%}
+
+          {%- liquid
+            assign img_src = ''
+            assign img_alt = block.settings.title | escape
+            if block.settings.image != blank
+              assign img_src = block.settings.image | image_url: width: 600
+              assign img_alt = block.settings.image.alt | default: block.settings.title | escape
+            elsif block.settings.image_url != blank
+              assign img_src = block.settings.image_url
+            else
+              assign time_key = block.settings.time_label | downcase | strip
+              case time_key
+                when 'morning'
+                  assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Action_shot_2.png?v=1771724687'
+                when 'pre-workout'
+                  assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Ginger_ignition_2.png?v=1771719104'
+                when 'afternoon'
+                  assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png?v=1774399335'
+                when 'evening'
+                  assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png?v=1774338496'
+              endcase
+            endif
+          -%}
+
+          {%- comment -%} Build card style: apply tint only on non-featured cards {%- endcomment -%}
           {%- if block.settings.featured -%}
-            {%- assign card_class = 'ws__card ws__card--featured' -%}
+            {%- assign card_style = '' -%}
+          {%- elsif block.settings.card_color != blank -%}
+            {%- assign card_style = 'background:' | append: block.settings.card_color -%}
+          {%- else -%}
+            {%- assign card_style = '' -%}
           {%- endif -%}
-          <div class="{{ card_class }}" {{ block.shopify_attributes }}>
 
-            {%- liquid
-              assign img_src = ''
-              assign img_alt = block.settings.title | escape
-              if block.settings.image != blank
-                assign img_src = block.settings.image | image_url: width: 160
-                assign img_alt = block.settings.image.alt | default: block.settings.title | escape
-              elsif block.settings.image_url != blank
-                assign img_src = block.settings.image_url
-              else
-                assign time_key = block.settings.time_label | downcase | strip
-                case time_key
-                  when 'morning'
-                    assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Action_shot_2.png?v=1771724687'
-                  when 'pre-workout'
-                    assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Ginger_ignition_2.png?v=1771719104'
-                  when 'afternoon'
-                    assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png?v=1774399335'
-                  when 'evening'
-                    assign img_src = 'https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png?v=1774338496'
-                endcase
-              endif
-            -%}
-            {%- liquid
-              assign img2_src = ''
-              assign img3_src = ''
-              if block.settings.image_2 != blank
-                assign img2_src = block.settings.image_2 | image_url: width: 112
-              endif
-              if block.settings.image_3 != blank
-                assign img3_src = block.settings.image_3 | image_url: width: 112
-              endif
-              assign has_multi = false
-              if img2_src != blank or img3_src != blank
-                assign has_multi = true
-              endif
-            -%}
+          <div class="ws__card{% if block.settings.featured %} ws__card--featured{% endif %}"
+               {% if card_style != blank %}style="{{ card_style }}"{% endif %}
+               {{ block.shopify_attributes }}>
+
             {%- if img_src != blank -%}
-              {%- if has_multi -%}
-                <div class="ws__multi-imgs">
-                  {%- if img2_src != blank -%}
-                    <img src="{{ img2_src }}" alt="{{ block.settings.image_2.alt | default: img_alt | escape }}" class="ws__product-img-sm" width="56" height="56" loading="lazy">
-                  {%- endif -%}
-                  <img src="{{ img_src }}" alt="{{ img_alt }}" class="ws__product-img" width="80" height="80" loading="lazy">
-                  {%- if img3_src != blank -%}
-                    <img src="{{ img3_src }}" alt="{{ block.settings.image_3.alt | default: img_alt | escape }}" class="ws__product-img-sm" width="56" height="56" loading="lazy">
-                  {%- endif -%}
-                </div>
-              {%- else -%}
-                <img src="{{ img_src }}" alt="{{ img_alt }}" class="ws__product-img" width="80" height="80" loading="lazy">
-              {%- endif -%}
-            {%- else -%}
-              <div class="ws__img-placeholder" aria-hidden="true"></div>
-            {%- endif -%}
-
-            {%- if block.settings.time_label != blank -%}
-              <div class="ws__time">{{ block.settings.time_label | escape }}</div>
-            {%- endif -%}
-
-            {%- if block.settings.title != blank -%}
-              <div class="ws__card-title">{{ block.settings.title | escape }}</div>
-            {%- endif -%}
-
-            {%- if block.settings.description != blank -%}
-              <div class="ws__desc">{{ block.settings.description | escape }}</div>
-            {%- endif -%}
-
-            {%- if block.settings.tags != blank -%}
-              <div class="ws__tags">
-                {%- assign tag_list = block.settings.tags | split: ',' -%}
-                {%- for tag in tag_list -%}
-                  <span class="ws__tag">{{ tag | strip | escape }}</span>
-                {%- endfor -%}
+              <div class="ws__card-image">
+                <img
+                  src="{{ img_src }}"
+                  alt="{{ img_alt }}"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
               </div>
+            {%- else -%}
+              <div class="ws__card-image"></div>
             {%- endif -%}
+
+            <div class="ws__card-body">
+              {%- if block.settings.time_label != blank -%}
+                <div class="ws__time">{{ block.settings.time_label | escape }}</div>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <div class="ws__card-title">{{ block.settings.title | escape }}</div>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <div class="ws__desc">{{ block.settings.description | escape }}</div>
+              {%- endif -%}
+              {%- if block.settings.tags != blank -%}
+                <div class="ws__tags">
+                  {%- assign tag_list = block.settings.tags | split: ',' -%}
+                  {%- for tag in tag_list -%}
+                    <span class="ws__tag">{{ tag | strip | escape }}</span>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
 
           </div>
         {%- endfor -%}
@@ -387,23 +331,13 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Product image (main)"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_2",
-          "label": "Additional image 2 (left flanking)"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_3",
-          "label": "Additional image 3 (right flanking)"
+          "label": "Product image"
         },
         {
           "type": "text",
           "id": "image_url",
           "label": "Image URL (fallback)",
-          "info": "Used automatically if no image is selected above"
+          "info": "Auto-filled by time label if left blank"
         },
         {
           "type": "text",
@@ -432,9 +366,16 @@
           "info": "Shown as pills at the bottom of the card"
         },
         {
+          "type": "color",
+          "id": "card_color",
+          "label": "Card background tint",
+          "default": "#F7F1E4",
+          "info": "Soft tint for this card. Ignored when Featured is on."
+        },
+        {
           "type": "checkbox",
           "id": "featured",
-          "label": "Featured card (dark green style)",
+          "label": "Featured card (dark style)",
           "default": false
         }
       ]
@@ -447,44 +388,44 @@
         {
           "type": "card",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Action_shot_2.png?v=1771724687",
             "time_label": "Morning",
             "title": "Start Strong",
             "description": "Take your shot first thing on an empty stomach for maximum absorption. Sets the tone for the whole day.",
             "tags": "Action Shot, Vital Sunshine",
+            "card_color": "#FFF8EE",
             "featured": false
           }
         },
         {
           "type": "card",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Ginger_ignition_2.png?v=1771719104",
             "time_label": "Pre-Workout",
             "title": "Power Up",
             "description": "The ginger and turmeric blend provides natural energy support before training — no jitters, no crash.",
             "tags": "Action Shot, Ginger Ignition",
+            "card_color": "#F7F1E4",
             "featured": true
           }
         },
         {
           "type": "card",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png?v=1774399335",
             "time_label": "Afternoon",
             "title": "Beat the Slump",
             "description": "Skip the coffee at 3pm. A GOJU shot gives you clean, sustained energy to power through the rest of your day.",
             "tags": "Immune Guard, Vital Sunshine",
+            "card_color": "#F0F5EE",
             "featured": false
           }
         },
         {
           "type": "card",
           "settings": {
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png?v=1774338496",
             "time_label": "Evening",
             "title": "Wind Down",
             "description": "Let Good Night do the work. Tart cherry, magnesium and passionflower ease you into a deep, restful sleep.",
             "tags": "Good Night",
+            "card_color": "#EEF0F8",
             "featured": false
           }
         }
