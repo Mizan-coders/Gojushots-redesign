@@ -137,15 +137,12 @@
   }
   .cd-shipping-bar__text strong { font-weight: 700; }
   .cd-shipping-bar__track {
-    background: #e8e8e8;
     height: 8px;
     border-radius: 4px;
     overflow: hidden;
+    background: #e8e8e8;
   }
   .cd-shipping-bar__fill {
-    background: #1F1A17;
-    height: 100%;
-    border-radius: 4px;
     transition: width 0.4s ease;
   }
 
@@ -673,8 +670,9 @@
         </div>
         <div class="cd-shipping-bar">
           <p class="cd-shipping-bar__text"><span class="cd-shipping-bar__msg"></span></p>
-          <div class="cd-shipping-bar__track">
-            <div class="cd-shipping-bar__fill" style="width:0%"></div>
+          {%- assign _bar_pct = cart.total_price | times: 100.0 | divided_by: 8000 | at_least: 0 | at_most: 100 | round: 1 -%}
+          <div class="cd-shipping-bar__track" data-total="{{ cart.total_price }}">
+            <div class="cd-shipping-bar__fill" style="display:block;height:8px;background:#1F1A17;border-radius:4px;width:{{ _bar_pct }}%"></div>
           </div>
         </div>
       </div>
@@ -970,17 +968,25 @@
   var FREE_SHIPPING_CENTS = 8000;
 
   function updateShippingBar(totalCents) {
-    var fill = document.querySelector('.cd-shipping-bar__fill');
-    var msg  = document.querySelector('.cd-shipping-bar__msg');
+    var fill  = document.querySelector('.cd-shipping-bar__fill');
+    var msg   = document.querySelector('.cd-shipping-bar__msg');
     if (!fill || !msg) return;
     var pct = Math.min((totalCents / FREE_SHIPPING_CENTS) * 100, 100);
-    fill.style.width = pct + '%';
+    fill.style.width = pct.toFixed(1) + '%';
     if (totalCents >= FREE_SHIPPING_CENTS) {
       msg.innerHTML = '🎉 Congrats! You\'ve unlocked <strong>FREE SHIPPING!</strong>';
     } else {
       var remaining = ((FREE_SHIPPING_CENTS - totalCents) / 100).toFixed(2);
       msg.innerHTML = 'You\'re <strong>$' + remaining + '</strong> away from <strong>FREE SHIPPING!</strong>';
     }
+  }
+
+  // Read cart total from Liquid-baked data-total — instant, no async fetch needed
+  function initBarFromDOM() {
+    var track = document.querySelector('.cd-shipping-bar__track');
+    if (!track) return;
+    var total = parseInt(track.dataset.total, 10) || 0;
+    updateShippingBar(total);
   }
 
   function fetchAndUpdateBar() {
@@ -1136,15 +1142,21 @@
   });
 
   // ── Banner rotator ─────────────────────────────────────────
+  var _bannerInterval = null;
+  var _bannerIdx = 0;
   function initBannerRotator() {
+    if (_bannerInterval) clearInterval(_bannerInterval);
     var slides = document.querySelectorAll('.cd-banner__slide');
     if (!slides.length) return;
-    var idx = 0;
-    slides[idx].classList.add('cd-banner__slide--active');
-    setInterval(function() {
-      slides[idx].classList.remove('cd-banner__slide--active');
-      idx = (idx + 1) % slides.length;
-      slides[idx].classList.add('cd-banner__slide--active');
+    _bannerIdx = 0;
+    slides[_bannerIdx].classList.add('cd-banner__slide--active');
+    _bannerInterval = setInterval(function() {
+      // Re-query each tick so we always work on the live DOM
+      var s = document.querySelectorAll('.cd-banner__slide');
+      if (!s.length) return;
+      s[_bannerIdx % s.length].classList.remove('cd-banner__slide--active');
+      _bannerIdx = (_bannerIdx + 1) % s.length;
+      s[_bannerIdx].classList.add('cd-banner__slide--active');
     }, 5000);
   }
   if (document.readyState === 'loading') {
@@ -1156,8 +1168,9 @@
   // ── Init ───────────────────────────────────────────────────
   // Run immediately, on DOMContentLoaded, and with a fallback delay
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fetchAndUpdateBar);
+    document.addEventListener('DOMContentLoaded', function() { initBarFromDOM(); fetchAndUpdateBar(); });
   } else {
+    initBarFromDOM();
     fetchAndUpdateBar();
   }
   setTimeout(fetchAndUpdateBar, 800); // fallback for slow fetch
@@ -1182,6 +1195,33 @@
     document.addEventListener('DOMContentLoaded', initObserver);
   } else {
     initObserver();
+  }
+
+  // Watch for Dawn re-rendering .drawer__inner after cart updates (item remove,
+  // qty change). Dawn replaces .drawer__inner's innerHTML via section rendering
+  // API, which resets the shipping bar and strips the banner active class.
+  function initDrawerContentObserver() {
+    var drawerInner = document.querySelector('.drawer__inner');
+    if (!drawerInner) return;
+    var debounce;
+    new MutationObserver(function() {
+      clearTimeout(debounce);
+      debounce = setTimeout(function() {
+        // Restore shipping bar from data-total immediately (no fetch delay)
+        initBarFromDOM();
+        // Then verify/update with live cart data
+        fetchAndUpdateBar();
+        // Re-init banner rotator if active class was wiped by re-render
+        if (!document.querySelector('.cd-banner__slide--active')) {
+          initBannerRotator();
+        }
+      }, 60);
+    }).observe(drawerInner, { childList: true });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDrawerContentObserver);
+  } else {
+    initDrawerContentObserver();
   }
 })();
 </script>
