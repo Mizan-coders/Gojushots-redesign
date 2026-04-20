@@ -29,13 +29,13 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #4a9c65;
+    color: #1F1A17;
     display: block;
     margin-bottom: 12px;
   }
   .bb-{{ section.id }} .bb__section-title {
     font-size: clamp(28px, 3.2vw, 44px);
-    font-weight: 900;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: #0a0a0a;
@@ -46,7 +46,7 @@
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: #2d6b45;
+    color: #1F1A17;
   }
   .bb-{{ section.id }} .bb__section-sub {
     font-size: 15px;
@@ -84,18 +84,18 @@
     transition: all 0.22s ease;
     white-space: nowrap;
   }
-  .bb-{{ section.id }} .bb__toggle-btn:hover { color: #1a4a2e; }
+  .bb-{{ section.id }} .bb__toggle-btn:hover { color: #1F1A17; }
   .bb-{{ section.id }} .bb__toggle-btn.bb-active {
-    background: #0a0a0a;
+    background: #1F1A17;
     color: #ffffff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   }
   .bb-{{ section.id }} .bb__save-badge {
     display: inline-block;
-    background: #d4f24a;
+    background: #1F1A17;
     color: #0a0a0a;
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 700;
     padding: 2px 7px;
     border-radius: 20px;
     margin-left: 6px;
@@ -169,7 +169,7 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #1a4a2e;
+    color: #1F1A17;
     white-space: nowrap;
   }
   .bb-{{ section.id }} .bb__summary-items {
@@ -190,7 +190,7 @@
   }
   .bb-{{ section.id }} .bb__price-total {
     font-size: 40px;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1;
     color: #0a0a0a;
@@ -209,17 +209,17 @@
   }
   .bb-{{ section.id }} .bb__savings-pill {
     display: none;
-    background: #d4f24a;
+    background: #1F1A17;
     color: #0a0a0a;
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 700;
     padding: 3px 9px;
     border-radius: 20px;
     margin-top: 6px;
   }
   .bb-{{ section.id }} .bb__add-btn {
-    background: #0a0a0a;
-    color: #d4f24a;
+    background: #1F1A17;
+    color: #F7F1E4;
     border: none;
     border-radius: 50px;
     padding: 16px 36px;
@@ -232,7 +232,7 @@
     white-space: nowrap;
   }
   .bb-{{ section.id }} .bb__add-btn:hover:not(:disabled) {
-    background: #1a4a2e;
+    background: #6B5E52;
     color: #ffffff;
   }
   .bb-{{ section.id }} .bb__add-btn:active { transform: scale(0.98); }
@@ -241,7 +241,7 @@
     color: #fff;
     cursor: not-allowed;
   }
-  .bb-{{ section.id }} .bb__add-btn--success { background: #1a4a2e; color: #ffffff; }
+  .bb-{{ section.id }} .bb__add-btn--success { background: #1F1A17; color: #F7F1E4; }
   .bb-{{ section.id }} .bb__add-btn--error   { background: #b91c1c; color: #ffffff; }
 
   /* ── Mobile ── */
@@ -464,9 +464,9 @@
       var dHtml = '';
       for(var i = 0; i < bbSize; i++){
         if(i < sel){
-          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:#1a4a2e;border:2px solid #1a4a2e;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700;transition:all 0.25s;">&#10003;</div>';
+          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:#1F1A17;border:2px solid #1F1A17;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700;transition:all 0.25s;">&#10003;</div>';
         } else {
-          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:rgba(26,74,46,0.08);border:2px dashed rgba(26,74,46,0.25);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(26,74,46,0.25);font-weight:700;transition:all 0.25s;">&#10003;</div>';
+          dHtml += '<div style="width:32px;height:32px;border-radius:50%;background:rgba(31,26,23,0.08);border:2px dashed rgba(31,26,23,0.25);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(31,26,23,0.25);font-weight:700;transition:all 0.25s;">&#10003;</div>';
         }
       }
       dotsEl.innerHTML = dHtml;
@@ -485,7 +485,7 @@
     if(msgEl){
       if(done){
         msgEl.textContent = '\u2713 Bundle complete \u2014 ready to add to cart';
-        msgEl.style.color = '#1a4a2e';
+        msgEl.style.color = '#1F1A17';
       } else {
         var rem = bbSize - sel;
         msgEl.textContent = 'Pick ' + rem + ' more pack' + (rem !== 1 ? 's' : '') + ' to unlock your bundle price';
@@ -514,9 +514,9 @@
         ];
         if(isSel){
           tileStyle.push('background:#d4edda');
-          tileStyle.push('outline:2px solid #1a4a2e');
+          tileStyle.push('outline:2px solid #1F1A17');
           tileStyle.push('outline-offset:-2px');
-          tileStyle.push('box-shadow:0 4px 16px rgba(26,74,46,0.18)');
+          tileStyle.push('box-shadow:0 4px 16px rgba(31,26,23,0.18)');
         } else if(isOff){
           tileStyle.push('background:#fff');
           tileStyle.push('opacity:0.4');
@@ -529,7 +529,7 @@
 
         /* tick badge */
         if(isSel){
-          html += '<div style="position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#1a4a2e;display:flex;align-items:center;justify-content:center;z-index:5;">';
+          html += '<div style="position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#1F1A17;display:flex;align-items:center;justify-content:center;z-index:5;">';
           html += '<svg viewBox="0 0 12 12" style="width:12px;height:12px;fill:none;stroke:#fff;stroke-width:3;"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>';
           html += '</div>';
         }
@@ -542,23 +542,23 @@
         }
 
         /* text */
-        if(p.tags) html += '<div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#2d6b45;text-transform:uppercase;margin-bottom:4px;">' + p.tags + '</div>';
-        html += '<div style="font-size:16px;font-weight:800;letter-spacing:0.03em;color:' + (isSel ? '#1a4a2e' : '#0a0a0a') + ';margin-bottom:4px;">' + p.name + '</div>';
+        if(p.tags) html += '<div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:#1F1A17;text-transform:uppercase;margin-bottom:4px;">' + p.tags + '</div>';
+        html += '<div style="font-size:16px;font-weight:700;letter-spacing:0.03em;color:' + (isSel ? '#1F1A17' : '#0a0a0a') + ';margin-bottom:4px;">' + p.name + '</div>';
         var priceLabel = p.variantLabel ? '$' + p.price + '.00 / ' + p.variantLabel : '$' + p.price + '.00';
         html += '<div style="font-size:13px;font-weight:700;color:#0a0a0a;">' + priceLabel + '</div>';
 
         /* selected label */
         if(isSel){
-          html += '<div style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;background:#1a4a2e;color:#fff;font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">&#10003; Selected</div>';
+          html += '<div style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;background:#1F1A17;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">&#10003; Selected</div>';
         }
 
         /* qty controls */
         if(isSel){
           html += '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;" onclick="event.stopPropagation()">';
-          html += '<button onclick="' + fnAdjust + '(' + idx + ',-1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1a4a2e;background:transparent;cursor:pointer;font-size:15px;color:#1a4a2e;display:flex;align-items:center;justify-content:center;font-family:inherit;">&#8722;</button>';
-          html += '<span style="font-weight:800;font-size:14px;min-width:14px;text-align:center;">' + qty + '</span>';
+          html += '<button onclick="' + fnAdjust + '(' + idx + ',-1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1F1A17;background:transparent;cursor:pointer;font-size:15px;color:#1F1A17;display:flex;align-items:center;justify-content:center;font-family:inherit;">&#8722;</button>';
+          html += '<span style="font-weight:700;font-size:14px;min-width:14px;text-align:center;">' + qty + '</span>';
           var plusStyle = full && qty === 0 ? 'opacity:0.3;cursor:not-allowed;' : '';
-          html += '<button ' + (full ? 'disabled' : '') + ' onclick="' + fnAdjust + '(' + idx + ',1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1a4a2e;background:transparent;cursor:pointer;font-size:15px;color:#1a4a2e;display:flex;align-items:center;justify-content:center;font-family:inherit;' + plusStyle + '">&#43;</button>';
+          html += '<button ' + (full ? 'disabled' : '') + ' onclick="' + fnAdjust + '(' + idx + ',1,event)" style="width:26px;height:26px;border-radius:50%;border:2px solid #1F1A17;background:transparent;cursor:pointer;font-size:15px;color:#1F1A17;display:flex;align-items:center;justify-content:center;font-family:inherit;' + plusStyle + '">&#43;</button>';
           html += '</div>';
         }
 
@@ -581,7 +581,7 @@
           if(p.img) sHtml += '<img src="' + p.img + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:contain;">';
           sHtml += '</div>';
           sHtml += '<div><div style="font-size:12px;font-weight:700;color:#0a0a0a;">' + p.name + '</div>';
-          sHtml += '<div style="font-size:11px;color:#1a4a2e;font-weight:700;">x' + p.qty + '</div></div>';
+          sHtml += '<div style="font-size:11px;color:#1F1A17;font-weight:700;">x' + p.qty + '</div></div>';
           sHtml += '</div>';
         });
         summaryItems.innerHTML = sHtml;
@@ -605,7 +605,7 @@
     var addBtn    = document.getElementById('bb-add-' + SID);
 
     if(done){
-      if(priceEl){ priceEl.textContent = '$' + saleTotal.toFixed(2); priceEl.style.color = '#1a4a2e'; }
+      if(priceEl){ priceEl.textContent = '$' + saleTotal.toFixed(2); priceEl.style.color = '#1F1A17'; }
       if(priceWas){ priceWas.textContent = '$' + regTotal.toFixed(2); priceWas.style.display = 'inline'; }
       if(perEl) perEl.textContent = bbSize + ' × 9-packs';
       if(savingsEl){ savingsEl.textContent = 'You save $' + save + '.00'; savingsEl.style.display = 'inline-block'; }

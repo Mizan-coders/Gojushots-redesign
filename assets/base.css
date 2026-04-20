@@ -2938,3 +2938,6 @@ span.badge.price__badge-sold-out {
   display: block;
 }
 
+#slidecarthq .slidecarthq.open {
+    transform: none!important;
+}

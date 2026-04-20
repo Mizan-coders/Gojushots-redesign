@@ -9,9 +9,13 @@
  */
 {
   "current": {
-    "goju_accent_color": "#fffd66",
-    "colors_solid_button_labels": "#ffffff",
-    "colors_accent_1": "#121212",
+    "goju_accent_color": "#F7F1E4",
+    "goju_btn_primary_bg": "#1F1A17",
+    "goju_btn_primary_text": "#F7F1E4",
+    "goju_btn_secondary_bg": "#1F1A17",
+    "goju_accent_text_color": "#1F1A17",
+    "colors_solid_button_labels": "#F7F1E4",
+    "colors_accent_1": "#1F1A17",
     "gradient_accent_1": "",
     "colors_accent_2": "#334fb4",
     "gradient_accent_2": "",

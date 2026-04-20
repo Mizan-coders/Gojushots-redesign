@@ -173,7 +173,7 @@
   }
   .rv-{{ section.id }} .rv__verified {
     font-size: 11px;
-    color: #4a9c65;
+    color: #1F1A17;
     margin-top: 2px;
   }
   .rv-{{ section.id }} .rv__stars {
@@ -296,7 +296,7 @@
                 {%- else -%}
                   <div
                     class="rv__avatar"
-                    style="background: {{ block.settings.avatar_color | default: '#d4f24a' }};"
+                    style="background: {{ block.settings.avatar_color | default: '#EDE4D1' }};"
                     aria-hidden="true"
                   >{{ block.settings.initials | escape }}</div>
                 {%- endif -%}
@@ -449,8 +449,8 @@
           "type": "text",
           "id": "avatar_color",
           "label": "Avatar background colour",
-          "default": "#d4f24a",
-          "info": "Any CSS hex colour, e.g. #d4f24a"
+          "default": "#EDE4D1",
+          "info": "Any CSS hex colour, e.g. #EDE4D1"
         },
         {
           "type": "range",
@@ -485,7 +485,7 @@
           "settings": {
             "name": "Abbey Fox",
             "initials": "AF",
-            "avatar_color": "#d4f24a",
+            "avatar_color": "#EDE4D1",
             "rating": 5,
             "review_text": "\"Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling in love with Good Night.\"",
             "product_name": "Good Night Shot"

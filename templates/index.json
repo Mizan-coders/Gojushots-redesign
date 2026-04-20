@@ -544,70 +544,61 @@
     "homepage_trust_ticker_4Ew9FJ": {
       "type": "homepage-trust-ticker",
       "blocks": {
-        "ticker_item_qnNQUr": {
-          "type": "ticker_item",
-          "settings": {
-            "icon": "⭐",
-            "text": "4.9 Stars · 2,100+ Reviews"
-          }
-        },
-        "ticker_item_Lz7yEY": {
-          "type": "ticker_item",
-          "settings": {
-            "icon": "🌿",
-            "text": "100% Natural Ingredients"
-          }
-        },
         "ticker_item_JQxjLD": {
           "type": "ticker_item",
           "settings": {
-            "icon": "🇳🇿",
+            "icon": "",
             "text": "Made in New Zealand"
-          }
-        },
-        "ticker_item_xRcMty": {
-          "type": "ticker_item",
-          "settings": {
-            "icon": "🚚",
-            "text": "Free Shipping $75+"
-          }
-        },
-        "ticker_item_x8Bdde": {
-          "type": "ticker_item",
-          "settings": {
-            "icon": "✅",
-            "text": "30-Day Guarantee"
           }
         },
         "ticker_item_DfQT7F": {
           "type": "ticker_item",
           "settings": {
-            "icon": "❄️",
-            "text": "Cold-Pressed Formula"
+            "icon": "",
+            "text": "Cold-Pressed"
+          }
+        },
+        "ticker_item_Lz7yEY": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "",
+            "text": "100% Natural"
+          }
+        },
+        "ticker_item_nosugar": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "",
+            "text": "No Sugar"
           }
         },
         "ticker_item_W9Mtkn": {
           "type": "ticker_item",
           "settings": {
-            "icon": "🌱",
+            "icon": "",
             "text": "No Preservatives"
+          }
+        },
+        "ticker_item_hpp": {
+          "type": "ticker_item",
+          "settings": {
+            "icon": "",
+            "text": "HPP Preserved"
           }
         }
       },
       "block_order": [
-        "ticker_item_qnNQUr",
-        "ticker_item_Lz7yEY",
         "ticker_item_JQxjLD",
-        "ticker_item_xRcMty",
-        "ticker_item_x8Bdde",
         "ticker_item_DfQT7F",
-        "ticker_item_W9Mtkn"
+        "ticker_item_Lz7yEY",
+        "ticker_item_nosugar",
+        "ticker_item_W9Mtkn",
+        "ticker_item_hpp"
       ],
-      "disabled": true,
       "name": "Trust Ticker",
       "settings": {
-        "bg_color": "#00823e",
-        "text_color": "#ffffff",
+        "bg_color": "#EDE4D1",
+        "text_color": "#1F1A17",
         "separator": "✦",
         "speed": "30",
         "padding_top": 14,
@@ -878,8 +869,8 @@
       ],
       "name": "Why GOJU",
       "settings": {
-        "bg_image": "shopify://shop_images/45593_1.jpg",
-        "overlay_opacity": 60,
+        "bg_image": "shopify://shop_images/60ml_shtos_ea1ccb85-9055-4179-bdaa-1bbc981aefa7.png",
+        "overlay_opacity": 10,
         "fallback_bg_color": "#1a4a2e",
         "eyebrow": "Why GOJU?",
         "title_italic": "Why",
