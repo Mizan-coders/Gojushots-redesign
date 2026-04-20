@@ -14,15 +14,15 @@
       "name": "Hero Banner",
       "settings": {
         "star_count": 5,
-        "rating_text": "4.9 stars · 2,100+ happy customers",
-        "heading_line1": "ONE SHOT.",
-        "heading_italic": "All day",
-        "heading_line2": "ENERGY.",
-        "subtext": "The daily wellness shot <strong>that actually works.</strong><br>Cold-pressed. No sugar. No crash. Just results.",
-        "price_original": "$95",
-        "price_current": "$85",
-        "price_pack": "/ 12 pack",
-        "price_per": "— just $7.08 per shot",
+        "rating_text": "",
+        "heading_line1": "Functional juice for people who read the label.",
+        "heading_italic": "",
+        "heading_line2": "",
+        "subtext": "Immunity, performance, sleep, digestion, recovery. We've got the shot to meet your lifestyle.",
+        "price_original": "",
+        "price_current": "",
+        "price_pack": "",
+        "price_per": "",
         "cta1_label": "Shop Best Seller →",
         "cta1_url": "shopify://collections/best-seller",
         "cta2_label": "Find My Shot",
@@ -31,16 +31,16 @@
         "urgency1_color": "#ff4d4d",
         "urgency2_text": "",
         "urgency2_color": "#f59e0b",
-        "pill_1_icon": "🌿",
-        "pill_1_text": "100% Natural",
-        "pill_2_icon": "🇳🇿",
-        "pill_2_text": "NZ Made",
-        "pill_3_icon": "❄️",
-        "pill_3_text": "Cold-Pressed",
-        "pill_4_icon": "✓",
-        "pill_4_text": "No Preservatives",
-        "image": "shopify://shop_images/MacBook_Air_-_1.png",
-        "img_badge": "⭐ Best Seller",
+        "pill_1_icon": "",
+        "pill_1_text": "",
+        "pill_2_icon": "",
+        "pill_2_text": "",
+        "pill_3_icon": "",
+        "pill_3_text": "",
+        "pill_4_icon": "",
+        "pill_4_text": "",
+        "image": "shopify://shop_images/Gemini_Generated_Image_3c4q0t3c4q0t3c4q.jpg",
+        "img_badge": "",
         "bg_color": "#121212",
         "padding_top": 80,
         "padding_bottom": 80
@@ -216,30 +216,6 @@
       "settings": {
         "background_color": "#00823e",
         "text_color": "#fcfbf4"
-      }
-    },
-    "171452839083d913b1": {
-      "type": "apps",
-      "blocks": {
-        "growave_loyalty_wishlist_v2_index_reviews_slider_WnEbR9": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.ReviewsSlider/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "lowest_rating": "4",
-            "images_type": "product_images",
-            "only_pinned_reviews": false,
-            "reviews_sequence": "default",
-            "collection-ids": [],
-            "custom_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "growave_loyalty_wishlist_v2_index_reviews_slider_WnEbR9"
-      ],
-      "disabled": true,
-      "settings": {
-        "include_margins": true,
-        "anchor_link_id": ""
       }
     },
     "d9d38807-f356-4a47-b937-5228e8efd21c": {
@@ -627,6 +603,7 @@
         "ticker_item_DfQT7F",
         "ticker_item_W9Mtkn"
       ],
+      "disabled": true,
       "name": "Trust Ticker",
       "settings": {
         "bg_color": "#00823e",
@@ -639,18 +616,97 @@
     },
     "homepage_press_AsSeenIn": {
       "type": "homepage-press",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "logo_4m8aYY": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/lg9-b.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        },
+        "logo_DrtcGa": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/lg7-b.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        },
+        "logo_8nRfUx": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/lg5-b.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        },
+        "logo_TY8KEq": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/lg8-b.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        },
+        "logo_Fi4Tb9": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/lg4-b.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_4m8aYY",
+        "logo_DrtcGa",
+        "logo_8nRfUx",
+        "logo_TY8KEq",
+        "logo_Fi4Tb9"
+      ],
       "settings": {
         "label_text": "As Seen In",
-        "bg_color": "#f5f0e8",
-        "padding_top": 48,
+        "bg_color": "#fcfbf4",
+        "padding_top": 64,
         "padding_bottom": 48
       }
     },
     "homepage_pick_goal_GhQmtE": {
       "type": "homepage-pick-goal",
       "blocks": {
+        "product_card_jaXcBw": {
+          "type": "product_card",
+          "settings": {
+            "product": "vital-sunshine",
+            "name_override": "",
+            "goals": "energy",
+            "goal_label": "Energy · Focus · Stamina",
+            "badge_type": "new",
+            "badge_text": "New Arrival",
+            "short_desc": "",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "0"
+          }
+        },
+        "product_card_4Ygmp9": {
+          "type": "product_card",
+          "settings": {
+            "product": "immune-guard",
+            "name_override": "",
+            "goals": "energy",
+            "goal_label": "Energy · Focus · Stamina",
+            "badge_type": "none",
+            "badge_text": "Best Seller",
+            "short_desc": "",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "0"
+          }
+        },
         "product_card_mRML7A": {
           "type": "product_card",
           "settings": {
@@ -714,47 +770,15 @@
             "star_rating": 5,
             "review_count": "0"
           }
-        },
-        "product_card_7eVUbC": {
-          "type": "product_card",
-          "settings": {
-            "product": "restore-pack",
-            "name_override": "",
-            "goals": "Digestion, energy,Recovery,Sleep",
-            "goal_label": "Digest. Recovery. Sleep",
-            "badge_type": "none",
-            "badge_text": "Best Seller",
-            "short_desc": "",
-            "price_text": "",
-            "pack_text": "/ 9 pack",
-            "star_rating": 5,
-            "review_count": "0"
-          }
-        },
-        "product_card_jbxM66": {
-          "type": "product_card",
-          "settings": {
-            "product": "good-night",
-            "name_override": "",
-            "goals": "energy",
-            "goal_label": "Relax. Drift. Dream.",
-            "badge_type": "none",
-            "badge_text": "Best Seller",
-            "short_desc": "",
-            "price_text": "",
-            "pack_text": "/ 9 pack",
-            "star_rating": 5,
-            "review_count": "0"
-          }
         }
       },
       "block_order": [
+        "product_card_jaXcBw",
+        "product_card_4Ygmp9",
         "product_card_mRML7A",
         "product_card_niJt67",
         "product_card_7hBCQ3",
-        "product_card_EDqjMV",
-        "product_card_7eVUbC",
-        "product_card_jbxM66"
+        "product_card_EDqjMV"
       ],
       "name": "Pick Your Goal",
       "settings": {
@@ -854,6 +878,9 @@
       ],
       "name": "Why GOJU",
       "settings": {
+        "bg_image": "shopify://shop_images/45593_1.jpg",
+        "overlay_opacity": 60,
+        "fallback_bg_color": "#1a4a2e",
         "eyebrow": "Why GOJU?",
         "title_italic": "Why",
         "title_main": "GOJU.",
@@ -861,7 +888,93 @@
         "goju_logo_text": "GOJU.",
         "competitor_label": "Typical Wellness Shots",
         "cta_label": "Shop GOJU Now →",
-        "cta_url": "",
+        "cta_url": "shopify://collections",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_bundle_v2_UMVFRy": {
+      "type": "homepage-bundle-v2",
+      "blocks": {
+        "product_item_Kft83t": {
+          "type": "product_item",
+          "settings": {
+            "product": "ginger-500ml-multi-dose-bottle",
+            "name": "Ginger Multi-Dose",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#c8e6c9"
+          }
+        },
+        "product_item_jMh9Et": {
+          "type": "product_item",
+          "settings": {
+            "product": "vital-sunshine",
+            "name": "",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#c8e6c9"
+          }
+        },
+        "product_item_8JCCHP": {
+          "type": "product_item",
+          "settings": {
+            "product": "immune-guard",
+            "name": "",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#c8e6c9"
+          }
+        },
+        "product_item_mWqeDk": {
+          "type": "product_item",
+          "settings": {
+            "product": "good-night",
+            "name": "",
+            "tags": "",
+            "price": "",
+            "tile_bg_color": "#c8e6c9"
+          }
+        },
+        "product_item_mXFR69": {
+          "type": "product_item",
+          "settings": {
+            "product": "action-shot",
+            "name": "",
+            "tags": "",
+            "price": "",
+            "tile_bg_color": "#c8e6c9"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_Kft83t",
+        "product_item_jMh9Et",
+        "product_item_8JCCHP",
+        "product_item_mWqeDk",
+        "product_item_mXFR69"
+      ],
+      "name": "Bundle Builder V2",
+      "settings": {
+        "section_eyebrow": "Bundle & Save",
+        "section_title": "Can't pick just one?",
+        "section_title_italic": "Good.",
+        "section_sub": "Mix and match any 60ml shots. The more you grab, the more you save.",
+        "pack_3_label": "3 × 9-Pack",
+        "pack_3_badge": "Most Popular",
+        "pack_3_display_price": "$135",
+        "pack_3_was_price": "was $150",
+        "pack_3_saving_strip": "💰 You save $15",
+        "pack_3_savings_amount": 15,
+        "pack_4_label": "4 × 9-Pack",
+        "pack_4_badge": "Best Value",
+        "pack_4_display_price": "$170",
+        "pack_4_was_price": "was $200",
+        "pack_4_saving_strip": "💰 You save $30",
+        "pack_4_savings_amount": 30,
+        "step_label": "Step 1 — Choose your packs",
+        "cart_btn_label": "Add Bundle to Cart →",
+        "bg_color": "#f5f0e8",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -869,68 +982,81 @@
     "homepage_bundle_gihCYP": {
       "type": "homepage-bundle",
       "blocks": {
+        "product_item_EYzAqn": {
+          "type": "product_item",
+          "settings": {
+            "product": "ginger-manuka",
+            "name": "Ginger Multi-Dose",
+            "tags": "",
+            "price": "",
+            "tile_bg_color": "#e82276"
+          }
+        },
+        "product_item_B6qdTN": {
+          "type": "product_item",
+          "settings": {
+            "product": "action-shot",
+            "name": "Action Shot",
+            "tags": "Energy · Focus · Stamina",
+            "price": "",
+            "tile_bg_color": "#00823f"
+          }
+        },
         "product_item_Mie9CT": {
           "type": "product_item",
           "settings": {
             "product": "immune-guard",
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Immune_guard_2_975f2a1e-d47d-427c-ac2b-96e0cf74b4bf.png?v=1774399335",
             "name": "Immune Guard",
-            "sub": "Defend · Fortify",
-            "price": "$17",
-            "dot_top": "42%",
-            "dot_left": "18%",
-            "dot_right": ""
+            "tags": "Energy · Focus · Stamina",
+            "price": "",
+            "tile_bg_color": "#f07c29"
           }
         },
         "product_item_mFFXxG": {
           "type": "product_item",
           "settings": {
             "product": "good-night",
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png?v=1774338496",
             "name": "Good Night",
-            "sub": "Relax · Drift · Dream",
-            "price": "$17",
-            "dot_top": "62%",
-            "dot_left": "48%",
-            "dot_right": ""
+            "tags": "Energy · Focus · Stamina",
+            "price": "",
+            "tile_bg_color": "#752056"
           }
         },
         "product_item_U9YhdD": {
           "type": "product_item",
           "settings": {
             "product": "vital-sunshine",
-            "image_url": "https://cdn.shopify.com/s/files/1/0407/5103/8632/files/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png?v=1774399335",
             "name": "Vital Sunshine",
-            "sub": "Recover · Brighten",
-            "price": "$17",
-            "dot_top": "22%",
-            "dot_left": "18%",
-            "dot_right": "15%"
+            "tags": "Energy · Focus · Stamina",
+            "price": "",
+            "tile_bg_color": "#e93f25"
           }
         }
       },
       "block_order": [
+        "product_item_EYzAqn",
+        "product_item_B6qdTN",
         "product_item_Mie9CT",
         "product_item_mFFXxG",
         "product_item_U9YhdD"
       ],
+      "disabled": true,
       "name": "Bundle",
       "settings": {
         "section_eyebrow": "Mixed Packs",
         "section_title": "Can't Pick Just One?",
         "section_title_italic": "Good.",
         "section_sub": "Our mixed packs are built for variety — different benefits, one delivery.",
-        "badge_show": true,
-        "badge_text": "🔥 Most Popular Bundle",
-        "lifestyle_image_url": "",
-        "bundle_eyebrow": "Defence Pack",
-        "bundle_title": "Immunity. Sleep. Recovery.",
-        "bundle_tagline": "Three targeted shots. One daily defence routine.",
-        "price_total": "$50",
-        "price_per": "/ 9 shots",
-        "price_saving": "· Save vs buying separately",
+        "pack_3_label": "3 × 9-Pack",
+        "pack_3_savings": "SAVE $15",
+        "pack_3_savings_amount": 15,
+        "pack_4_label": "4 × 9-Pack",
+        "pack_4_savings": "SAVE $30",
+        "pack_4_savings_amount": 30,
+        "price_per_pack": 50,
+        "step_label": "Step 1 — Choose your packs",
         "cart_btn_label": "Add Bundle to Cart →",
-        "cart_url": "",
+        "bg_color": "#f5f0e8",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -942,6 +1068,7 @@
           "type": "review",
           "settings": {
             "name": "Abbey Fox",
+            "avatar_image": "shopify://shop_images/178758_1.jpg",
             "initials": "AF",
             "avatar_color": "#d4f24a",
             "rating": 5,
@@ -953,6 +1080,7 @@
           "type": "review",
           "settings": {
             "name": "Michelle D. Frazer",
+            "avatar_image": "shopify://shop_images/914_1.jpg",
             "initials": "MF",
             "avatar_color": "#a5d6a7",
             "rating": 5,
@@ -964,6 +1092,7 @@
           "type": "review",
           "settings": {
             "name": "Bernadette Frost",
+            "avatar_image": "shopify://shop_images/29281_1.jpg",
             "initials": "BF",
             "avatar_color": "#ffcc80",
             "rating": 5,
@@ -998,7 +1127,8 @@
         "card_Rinn9z": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Immune_guard_A_6b469492-329f-46e6-83fb-624663b3916e.png",
+            "image": "shopify://shop_images/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png",
+            "image_2": "shopify://shop_images/Ginger_Ignition_A_7d89f6c6-bfdd-4b4b-9d2f-1b378f4fbe2d.png",
             "image_url": "",
             "time_label": "Morning",
             "title": "Start Strong",
@@ -1010,17 +1140,21 @@
         "card_G39Vcw": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Good_night_2_240add19-7f99-409f-93d5-368151b9f89a.png",
+            "image_2": "shopify://shop_images/Immune_guard_A_6b469492-329f-46e6-83fb-624663b3916e.png",
+            "image_3": "shopify://shop_images/Good_night_A_f2f6d991-7071-4cee-83a4-28d8eefc2eb3.png",
             "image_url": "",
             "time_label": "Pre-Workout",
             "title": "Power Up",
             "description": "The ginger and turmeric blend provides natural energy support before training — no jitters, no crash.",
-            "tags": "Action Shot, Ginger Ignition",
+            "tags": "Action Shot, Ginger Ignition, Good Night",
             "featured": true
           }
         },
         "card_EhU4WK": {
           "type": "card",
           "settings": {
+            "image_2": "shopify://shop_images/Ginger_Ignition_A_7d89f6c6-bfdd-4b4b-9d2f-1b378f4fbe2d.png",
             "image_url": "",
             "time_label": "Afternoon",
             "title": "Beat the Slump",
@@ -1097,6 +1231,7 @@
       ],
       "name": "Subscribe & Save",
       "settings": {
+        "bg_color": "#b6a58b",
         "eyebrow": "Subscribe & Save",
         "title": "Never run out.",
         "title_italic": "Save every order.",
@@ -1188,7 +1323,6 @@
     "aae61860-a3a0-40e2-9ed4-9e3a536d7f76",
     "homesec_6",
     "homesec_2",
-    "171452839083d913b1",
     "d9d38807-f356-4a47-b937-5228e8efd21c",
     "5e24db6a-f5b5-4012-8fcd-b24e185b4bd6",
     "14926c13-dcef-4666-a0cb-7a9f0c2f1275",
@@ -1199,6 +1333,7 @@
     "homepage_press_AsSeenIn",
     "homepage_pick_goal_GhQmtE",
     "homepage_why_goju_cWe97M",
+    "homepage_bundle_v2_UMVFRy",
     "homepage_bundle_gihCYP",
     "homepage_reviews_fDwEyT",
     "homepage_when_to_take_dBM67Q",

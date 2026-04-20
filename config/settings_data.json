@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "goju_accent_color": "#fffd66",
     "colors_solid_button_labels": "#ffffff",
     "colors_accent_1": "#121212",
     "gradient_accent_1": "",
@@ -126,11 +127,14 @@
         "block_order": [
           "announcement-bar-0"
         ],
-        "settings": {}
+        "settings": {
+          "bg_color": "#191917"
+        }
       },
       "header": {
         "type": "header",
         "settings": {
+          "bg_color": "#f5f0e8",
           "color_scheme": "background-1",
           "logo": "shopify://shop_images/New_1_2x_2.png",
           "logo_width": 110,
@@ -139,6 +143,8 @@
           "menu_type_desktop": "dropdown",
           "show_line_separator": true,
           "enable_sticky_header": false,
+          "cta_nav_label": "Subscribe & Save",
+          "cta_nav_url": "",
           "margin_bottom": 0,
           "padding_top": 20,
           "padding_bottom": 20
@@ -160,24 +166,13 @@
               "heading": "Info",
               "menu": "footer"
             }
-          },
+          }
         },
         "block_order": [
           "footer-0",
           "footer-1"
         ],
-        "settings": {
-          "color_scheme": "background-1",
-          "newsletter_enable": true,
-          "newsletter_heading": "Subscribe to our emails",
-          "show_social": true,
-          "enable_country_selector": false,
-          "enable_language_selector": false,
-          "payment_enable": true,
-          "margin_top": 48,
-          "padding_top": 36,
-          "padding_bottom": 36
-        }
+        "settings": {}
       },
       "main-password-header": {
         "type": "main-password-header",
@@ -200,14 +195,15 @@
           ".form-subscribe .suscribe-button {border-left: 1px solid #e5e5e5;}"
         ],
         "settings": {
+          "bg_color": "#b6a58b",
+          "logo": "shopify://shop_images/Logo-white.png",
+          "tagline": "Real ingredients. Built to work. Crafted in New Zealand for people who take their health seriously.",
           "heading": "Want $10 off your first purchase?",
           "paragraph": "Subscribe to our mailing list for exclusive Goju offers and the latest on health and wellness, and you'll get $10 off your first purchase.",
-          "goju": "goju-footer-2k22",
-          "retailers": "retailers",
-          "help": "help-2k22",
-          "logo": "shopify://shop_images/New_1_2x_2.png",
           "insta_url": "https://www.instagram.com/goju_shots/",
           "fb_url": "https://www.facebook.com/gojushots",
+          "tiktok_url": "",
+          "youtube_url": "",
           "copyright": "© Copyright Goju",
           "have_question": "Have questions? Reach out to our team at team@gojushots.com"
         }
@@ -234,21 +230,11 @@
           "greeting_message": ""
         }
       },
-      "back-in-stock-restock-alerts-4bb73be2-b7c2-4870-949f-c528145452a3": {
-        "type": "shopify://apps/back-in-stock-restock-alerts/blocks/main/4bb73be2-b7c2-4870-949f-c528145452a3",
-        "disabled": false,
-        "settings": {}
-      },
       "17503207801509751411": {
         "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.embed.socialshopwave-helper/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
         "disabled": false,
         "settings": {}
-      },
-      "10641372206048101839": {
-        "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-global-embed/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
-        "disabled": false,
-        "settings": {}
-      },
+      }
     }
   },
   "presets": {
@@ -368,11 +354,14 @@
           "block_order": [
             "announcement-bar-0"
           ],
-          "settings": {}
+          "settings": {
+            "bg_color": "#191917"
+          }
         },
         "header": {
           "type": "header",
           "settings": {
+            "bg_color": "#F5F0E8",
             "color_scheme": "background-1",
             "logo": "{{ shop.brand.logo }}",
             "logo_width": 90,
@@ -401,23 +390,14 @@
                 "heading": "Info",
                 "menu": "footer"
               }
-            },
+            }
           },
           "block_order": [
             "footer-0",
             "footer-1"
           ],
           "settings": {
-            "color_scheme": "background-1",
-            "newsletter_enable": true,
-            "newsletter_heading": "Subscribe to our emails",
-            "show_social": true,
-            "enable_country_selector": false,
-            "enable_language_selector": false,
-            "payment_enable": true,
-            "margin_top": 48,
-            "padding_top": 36,
-            "padding_bottom": 36
+            "bg_color": "#0a0a0a"
           }
         },
         "main-password-header": {

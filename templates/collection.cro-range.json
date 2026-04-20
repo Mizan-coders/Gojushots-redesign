@@ -1,9 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection-goju-main": {
       "type": "collection-goju",
       "settings": {
         "show_hero": true,
+        "hero_image": "shopify://shop_images/46346_1.jpg",
+        "hero_heading": "THE SHOT FOR",
+        "hero_heading_accent": "every need.",
+        "hero_desc": "60ml of cold-pressed, goal-specific nutrition. No fillers, no crash — just the right blend for what you're working toward.",
+        "hero_pill_1": "🌿 100% Natural",
+        "hero_pill_2": "🇳🇿 NZ Made",
+        "hero_pill_3": "❄️ Cold-Pressed",
+        "stat_1_num": "4.9★",
+        "stat_1_label": "Average rating",
+        "stat_2_num": "2,100+",
+        "stat_2_label": "Happy customers",
         "tab_all_label": "All Products",
         "tab_1_icon": "⚡",
         "tab_1_label": "Energy",
@@ -15,14 +35,81 @@
         "tab_4_label": "Recovery",
         "tab_5_icon": "🌿",
         "tab_5_label": "Digestion",
-        "columns": "3",
+        "tab_6_icon": "",
+        "tab_6_label": "",
+        "hide_desc_mobile": true,
         "products_limit": 48,
-        "bg_color": "#f5f0e8",
+        "columns": "3",
+        "columns_mobile": "1",
+        "bg_color": "#e9e5df",
         "padding_bottom": 60
+      }
+    },
+    "homepage_subscribe_V9C8YE": {
+      "type": "homepage-subscribe",
+      "blocks": {
+        "perk_n3Hnfp": {
+          "type": "perk",
+          "settings": {
+            "icon": "💰",
+            "text": "Save 10% on every order automatically"
+          }
+        },
+        "perk_bVdwez": {
+          "type": "perk",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free shipping on every subscription order"
+          }
+        },
+        "perk_jPb3qj": {
+          "type": "perk",
+          "settings": {
+            "icon": "⏸️",
+            "text": "Pause, skip or cancel anytime — no lock-in"
+          }
+        },
+        "perk_wmkyNf": {
+          "type": "perk",
+          "settings": {
+            "icon": "🎯",
+            "text": "Choose your frequency — weekly, fortnightly or monthly"
+          }
+        }
+      },
+      "block_order": [
+        "perk_n3Hnfp",
+        "perk_bVdwez",
+        "perk_jPb3qj",
+        "perk_wmkyNf"
+      ],
+      "name": "Subscribe & Save",
+      "settings": {
+        "bg_color": "#1a4a2e",
+        "eyebrow": "Subscribe & Save",
+        "title": "Never run out.",
+        "title_italic": "Save every order.",
+        "body_text": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked.",
+        "card_title": "Start Subscribing",
+        "card_subtitle": "Pick your first product and lock in your savings today.",
+        "subscribe_btn_label": "Subscribe & Save 10%",
+        "subscribe_url": "",
+        "subscribe_note": "Pause or cancel anytime. No commitments.",
+        "offer_prefix": "Or get",
+        "offer_highlight": "$10 off",
+        "offer_suffix": "your first one-time order",
+        "email_placeholder": "Your email address",
+        "email_btn_label": "Get $10 Off",
+        "discount_code": "",
+        "success_msg": "You're in! Use code",
+        "success_msg_suffix": "at checkout.",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "collection-goju-main"
+    "collection-goju-main",
+    "homepage_subscribe_V9C8YE"
   ]
 }
