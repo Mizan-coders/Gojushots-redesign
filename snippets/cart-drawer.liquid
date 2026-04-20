@@ -88,14 +88,38 @@
   }
   .cd-header__close-btn:hover { color: #6B5E52; }
 
-  /* Welcome banner */
+  /* Welcome banner — rotating ticker */
   .cd-header__banner {
     background: #1F1A17;
     color: #F7F1E4;
-    font-size: 13px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
     text-align: center;
-    padding: 6px 20px;
-    letter-spacing: 0.02em;
+    height: 30px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cd-banner__slide {
+    position: absolute;
+    left: 0; right: 0;
+    text-align: center;
+    padding: 0 16px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cd-banner__slide--active {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Free shipping bar */
@@ -643,7 +667,10 @@
             </button>
           </div>
         </div>
-        <div class="cd-header__banner">Welcome to {{ shop.name }}</div>
+        <div class="cd-header__banner" aria-live="polite">
+          <span class="cd-banner__slide">Subscribe + Save 30% Now &nbsp;|&nbsp; 10% Off + Free Shipping Forever</span>
+          <span class="cd-banner__slide">Spend $75 + Get a Free Acid Potion</span>
+        </div>
         <div class="cd-shipping-bar">
           <p class="cd-shipping-bar__text"><span class="cd-shipping-bar__msg"></span></p>
           <div class="cd-shipping-bar__track">
@@ -1107,6 +1134,24 @@
         btn.textContent = 'Add';
       });
   });
+
+  // ── Banner rotator ─────────────────────────────────────────
+  function initBannerRotator() {
+    var slides = document.querySelectorAll('.cd-banner__slide');
+    if (!slides.length) return;
+    var idx = 0;
+    slides[idx].classList.add('cd-banner__slide--active');
+    setInterval(function() {
+      slides[idx].classList.remove('cd-banner__slide--active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('cd-banner__slide--active');
+    }, 5000);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBannerRotator);
+  } else {
+    initBannerRotator();
+  }
 
   // ── Init ───────────────────────────────────────────────────
   // Run immediately, on DOMContentLoaded, and with a fallback delay
