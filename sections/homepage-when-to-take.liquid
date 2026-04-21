@@ -87,7 +87,7 @@
     aspect-ratio: 1 / 1;
     overflow: hidden;
     position: relative;
-    background: rgba(31,26,23,0.06);
+    background: {{ section.settings.card_bg_color | default: '#F7F1E4' }};
     flex-shrink: 0;
   }
   .ws-{{ section.id }} .ws__card-image img {
@@ -231,7 +231,7 @@
                {{ block.shopify_attributes }}>
 
             {%- if img_src != blank -%}
-              <div class="ws__card-image">
+              <div class="ws__card-image" style="background:{{ section.settings.card_bg_color | default: '#F7F1E4' }}">
                 <img
                   src="{{ img_src }}"
                   alt="{{ img_alt }}"
@@ -241,7 +241,7 @@
                 >
               </div>
             {%- else -%}
-              <div class="ws__card-image"></div>
+              <div class="ws__card-image" style="background:{{ section.settings.card_bg_color | default: '#F7F1E4' }}"></div>
             {%- endif -%}
 
             <div class="ws__card-body">
