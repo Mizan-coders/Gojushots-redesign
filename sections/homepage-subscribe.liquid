@@ -55,17 +55,17 @@
     display: block;
   }
   .ss-{{ section.id }} .ss__title {
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 900;
+    font-size: clamp({{ section.settings.heading_size | times: 0.64 | round }}px, {{ section.settings.heading_size | times: 0.071 }}vw, {{ section.settings.heading_size }}px);
+    font-weight: {{ section.settings.heading_weight | default: 700 }};
     line-height: 1.05;
-    text-transform: uppercase;
+    text-transform: {{ section.settings.heading_transform | default: 'uppercase' }};
     letter-spacing: 0.02em;
-    color: white;
+    color: {{ section.settings.heading_color | default: '#ffffff' }};
     margin: 0;
   }
   .ss-{{ section.id }} .ss__title em {
     font-style: italic;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: none;
     color: var(--goju-accent);
     display: block;
@@ -418,6 +418,49 @@
       "id": "body_text",
       "label": "Body text",
       "default": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked."
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font size (desktop max)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 56,
+      "unit": "px",
+      "info": "Mobile scales automatically."
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "600", "label": "Semi-bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "none", "label": "As typed (mixed case)" },
+        { "value": "capitalize", "label": "Title Case" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#ffffff"
     },
     {
       "type": "header",

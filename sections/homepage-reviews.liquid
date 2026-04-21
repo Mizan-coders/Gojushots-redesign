@@ -1,6 +1,6 @@
 {%- style -%}
   .rv-{{ section.id }} {
-    background: #EDE4D1;
+    background: {{ section.settings.bg_color | default: '#EDE4D1' }};
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     padding-left: 40px;
@@ -33,11 +33,11 @@
 
   /* Headline */
   .rv-{{ section.id }} .rv__headline {
-    font-size: clamp(36px, 4vw, 52px);
-    font-weight: 700;
-    text-transform: uppercase;
+    font-size: clamp({{ section.settings.heading_size | times: 0.69 | round }}px, {{ section.settings.heading_size | times: 0.077 }}vw, {{ section.settings.heading_size }}px);
+    font-weight: {{ section.settings.heading_weight | default: 700 }};
+    text-transform: {{ section.settings.heading_transform | default: 'uppercase' }};
     letter-spacing: 0.02em;
-    color: #1F1A17;
+    color: {{ section.settings.heading_color | default: '#1F1A17' }};
     line-height: 1;
     margin: 0;
   }
@@ -45,7 +45,8 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: rgba(31,26,23,0.6);
+    color: {{ section.settings.heading_color | default: '#1F1A17' }};
+    opacity: 0.6;
     display: block;
     letter-spacing: 0;
   }
@@ -329,6 +330,12 @@
   "name": "Reviews",
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background colour",
+      "default": "#EDE4D1"
+    },
+    {
       "type": "header",
       "content": "Headline"
     },
@@ -349,6 +356,49 @@
       "id": "sub_headline",
       "label": "Sub headline",
       "default": "See why thousands trust Goju daily."
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font size (desktop max)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px",
+      "info": "Mobile scales automatically."
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "600", "label": "Semi-bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "none", "label": "As typed (mixed case)" },
+        { "value": "capitalize", "label": "Title Case" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#1F1A17"
     },
     {
       "type": "header",
