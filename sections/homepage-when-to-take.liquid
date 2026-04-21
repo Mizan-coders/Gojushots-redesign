@@ -69,7 +69,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    background: #F7F1E4;
+    background: {{ section.settings.card_bg_color | default: '#F7F1E4' }};
     box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   }
   .ws-{{ section.id }} .ws__card:hover {
@@ -281,6 +281,13 @@
       "id": "bg_color",
       "label": "Section background colour",
       "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background colour (default)",
+      "default": "#F7F1E4",
+      "info": "Default for all cards. Override per-card using the block settings."
     },
     {
       "type": "text",
