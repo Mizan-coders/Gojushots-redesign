@@ -62,13 +62,8 @@
 
 ## Phase 3 — Blocked (waiting on client)
 
-- [!] **8. Emoji → Custom SVG icons**
-  - Awaiting SVG files from client
-  - Locations once files arrive:
-    - `homepage-pick-goal.liquid` — tab icons (⚡ 💪 🌿)
-    - `homepage-trust-ticker.liquid` — ticker icons (⭐ 🌿 ✅ 🌱)
-    - `collection-goju.liquid` — tab icons
-    - `product-ingredients-cro.liquid` — ingredient card icons
+- [x] **8. Emoji → Custom SVG icons**
+  - Updated by client directly in the customizer
 
 ---
 
