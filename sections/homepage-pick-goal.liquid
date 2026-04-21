@@ -86,6 +86,15 @@
   .pg-{{ section.id }} .pg-filter-btn:not(.is-active):hover {
     border-color: #191917;
   }
+  .pg-{{ section.id }} .pg-filter-btn .tab-icon-img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
 
   /* ── Products grid ── */
   .pg-{{ section.id }} .pg__grid-wrap {
@@ -325,13 +334,18 @@
     </button>
     {%- for i in (1..6) -%}
       {%- assign icon_key  = 'tab_' | append: i | append: '_icon' -%}
+      {%- assign img_key   = 'tab_' | append: i | append: '_image' -%}
       {%- assign label_key = 'tab_' | append: i | append: '_label' -%}
       {%- if section.settings[label_key] != blank -%}
         <button
           class="pg-filter-btn"
           data-goal="{{ section.settings[label_key] | downcase | strip | escape }}"
         >
-          {%- if section.settings[icon_key] != blank -%}{{ section.settings[icon_key] }} {%- endif -%}
+          {%- if section.settings[img_key] != blank -%}
+            <img class="tab-icon-img" src="{{ section.settings[img_key] | image_url: width: 40 }}" alt="" width="20" height="20" loading="lazy" aria-hidden="true">
+          {%- elsif section.settings[icon_key] != blank -%}
+            {{- section.settings[icon_key] -}}&nbsp;
+          {%- endif -%}
           {{- section.settings[label_key] | escape -}}
         </button>
       {%- endif -%}
@@ -587,9 +601,15 @@
       "default": "All Products"
     },
     {
+      "type": "image_picker",
+      "id": "tab_1_image",
+      "label": "Tab 1 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_1_icon",
-      "label": "Tab 1 icon (emoji)",
+      "label": "Tab 1 icon (emoji fallback)",
       "default": "⚡"
     },
     {
@@ -599,9 +619,15 @@
       "default": "Energy"
     },
     {
+      "type": "image_picker",
+      "id": "tab_2_image",
+      "label": "Tab 2 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_2_icon",
-      "label": "Tab 2 icon (emoji)",
+      "label": "Tab 2 icon (emoji fallback)",
       "default": "🛡️"
     },
     {
@@ -611,9 +637,15 @@
       "default": "Immunity"
     },
     {
+      "type": "image_picker",
+      "id": "tab_3_image",
+      "label": "Tab 3 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_3_icon",
-      "label": "Tab 3 icon (emoji)",
+      "label": "Tab 3 icon (emoji fallback)",
       "default": "😴"
     },
     {
@@ -623,9 +655,15 @@
       "default": "Sleep"
     },
     {
+      "type": "image_picker",
+      "id": "tab_4_image",
+      "label": "Tab 4 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_4_icon",
-      "label": "Tab 4 icon (emoji)",
+      "label": "Tab 4 icon (emoji fallback)",
       "default": "💪"
     },
     {
@@ -635,9 +673,15 @@
       "default": "Recovery"
     },
     {
+      "type": "image_picker",
+      "id": "tab_5_image",
+      "label": "Tab 5 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_5_icon",
-      "label": "Tab 5 icon (emoji)",
+      "label": "Tab 5 icon (emoji fallback)",
       "default": "🌿"
     },
     {
@@ -647,9 +691,15 @@
       "default": "Digestion"
     },
     {
+      "type": "image_picker",
+      "id": "tab_6_image",
+      "label": "Tab 6 icon image",
+      "info": "Upload an image or SVG. Overrides emoji below if set."
+    },
+    {
       "type": "text",
       "id": "tab_6_icon",
-      "label": "Tab 6 icon (emoji)"
+      "label": "Tab 6 icon (emoji fallback)"
     },
     {
       "type": "text",

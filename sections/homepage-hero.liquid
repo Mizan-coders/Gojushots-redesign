@@ -55,12 +55,12 @@
 
   /* ── Heading ── */
   .hero-{{ section.id }} .hero__heading {
-    font-size: clamp(56px, 6vw, 100px);
+    font-size: clamp({{ section.settings.heading_size | times: 0.56 | round }}px, {{ section.settings.heading_size | times: 0.06 }}vw, {{ section.settings.heading_size }}px);
     font-weight: 700;
     line-height: 0.95;
-    color: #F7F1E4;
+    color: {{ section.settings.heading_color | default: '#F7F1E4' }};
     letter-spacing: -0.01em;
-    text-transform: uppercase;
+    text-transform: {{ section.settings.heading_transform | default: 'uppercase' }};
     margin: 0 0 24px;
   }
   .hero-{{ section.id }} .hero__heading em {
@@ -68,7 +68,7 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: #F7F1E4;
+    color: {{ section.settings.heading_color | default: '#F7F1E4' }};
     opacity: 0.75;
     letter-spacing: 0;
     font-size: 0.85em;
@@ -133,7 +133,7 @@
       max-width: 100%;
     }
     .hero-{{ section.id }} .hero__heading {
-      font-size: clamp(40px, 11vw, 64px);
+      font-size: clamp({{ section.settings.heading_size | times: 0.40 | round }}px, 11vw, {{ section.settings.heading_size | times: 0.64 | round }}px);
     }
     .hero-{{ section.id }} .hero__sub {
       font-size: 15px;
@@ -318,6 +318,39 @@
       "id": "subtext",
       "label": "Subtext",
       "default": "Cold-pressed. No sugar. No crash. Just results."
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font size (desktop max)",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "default": 100,
+      "unit": "px",
+      "info": "Mobile scales automatically."
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "none", "label": "As typed (mixed case)" },
+        { "value": "capitalize", "label": "Title Case" },
+        { "value": "lowercase", "label": "lowercase" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#F7F1E4"
     },
     {
       "type": "header",

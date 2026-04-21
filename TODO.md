@@ -43,10 +43,11 @@
   - Remove: "30-Day Guarantee", "Free Shipping" type signals
   - File: `homepage-trust-ticker.liquid`
 
-- [ ] **6. Hero banner**
+- [x] **6. Hero banner**
   - Full-bleed lifestyle image, 100vh desktop
   - Mobile: gradient overlay `rgba(31,26,23,0.5)` bottom → transparent top
   - Headline + CTA left-aligned with breathing room
+  - Heading font size / text-transform / colour now customizer-controlled
   - File: `homepage-hero.liquid`
 
 - [ ] **7. "When to take" cards — consistent system**
