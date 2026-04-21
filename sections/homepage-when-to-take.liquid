@@ -1,6 +1,6 @@
 {%- style -%}
   .ws-{{ section.id }} {
-    background: var(--goju-page-bg, #f5f0e8);
+    background: {{ section.settings.bg_color | default: '#F5F0E8' }};
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     padding-left: 40px;
@@ -32,17 +32,19 @@
     margin-bottom: 12px;
   }
   .ws-{{ section.id }} .ws__title {
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 700;
+    font-size: clamp({{ section.settings.heading_size | times: 0.615 | round }}px, {{ section.settings.heading_size | times: 0.077 }}vw, {{ section.settings.heading_size }}px);
+    font-weight: {{ section.settings.heading_weight | default: 700 }};
+    text-transform: {{ section.settings.heading_transform | default: 'uppercase' }};
     letter-spacing: -0.01em;
-    color: #1F1A17;
+    color: {{ section.settings.heading_color | default: '#1F1A17' }};
     line-height: 1.05;
     margin: 0;
   }
   .ws-{{ section.id }} .ws__title em {
     font-style: italic;
-    font-weight: 700;
-    color: rgba(31,26,23,0.7);
+    font-weight: 400;
+    color: {{ section.settings.heading_color | default: '#1F1A17' }};
+    opacity: 0.65;
   }
   .ws-{{ section.id }} .ws__subtitle {
     font-size: 16px;
@@ -275,6 +277,12 @@
   "name": "When to Take Your Shot",
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background colour",
+      "default": "#F5F0E8"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow text",
@@ -297,6 +305,49 @@
       "id": "subtitle",
       "label": "Subtitle",
       "default": "GOJU fits into your day wherever you need it most — morning, workout or afternoon slump."
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font size (desktop max)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px",
+      "info": "Mobile scales automatically."
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "600", "label": "Semi-bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "none", "label": "As typed (mixed case)" },
+        { "value": "capitalize", "label": "Title Case" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#1F1A17"
     },
     {
       "type": "header",
