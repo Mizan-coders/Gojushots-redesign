@@ -135,6 +135,44 @@
     color: #F7F1E4;
   }
 
+  /* ── Nav item pill hover / active (desktop only) ── */
+  @media screen and (min-width: 990px) {
+    .header__inline-menu .header__menu-item {
+      border-radius: 50px;
+      padding: 8px 16px;
+      transition: background 0.2s, color 0.2s;
+      color: #1F1A17;
+    }
+    .header__inline-menu .header__menu-item:hover {
+      background: #1F1A17;
+      color: #F7F1E4;
+    }
+    .header__inline-menu .header__menu-item:hover span,
+    .header__inline-menu .header__menu-item:hover .header__active-menu-item {
+      text-decoration: none;
+      color: #F7F1E4;
+    }
+    /* Active page — filled pill */
+    .header__inline-menu .header__menu-item:has(.header__active-menu-item) {
+      background: #1F1A17;
+      color: #F7F1E4;
+    }
+    .header__inline-menu .header__menu-item .header__active-menu-item {
+      text-decoration: none;
+      color: #F7F1E4;
+    }
+    /* Open dropdown — filled pill */
+    .header__inline-menu details[open] > .header__menu-item {
+      background: #1F1A17;
+      color: #F7F1E4;
+      text-decoration: none;
+    }
+    .header__inline-menu details[open] > .header__menu-item span {
+      text-decoration: none;
+      color: #F7F1E4;
+    }
+  }
+
   @media screen and (max-width: 989px) {
     .header__nav-cta { display: none !important; }
     .header {
