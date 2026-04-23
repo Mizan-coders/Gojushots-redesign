@@ -101,12 +101,68 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
+    position: relative;
+    overflow: visible;
   }
   .pg-{{ section.id }} .pg__grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
     gap: 20px;
   }
+
+  /* ── Slider mode ── */
+  .pg-{{ section.id }} .pg__grid--slider {
+    display: block !important;
+  }
+  .pg-{{ section.id }} .pg__grid--slider .slick-list {
+    overflow: hidden;
+    margin: 0 -10px;
+  }
+  .pg-{{ section.id }} .pg__grid--slider .slick-track {
+    display: flex;
+    align-items: stretch;
+  }
+  .pg-{{ section.id }} .pg__grid--slider .slick-slide {
+    padding: 0 10px;
+    height: auto;
+  }
+  .pg-{{ section.id }} .pg__grid--slider .slick-slide > div,
+  .pg-{{ section.id }} .pg__grid--slider .slick-slide .pg__card {
+    height: 100%;
+  }
+  /* Arrows */
+  .pg-{{ section.id }} .slick-prev,
+  .pg-{{ section.id }} .slick-next {
+    position: absolute;
+    top: 38%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #1F1A17;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+    transition: background 0.2s;
+  }
+  .pg-{{ section.id }} .slick-prev { left: -12px; }
+  .pg-{{ section.id }} .slick-next { right: -12px; }
+  .pg-{{ section.id }} .slick-prev::before {
+    content: '←';
+    font-size: 18px;
+    color: #F7F1E4;
+    line-height: 1;
+  }
+  .pg-{{ section.id }} .slick-next::before {
+    content: '→';
+    font-size: 18px;
+    color: #F7F1E4;
+    line-height: 1;
+  }
+  .pg-{{ section.id }} .slick-prev:hover,
+  .pg-{{ section.id }} .slick-next:hover { background: #6B5E52; }
+  .pg-{{ section.id }} .slick-disabled { opacity: 0.3; pointer-events: none; }
 
   /* ── Product card ── */
   .pg-{{ section.id }} .pg__card {
@@ -470,34 +526,89 @@
 
 <script>
 (function() {
-  // Capture window.fetch NOW — this inline script runs before slidecarthq.js
-  // loads from CDN (async), so this is the original unpatched fetch.
-  // Using it for /cart/add.js prevents Slide Cart from intercepting that call
-  // and auto-opening its own cart UI.
+  // Capture window.fetch NOW — before slidecarthq.js patches it
   var _nativeFetch = window.fetch.bind(window);
 
   var section = document.querySelector('.pg-{{ section.id }}');
   if (!section) return;
 
   var filterBtns = section.querySelectorAll('.pg-filter-btn');
-  var cards      = section.querySelectorAll('.pg__card');
+  var cards      = Array.from(section.querySelectorAll('.pg__card'));
+  var grid       = section.querySelector('.pg__grid');
+
+  var THRESHOLD   = {{ section.settings.slider_threshold | default: 4 }};
+  var SLIDER_COLS = parseInt('{{ section.settings.columns | default: 4 }}', 10);
+
+  // ── Slider helpers ──────────────────────────────────────────────────────────
+  function slickReady() {
+    return typeof window.jQuery !== 'undefined' && typeof window.jQuery.fn.slick !== 'undefined';
+  }
+
+  function getMatching(goal) {
+    return cards.filter(function(card) {
+      if (goal === 'all') return true;
+      return (card.dataset.goals || '').toLowerCase().indexOf(goal) !== -1;
+    });
+  }
+
+  function initSlider(goal) {
+    if (!slickReady()) return;
+    var $grid = jQuery(grid);
+    if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
+    grid.classList.add('pg__grid--slider');
+    // Restore all cards so Slick can manage visibility
+    cards.forEach(function(c) { c.style.display = ''; });
+    $grid.slick({
+      slidesToShow: SLIDER_COLS,
+      slidesToScroll: 1,
+      infinite: false,
+      swipe: true,
+      touchMove: true,
+      arrows: true,
+      dots: false,
+      speed: 400,
+      responsive: [
+        { breakpoint: 990, settings: { slidesToShow: 2, arrows: true } },
+        { breakpoint: 480, settings: { slidesToShow: 1.2, arrows: false } }
+      ]
+    });
+    if (goal !== 'all') {
+      $grid.slick('slickFilter', '[data-goals*="' + goal + '"]');
+    }
+  }
+
+  function destroySlider() {
+    if (!slickReady()) return;
+    var $grid = jQuery(grid);
+    if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
+    grid.classList.remove('pg__grid--slider');
+  }
+
+  // ── Filter + conditional slider ─────────────────────────────────────────────
+  function applyFilter(goal) {
+    var matching = getMatching(goal);
+    if (matching.length > THRESHOLD) {
+      initSlider(goal);
+    } else {
+      destroySlider();
+      cards.forEach(function(card) {
+        var matches = goal === 'all' || (card.dataset.goals || '').toLowerCase().indexOf(goal) !== -1;
+        card.style.display = matches ? '' : 'none';
+      });
+    }
+  }
 
   filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       filterBtns.forEach(function(b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-
-      var goal = btn.dataset.goal;
-
-      cards.forEach(function(card) {
-        if (goal === 'all') {
-          card.style.display = '';
-        } else {
-          var cardGoals = (card.dataset.goals || '').toLowerCase();
-          card.style.display = cardGoals.indexOf(goal) !== -1 ? '' : 'none';
-        }
-      });
+      applyFilter(btn.dataset.goal);
     });
+  });
+
+  // Init on load — runs after deferred scripts (Slick) are ready
+  document.addEventListener('DOMContentLoaded', function() {
+    applyFilter('all');
   });
 
   // Quick-add: use _nativeFetch (captured before Slide Cart patches window.fetch)
@@ -735,6 +846,17 @@
         { "value": "4", "label": "4" }
       ],
       "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "slider_threshold",
+      "label": "Activate slider when more than",
+      "info": "If a tab has more products than this number, it switches to a swipeable slider. Set equal to 'Products per row' to always use the grid.",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "unit": "items"
     },
     {
       "type": "color",
