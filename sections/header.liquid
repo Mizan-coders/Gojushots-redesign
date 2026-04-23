@@ -114,28 +114,6 @@
     background-color: {{ section.settings.bg_color | default: 'var(--goju-page-bg, #f5f0e8)' }} !important;
   }
 
-  /* ── Subscribe & Save nav pill ── */
-  .header__nav-cta {
-    display: inline-flex;
-    align-items: center;
-    color: #1F1A17;
-    font-size: 14px;
-    font-weight: 600;
-    border: 1.5px solid #1F1A17;
-    padding: 8px 16px;
-    border-radius: 50px;
-    text-decoration: none;
-    margin-left: 8px;
-    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                color     0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
-    line-height: 1;
-  }
-  .header__nav-cta:hover {
-    background: #1F1A17;
-    color: #F7F1E4;
-  }
-
   /* ── Nav item pill hover / active (desktop only) ── */
   @media screen and (min-width: 990px) {
     .header__inline-menu .header__menu-item {
@@ -596,11 +574,6 @@
               </li>
             {%- endfor -%}
           </ul>
-          {%- if section.settings.cta_nav_label != blank -%}
-            <a href="{{ section.settings.cta_nav_url | default: '#' }}" class="header__nav-cta focus-inset">
-              {{ section.settings.cta_nav_label | escape }}
-            </a>
-          {%- endif -%}
         </nav>
       {%- else -%}
         <nav class="header__inline-menu">
@@ -646,11 +619,6 @@
               </li>
             {%- endfor -%}
           </ul>
-          {%- if section.settings.cta_nav_label != blank -%}
-            <a href="{{ section.settings.cta_nav_url | default: '#' }}" class="header__nav-cta focus-inset">
-              {{ section.settings.cta_nav_label | escape }}
-            </a>
-          {%- endif -%}
         </nav>
       {%- endif -%}
     {%- endif -%}
@@ -1013,22 +981,6 @@
       "default": true,
       "label": "t:sections.header.settings.enable_sticky_header.label",
       "info": "t:sections.header.settings.enable_sticky_header.info"
-    },
-    {
-      "type": "header",
-      "content": "Subscribe & Save Nav Link"
-    },
-    {
-      "type": "text",
-      "id": "cta_nav_label",
-      "label": "Label",
-      "default": "Subscribe & Save",
-      "info": "Shown as a green pill at the end of the nav. Leave blank to hide."
-    },
-    {
-      "type": "url",
-      "id": "cta_nav_url",
-      "label": "Link URL"
     },
     {
       "type": "header",
