@@ -68,7 +68,7 @@
     flex: 1;
     min-width: 220px;
     max-width: 320px;
-    background: #fff;
+    background: {{ section.settings.card_bg_color | default: '#ffffff' }};
     border: 2px solid #e0ddd6;
     border-radius: 16px;
     padding: 20px 24px;
@@ -157,7 +157,7 @@
 
   /* ── Builder card ── */
   .bb-{{ section.id }} .bb__card {
-    background: #ffffff;
+    background: {{ section.settings.card_bg_color | default: '#ffffff' }};
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 4px 32px rgba(0,0,0,0.08);
@@ -494,6 +494,8 @@
     4: {{ section.settings.pack_4_savings_amount | default: 30 }}
   };
 
+  var BB_CARD_BG = {{ section.settings.card_bg_color | default: '#ffffff' | json }};
+
   var bbSize = 3;
 
   function bbTotal(){
@@ -595,11 +597,11 @@
           tileStyle.push('outline-offset:-2px');
           tileStyle.push('box-shadow:0 4px 16px rgba(31,26,23,0.18)');
         } else if(isOff){
-          tileStyle.push('background:#fff');
+          tileStyle.push('background:' + BB_CARD_BG);
           tileStyle.push('opacity:0.4');
           tileStyle.push('pointer-events:none');
         } else {
-          tileStyle.push('background:#fff');
+          tileStyle.push('background:' + BB_CARD_BG);
         }
 
         html += '<div style="' + tileStyle.join(';') + '" onclick="' + fnToggle + '(' + idx + ')">';
@@ -912,8 +914,15 @@
     {
       "type": "color",
       "id": "bg_color",
-      "label": "Background colour",
+      "label": "Section background colour",
       "default": "#f5f0e8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background colour",
+      "default": "#ffffff",
+      "info": "Applies to pricing cards, builder container, and product tiles."
     },
     {
       "type": "range",
