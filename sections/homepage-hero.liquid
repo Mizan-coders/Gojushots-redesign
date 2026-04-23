@@ -45,11 +45,11 @@
   /* ── Eyebrow ── */
   .hero-{{ section.id }} .hero__eyebrow {
     display: block;
-    font-size: 11px;
+    font-size: {{ section.settings.eyebrow_size | default: 11 }}px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(247, 241, 228, 0.6);
+    color: {{ section.settings.eyebrow_color | default: '#F7F1E4' }};
     margin-bottom: 20px;
   }
 
@@ -294,6 +294,22 @@
       "id": "eyebrow",
       "label": "Eyebrow text",
       "info": "Small uppercase label above the heading. Leave blank to hide."
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
     },
     {
       "type": "text",

@@ -19,11 +19,11 @@
     text-align: center;
   }
   .pg-{{ section.id }} .pg__eyebrow {
-    font-size: 11px;
+    font-size: {{ section.settings.eyebrow_size | default: 11 }}px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(31,26,23,0.6);
+    color: {{ section.settings.eyebrow_color | default: '#1F1A17' }};
     margin-bottom: 12px;
   }
   .pg-{{ section.id }} .pg__heading {
@@ -104,10 +104,11 @@
     position: relative;
     overflow: visible;
   }
+  {%- assign card_gap = section.settings.card_gap | default: 20 -%}
   .pg-{{ section.id }} .pg__grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
-    gap: 20px;
+    gap: {{ card_gap }}px;
   }
 
   /* ── Slider mode ── */
@@ -116,53 +117,65 @@
   }
   .pg-{{ section.id }} .pg__grid--slider .slick-list {
     overflow: hidden;
-    margin: 0 -10px;
   }
   .pg-{{ section.id }} .pg__grid--slider .slick-track {
     display: flex;
     align-items: stretch;
+    gap: {{ card_gap }}px;
   }
   .pg-{{ section.id }} .pg__grid--slider .slick-slide {
-    padding: 0 10px;
     height: auto;
   }
   .pg-{{ section.id }} .pg__grid--slider .slick-slide > div,
   .pg-{{ section.id }} .pg__grid--slider .slick-slide .pg__card {
     height: 100%;
   }
-  /* Arrows */
-  .pg-{{ section.id }} .slick-prev,
-  .pg-{{ section.id }} .slick-next {
-    position: absolute;
-    top: 38%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 44px;
-    height: 44px;
+  /* Slider nav row — arrows left, CTA right */
+  .pg-{{ section.id }} .pg__slider-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    padding: 0 40px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pg-{{ section.id }} .pg__slider-nav .slick-prev { order: 1; }
+  .pg-{{ section.id }} .pg__slider-nav .slick-next { order: 2; }
+  .pg-{{ section.id }} .pg__slider-nav .pg__cta-btn { order: 3; margin-left: auto; }
+  .pg-{{ section.id }} .pg__slider-nav .slick-prev,
+  .pg-{{ section.id }} .pg__slider-nav .slick-next {
+    position: static;
+    transform: none;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #1F1A17;
     border: none;
     cursor: pointer;
     font-size: 0;
-    transition: background 0.2s;
+    flex-shrink: 0;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .pg-{{ section.id }} .slick-prev { left: -12px; }
-  .pg-{{ section.id }} .slick-next { right: -12px; }
-  .pg-{{ section.id }} .slick-prev::before {
+  .pg-{{ section.id }} .pg__slider-nav .slick-prev::before {
     content: '←';
-    font-size: 18px;
+    font-size: 16px;
     color: #F7F1E4;
     line-height: 1;
   }
-  .pg-{{ section.id }} .slick-next::before {
+  .pg-{{ section.id }} .pg__slider-nav .slick-next::before {
     content: '→';
-    font-size: 18px;
+    font-size: 16px;
     color: #F7F1E4;
     line-height: 1;
   }
-  .pg-{{ section.id }} .slick-prev:hover,
-  .pg-{{ section.id }} .slick-next:hover { background: #6B5E52; }
-  .pg-{{ section.id }} .slick-disabled { opacity: 0.3; pointer-events: none; }
+  .pg-{{ section.id }} .pg__slider-nav .slick-prev:hover,
+  .pg-{{ section.id }} .pg__slider-nav .slick-next:hover { background: #6B5E52; }
+  .pg-{{ section.id }} .pg__slider-nav .slick-disabled { opacity: 0.3; pointer-events: none; }
+  @media screen and (max-width: 989px) {
+    .pg-{{ section.id }} .pg__slider-nav { padding: 0 20px; }
+  }
 
   /* ── Product card ── */
   .pg-{{ section.id }} .pg__card {
@@ -321,11 +334,6 @@
   }
 
   /* Shop All CTA */
-  .pg-{{ section.id }} .pg__cta-wrap {
-    text-align: center;
-    margin-top: 40px;
-    padding: 0 40px;
-  }
   .pg-{{ section.id }} .pg__cta-btn {
     display: inline-flex;
     align-items: center;
@@ -348,10 +356,10 @@
   /* ── Tablet ── */
   @media screen and (max-width: 989px) {
     .pg-{{ section.id }} .pg__header,
-    .pg-{{ section.id }} .pg__grid-wrap,
-    .pg-{{ section.id }} .pg__cta-wrap { padding-left: 20px; padding-right: 20px; }
+    .pg-{{ section.id }} .pg__grid-wrap { padding-left: 20px; padding-right: 20px; }
     .pg-{{ section.id }} .pg__filters { padding-left: 20px; padding-right: 20px; justify-content: flex-start; flex-wrap: nowrap; }
     .pg-{{ section.id }} .pg__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .pg-{{ section.id }} .pg__grid--single { grid-template-columns: 1fr !important; max-width: 360px; }
     .pg-{{ section.id }} .pg__quick-add { opacity: 1; transform: translateY(0); font-size: 12px; padding: 12px 16px; }
     .pg-{{ section.id }} .pg__card-info { padding-bottom: 56px !important; }
   }
@@ -359,6 +367,7 @@
   /* ── Mobile ── */
   @media screen and (max-width: 479px) {
     .pg-{{ section.id }} .pg__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .pg-{{ section.id }} .pg__grid--single { grid-template-columns: 1fr !important; max-width: 100%; }
 
     .pg-{{ section.id }} .pg__card-name { font-size: 16px; }
     .pg-{{ section.id }} .pg__price { font-size: 16px; }
@@ -508,17 +517,17 @@
         {%- endfor -%}
       </div>
 
-      {%- comment -%} Shop All CTA {%- endcomment -%}
-      {%- if section.settings.cta_label != blank -%}
-        <div class="pg__cta-wrap">
+      <div class="pg__slider-nav" id="PgSliderNav-{{ section.id }}">
+        {%- comment -%} Shop All CTA — right-aligned via margin-left: auto {%- endcomment -%}
+        {%- if section.settings.cta_label != blank -%}
           <a
             href="{{ section.settings.cta_url | default: '#' }}"
             class="pg__cta-btn"
           >
             {{- section.settings.cta_label | escape -}}
           </a>
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
     </div>
   {%- endif -%}
 
@@ -551,13 +560,17 @@
     });
   }
 
+  var sliderNav = section.querySelector('.pg__slider-nav');
+
   function initSlider(goal) {
     if (!slickReady()) return;
     var $grid = jQuery(grid);
     if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
     grid.classList.add('pg__grid--slider');
+    grid.classList.remove('pg__grid--single');
     // Restore all cards so Slick can manage visibility
     cards.forEach(function(c) { c.style.display = ''; });
+    var $nav = jQuery(sliderNav);
     $grid.slick({
       slidesToShow: SLIDER_COLS,
       slidesToScroll: 1,
@@ -565,10 +578,11 @@
       swipe: true,
       touchMove: true,
       arrows: true,
+      appendArrows: $nav,
       dots: false,
       speed: 400,
       responsive: [
-        { breakpoint: 990, settings: { slidesToShow: 2, arrows: true } },
+        { breakpoint: 990, settings: { slidesToShow: 2, arrows: true, appendArrows: $nav } },
         { breakpoint: 480, settings: { slidesToShow: 1.2, arrows: false } }
       ]
     });
@@ -587,7 +601,7 @@
   // ── Filter + conditional slider ─────────────────────────────────────────────
   function applyFilter(goal) {
     var matching = getMatching(goal);
-    if (matching.length > THRESHOLD) {
+    if (matching.length >= THRESHOLD) {
       initSlider(goal);
     } else {
       destroySlider();
@@ -595,6 +609,7 @@
         var matches = goal === 'all' || (card.dataset.goals || '').toLowerCase().indexOf(goal) !== -1;
         card.style.display = matches ? '' : 'none';
       });
+      grid.classList.toggle('pg__grid--single', matching.length === 1);
     }
   }
 
@@ -606,10 +621,18 @@
     });
   });
 
-  // Init on load — runs after deferred scripts (Slick) are ready
-  document.addEventListener('DOMContentLoaded', function() {
-    applyFilter('all');
-  });
+  // Init: wait for DOMContentLoaded on first load; run immediately on customizer re-renders
+  function tryInit() {
+    if (slickReady()) {
+      applyFilter('all');
+    }
+    // If Slick not ready yet, DOMContentLoaded hasn't fired — the listener below handles it
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInit);
+  } else {
+    tryInit();
+  }
 
   // Quick-add: use _nativeFetch (captured before Slide Cart patches window.fetch)
   // so Slide Cart never intercepts this call and its own cart UI never opens.
@@ -682,6 +705,22 @@
       "id": "eyebrow",
       "label": "Eyebrow text",
       "default": "Pick Your Goal"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
     },
     {
       "type": "text",
@@ -855,8 +894,17 @@
       "min": 2,
       "max": 12,
       "step": 1,
-      "default": 4,
-      "unit": "items"
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
     },
     {
       "type": "color",

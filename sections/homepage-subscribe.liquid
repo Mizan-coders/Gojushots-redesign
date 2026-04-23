@@ -46,11 +46,11 @@
 
   /* ── Left: content ── */
   .ss-{{ section.id }} .ss__eyebrow {
-    font-size: 11px;
+    font-size: {{ section.settings.eyebrow_size | default: 11 }}px;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--goju-accent);
+    color: {{ section.settings.eyebrow_color | default: '#F7F1E4' }};
     margin: 0 0 16px;
     display: block;
   }
@@ -102,6 +102,16 @@
     justify-content: center;
     font-size: 17px;
     flex-shrink: 0;
+  }
+  .ss-{{ section.id }} .ss__perk-icon--img {
+    background: transparent;
+    border-radius: 0;
+  }
+  .ss-{{ section.id }} .ss__perk-icon--img img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
   }
   .ss-{{ section.id }} .ss__perk-text {
     font-size: 14px;
@@ -294,7 +304,11 @@
           {%- for block in section.blocks -%}
             {%- if block.type == 'perk' -%}
               <li class="ss__perk" {{ block.shopify_attributes }}>
-                {%- if block.settings.icon != blank -%}
+                {%- if block.settings.custom_icon != blank -%}
+                  <span class="ss__perk-icon ss__perk-icon--img" aria-hidden="true">
+                    <img src="{{ block.settings.custom_icon | image_url: width: 80 }}" alt="" width="38" height="38" loading="lazy">
+                  </span>
+                {%- elsif block.settings.icon != blank -%}
                   <span class="ss__perk-icon" aria-hidden="true">{{ block.settings.icon }}</span>
                 {%- endif -%}
                 <span class="ss__perk-text">{{ block.settings.text | escape }}</span>
@@ -400,6 +414,22 @@
       "id": "eyebrow",
       "label": "Eyebrow text",
       "default": "Subscribe & Save"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
     },
     {
       "type": "text",
@@ -577,9 +607,15 @@
       "name": "Perk item",
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon image",
+          "info": "Upload an SVG or PNG. If set, this replaces the emoji below."
+        },
+        {
           "type": "text",
           "id": "icon",
-          "label": "Emoji icon",
+          "label": "Emoji icon (fallback)",
           "default": "💰"
         },
         {

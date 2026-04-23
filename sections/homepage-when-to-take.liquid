@@ -23,11 +23,11 @@
     margin-bottom: 48px;
   }
   .ws-{{ section.id }} .ws__eyebrow {
-    font-size: 11px;
+    font-size: {{ section.settings.eyebrow_size | default: 11 }}px;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(31,26,23,0.6);
+    color: {{ section.settings.eyebrow_color | default: '#1F1A17' }};
     display: block;
     margin-bottom: 12px;
   }
@@ -291,6 +291,22 @@
       "id": "eyebrow",
       "label": "Eyebrow text",
       "default": "Daily Routine"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
     },
     {
       "type": "text",
