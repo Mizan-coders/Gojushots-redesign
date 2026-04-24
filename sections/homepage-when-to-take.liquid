@@ -47,8 +47,8 @@
     opacity: 0.65;
   }
   .ws-{{ section.id }} .ws__subtitle {
-    font-size: 16px;
-    color: #888;
+    font-size: {{ section.settings.subtitle_size | default: 16 }}px;
+    color: {{ section.settings.subtitle_color | default: '#888888' }};
     line-height: 1.6;
     max-width: 480px;
     margin: 14px auto 0;
@@ -325,6 +325,22 @@
       "id": "subtitle",
       "label": "Subtitle",
       "default": "GOJU fits into your day wherever you need it most — morning, workout or afternoon slump."
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle colour",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",

@@ -36,24 +36,25 @@
     display: block;
   }
   .homepage-blog-{{ section.id }} .hblog__title {
-    font-size: clamp(36px, 5.5vw, 62px);
+    font-size: clamp({{ section.settings.heading_size | default: 62 | times: 0.581 | round }}px, {{ section.settings.heading_size | default: 62 | times: 0.089 }}vw, {{ section.settings.heading_size | default: 62 }}px);
     font-weight: 900;
     line-height: 1.0;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: #191917;
+    color: {{ section.settings.heading_color | default: '#191917' }};
     margin: 0;
   }
   .homepage-blog-{{ section.id }} .hblog__title em {
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: rgba(31,26,23,0.7);
+    color: {{ section.settings.heading_color | default: '#191917' }};
+    opacity: 0.7;
     letter-spacing: 0;
   }
   .homepage-blog-{{ section.id }} .hblog__sub {
-    font-size: 16px;
-    color: #888888;
+    font-size: {{ section.settings.sub_size | default: 16 }}px;
+    color: {{ section.settings.sub_color | default: '#888888' }};
     margin: 16px auto 0;
     max-width: 480px;
     line-height: 1.6;
@@ -477,6 +478,38 @@
       "id": "sub_title",
       "label": "Subtext",
       "default": "Expert-led guides on nutrition, recovery, sleep and everyday performance."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#191917"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size (desktop max)",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "default": 62,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "sub_color",
+      "label": "Subtext colour",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "sub_size",
+      "label": "Subtext font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",

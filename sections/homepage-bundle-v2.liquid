@@ -34,11 +34,11 @@
     margin-bottom: 12px;
   }
   .bb-{{ section.id }} .bb__section-title {
-    font-size: clamp(28px, 3.2vw, 44px);
+    font-size: clamp({{ section.settings.heading_size | default: 44 | times: 0.636 | round }}px, {{ section.settings.heading_size | default: 44 | times: 0.073 }}vw, {{ section.settings.heading_size | default: 44 }}px);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: #0a0a0a;
+    color: {{ section.settings.heading_color | default: '#0a0a0a' }};
     line-height: 1.05;
     margin: 0;
   }
@@ -46,11 +46,11 @@
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: #1F1A17;
+    color: {{ section.settings.heading_color | default: '#0a0a0a' }};
   }
   .bb-{{ section.id }} .bb__section-sub {
-    font-size: 15px;
-    color: #888;
+    font-size: {{ section.settings.sub_size | default: 15 }}px;
+    color: {{ section.settings.sub_color | default: '#888888' }};
     margin: 12px auto 0;
     max-width: 480px;
     line-height: 1.6;
@@ -824,6 +824,38 @@
       "id": "section_sub",
       "label": "Subtitle",
       "default": "Mix and match any 60ml shots. The more you grab, the more you save."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size (desktop max)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "sub_color",
+      "label": "Subtitle colour",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "sub_size",
+      "label": "Subtitle font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
     },
     {
       "type": "header",

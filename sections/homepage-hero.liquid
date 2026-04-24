@@ -76,8 +76,8 @@
 
   /* ── Subtext ── */
   .hero-{{ section.id }} .hero__sub {
-    font-size: 17px;
-    color: rgba(247, 241, 228, 0.9);
+    font-size: {{ section.settings.subtext_size | default: 17 }}px;
+    color: {{ section.settings.subtext_color | default: '#F7F1E4' }};
     line-height: 1.6;
     margin: 0 0 40px;
     max-width: 480px;
@@ -334,6 +334,22 @@
       "id": "subtext",
       "label": "Subtext",
       "default": "Cold-pressed. No sugar. No crash. Just results."
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext colour",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "label": "Subtext font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
     },
     {
       "type": "header",

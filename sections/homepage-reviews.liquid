@@ -51,8 +51,8 @@
     letter-spacing: 0;
   }
   .rv-{{ section.id }} .rv__sub {
-    font-size: 16px;
-    color: rgba(31,26,23,0.55);
+    font-size: {{ section.settings.sub_size | default: 16 }}px;
+    color: {{ section.settings.sub_color | default: '#888888' }};
     margin: 0;
     line-height: 1.5;
   }
@@ -356,6 +356,22 @@
       "id": "sub_headline",
       "label": "Sub headline",
       "default": "See why thousands trust Goju daily."
+    },
+    {
+      "type": "color",
+      "id": "sub_color",
+      "label": "Sub headline colour",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "sub_size",
+      "label": "Sub headline font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",

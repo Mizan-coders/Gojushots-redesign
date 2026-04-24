@@ -27,11 +27,11 @@
     margin-bottom: 12px;
   }
   .pg-{{ section.id }} .pg__heading {
-    font-size: clamp(36px, 5vw, 60px);
+    font-size: clamp({{ section.settings.heading_size | times: 0.6 | round }}px, {{ section.settings.heading_size | times: 0.08 }}vw, {{ section.settings.heading_size | default: 60 }}px);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: #191917;
+    color: {{ section.settings.heading_color | default: '#191917' }};
     line-height: 1.1;
     margin: 0 0 16px;
   }
@@ -39,12 +39,13 @@
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: rgba(31,26,23,0.7);
+    color: {{ section.settings.heading_color | default: '#191917' }};
+    opacity: 0.7;
     letter-spacing: 0;
   }
   .pg-{{ section.id }} .pg__sub {
-    font-size: 16px;
-    color: rgba(25,25,23,0.55);
+    font-size: {{ section.settings.subtext_size | default: 16 }}px;
+    color: {{ section.settings.subtext_color | default: '#888888' }};
     line-height: 1.6;
     max-width: 480px;
     margin: 0 auto;
@@ -739,6 +740,38 @@
       "id": "subtext",
       "label": "Subtext",
       "default": "Choose what you're working toward — we've got the right blend for it."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#191917"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size (desktop max)",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext colour",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "label": "Subtext font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",

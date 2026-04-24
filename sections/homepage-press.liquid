@@ -31,11 +31,11 @@
     background: rgba(0,0,0,0.15);
   }
   .press-{{ section.id }} .press__label {
-    font-size: 11px;
+    font-size: {{ section.settings.label_size | default: 11 }}px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.4);
+    color: {{ section.settings.label_color | default: '#666666' }};
     white-space: nowrap;
   }
 
@@ -126,6 +126,22 @@
       "id": "label_text",
       "label": "Label text",
       "default": "As Seen In"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label text colour",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
     },
     {
       "type": "color",

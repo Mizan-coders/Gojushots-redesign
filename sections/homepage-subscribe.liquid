@@ -72,8 +72,8 @@
     letter-spacing: 0;
   }
   .ss-{{ section.id }} .ss__body {
-    font-size: 16px;
-    color: rgba(255,255,255,0.7);
+    font-size: {{ section.settings.body_size | default: 16 }}px;
+    color: {{ section.settings.body_color | default: '#d4cfc8' }};
     line-height: 1.65;
     margin: 20px 0 0;
   }
@@ -448,6 +448,22 @@
       "id": "body_text",
       "label": "Body text",
       "default": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked."
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text colour",
+      "default": "#d4cfc8"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body text font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",
