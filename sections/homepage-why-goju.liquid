@@ -132,6 +132,14 @@
     letter-spacing: -0.5px;
     color: #0a0a0a;
   }
+  /* Hide logo-text when logo image is present (desktop) */
+  .wg-{{ section.id }} .wg__logo ~ .wg__logo-text {
+    display: none;
+  }
+  /* Hide mobile CTA on desktop */
+  .wg-{{ section.id }} .wg__mob-cta {
+    display: none;
+  }
 
   /* ── Comparison rows ── */
   .wg-{{ section.id }} .wg__row {
@@ -222,31 +230,77 @@
     .wg-{{ section.id }} .wg__header {
       margin-bottom: 32px;
     }
+    /* Wider feature column */
     .wg-{{ section.id }} .wg__head-row,
-    .wg-{{ section.id }} .wg__row,
-    .wg-{{ section.id }} .wg__cta-row {
-      grid-template-columns: 75px 1fr 1fr;
+    .wg-{{ section.id }} .wg__row {
+      grid-template-columns: 1.5fr 1fr 1fr;
     }
-    .wg-{{ section.id }} .wg__cell--feature {
-      font-size: 11px;
+    /* Hide in-table CTA on mobile */
+    .wg-{{ section.id }} .wg__cta-row {
+      display: none;
     }
     .wg-{{ section.id }} .wg__head-cell,
     .wg-{{ section.id }} .wg__cell {
-      padding: 10px 8px;
-    }
-    .wg-{{ section.id }} .wg__cell--goju,
-    .wg-{{ section.id }} .wg__cell--competitor {
-      font-size: 12px;
-      gap: 6px;
-    }
-    .wg-{{ section.id }} .wg__cta-cell--goju {
-      grid-column: 2;
       padding: 12px 10px;
     }
-    .wg-{{ section.id }} .wg__cta-btn {
-      font-size: 11px;
-      padding: 12px 8px;
-      letter-spacing: 0.02em;
+    /* Feature label */
+    .wg-{{ section.id }} .wg__cell--feature {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    /* Icon-only cells — hide text, centre icon */
+    .wg-{{ section.id }} .wg__cell--goju,
+    .wg-{{ section.id }} .wg__cell--competitor {
+      display: grid !important;
+      place-items: center !important;
+      font-size: 0 !important;
+      gap: 0 !important;
+      padding: 12px 4px !important;
+    }
+    /* Icon size */
+    .wg-{{ section.id }} .wg__cell--goju .wg__icon,
+    .wg-{{ section.id }} .wg__cell--competitor .wg__icon {
+      display: block !important;
+      width: 26px !important;
+      height: 26px !important;
+      margin: 0 !important;
+    }
+    /* GOJU header: hide logo image, show text as black pill */
+    .wg-{{ section.id }} .wg__logo {
+      display: none;
+    }
+    .wg-{{ section.id }} .wg__logo-text {
+      display: inline-block !important;
+      background: #1F1A17;
+      color: #ffffff;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    /* Full-width CTA pill below card */
+    .wg-{{ section.id }} .wg__mob-cta {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      background: #1F1A17;
+      color: #F7F1E4;
+      text-align: center;
+      padding: 18px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .wg-{{ section.id }} .wg__mob-cta:hover {
+      background: #6B5E52;
+      transform: translateY(-1px);
+      color: #F7F1E4;
     }
   }
 {%- endstyle -%}
@@ -285,9 +339,8 @@
               class="wg__logo"
               loading="lazy"
             >
-          {%- else -%}
-            <span class="wg__logo-text">{{ section.settings.goju_logo_text | default: 'GOJU.' | escape }}</span>
           {%- endif -%}
+          <span class="wg__logo-text">{{ section.settings.goju_logo_text | default: 'GOJU.' | escape }}</span>
         </div>
         <div class="wg__head-cell wg__head-cell--competitor">
           {{ section.settings.competitor_label | default: 'Typical Wellness Shots' | escape }}
@@ -325,6 +378,12 @@
       {%- endif -%}
 
     </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_url | default: '#' }}" class="wg__mob-cta">
+        {{- section.settings.cta_label | escape -}}
+      </a>
+    {%- endif -%}
 
   </div>
 </section>

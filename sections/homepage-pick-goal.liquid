@@ -366,14 +366,66 @@
   }
 
   /* ── Mobile ── */
-  @media screen and (max-width: 479px) {
+  @media screen and (max-width: 767px) {
     .pg-{{ section.id }} .pg__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .pg-{{ section.id }} .pg__grid--single { grid-template-columns: 1fr !important; max-width: 100%; }
-
     .pg-{{ section.id }} .pg__card-name { font-size: 16px; }
     .pg-{{ section.id }} .pg__price { font-size: 16px; }
     .pg-{{ section.id }} .pg__quick-add { font-size: 11px; padding: 11px 14px; }
     .pg-{{ section.id }} .pg__filter-btn { font-size: 12px; padding: 8px 16px; }
+
+    /* Mobile page wrapper: span full grid width, hidden by default */
+    .pg-{{ section.id }} .pg__mob-page {
+      display: none;
+      grid-column: 1 / -1;
+    }
+    .pg-{{ section.id }} .pg__mob-page.is-active {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    /* Nav row on mobile */
+    .pg-{{ section.id }} .pg__slider-nav {
+      flex-wrap: nowrap;
+      align-items: center;
+      padding: 0 20px;
+      margin-top: 20px;
+    }
+    /* Hide desktop Slick arrows on mobile */
+    .pg-{{ section.id }} .pg__slider-nav .slick-prev,
+    .pg-{{ section.id }} .pg__slider-nav .slick-next {
+      display: none !important;
+    }
+    /* Dot container */
+    .pg-{{ section.id }} .pg__mob-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      order: 1;
+    }
+    /* Individual dots */
+    .pg-{{ section.id }} .pg__mob-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.2);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+      flex-shrink: 0;
+    }
+    .pg-{{ section.id }} .pg__mob-dot.is-active {
+      background: #1F1A17;
+      width: 20px;
+      border-radius: 4px;
+    }
+    .pg-{{ section.id }} .pg__slider-nav .pg__cta-btn {
+      order: 2;
+      margin-left: auto;
+    }
   }
 {%- endstyle -%}
 
@@ -549,7 +601,7 @@
   var THRESHOLD   = {{ section.settings.slider_threshold | default: 4 }};
   var SLIDER_COLS = parseInt('{{ section.settings.columns | default: 4 }}', 10);
 
-  // ── Slider helpers ──────────────────────────────────────────────────────────
+  // ── Helpers ──────────────────────────────────────────────────────────────────
   function slickReady() {
     return typeof window.jQuery !== 'undefined' && typeof window.jQuery.fn.slick !== 'undefined';
   }
@@ -563,46 +615,161 @@
 
   var sliderNav = section.querySelector('.pg__slider-nav');
 
-  function initSlider(goal) {
-    if (!slickReady()) return;
-    var $grid = jQuery(grid);
-    if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
-    grid.classList.add('pg__grid--slider');
-    grid.classList.remove('pg__grid--single');
-    // Restore all cards so Slick can manage visibility
-    cards.forEach(function(c) { c.style.display = ''; });
-    var $nav = jQuery(sliderNav);
-    $grid.slick({
-      slidesToShow: SLIDER_COLS,
-      slidesToScroll: 1,
-      infinite: false,
-      swipe: true,
-      touchMove: true,
-      arrows: true,
-      appendArrows: $nav,
-      dots: false,
-      speed: 400,
-      responsive: [
-        { breakpoint: 990, settings: { slidesToShow: 2, arrows: true, appendArrows: $nav } },
-        { breakpoint: 480, settings: { slidesToShow: 1.2, arrows: false } }
-      ]
+  // ── Mobile custom pager (no Slick) ───────────────────────────────────────────
+  var mobCurrentPage = 0;
+  var mobPages       = [];
+  var mobDotsEl      = null;
+
+  function unwrapPages() {
+    Array.from(grid.querySelectorAll('.pg__mob-page')).forEach(function(page) {
+      while (page.firstChild) grid.insertBefore(page.firstChild, page);
+      grid.removeChild(page);
     });
-    if (goal !== 'all') {
-      $grid.slick('slickFilter', '[data-goals*="' + goal + '"]');
+    mobPages = [];
+  }
+
+  function mobGoToPage(n) {
+    mobCurrentPage = Math.max(0, Math.min(n, mobPages.length - 1));
+    mobPages.forEach(function(p, i) { p.classList.toggle('is-active', i === mobCurrentPage); });
+    if (mobDotsEl) {
+      Array.from(mobDotsEl.querySelectorAll('.pg__mob-dot')).forEach(function(d, i) {
+        d.classList.toggle('is-active', i === mobCurrentPage);
+      });
+    }
+  }
+
+  function initMobilePager(visibleCards) {
+    mobCurrentPage = 0;
+    unwrapPages();
+
+    // Build page wrappers
+    for (var i = 0; i < visibleCards.length; i += 4) {
+      var page = document.createElement('div');
+      page.className = 'pg__mob-page' + (i === 0 ? ' is-active' : '');
+      visibleCards.slice(i, Math.min(i + 4, visibleCards.length)).forEach(function(c) {
+        c.style.display = '';
+        page.appendChild(c);
+      });
+      grid.appendChild(page);
+      mobPages.push(page);
+    }
+
+    // Build dots
+    if (!mobDotsEl) {
+      mobDotsEl = document.createElement('div');
+      mobDotsEl.className = 'pg__mob-dots';
+      sliderNav.insertBefore(mobDotsEl, sliderNav.firstChild);
+    }
+    mobDotsEl.innerHTML = '';
+    if (mobPages.length > 1) {
+      mobPages.forEach(function(_, i) {
+        var btn = document.createElement('button');
+        btn.className = 'pg__mob-dot' + (i === 0 ? ' is-active' : '');
+        btn.setAttribute('aria-label', 'Page ' + (i + 1));
+        (function(idx) {
+          btn.addEventListener('click', function() { mobGoToPage(idx); });
+        })(i);
+        mobDotsEl.appendChild(btn);
+      });
+      mobDotsEl.style.display = 'flex';
+    } else {
+      mobDotsEl.style.display = 'none';
+    }
+
+    // Swipe handler
+    var touchStartX = 0;
+    function onTouchStart(e) { touchStartX = e.touches[0].clientX; }
+    function onTouchEnd(e) {
+      var dx = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) mobGoToPage(mobCurrentPage + (dx > 0 ? 1 : -1));
+    }
+    if (grid._pgMobStart) {
+      grid.removeEventListener('touchstart', grid._pgMobStart);
+      grid.removeEventListener('touchend', grid._pgMobEnd);
+    }
+    grid._pgMobStart = onTouchStart;
+    grid._pgMobEnd   = onTouchEnd;
+    grid.addEventListener('touchstart', onTouchStart, { passive: true });
+    grid.addEventListener('touchend', onTouchEnd);
+  }
+
+  function destroyMobilePager() {
+    if (grid._pgMobStart) {
+      grid.removeEventListener('touchstart', grid._pgMobStart);
+      grid.removeEventListener('touchend', grid._pgMobEnd);
+      delete grid._pgMobStart;
+      delete grid._pgMobEnd;
+    }
+    if (mobDotsEl) {
+      mobDotsEl.innerHTML = '';
+      mobDotsEl.style.display = 'none';
+    }
+    unwrapPages();
+  }
+
+  // ── Slider (desktop/tablet via Slick, mobile via custom pager) ───────────────
+  function initSlider(goal) {
+    var isMobile = window.innerWidth <= 767;
+
+    if (isMobile) {
+      // Destroy Slick if active
+      if (slickReady()) {
+        var $g = jQuery(grid);
+        if ($g.hasClass('slick-initialized')) $g.slick('unslick');
+      }
+      grid.classList.remove('pg__grid--slider');
+      // Filter cards then page them
+      cards.forEach(function(c) {
+        var ok = goal === 'all' || (c.dataset.goals || '').toLowerCase().indexOf(goal) !== -1;
+        c.style.display = ok ? '' : 'none';
+      });
+      var visible = cards.filter(function(c) { return c.style.display !== 'none'; });
+      initMobilePager(visible);
+    } else {
+      if (!slickReady()) return;
+      destroyMobilePager();
+      var $grid = jQuery(grid);
+      if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
+      grid.classList.add('pg__grid--slider');
+      grid.classList.remove('pg__grid--single');
+      cards.forEach(function(c) { c.style.display = ''; });
+      var $nav = jQuery(sliderNav);
+      $grid.slick({
+        slidesToShow: SLIDER_COLS,
+        slidesToScroll: 1,
+        infinite: false,
+        swipe: true,
+        touchMove: true,
+        arrows: true,
+        appendArrows: $nav,
+        dots: false,
+        speed: 400,
+        responsive: [
+          { breakpoint: 990, settings: { slidesToShow: 2, arrows: true, appendArrows: $nav } }
+        ]
+      });
+      if (goal !== 'all') {
+        $grid.slick('slickFilter', '[data-goals*="' + goal + '"]');
+      }
     }
   }
 
   function destroySlider() {
-    if (!slickReady()) return;
-    var $grid = jQuery(grid);
-    if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
-    grid.classList.remove('pg__grid--slider');
+    destroyMobilePager();
+    if (slickReady()) {
+      var $grid = jQuery(grid);
+      if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
+      grid.classList.remove('pg__grid--slider');
+    }
   }
 
   // ── Filter + conditional slider ─────────────────────────────────────────────
   function applyFilter(goal) {
     var matching = getMatching(goal);
-    if (matching.length >= THRESHOLD) {
+    var isMobile = window.innerWidth <= 767;
+    // On mobile: slider only when >4 products (5+); ≤4 = static 2×2 grid, no dots
+    var effectiveThreshold = isMobile ? 5 : THRESHOLD;
+    if (matching.length >= effectiveThreshold) {
       initSlider(goal);
     } else {
       destroySlider();
@@ -634,6 +801,16 @@
   } else {
     tryInit();
   }
+
+  // Re-evaluate on resize (e.g. orientation change mobile ↔ desktop)
+  var pgResizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(pgResizeTimer);
+    pgResizeTimer = setTimeout(function() {
+      var activeBtn = section.querySelector('.pg-filter-btn.is-active');
+      if (activeBtn) applyFilter(activeBtn.dataset.goal);
+    }, 250);
+  });
 
   // Quick-add: use _nativeFetch (captured before Slide Cart patches window.fetch)
   // so Slide Cart never intercepts this call and its own cart UI never opens.

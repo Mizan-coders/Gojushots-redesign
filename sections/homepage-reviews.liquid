@@ -199,7 +199,13 @@
     letter-spacing: 0.08em;
   }
 
-  /* ── Mobile ── */
+  /* Hide mobile-only elements on desktop */
+  .rv-{{ section.id }} .rv__mob-score,
+  .rv-{{ section.id }} .rv__mob-nav {
+    display: none;
+  }
+
+  /* ── Tablet ── */
   @media screen and (max-width: 989px) {
     .rv-{{ section.id }} {
       padding-left: 20px;
@@ -226,12 +232,141 @@
       gap: 14px;
     }
   }
-  @media screen and (max-width: 479px) {
-    .rv-{{ section.id }} .rv__big-score {
-      font-size: 56px;
+
+  /* ── Mobile slider ── */
+  @media screen and (max-width: 749px) {
+    /* Header row: heading left, button right */
+    .rv-{{ section.id }} .rv__header {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
     }
-    .rv-{{ section.id }} .rv__meta-stars {
-      font-size: 18px;
+    .rv-{{ section.id }} .rv__rating {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    /* Hide score row & sub inside header — shown in mob-score card */
+    .rv-{{ section.id }} .rv__score-row,
+    .rv-{{ section.id }} .rv__sub {
+      display: none;
+    }
+    .rv-{{ section.id }} .rv__headline {
+      font-size: 28px;
+      line-height: 1.15;
+    }
+    .rv-{{ section.id }} .rv__write-btn {
+      padding: 12px 16px;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    /* Mobile score card */
+    .rv-{{ section.id }} .rv__mob-score {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(31,26,23,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .rv-{{ section.id }} .rv__mob-score .rv__big-score {
+      font-size: 64px;
+      font-weight: 700;
+      color: #1F1A17;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+    .rv-{{ section.id }} .rv__mob-score .rv__meta-stars {
+      font-size: 20px;
+      color: #fbbf24;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .rv-{{ section.id }} .rv__mob-score .rv__meta-count,
+    .rv-{{ section.id }} .rv__mob-score .rv__meta-verified {
+      display: block;
+      font-size: 13px;
+    }
+    .rv-{{ section.id }} .rv__mob-score .rv__meta-verified {
+      font-weight: 600;
+      color: #2e7d32;
+    }
+    /* Slider wrapper clips overflow */
+    .rv-{{ section.id }} .rv__slider-wrap {
+      overflow: hidden;
+    }
+    /* Grid becomes horizontal flex track */
+    .rv-{{ section.id }} .rv__grid {
+      display: flex;
+      flex-direction: row;
+      grid-template-columns: unset;
+      gap: 0;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+    .rv-{{ section.id }} .rv__card {
+      flex: 0 0 100%;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    /* Mobile nav: arrows + dots */
+    .rv-{{ section.id }} .rv__mob-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .rv-{{ section.id }} .rv__nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(31,26,23,0.15);
+      color: #1F1A17;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background 0.2s;
+      font-size: 0;
+    }
+    .rv-{{ section.id }} .rv__nav-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: #1F1A17;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .rv-{{ section.id }} .rv__nav-btn:hover {
+      background: #ffffff;
+    }
+    .rv-{{ section.id }} .rv__dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rv-{{ section.id }} .rv__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(31,26,23,0.2);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+    }
+    .rv-{{ section.id }} .rv__dot.is-active {
+      background: #1F1A17;
+      width: 20px;
+      border-radius: 4px;
     }
   }
 {%- endstyle -%}
@@ -276,8 +411,28 @@
     {%- endif -%}
   </div>
 
+  {%- comment -%} Mobile score card (hidden on desktop via CSS) {%- endcomment -%}
+  <div class="rv__mob-score">
+    {%- if section.settings.score != blank -%}
+      <div class="rv__big-score">{{ section.settings.score | escape }}</div>
+    {%- endif -%}
+    <div class="rv__meta">
+      {%- assign star_count = section.settings.score_stars | default: 5 -%}
+      <span class="rv__meta-stars">
+        {%- for i in (1..star_count) -%}★{%- endfor -%}
+      </span>
+      {%- if section.settings.review_count != blank -%}
+        <span class="rv__meta-count">{{ section.settings.review_count | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.verified_count != blank -%}
+        <span class="rv__meta-verified">{{ section.settings.verified_count | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+
   {%- comment -%} Review cards {%- endcomment -%}
   {%- if section.blocks.size > 0 -%}
+    <div class="rv__slider-wrap">
     <div class="rv__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'review' -%}
@@ -321,9 +476,97 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+    </div>{%- comment -%} /.rv__slider-wrap {%- endcomment -%}
+
+    {%- comment -%} Mobile nav: prev | dots | next {%- endcomment -%}
+    <div class="rv__mob-nav">
+      <button class="rv__nav-btn rv__nav-prev" aria-label="Previous review">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="rv__dots"></div>
+      <button class="rv__nav-btn rv__nav-next" aria-label="Next review">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
   {%- endif -%}
 
 </section>
+
+<script>
+(function() {
+  function initReviewSlider() {
+    var section = document.querySelector('.rv-{{ section.id }}');
+    if (!section) return;
+
+    var grid = section.querySelector('.rv__grid');
+    var dotsWrap = section.querySelector('.rv__dots');
+    var prevBtn = section.querySelector('.rv__nav-prev');
+    var nextBtn = section.querySelector('.rv__nav-next');
+    if (!grid || !dotsWrap || !prevBtn || !nextBtn) return;
+
+    var cards = Array.from(grid.querySelectorAll('.rv__card'));
+    if (cards.length === 0) return;
+
+    var current = 0;
+    var dots = [];
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      dots = cards.map(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'rv__dot' + (i === 0 ? ' is-active' : '');
+        dot.setAttribute('aria-label', 'Review ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+    }
+
+    function goTo(n) {
+      current = Math.max(0, Math.min(n, cards.length - 1));
+      grid.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) {
+        d.classList.toggle('is-active', i === current);
+      });
+    }
+
+    prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    var startX = 0;
+    grid.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    grid.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    if (window.innerWidth <= 749) {
+      buildDots();
+      goTo(0);
+    }
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth <= 749) {
+        if (dots.length === 0) buildDots();
+        goTo(current);
+      } else {
+        grid.style.transform = '';
+        dotsWrap.innerHTML = '';
+        dots = [];
+        current = 0;
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReviewSlider);
+  } else {
+    initReviewSlider();
+  }
+})();
+</script>
 
 {% schema %}
 {

@@ -34,6 +34,7 @@
     margin-bottom: 12px;
   }
   .bb-{{ section.id }} .bb__section-title {
+    font-family: var(--font-heading-family);
     font-size: clamp({{ section.settings.heading_size | default: 44 | times: 0.636 | round }}px, {{ section.settings.heading_size | default: 44 | times: 0.073 }}vw, {{ section.settings.heading_size | default: 44 }}px);
     font-weight: 700;
     text-transform: uppercase;
@@ -302,16 +303,92 @@
       padding-left: 20px;
       padding-right: 20px;
     }
+
+    /* Section heading: heavier weight on mobile */
+    .bb-{{ section.id }} .bb__section-title {
+      font-weight: 900;
+    }
+
+    /* Pack selector: full-width stacked cards */
+    .bb-{{ section.id }} .bb__toggle-wrap {
+      flex-direction: column;
+      gap: 12px;
+    }
     .bb-{{ section.id }} .bb__pack-card {
-      min-width: 160px;
-      padding: 16px 18px;
+      min-width: unset;
+      max-width: unset;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+    .bb-{{ section.id }} .bb__pack-top {
+      display: contents;
+    }
+    .bb-{{ section.id }} .bb__pack-size {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
     .bb-{{ section.id }} .bb__pack-price {
-      font-size: 22px;
+      font-size: 36px;
+      font-weight: 900;
+      grid-column: 1;
+      grid-row: 2;
+      align-self: center;
+      margin-bottom: 0;
     }
+    .bb-{{ section.id }} .bb__pack-badge-popular,
+    .bb-{{ section.id }} .bb__pack-badge-value {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: center;
+      margin-left: 14px;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 14px;
+      white-space: nowrap;
+    }
+    .bb-{{ section.id }} .bb__pack-saving-strip {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      margin-top: 10px;
+    }
+
+    /* Product picker: horizontal scroll, 3 items visible + peek */
     .bb-{{ section.id }} .bb__grid {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      gap: 10px;
+      padding: 14px 16px;
+      background: transparent;
     }
+    .bb-{{ section.id }} .bb__grid::-webkit-scrollbar {
+      display: none;
+    }
+    .bb-{{ section.id }} .bb__grid > div {
+      flex: 0 0 44%;
+      scroll-snap-align: start;
+      padding: 14px !important;
+      box-sizing: border-box;
+    }
+    .bb-{{ section.id }} .bb__grid > div > div[style*="overflow:hidden"] {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 1;
+    }
+    .bb-{{ section.id }} .bb__grid > div img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+
     .bb-{{ section.id }} .bb__card-header {
       flex-direction: column;
       align-items: flex-start;
@@ -328,6 +405,14 @@
     }
     .bb-{{ section.id }} .bb__summary-row {
       padding: 16px 20px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .bb-{{ section.id }} .bb__summary-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
     }
     .bb-{{ section.id }} .bb__price-total {
       font-size: 32px;
