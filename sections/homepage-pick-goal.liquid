@@ -39,8 +39,7 @@
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: {{ section.settings.heading_color | default: '#191917' }};
-    opacity: 0.7;
+    color: {{ section.settings.italic_color | default: '#191917' }};
     letter-spacing: 0;
   }
   .pg-{{ section.id }} .pg__sub {
@@ -922,6 +921,12 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading colour",
+      "default": "#191917"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
       "default": "#191917"
     },
     {

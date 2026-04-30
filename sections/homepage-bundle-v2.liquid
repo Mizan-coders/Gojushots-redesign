@@ -47,7 +47,7 @@
     font-style: italic;
     font-weight: 700;
     text-transform: none;
-    color: {{ section.settings.heading_color | default: '#0a0a0a' }};
+    color: {{ section.settings.italic_color | default: '#0a0a0a' }};
   }
   .bb-{{ section.id }} .bb__section-sub {
     font-size: {{ section.settings.sub_size | default: 15 }}px;
@@ -914,6 +914,12 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading colour",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
       "default": "#0a0a0a"
     },
     {

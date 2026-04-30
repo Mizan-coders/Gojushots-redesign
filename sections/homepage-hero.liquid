@@ -68,8 +68,7 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: {{ section.settings.heading_color | default: '#F7F1E4' }};
-    opacity: 0.75;
+    color: {{ section.settings.italic_color | default: '#F7F1E4' }};
     letter-spacing: 0;
     font-size: 0.85em;
   }
@@ -382,6 +381,12 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading colour",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
       "default": "#F7F1E4"
     },
     {

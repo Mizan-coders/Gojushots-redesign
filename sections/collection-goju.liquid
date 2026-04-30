@@ -20,10 +20,12 @@
     background-size: cover;
     background-position: center;
   }
-  .cg-{{ section.id }} .cg__hero-overlay {
+  .cg-{{ section.id }} .cg__hero--has-image::before {
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(10,10,10,0.85) 40%, rgba(10,10,10,0.4) 100%);
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | default: 85 | divided_by: 100.0 }});
+    z-index: 1;
     pointer-events: none;
   }
   .cg-{{ section.id }} .cg__hero-left {
@@ -55,22 +57,23 @@
     line-height: 0.95;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: {{ section.settings.hero_heading_color | default: '#ffffff' }};
     margin: 0 0 16px;
   }
   .cg-{{ section.id }} .cg__hero h1 em {
     font-style: italic;
-    color: #1F1A17;
+    color: {{ section.settings.hero_accent_color | default: '#d4f24a' }};
     font-weight: 700;
     text-transform: none;
     letter-spacing: 0;
   }
   .cg-{{ section.id }} .cg__hero-desc {
     font-size: 15px;
-    color: rgba(255,255,255,0.6);
+    color: {{ section.settings.hero_desc_color | default: '#ffffff' }};
     max-width: 440px;
     line-height: 1.65;
     margin-bottom: 24px;
+    opacity: 0.75;
   }
   .cg-{{ section.id }} .cg__hero-pills {
     display: flex;
@@ -80,7 +83,7 @@
   .cg-{{ section.id }} .cg__hero-pill {
     background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.75);
+    color: {{ section.settings.hero_pill_color | default: '#ffffff' }};
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -99,12 +102,13 @@
     font-size: 48px;
     font-weight: 900;
     line-height: 1;
-    color: #1F1A17;
+    color: {{ section.settings.hero_stat_color | default: '#ffffff' }};
     text-align: right;
   }
   .cg-{{ section.id }} .cg__hero-stat-label {
     font-size: 12px;
-    color: rgba(255,255,255,0.45);
+    color: {{ section.settings.hero_stat_label_color | default: '#ffffff' }};
+    opacity: 0.55;
     font-weight: 500;
     margin-top: 2px;
     text-align: right;
@@ -487,7 +491,6 @@
       class="cg__hero{% if hero_img_src != '' %} cg__hero--has-image{% endif %}"
       {% if hero_img_src != '' %}style="background-image: url('{{ hero_img_src }}')"{% endif %}
     >
-      {%- if hero_img_src != '' -%}<div class="cg__hero-overlay"></div>{%- endif -%}
       <div class="cg__hero-left">
         <div class="cg__hero-breadcrumb">
           <a href="/">Home</a>
@@ -888,7 +891,58 @@
       "type": "text",
       "id": "hero_heading_accent",
       "label": "Heading italic accent",
-      "info": "Rendered in accent colour (lime) after the main heading"
+      "info": "Rendered in accent colour after the main heading"
+    },
+    {
+      "type": "header",
+      "content": "Hero Colours"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay darkness",
+      "info": "Controls the dark gradient over the background image. 0 = no overlay, 100 = fully black.",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "type": "color",
+      "id": "hero_heading_color",
+      "label": "Heading text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_accent_color",
+      "label": "Italic accent colour",
+      "default": "#d4f24a"
+    },
+    {
+      "type": "color",
+      "id": "hero_desc_color",
+      "label": "Description text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_pill_color",
+      "label": "Pill text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_stat_color",
+      "label": "Stat number colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_stat_label_color",
+      "label": "Stat label colour",
+      "default": "#ffffff"
     },
     {
       "type": "textarea",

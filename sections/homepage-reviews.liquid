@@ -45,8 +45,7 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: {{ section.settings.heading_color | default: '#1F1A17' }};
-    opacity: 0.6;
+    color: {{ section.settings.italic_color | default: '#1F1A17' }};
     display: block;
     letter-spacing: 0;
   }
@@ -113,13 +112,18 @@
     color: #F7F1E4;
   }
 
-  /* ── Cards grid ── */
-  .rv-{{ section.id }} .rv__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  /* ── Cards slider (all sizes) ── */
+  .rv-{{ section.id }} .rv__slider-wrap {
+    overflow: hidden;
     max-width: 1200px;
     margin: 0 auto;
+  }
+  .rv-{{ section.id }} .rv__grid {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    transition: transform 0.35s ease;
+    will-change: transform;
   }
   .rv-{{ section.id }} .rv__card {
     background: rgba(255,255,255,0.55);
@@ -129,6 +133,10 @@
     transition: background 0.2s;
     display: flex;
     flex-direction: column;
+    /* Desktop: 3 per view (100% - 2 gaps of 20px) / 3 */
+    flex: 0 0 calc((100% - 40px) / 3);
+    min-width: calc((100% - 40px) / 3);
+    box-sizing: border-box;
   }
   .rv-{{ section.id }} .rv__card:hover {
     background: rgba(255,255,255,0.8);
@@ -199,9 +207,49 @@
     letter-spacing: 0.08em;
   }
 
-  /* Hide mobile-only elements on desktop */
-  .rv-{{ section.id }} .rv__mob-score,
+  /* Mobile score card hidden on desktop */
+  .rv-{{ section.id }} .rv__mob-score {
+    display: none;
+  }
+  /* Nav always visible — arrows only on desktop, arrows+dots on mobile */
   .rv-{{ section.id }} .rv__mob-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rv-{{ section.id }} .rv__nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(31,26,23,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s;
+    font-size: 0;
+    flex-shrink: 0;
+  }
+  .rv-{{ section.id }} .rv__nav-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #1F1A17;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .rv-{{ section.id }} .rv__nav-btn:hover {
+    background: #ffffff;
+  }
+  .rv-{{ section.id }} .rv__dots {
     display: none;
   }
 
@@ -226,10 +274,6 @@
     }
     .rv-{{ section.id }} .rv__big-score {
       font-size: 64px;
-    }
-    .rv-{{ section.id }} .rv__grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
     }
   }
 
@@ -295,59 +339,15 @@
       font-weight: 600;
       color: #2e7d32;
     }
-    /* Slider wrapper clips overflow */
-    .rv-{{ section.id }} .rv__slider-wrap {
-      overflow: hidden;
-    }
-    /* Grid becomes horizontal flex track */
+    /* Mobile: 1 card per view */
     .rv-{{ section.id }} .rv__grid {
-      display: flex;
-      flex-direction: row;
-      grid-template-columns: unset;
       gap: 0;
-      transition: transform 0.35s ease;
-      will-change: transform;
     }
     .rv-{{ section.id }} .rv__card {
       flex: 0 0 100%;
       min-width: 100%;
-      box-sizing: border-box;
     }
-    /* Mobile nav: arrows + dots */
-    .rv-{{ section.id }} .rv__mob-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-    .rv-{{ section.id }} .rv__nav-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(31,26,23,0.15);
-      color: #1F1A17;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      transition: background 0.2s;
-      font-size: 0;
-    }
-    .rv-{{ section.id }} .rv__nav-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: #1F1A17;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .rv-{{ section.id }} .rv__nav-btn:hover {
-      background: #ffffff;
-    }
+    /* Show dots on mobile */
     .rv-{{ section.id }} .rv__dots {
       display: flex;
       align-items: center;
@@ -367,6 +367,9 @@
       background: #1F1A17;
       width: 20px;
       border-radius: 4px;
+    }
+    .rv-{{ section.id }} .rv__mob-nav {
+      margin-top: 20px;
     }
   }
 {%- endstyle -%}
@@ -502,7 +505,7 @@
     var dotsWrap = section.querySelector('.rv__dots');
     var prevBtn = section.querySelector('.rv__nav-prev');
     var nextBtn = section.querySelector('.rv__nav-next');
-    if (!grid || !dotsWrap || !prevBtn || !nextBtn) return;
+    if (!grid || !prevBtn || !nextBtn) return;
 
     var cards = Array.from(grid.querySelectorAll('.rv__card'));
     if (cards.length === 0) return;
@@ -510,8 +513,23 @@
     var current = 0;
     var dots = [];
 
+    function isMobile() { return window.innerWidth <= 749; }
+
+    function perView() { return isMobile() ? 1 : 3; }
+
+    function maxIndex() { return Math.max(0, cards.length - perView()); }
+
+    function cardStep() {
+      if (!cards[0]) return 0;
+      var gap = isMobile() ? 0 : 20;
+      return cards[0].offsetWidth + gap;
+    }
+
     function buildDots() {
+      if (!dotsWrap) return;
       dotsWrap.innerHTML = '';
+      dots = [];
+      if (!isMobile()) return;
       dots = cards.map(function(_, i) {
         var dot = document.createElement('button');
         dot.className = 'rv__dot' + (i === 0 ? ' is-active' : '');
@@ -523,8 +541,8 @@
     }
 
     function goTo(n) {
-      current = Math.max(0, Math.min(n, cards.length - 1));
-      grid.style.transform = 'translateX(-' + (current * 100) + '%)';
+      current = Math.max(0, Math.min(n, maxIndex()));
+      grid.style.transform = 'translateX(-' + (current * cardStep()) + 'px)';
       dots.forEach(function(d, i) {
         d.classList.toggle('is-active', i === current);
       });
@@ -542,21 +560,25 @@
       if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
     }, { passive: true });
 
-    if (window.innerWidth <= 749) {
-      buildDots();
-      goTo(0);
+    function updateNavVisibility() {
+      var hide = cards.length <= perView();
+      prevBtn.style.display = hide ? 'none' : '';
+      nextBtn.style.display = hide ? 'none' : '';
     }
 
+    buildDots();
+    goTo(0);
+    updateNavVisibility();
+
+    var resizeTimer;
     window.addEventListener('resize', function() {
-      if (window.innerWidth <= 749) {
-        if (dots.length === 0) buildDots();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        current = Math.min(current, maxIndex());
+        buildDots();
         goTo(current);
-      } else {
-        grid.style.transform = '';
-        dotsWrap.innerHTML = '';
-        dots = [];
-        current = 0;
-      }
+        updateNavVisibility();
+      }, 150);
     });
   }
 
@@ -657,6 +679,12 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading colour",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
       "default": "#1F1A17"
     },
     {

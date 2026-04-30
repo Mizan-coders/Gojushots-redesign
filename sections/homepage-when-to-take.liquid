@@ -43,8 +43,7 @@
   .ws-{{ section.id }} .ws__title em {
     font-style: italic;
     font-weight: 400;
-    color: {{ section.settings.heading_color | default: '#1F1A17' }};
-    opacity: 0.65;
+    color: {{ section.settings.italic_color | default: '#1F1A17' }};
   }
   .ws-{{ section.id }} .ws__subtitle {
     font-size: {{ section.settings.subtitle_size | default: 16 }}px;
@@ -383,6 +382,12 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading colour",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
       "default": "#1F1A17"
     },
     {

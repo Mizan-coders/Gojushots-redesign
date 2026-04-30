@@ -67,7 +67,7 @@
   }
   .wg-{{ section.id }} .wg__title em {
     font-style: italic;
-    color: var(--goju-accent);
+    color: {{ section.settings.italic_color | default: '#d4f24a' }};
     font-weight: 700;
     text-transform: none;
     letter-spacing: 0;
@@ -463,6 +463,12 @@
       "id": "heading_color",
       "label": "Heading colour",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
+      "default": "#d4f24a"
     },
     {
       "type": "range",

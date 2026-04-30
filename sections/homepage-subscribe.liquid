@@ -67,7 +67,7 @@
     font-style: italic;
     font-weight: 400;
     text-transform: none;
-    color: var(--goju-accent);
+    color: {{ section.settings.italic_color | default: '#d4f24a' }};
     display: block;
     letter-spacing: 0;
   }
@@ -507,6 +507,12 @@
       "id": "heading_color",
       "label": "Heading colour",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "italic_color",
+      "label": "Italic text colour",
+      "default": "#d4f24a"
     },
     {
       "type": "header",
