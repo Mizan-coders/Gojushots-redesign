@@ -613,6 +613,7 @@
   }
 
   var sliderNav = section.querySelector('.pg__slider-nav');
+  var _hiddenCards = [];
 
   // ── Mobile custom pager (no Slick) ───────────────────────────────────────────
   var mobCurrentPage = 0;
@@ -728,10 +729,21 @@
       if (!slickReady()) return;
       destroyMobilePager();
       var $grid = jQuery(grid);
+      // Unslick first — restores previously-in-slider cards back to grid
       if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
+      // Restore previously detached non-matching cards
+      _hiddenCards.forEach(function(c) { grid.appendChild(c); });
+      _hiddenCards = [];
       grid.classList.add('pg__grid--slider');
       grid.classList.remove('pg__grid--single');
       cards.forEach(function(c) { c.style.display = ''; });
+      // Physically detach non-matching cards before Slick init (avoids slickFilter state corruption)
+      if (goal !== 'all') {
+        cards.forEach(function(c) {
+          var matches = (c.dataset.goals || '').toLowerCase().indexOf(goal) !== -1;
+          if (!matches) { _hiddenCards.push(c); grid.removeChild(c); }
+        });
+      }
       var $nav = jQuery(sliderNav);
       $grid.slick({
         slidesToShow: SLIDER_COLS,
@@ -747,9 +759,6 @@
           { breakpoint: 990, settings: { slidesToShow: 2, arrows: true, appendArrows: $nav } }
         ]
       });
-      if (goal !== 'all') {
-        $grid.slick('slickFilter', '[data-goals*="' + goal + '"]');
-      }
     }
   }
 
@@ -760,6 +769,9 @@
       if ($grid.hasClass('slick-initialized')) $grid.slick('unslick');
       grid.classList.remove('pg__grid--slider');
     }
+    // Restore any detached non-matching cards so applyFilter can show/hide them
+    _hiddenCards.forEach(function(c) { grid.appendChild(c); });
+    _hiddenCards = [];
   }
 
   // ── Filter + conditional slider ─────────────────────────────────────────────

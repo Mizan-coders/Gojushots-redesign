@@ -36,7 +36,7 @@
   .bb-{{ section.id }} .bb__section-title {
     font-family: var(--font-heading-family);
     font-size: clamp({{ section.settings.heading_size | default: 44 | times: 0.636 | round }}px, {{ section.settings.heading_size | default: 44 | times: 0.073 }}vw, {{ section.settings.heading_size | default: 44 }}px);
-    font-weight: 700;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: {{ section.settings.heading_color | default: '#0a0a0a' }};
@@ -302,11 +302,6 @@
     .bb-{{ section.id }} {
       padding-left: 20px;
       padding-right: 20px;
-    }
-
-    /* Section heading: heavier weight on mobile */
-    .bb-{{ section.id }} .bb__section-title {
-      font-weight: 900;
     }
 
     /* Pack selector: full-width stacked cards */
