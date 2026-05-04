@@ -59,14 +59,35 @@
     display: block;
   }
 
-  /* Mobile */
+  /* Mobile – horizontal swipe slider */
   @media screen and (max-width: 767px) {
     .press-{{ section.id }} {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .press-{{ section.id }} .press__label-row {
+      padding: 0 20px;
     }
     .press-{{ section.id }} .press__logos {
-      gap: 28px 40px;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 0;
+      padding: 8px 20px;
+      scrollbar-width: none;
+    }
+    .press-{{ section.id }} .press__logos::-webkit-scrollbar {
+      display: none;
+    }
+    .press-{{ section.id }} .press__logo-item {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      padding: 0 16px;
+    }
+    .press-{{ section.id }} .press__logo-img {
+      height: 50px;
     }
   }
 {%- endstyle -%}
