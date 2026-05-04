@@ -397,6 +397,9 @@
     .pg-{{ section.id }} .pg__slider-nav .slick-next {
       display: none !important;
     }
+    {%- if section.settings.hide_desc_mobile -%}
+    .pg-{{ section.id }} .pg__card-desc { display: none !important; }
+    {%- endif -%}
     /* Dot container */
     .pg-{{ section.id }} .pg__mob-dots {
       display: flex;
@@ -1101,6 +1104,12 @@
     {
       "type": "header",
       "content": "Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_desc_mobile",
+      "label": "Hide product description on mobile",
+      "default": false
     },
     {
       "type": "select",
