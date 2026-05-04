@@ -412,7 +412,7 @@ Disabled Shopify font-face output — using custom Ratch font
     </a>
 
     {%- if settings.cart_type == 'drawer' -%}
-      {%- render 'cart-drawer' -%}
+      {%- section 'cart-drawer' -%}
     {%- endif -%}
 
     {% section 'announcement-bar' %}

@@ -1,2 +1,55 @@
+{%- assign cd_free_ship_cents = section.settings.free_shipping_dollars | default: 80 | times: 100 -%}
 
-{%- render 'cart-drawer' -%}
+{%- render 'cart-drawer',
+  cd_banner_blocks: section.blocks,
+  cd_free_ship_cents: cd_free_ship_cents,
+  cd_ship_progress_text: section.settings.shipping_progress_text,
+  cd_ship_unlocked_text: section.settings.shipping_unlocked_text
+-%}
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Free Shipping Bar"
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_dollars",
+      "label": "Free shipping threshold ($)",
+      "default": 80,
+      "info": "Cart total needed to unlock free shipping. E.g. 80 = $80.00"
+    },
+    {
+      "type": "text",
+      "id": "shipping_progress_text",
+      "label": "Progress message (shown after the $ amount)",
+      "default": "away from FREE SHIPPING!",
+      "info": "Displays as: \"You're $X [this text]\""
+    },
+    {
+      "type": "text",
+      "id": "shipping_unlocked_text",
+      "label": "Free shipping unlocked message",
+      "default": "🎉 Congrats! You've unlocked FREE SHIPPING!"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_message",
+      "name": "Banner message",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Message text",
+          "default": "Subscribe + Save 30% Now | 10% Off + Free Shipping Forever"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

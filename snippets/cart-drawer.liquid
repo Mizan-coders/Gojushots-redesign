@@ -665,12 +665,20 @@
           </div>
         </div>
         <div class="cd-header__banner" aria-live="polite">
-          <span class="cd-banner__slide">Subscribe + Save 30% Now &nbsp;|&nbsp; 10% Off + Free Shipping Forever</span>
-          <span class="cd-banner__slide">Spend $75 + Get a Free Acid Potion</span>
+          {%- if cd_banner_blocks.size > 0 -%}
+            {%- for block in cd_banner_blocks -%}
+              {%- if block.type == 'banner_message' -%}
+                <span class="cd-banner__slide">{{ block.settings.text | escape }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <span class="cd-banner__slide">Subscribe + Save 30% Now &nbsp;|&nbsp; 10% Off + Free Shipping Forever</span>
+            <span class="cd-banner__slide">Spend $75 + Get a Free Acid Potion</span>
+          {%- endif -%}
         </div>
         <div class="cd-shipping-bar">
           <p class="cd-shipping-bar__text"><span class="cd-shipping-bar__msg"></span></p>
-          {%- assign _bar_pct = cart.total_price | times: 100.0 | divided_by: 8000 | at_least: 0 | at_most: 100 | round: 1 -%}
+          {%- assign _bar_pct = cart.total_price | times: 100.0 | divided_by: cd_free_ship_cents | default: 8000 | at_least: 0 | at_most: 100 | round: 1 -%}
           <div class="cd-shipping-bar__track" data-total="{{ cart.total_price }}">
             <div class="cd-shipping-bar__fill" style="display:block;height:8px;background:#1F1A17;border-radius:4px;width:{{ _bar_pct }}%"></div>
           </div>
@@ -964,8 +972,7 @@
   var _nativeFetch = window.fetch.bind(window);
 
   // ── Free Shipping Bar ──────────────────────────────────────
-  // Set your free shipping threshold in cents (e.g. 8000 = $80.00 NZD)
-  var FREE_SHIPPING_CENTS = 8000;
+  var FREE_SHIPPING_CENTS = {{ cd_free_ship_cents | default: 8000 }};
 
   function updateShippingBar(totalCents) {
     var fill  = document.querySelector('.cd-shipping-bar__fill');
@@ -974,10 +981,10 @@
     var pct = Math.min((totalCents / FREE_SHIPPING_CENTS) * 100, 100);
     fill.style.width = pct.toFixed(1) + '%';
     if (totalCents >= FREE_SHIPPING_CENTS) {
-      msg.innerHTML = '🎉 Congrats! You\'ve unlocked <strong>FREE SHIPPING!</strong>';
+      msg.innerHTML = {{ cd_ship_unlocked_text | default: "🎉 Congrats! You've unlocked FREE SHIPPING!" | json }};
     } else {
       var remaining = ((FREE_SHIPPING_CENTS - totalCents) / 100).toFixed(2);
-      msg.innerHTML = 'You\'re <strong>$' + remaining + '</strong> away from <strong>FREE SHIPPING!</strong>';
+      msg.innerHTML = 'You\'re <strong>$' + remaining + '</strong> ' + {{ cd_ship_progress_text | default: 'away from <strong>FREE SHIPPING!</strong>' | json }};
     }
   }
 
