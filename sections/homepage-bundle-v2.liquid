@@ -201,7 +201,7 @@
   /* Product grid */
   .bb-{{ section.id }} .bb__grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
     background: #f5f0e8;
     padding: 12px;
@@ -415,7 +415,7 @@
   }
 {%- endstyle -%}
 
-<section class="bb-{{ section.id }}">
+<section class="bb-{{ section.id }}" id="bundle-section">
   <div class="bb__inner">
 
     {%- comment -%} Section header {%- endcomment -%}
@@ -695,7 +695,7 @@
 
         /* thumbnail */
         if(p.img){
-          html += '<div style="width:150px;height:150px;border-radius:12px;margin-bottom:12px;overflow:hidden;background:' + p.bg + ';display:flex;align-items:center;justify-content:center;">';
+          html += '<div style="width:100%;aspect-ratio:1/1;border-radius:12px;margin-bottom:12px;overflow:hidden;background:' + p.bg + ';display:flex;align-items:center;justify-content:center;">';
           html += '<img src="' + p.img + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:contain;" loading="lazy">';
           html += '</div>';
         }

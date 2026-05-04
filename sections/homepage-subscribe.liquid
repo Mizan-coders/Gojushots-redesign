@@ -115,7 +115,7 @@
   }
   .ss-{{ section.id }} .ss__perk-text {
     font-size: 14px;
-    color: rgba(255,255,255,0.85);
+    color: {{ section.settings.perk_text_color | default: '#d9d4cd' }};
     font-weight: 500;
     line-height: 1.4;
   }
@@ -277,6 +277,98 @@
       text-align: center;
     }
   }
+
+  /* ── Klaviyo embed form overrides ── */
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR > div {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: none !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR form {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    align-items: center !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR form > div {
+    flex-shrink: 0 !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR form > div:first-child {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR div[class*="klaviyo"] {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="email"],
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="text"] {
+    flex: 1 !important;
+    background: rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    color: white !important;
+    padding: 14px 18px !important;
+    border-radius: 50px !important;
+    font-size: 14px !important;
+    font-family: inherit !important;
+    outline: none !important;
+    min-width: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="email"]::placeholder,
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="text"]::placeholder {
+    color: rgba(255,255,255,0.4) !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="email"]:focus,
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR input[type="text"]:focus {
+    border-color: var(--goju-accent) !important;
+    box-shadow: 0 0 0 2px rgba(212,242,74,0.25) !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR button[type="submit"] {
+    background: var(--goju-accent, #d4f24a) !important;
+    color: #1F1A17 !important;
+    padding: 14px 22px !important;
+    border-radius: 50px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    font-family: inherit !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    height: auto !important;
+    letter-spacing: 0.02em !important;
+    transition: transform 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .ss-{{ section.id }} .klaviyo-form-UPhmbR button[type="submit"]:hover {
+    transform: scale(1.03) !important;
+  }
+  @media screen and (max-width: 479px) {
+    .ss-{{ section.id }} .klaviyo-form-UPhmbR form {
+      flex-direction: column !important;
+    }
+    .ss-{{ section.id }} .klaviyo-form-UPhmbR button[type="submit"] {
+      width: 100% !important;
+      text-align: center !important;
+    }
+  }
 {%- endstyle -%}
 
 <section class="ss-{{ section.id }}">
@@ -352,44 +444,121 @@
         </p>
       {%- endif -%}
 
-      {%- comment -%} Email capture form {%- endcomment -%}
-      {%- form 'customer', id: 'SubEmailForm-{{ section.id }}' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter,homepage-offer">
+      {%- comment -%} Klaviyo embedded form {%- endcomment -%}
+      <div class="klaviyo-form-UPhmbR"></div>
 
-        {%- if form.posted_successfully? -%}
-          <p class="ss__form-msg ss__form-msg--success">
-            {%- if section.settings.discount_code != blank -%}
-              {{ section.settings.success_msg | default: "You're in! Use code" | escape }}
-              <strong>{{ section.settings.discount_code | escape }}</strong>
-              {{ section.settings.success_msg_suffix | default: 'at checkout.' | escape }}
-            {%- else -%}
-              {{ section.settings.success_msg | default: "You're in! Check your email for your discount." | escape }}
-            {%- endif -%}
-          </p>
-        {%- else -%}
-          <div class="ss__form-row">
-            <input
-              id="SubEmail-{{ section.id }}"
-              type="email"
-              name="contact[email]"
-              class="ss__input"
-              value="{{ form.email }}"
-              placeholder="{{ section.settings.email_placeholder | default: 'Your email address' | escape }}"
-              autocomplete="email"
-              aria-required="true"
-              required
-            >
-            <button type="submit" class="ss__submit">
-              {{- section.settings.email_btn_label | default: 'Get $10 Off' | escape -}}
-            </button>
-          </div>
-          {%- if form.errors -%}
-            <p class="ss__form-msg ss__form-msg--error">
-              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
-            </p>
-          {%- endif -%}
-        {%- endif -%}
-      {%- endform -%}
+      <script>
+      (function() {
+        function applyKlaviyoStyles() {
+          var wrap = document.querySelector('.ss-{{ section.id }} .klaviyo-form-UPhmbR');
+          if (!wrap) return false;
+          var input = wrap.querySelector('input[type="email"], input[type="text"]');
+          var btn   = wrap.querySelector('button[type="submit"]');
+          if (!input || !btn) return false;
+
+          // Strip ALL elements (form, fieldset, div, etc.) except the input & button themselves
+          wrap.querySelectorAll('*').forEach(function(el) {
+            if (el === input || el === btn) return;
+            el.style.setProperty('background', 'transparent', 'important');
+            el.style.setProperty('background-color', 'transparent', 'important');
+            el.style.setProperty('border', 'none', 'important');
+            el.style.setProperty('outline', 'none', 'important');
+            el.style.setProperty('box-shadow', 'none', 'important');
+            el.style.setProperty('padding', '0', 'important');
+            el.style.setProperty('margin', '0', 'important');
+            el.style.setProperty('max-width', 'none', 'important');
+            el.style.setProperty('border-radius', '0', 'important');
+            el.style.setProperty('width', 'auto', 'important');
+          });
+
+          // Clear the wrap outer div itself
+          wrap.style.setProperty('background', 'transparent', 'important');
+          wrap.style.setProperty('border', 'none', 'important');
+          wrap.style.setProperty('box-shadow', 'none', 'important');
+          wrap.style.setProperty('padding', '0', 'important');
+          wrap.style.setProperty('margin', '0', 'important');
+
+          // Find the common container of input + button
+          var container = input.parentElement;
+          while (container && !container.contains(btn)) {
+            container = container.parentElement;
+          }
+          if (container && container !== document.body) {
+            container.style.setProperty('display', 'flex', 'important');
+            container.style.setProperty('flex-direction', 'row', 'important');
+            container.style.setProperty('gap', '10px', 'important');
+            container.style.setProperty('align-items', 'center', 'important');
+            container.style.setProperty('flex-wrap', 'nowrap', 'important');
+            container.style.setProperty('width', '100%', 'important');
+          }
+
+          // Input wrapper: grow to fill
+          var inputWrap = input.parentElement;
+          if (inputWrap && inputWrap !== container) {
+            inputWrap.style.setProperty('flex', '1', 'important');
+            inputWrap.style.setProperty('min-width', '0', 'important');
+            inputWrap.style.setProperty('width', 'auto', 'important');
+          }
+
+          // Button wrapper: natural size
+          var btnWrap = btn.parentElement;
+          if (btnWrap && btnWrap !== container) {
+            btnWrap.style.setProperty('flex-shrink', '0', 'important');
+            btnWrap.style.setProperty('width', 'auto', 'important');
+          }
+
+          // Explicitly re-style the input
+          input.style.setProperty('background', 'rgba(255,255,255,0.1)', 'important');
+          input.style.setProperty('border', '1px solid rgba(255,255,255,0.2)', 'important');
+          input.style.setProperty('color', 'white', 'important');
+          input.style.setProperty('padding', '14px 18px', 'important');
+          input.style.setProperty('border-radius', '50px', 'important');
+          input.style.setProperty('font-size', '14px', 'important');
+          input.style.setProperty('width', '100%', 'important');
+          input.style.setProperty('min-width', '0', 'important');
+          input.style.setProperty('box-sizing', 'border-box', 'important');
+          input.style.setProperty('box-shadow', 'none', 'important');
+          input.style.setProperty('outline', 'none', 'important');
+          input.style.setProperty('margin', '0', 'important');
+
+          // Explicitly re-style the button
+          btn.style.setProperty('background', '#d4f24a', 'important');
+          btn.style.setProperty('color', '#1F1A17', 'important');
+          btn.style.setProperty('padding', '14px 22px', 'important');
+          btn.style.setProperty('border-radius', '50px', 'important');
+          btn.style.setProperty('font-size', '14px', 'important');
+          btn.style.setProperty('font-weight', '700', 'important');
+          btn.style.setProperty('border', 'none', 'important');
+          btn.style.setProperty('cursor', 'pointer', 'important');
+          btn.style.setProperty('white-space', 'nowrap', 'important');
+          btn.style.setProperty('flex-shrink', '0', 'important');
+          btn.style.setProperty('width', 'auto', 'important');
+          btn.style.setProperty('line-height', '1', 'important');
+          btn.style.setProperty('letter-spacing', '0.02em', 'important');
+          btn.style.setProperty('box-shadow', 'none', 'important');
+          btn.style.setProperty('outline', 'none', 'important');
+          btn.style.setProperty('margin', '0', 'important');
+
+          // Hide any siblings of container that don't hold input/button (error containers etc.)
+          if (container && container.parentElement) {
+            Array.from(container.parentElement.children).forEach(function(child) {
+              if (child !== container && !child.querySelector('input, button')) {
+                child.style.setProperty('display', 'none', 'important');
+              }
+            });
+          }
+
+          return true;
+        }
+
+        if (!applyKlaviyoStyles()) {
+          var observer = new MutationObserver(function(mutations, obs) {
+            if (applyKlaviyoStyles()) obs.disconnect();
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+        }
+      })();
+      </script>
     </div>
 
   </div>
@@ -464,6 +633,12 @@
       "step": 1,
       "default": 16,
       "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "perk_text_color",
+      "label": "Perk items text colour",
+      "default": "#d9d4cd"
     },
     {
       "type": "header",

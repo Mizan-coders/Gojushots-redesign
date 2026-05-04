@@ -122,6 +122,11 @@
   .footer--goju .newsletter-form__message--success {
     color: var(--goju-accent);
   }
+  .footer--goju .newsletter-form__message--success svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+  }
 
   /* ── Social icons ── */
   .footer--goju .footer__social {
@@ -302,7 +307,7 @@
           {%- endif -%}
         </div>
         {%- if form.posted_successfully? -%}
-          <h3 class="newsletter-form__message newsletter-form__message--success form__message" id="ContactFooter-success" tabindex="-1" autofocus>
+          <h3 class="newsletter-form__message newsletter-form__message--success form__message" id="ContactFooter-success" tabindex="-1">
             {%- render 'icon-success' -%}
             {{ 'newsletter.success' | t }}
           </h3>

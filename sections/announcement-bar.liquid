@@ -3,75 +3,93 @@
     background-color: {{ section.settings.bg_color | default: '#191917' }};
     border-bottom: none;
     padding: 10px 20px;
+    position: relative;
   }
-  .announcement-bar--goju .announcement-bar__message {
+  .announcement-bar--goju .ab__slider {
+    position: relative;
+    height: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0;
+  }
+  .announcement-bar--goju .ab__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     color: var(--goju-accent);
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.04em;
-    padding: 0;
-    margin: 0;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    white-space: nowrap;
   }
-  .announcement-bar--goju .announcement-bar__item {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .announcement-bar--goju .ab__slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
-  .announcement-bar--goju .announcement-bar__item a {
+  .announcement-bar--goju .ab__slide a {
     color: var(--goju-accent);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 6px;
   }
-  .announcement-bar--goju .announcement-bar__item a:hover {
+  .announcement-bar--goju .ab__slide a:hover {
     text-decoration: underline;
     background: none;
   }
-  .announcement-bar--goju .announcement-bar__item .icon-arrow {
+  .announcement-bar--goju .ab__slide .icon-arrow {
     width: 1.2rem;
     height: 1.2rem;
     color: var(--goju-accent);
   }
-  .announcement-bar--goju .announcement-bar__sep {
-    color: rgba(255, 255, 255, 0.35);
-    margin: 0 10px;
-    font-size: 12px;
-  }
   @media screen and (max-width: 749px) {
-    .announcement-bar--goju .announcement-bar__message {
-      font-size: 13px;
-    }
+    .announcement-bar--goju .ab__slide { font-size: 13px; }
   }
 {% endstyle %}
 
+{%- assign visible_blocks = section.blocks | where: 'type', 'announcement' -%}
+
 <div class="announcement-bar announcement-bar--goju" role="region" aria-label="{{ 'sections.header.announcement' | t }}">
-  <p class="announcement-bar__message">
-    {%- assign visible_blocks = section.blocks | where: 'type', 'announcement' -%}
+  <div class="ab__slider" id="AbSlider-{{ section.id }}">
     {%- for block in visible_blocks -%}
       {%- if block.settings.text != blank -%}
-        <span class="announcement-bar__item" {{ block.shopify_attributes }}>
+        <span class="ab__slide{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}>
           {%- if block.settings.link != blank -%}
             <a href="{{ block.settings.link }}" class="focus-inset">
-              {{ block.settings.text | escape }}
-              {% render 'icon-arrow' %}
+              {{- block.settings.text | escape -}}
+              {%- render 'icon-arrow' -%}
             </a>
           {%- else -%}
-            {{ block.settings.text | escape }}
+            {{- block.settings.text | escape -}}
           {%- endif -%}
         </span>
-        {%- unless forloop.last -%}
-          <span class="announcement-bar__sep" aria-hidden="true">·</span>
-        {%- endunless -%}
       {%- endif -%}
     {%- endfor -%}
-  </p>
+  </div>
 </div>
+
+<script>
+(function() {
+  var slider = document.getElementById('AbSlider-{{ section.id }}');
+  if (!slider) return;
+  var slides = Array.from(slider.querySelectorAll('.ab__slide'));
+  if (slides.length <= 1) return;
+  var current = 0;
+  setInterval(function() {
+    slides[current].classList.remove('is-active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('is-active');
+  }, {{ section.settings.interval | default: 4000 }});
+})();
+</script>
 
 {% schema %}
 {
@@ -83,6 +101,16 @@
       "id": "bg_color",
       "label": "Background colour",
       "default": "#191917"
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Seconds per message",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 4000,
+      "unit": "ms"
     }
   ],
   "blocks": [
@@ -95,34 +123,6 @@
           "id": "text",
           "default": "Welcome to our store",
           "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
-        },
-        {
-          "type": "select",
-          "id": "color_scheme",
-          "options": [
-            {
-              "value": "accent-1",
-              "label": "t:sections.all.colors.accent_1.label"
-            },
-            {
-              "value": "accent-2",
-              "label": "t:sections.all.colors.accent_2.label"
-            },
-            {
-              "value": "background-1",
-              "label": "t:sections.all.colors.background_1.label"
-            },
-            {
-              "value": "background-2",
-              "label": "t:sections.all.colors.background_2.label"
-            },
-            {
-              "value": "inverse",
-              "label": "t:sections.all.colors.inverse.label"
-            }
-          ],
-          "default": "accent-1",
-          "label": "t:sections.all.colors.label"
         },
         {
           "type": "url",
