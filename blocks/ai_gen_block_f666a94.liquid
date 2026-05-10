@@ -1,0 +1,866 @@
+{% doc %}
+  @prompt
+    an 'about us' page fit for a premium functional juice brand
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-about-us-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-about-us-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-about-us-hero-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.section_spacing }}px;
+  }
+
+  .ai-about-us-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .ai-about-us-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 24px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .ai-about-us-intro-{{ ai_gen_id }} {
+    font-size: {{ block.settings.intro_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 48px;
+  }
+
+  .ai-about-us-hero-image-{{ ai_gen_id }} {
+    width: 100%;
+    margin-bottom: {{ block.settings.section_spacing }}px;
+    border-radius: {{ block.settings.image_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-about-us-hero-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-about-us-hero-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-about-us-hero-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-about-us-story-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.grid_gap }}px;
+    align-items: center;
+    margin-bottom: {{ block.settings.section_spacing }}px;
+  }
+
+  .ai-about-us-story-content-{{ ai_gen_id }} {
+    padding: 40px;
+  }
+
+  .ai-about-us-story-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.story_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 20px;
+    font-weight: 700;
+  }
+
+  .ai-about-us-story-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+  }
+
+  .ai-about-us-story-text-{{ ai_gen_id }} p {
+    margin: 0 0 16px;
+  }
+
+  .ai-about-us-story-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-about-us-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    border-radius: {{ block.settings.image_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-about-us-story-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-about-us-story-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-about-us-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-about-us-values-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.section_spacing }}px;
+  }
+
+  .ai-about-us-values-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    text-align: center;
+    margin: 0 0 48px;
+    font-weight: 700;
+  }
+
+  .ai-about-us-values-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-about-us-value-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    padding: 40px 32px;
+    border-radius: {{ block.settings.card_radius }}px;
+    text-align: center;
+  }
+
+  .ai-about-us-value-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin: 0 auto 24px;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-about-us-value-icon-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+    stroke: {{ block.settings.icon_color }};
+  }
+
+  .ai-about-us-value-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.value_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+
+  .ai-about-us-value-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-about-us-mission-{{ ai_gen_id }} {
+    background-color: {{ block.settings.mission_background }};
+    padding: {{ block.settings.mission_padding }}px;
+    border-radius: {{ block.settings.card_radius }}px;
+    text-align: center;
+    margin-bottom: {{ block.settings.section_spacing }}px;
+  }
+
+  .ai-about-us-mission-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.mission_text_color }};
+    margin: 0 0 20px;
+    font-weight: 700;
+  }
+
+  .ai-about-us-mission-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.mission_text_size }}px;
+    color: {{ block.settings.mission_text_color }};
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ai-about-us-cta-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-about-us-cta-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 16px 48px;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: {{ block.settings.cta_size }}px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .ai-about-us-cta-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.cta_hover_background }};
+    color: {{ block.settings.cta_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-about-us-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .ai-about-us-story-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .ai-about-us-story-content-{{ ai_gen_id }} {
+      padding: 0;
+    }
+
+    .ai-about-us-values-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .ai-about-us-mission-{{ ai_gen_id }} {
+      padding: 40px 24px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-about-us-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.6 }}px 16px;
+    }
+
+    .ai-about-us-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.6);
+    }
+
+    .ai-about-us-intro-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.intro_size }}px * 0.9);
+    }
+
+    .ai-about-us-story-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.story_title_size }}px * 0.85);
+    }
+
+    .ai-about-us-values-heading-{{ ai_gen_id }},
+    .ai-about-us-mission-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.section_title_size }}px * 0.8);
+    }
+  }
+{% endstyle %}
+
+<about-us-{{ ai_gen_id }} class="ai-about-us-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-about-us-container-{{ ai_gen_id }}">
+    <div class="ai-about-us-hero-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <span class="ai-about-us-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</span>
+      {% endif %}
+      
+      {% if block.settings.heading != blank %}
+        <h1 class="ai-about-us-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h1>
+      {% endif %}
+      
+      {% if block.settings.intro_text != blank %}
+        <div class="ai-about-us-intro-{{ ai_gen_id }}">{{ block.settings.intro_text }}</div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.hero_image %}
+      <div class="ai-about-us-hero-image-{{ ai_gen_id }}">
+        <img
+          src="{{ block.settings.hero_image | image_url: width: 2000 }}"
+          alt="{{ block.settings.hero_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.hero_image.width }}"
+          height="{{ block.settings.hero_image.height }}"
+        >
+      </div>
+    {% else %}
+      <div class="ai-about-us-hero-image-{{ ai_gen_id }}">
+        <div class="ai-about-us-hero-image-placeholder-{{ ai_gen_id }}">
+          {{ 'hero-apparel-1' | placeholder_svg_tag }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="ai-about-us-story-{{ ai_gen_id }}">
+      <div class="ai-about-us-story-content-{{ ai_gen_id }}">
+        {% if block.settings.story_title != blank %}
+          <h2 class="ai-about-us-story-title-{{ ai_gen_id }}">{{ block.settings.story_title }}</h2>
+        {% endif %}
+        
+        {% if block.settings.story_text != blank %}
+          <div class="ai-about-us-story-text-{{ ai_gen_id }}">{{ block.settings.story_text }}</div>
+        {% endif %}
+      </div>
+
+      <div class="ai-about-us-story-image-{{ ai_gen_id }}">
+        {% if block.settings.story_image %}
+          <img
+            src="{{ block.settings.story_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.story_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.story_image.width }}"
+            height="{{ block.settings.story_image.height }}"
+          >
+        {% else %}
+          <div class="ai-about-us-story-image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-apparel-1' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-about-us-values-{{ ai_gen_id }}">
+      {% if block.settings.values_heading != blank %}
+        <h2 class="ai-about-us-values-heading-{{ ai_gen_id }}">{{ block.settings.values_heading }}</h2>
+      {% endif %}
+
+      <div class="ai-about-us-values-grid-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          {% liquid
+            assign value_title_key = 'value_' | append: i | append: '_title'
+            assign value_text_key = 'value_' | append: i | append: '_text'
+            assign value_title = block.settings[value_title_key]
+            assign value_text = block.settings[value_text_key]
+          %}
+
+          <div class="ai-about-us-value-card-{{ ai_gen_id }}">
+            <div class="ai-about-us-value-icon-{{ ai_gen_id }}">
+              {% if i == 1 %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              {% elsif i == 2 %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              {% endif %}
+            </div>
+            
+            {% if value_title != blank %}
+              <h3 class="ai-about-us-value-title-{{ ai_gen_id }}">{{ value_title }}</h3>
+            {% endif %}
+            
+            {% if value_text != blank %}
+              <p class="ai-about-us-value-text-{{ ai_gen_id }}">{{ value_text }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-about-us-mission-{{ ai_gen_id }}">
+      {% if block.settings.mission_title != blank %}
+        <h2 class="ai-about-us-mission-title-{{ ai_gen_id }}">{{ block.settings.mission_title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.mission_text != blank %}
+        <div class="ai-about-us-mission-text-{{ ai_gen_id }}">{{ block.settings.mission_text }}</div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.cta_text != blank and block.settings.cta_link != blank %}
+      <div class="ai-about-us-cta-{{ ai_gen_id }}">
+        <a href="{{ block.settings.cta_link }}" class="ai-about-us-cta-button-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</about-us-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AboutUs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupScrollAnimations();
+      }
+
+      setupScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        const elements = this.querySelectorAll('.ai-about-us-story-{{ ai_gen_id }}, .ai-about-us-value-card-{{ ai_gen_id }}, .ai-about-us-mission-{{ ai_gen_id }}');
+        
+        elements.forEach((el, index) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(30px)';
+          el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+          observer.observe(el);
+        });
+      }
+    }
+
+    customElements.define('about-us-{{ ai_gen_id }}', AboutUs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "About us",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafted for Performance, Designed for Life"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction",
+      "default": "<p>We believe that premium nutrition should be accessible, delicious, and functional. Every bottle is crafted with purpose-driven ingredients to fuel your best self.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "header",
+      "content": "Story section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "story_title",
+      "label": "Story title",
+      "default": "Born from a Simple Idea"
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "<p>It started with a question: why can't functional beverages taste incredible and deliver real results? We set out to create a juice that combines premium ingredients, science-backed formulations, and bold flavors.</p><p>Today, we're proud to offer a range of functional juices that support your wellness journey—whether you're looking for energy, immunity, or recovery.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image"
+    },
+    {
+      "type": "header",
+      "content": "Values section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "values_heading",
+      "label": "Values heading",
+      "default": "What We Stand For"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "value_1_title",
+      "label": "Value 1 title",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "text",
+      "id": "value_1_text",
+      "label": "Value 1 text",
+      "default": "Only the finest ingredients make it into our bottles. No shortcuts, no compromises."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "value_2_title",
+      "label": "Value 2 title",
+      "default": "Science-Backed"
+    },
+    {
+      "type": "text",
+      "id": "value_2_text",
+      "label": "Value 2 text",
+      "default": "Every formulation is developed with research and testing to ensure real, measurable benefits."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "value_3_title",
+      "label": "Value 3 title",
+      "default": "Sustainability"
+    },
+    {
+      "type": "text",
+      "id": "value_3_text",
+      "label": "Value 3 text",
+      "default": "We're committed to sustainable sourcing and eco-friendly packaging for a healthier planet."
+    },
+    {
+      "type": "header",
+      "content": "Mission section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "mission_title",
+      "label": "Mission title",
+      "default": "Our Mission"
+    },
+    {
+      "type": "richtext",
+      "id": "mission_text",
+      "label": "Mission text",
+      "default": "<p>To empower people to live healthier, more vibrant lives through premium functional nutrition that tastes as good as it makes you feel.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop Our Range"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "label": "Section spacing",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headings",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "mission_background",
+      "label": "Mission background",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "mission_text_color",
+      "label": "Mission text",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "Button background",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "Button hover background",
+      "default": "#F7F1E4"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "Button hover text",
+      "default": "#1F1A17"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Main heading size",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Introduction size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "label": "Section title size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "story_title_size",
+      "label": "Story title size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "value_title_size",
+      "label": "Value title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body text size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mission_text_size",
+      "label": "Mission text size",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "cta_size",
+      "label": "Button text size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 40,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "mission_padding",
+      "label": "Mission padding",
+      "min": 40,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us"
+    }
+  ]
+}
+{% endschema %}

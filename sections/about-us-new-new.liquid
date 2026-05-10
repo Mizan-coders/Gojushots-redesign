@@ -1,0 +1,829 @@
+{% comment %}
+  ==============================================================
+  GOJU — About Us
+  ==============================================================
+  Save this file as: sections/about-us.liquid
+
+  How to use it:
+    1. Upload this file to your theme (Online Store > Themes > Edit code > Sections > Add new section).
+    2. In the theme editor, open or create your About page (templates/page.about.json on OS 2.0).
+    3. Add the "About Us" section. All copy and images are editable in the right-hand panel.
+    4. The "Ingredients" grid and "What's not in it" list are powered by section blocks —
+       add, reorder or remove from the theme editor.
+
+  Image slots (replace placeholders in the editor):
+    - Hero image                 (recommended ~1600x1000, lifestyle / hero shot)
+    - Story image                (recommended ~1200x1200, founder hands / kitchen / process moment)
+    - Ingredient images          (recommended ~800x800, square crops)
+    - Production image           (recommended ~1200x1200, press / bottling / fresh produce)
+    - Standard icons (optional)  (recommended ~200x200, simple icons or product crops)
+
+  Copy notes:
+    - Voice is British / understated. Sentence-case headlines, dry rather than shouty.
+    - Any factual claim flagged with {# VERIFY #} below should be confirmed before publishing.
+  ==============================================================
+{% endcomment %}
+
+<section class="about-gj" aria-labelledby="about-gj-headline">
+
+  {%- comment -%} ===================== HERO ===================== {%- endcomment -%}
+  <div class="about-gj__hero">
+    <div class="about-gj__hero-media">
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 1800 }}"
+          srcset="
+            {{ section.settings.hero_image | image_url: width: 800 }} 800w,
+            {{ section.settings.hero_image | image_url: width: 1200 }} 1200w,
+            {{ section.settings.hero_image | image_url: width: 1800 }} 1800w
+          "
+          sizes="(min-width: 900px) 60vw, 100vw"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          width="{{ section.settings.hero_image.width }}"
+          height="{{ section.settings.hero_image.height }}"
+          loading="eager"
+          decoding="async"
+        />
+      {%- else -%}
+        <div class="about-gj__placeholder about-gj__placeholder--hero">
+          <span>Hero image — replace in theme editor</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="about-gj__hero-content">
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <p class="about-gj__eyebrow">{{ section.settings.hero_eyebrow }}</p>
+      {%- endif -%}
+      <h1 id="about-gj-headline" class="about-gj__h1">
+        {{ section.settings.hero_headline }}
+      </h1>
+      {%- if section.settings.hero_body != blank -%}
+        <div class="about-gj__lede">{{ section.settings.hero_body }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} ===================== STORY / PHILOSOPHY ===================== {%- endcomment -%}
+  <div class="about-gj__row about-gj__row--text-left">
+    <div class="about-gj__row-text">
+      {%- if section.settings.story_eyebrow != blank -%}
+        <p class="about-gj__eyebrow">{{ section.settings.story_eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="about-gj__h2">{{ section.settings.story_headline }}</h2>
+      <div class="about-gj__body">{{ section.settings.story_body }}</div>
+    </div>
+    <div class="about-gj__row-media">
+      {%- if section.settings.story_image != blank -%}
+        <img
+          src="{{ section.settings.story_image | image_url: width: 1200 }}"
+          srcset="
+            {{ section.settings.story_image | image_url: width: 600 }} 600w,
+            {{ section.settings.story_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="(min-width: 900px) 45vw, 100vw"
+          alt="{{ section.settings.story_image.alt | escape }}"
+          width="{{ section.settings.story_image.width }}"
+          height="{{ section.settings.story_image.height }}"
+          loading="lazy"
+          decoding="async"
+        />
+      {%- else -%}
+        <div class="about-gj__placeholder">
+          <span>Image — story / kitchen / hands</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} ===================== INGREDIENTS ===================== {%- endcomment -%}
+  <div class="about-gj__panel about-gj__panel--ingredients">
+    <div class="about-gj__panel-head">
+      {%- if section.settings.ingredients_eyebrow != blank -%}
+        <p class="about-gj__eyebrow">{{ section.settings.ingredients_eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="about-gj__h2">{{ section.settings.ingredients_headline }}</h2>
+      {%- if section.settings.ingredients_intro != blank -%}
+        <div class="about-gj__panel-intro">{{ section.settings.ingredients_intro }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="about-gj__grid about-gj__grid--ingredients">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'ingredient' -%}
+          <article class="about-gj__card" {{ block.shopify_attributes }}>
+            <div class="about-gj__card-media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 800 }}"
+                  srcset="
+                    {{ block.settings.image | image_url: width: 400 }} 400w,
+                    {{ block.settings.image | image_url: width: 800 }} 800w
+                  "
+                  sizes="(min-width: 900px) 22vw, 50vw"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                  decoding="async"
+                />
+              {%- else -%}
+                <div class="about-gj__placeholder about-gj__placeholder--square">
+                  <span>{{ block.settings.name | default: 'Ingredient image' }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="about-gj__card-text">
+              <h3 class="about-gj__h3">{{ block.settings.name }}</h3>
+              {%- if block.settings.subtitle != blank -%}
+                <p class="about-gj__card-subtitle">{{ block.settings.subtitle }}</p>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="about-gj__card-body">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} ===================== PRODUCTION ===================== {%- endcomment -%}
+  <div class="about-gj__row about-gj__row--text-right">
+    <div class="about-gj__row-media">
+      {%- if section.settings.production_image != blank -%}
+        <img
+          src="{{ section.settings.production_image | image_url: width: 1200 }}"
+          srcset="
+            {{ section.settings.production_image | image_url: width: 600 }} 600w,
+            {{ section.settings.production_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="(min-width: 900px) 45vw, 100vw"
+          alt="{{ section.settings.production_image.alt | escape }}"
+          width="{{ section.settings.production_image.width }}"
+          height="{{ section.settings.production_image.height }}"
+          loading="lazy"
+          decoding="async"
+        />
+      {%- else -%}
+        <div class="about-gj__placeholder">
+          <span>Image — pressing / bottling / production</span>
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="about-gj__row-text">
+      {%- if section.settings.production_eyebrow != blank -%}
+        <p class="about-gj__eyebrow">{{ section.settings.production_eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="about-gj__h2">{{ section.settings.production_headline }}</h2>
+      <div class="about-gj__body">{{ section.settings.production_body }}</div>
+    </div>
+  </div>
+
+  {%- comment -%} ===================== WHAT'S NOT IN IT ===================== {%- endcomment -%}
+  <div class="about-gj__panel about-gj__panel--standards">
+    <div class="about-gj__panel-head about-gj__panel-head--centred">
+      {%- if section.settings.standards_eyebrow != blank -%}
+        <p class="about-gj__eyebrow">{{ section.settings.standards_eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="about-gj__h2">{{ section.settings.standards_headline }}</h2>
+      {%- if section.settings.standards_intro != blank -%}
+        <div class="about-gj__panel-intro">{{ section.settings.standards_intro }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="about-gj__grid about-gj__grid--standards">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'standard' -%}
+          <div class="about-gj__standard" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon_image != blank -%}
+              <div class="about-gj__standard-icon">
+                <img
+                  src="{{ block.settings.icon_image | image_url: width: 200 }}"
+                  alt=""
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            {%- else -%}
+              <div class="about-gj__standard-icon about-gj__standard-icon--placeholder" aria-hidden="true">
+                <span>—</span>
+              </div>
+            {%- endif -%}
+            <h3 class="about-gj__h4">{{ block.settings.label }}</h3>
+            {%- if block.settings.description != blank -%}
+              <p class="about-gj__standard-body">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} ===================== CTA ===================== {%- endcomment -%}
+  <div class="about-gj__cta">
+    <h2 class="about-gj__h2">{{ section.settings.cta_headline }}</h2>
+    {%- if section.settings.cta_body != blank -%}
+      <p class="about-gj__cta-body">{{ section.settings.cta_body }}</p>
+    {%- endif -%}
+    {%- if section.settings.cta_link != blank and section.settings.cta_button_text != blank -%}
+      <a href="{{ section.settings.cta_link }}" class="about-gj__btn">
+        {{ section.settings.cta_button_text }}
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% stylesheet %}
+  /* ==============================================================
+     About Us — styles
+     Uses neutral defaults so it inherits theme colours where possible.
+     Override the CSS variables below to match the GOJU palette.
+     ============================================================== */
+
+  .about-gj {
+    --gj-bg: #faf7f2;
+    --gj-bg-soft: #f1ece3;
+    --gj-text: #1a1a1a;
+    --gj-muted: #5a5a5a;
+    --gj-line: #e7e1d6;
+    --gj-accent: #2a2a2a;          /* swap to GOJU brand colour */
+    --gj-accent-soft: #b6c66e;     /* swap to GOJU secondary */
+    --gj-radius: 14px;
+    --gj-gutter: clamp(20px, 4vw, 56px);
+    --gj-section-y: clamp(48px, 8vw, 120px);
+
+    color: var(--gj-text);
+    background: var(--gj-bg);
+    font-family: inherit;
+    line-height: 1.55;
+    font-size: 17px;
+  }
+
+  .about-gj * { box-sizing: border-box; }
+
+  .about-gj img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--gj-radius);
+    object-fit: cover;
+  }
+
+  /* Typography */
+  .about-gj__eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gj-muted);
+    margin: 0 0 14px;
+  }
+
+  .about-gj__h1 {
+    font-size: clamp(36px, 5.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+    font-weight: 600;
+  }
+
+  .about-gj__h2 {
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0 0 18px;
+    font-weight: 600;
+  }
+
+  .about-gj__h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  .about-gj__h4 {
+    font-size: 17px;
+    line-height: 1.3;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  .about-gj__lede {
+    font-size: clamp(17px, 1.4vw, 20px);
+    color: var(--gj-text);
+    max-width: 52ch;
+  }
+
+  .about-gj__body {
+    font-size: 17px;
+    color: var(--gj-text);
+    max-width: 56ch;
+  }
+
+  .about-gj__body p,
+  .about-gj__lede p { margin: 0 0 14px; }
+
+  /* Hero */
+  .about-gj__hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gj-gutter);
+    padding: var(--gj-section-y) var(--gj-gutter);
+    align-items: center;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .about-gj__hero-content { order: 1; }
+  .about-gj__hero-media   { order: 2; }
+
+  @media (min-width: 900px) {
+    .about-gj__hero {
+      grid-template-columns: 1fr 1.15fr;
+    }
+    .about-gj__hero-content { order: 1; padding-right: 24px; }
+    .about-gj__hero-media   { order: 2; }
+  }
+
+  /* Two-column rows */
+  .about-gj__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gj-gutter);
+    padding: var(--gj-section-y) var(--gj-gutter);
+    max-width: 1320px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .about-gj__row { grid-template-columns: 1fr 1fr; }
+    .about-gj__row--text-left  .about-gj__row-text  { order: 1; padding-right: 32px; }
+    .about-gj__row--text-left  .about-gj__row-media { order: 2; }
+    .about-gj__row--text-right .about-gj__row-media { order: 1; }
+    .about-gj__row--text-right .about-gj__row-text  { order: 2; padding-left: 32px; }
+  }
+
+  /* Panels (full-bleed background) */
+  .about-gj__panel {
+    background: var(--gj-bg-soft);
+    padding: var(--gj-section-y) var(--gj-gutter);
+  }
+
+  .about-gj__panel-head {
+    max-width: 720px;
+    margin: 0 auto clamp(28px, 4vw, 56px);
+  }
+
+  .about-gj__panel-head--centred { text-align: center; }
+  .about-gj__panel-head--centred .about-gj__eyebrow { margin-left: auto; margin-right: auto; }
+
+  .about-gj__panel-intro {
+    color: var(--gj-muted);
+    font-size: 17px;
+    max-width: 56ch;
+  }
+
+  .about-gj__panel-head--centred .about-gj__panel-intro { margin: 0 auto; }
+
+  /* Ingredient grid */
+  .about-gj__grid {
+    display: grid;
+    gap: clamp(16px, 2.5vw, 32px);
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .about-gj__grid--ingredients {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    .about-gj__grid--ingredients {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .about-gj__card {
+    background: #fff;
+    border-radius: var(--gj-radius);
+    overflow: hidden;
+    border: 1px solid var(--gj-line);
+  }
+
+  .about-gj__card-media img,
+  .about-gj__card-media .about-gj__placeholder {
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .about-gj__card-text {
+    padding: 18px 18px 22px;
+  }
+
+  .about-gj__card-subtitle {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gj-muted);
+    margin: 0 0 10px;
+  }
+
+  .about-gj__card-body {
+    margin: 0;
+    color: var(--gj-text);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* Standards grid */
+  .about-gj__grid--standards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  @media (min-width: 900px) {
+    .about-gj__grid--standards { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .about-gj__standard {
+    text-align: center;
+  }
+
+  .about-gj__standard-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--gj-line);
+  }
+
+  .about-gj__standard-icon img {
+    width: 44px; height: 44px;
+    border-radius: 0;
+    object-fit: contain;
+  }
+
+  .about-gj__standard-icon--placeholder span {
+    color: var(--gj-muted);
+    font-size: 18px;
+  }
+
+  .about-gj__standard-body {
+    margin: 0;
+    color: var(--gj-muted);
+    font-size: 15px;
+    max-width: 28ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* CTA */
+  .about-gj__cta {
+    text-align: center;
+    padding: var(--gj-section-y) var(--gj-gutter);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .about-gj__cta-body {
+    color: var(--gj-muted);
+    margin: 0 0 24px;
+    max-width: 48ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-gj__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: 999px;
+    background: var(--gj-accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+  }
+  .about-gj__btn:hover { transform: translateY(-1px); opacity: 0.92; }
+
+  /* Placeholders (shown when no image is selected) */
+  .about-gj__placeholder {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--gj-bg-soft),
+      var(--gj-bg-soft) 12px,
+      #ece5d6 12px,
+      #ece5d6 24px
+    );
+    border-radius: var(--gj-radius);
+    aspect-ratio: 4 / 5;
+    display: grid;
+    place-items: center;
+    color: var(--gj-muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .about-gj__placeholder--hero { aspect-ratio: 5 / 4; }
+  .about-gj__placeholder--square { aspect-ratio: 1 / 1; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "About Us",
+  "tag": "section",
+  "class": "section-about-us",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "About GOJU"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline",
+      "label": "Headline",
+      "default": "Made small. Made properly."
+    },
+    {
+      "type": "richtext",
+      "id": "hero_body",
+      "label": "Body",
+      "default": "<p>GOJU started in a kitchen, with one stubborn question: what would a wellness shot look like if you put real ingredients in it and didn't water them down? We're still asking it, batch after batch.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+
+    {
+      "type": "header",
+      "content": "Story / Philosophy"
+    },
+    {
+      "type": "text",
+      "id": "story_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our philosophy"
+    },
+    {
+      "type": "text",
+      "id": "story_headline",
+      "label": "Headline",
+      "default": "If it's not in the kitchen, it's not in the bottle."
+    },
+    {
+      "type": "richtext",
+      "id": "story_body",
+      "label": "Body",
+      "default": "<p>Every GOJU shot starts with whole ingredients you'd recognise on a chopping board — fresh ginger root, raw turmeric, citrus, herbs, fruit. We press them in small batches, bottle them straight away, and send them out.</p><p>Nothing's reconstituted. Nothing's powdered. Nothing's been sitting in a tank somewhere for six months.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image"
+    },
+
+    {
+      "type": "header",
+      "content": "Ingredients"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our ingredients"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_headline",
+      "label": "Headline",
+      "default": "Four flavours. A handful of ingredients each."
+    },
+    {
+      "type": "richtext",
+      "id": "ingredients_intro",
+      "label": "Intro",
+      "default": "<p>We don't pad our recipes. Each shot uses a small list of ingredients, chosen because they actually do what we say they do — not because they round out a label.</p>"
+    },
+
+    {
+      "type": "header",
+      "content": "Production"
+    },
+    {
+      "type": "text",
+      "id": "production_eyebrow",
+      "label": "Eyebrow",
+      "default": "How we make them"
+    },
+    {
+      "type": "text",
+      "id": "production_headline",
+      "label": "Headline",
+      "default": "Pressed weekly. Never powdered."
+    },
+    {
+      "type": "richtext",
+      "id": "production_body",
+      "label": "Body",
+      "default": "<p>Each batch is cold-pressed at low temperature so the active compounds in the ginger, turmeric and herbs stay intact. We bottle within 24 hours and ship the same week.</p><p>No heat pasteurisation. No concentrates. No dead inventory. If a shot reaches you, it was made days ago — not months. {# VERIFY: confirm pressing cadence and pasteurisation method before publishing #}</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "production_image",
+      "label": "Production image"
+    },
+
+    {
+      "type": "header",
+      "content": "What's not in them"
+    },
+    {
+      "type": "text",
+      "id": "standards_eyebrow",
+      "label": "Eyebrow",
+      "default": "What's not in them"
+    },
+    {
+      "type": "text",
+      "id": "standards_headline",
+      "label": "Headline",
+      "default": "No nasties. None."
+    },
+    {
+      "type": "richtext",
+      "id": "standards_intro",
+      "label": "Intro (optional)",
+      "default": "<p>Short label, short ingredient list, nothing to hide.</p>"
+    },
+
+    {
+      "type": "header",
+      "content": "Closing CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_headline",
+      "label": "Headline",
+      "default": "Try the lineup."
+    },
+    {
+      "type": "text",
+      "id": "cta_body",
+      "label": "Body",
+      "default": "Pick a 9-pack or build a bundle — your call. Both ship free."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Button text",
+      "default": "Shop the flavours"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient / flavour",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Ginger Ignition"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle (optional)",
+          "default": "First thing AM"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Cold-pressed ginger root, raw apple, lemon, a pinch of cayenne. Wakes up your gut and your morning."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "standard",
+      "name": "Standard / no-nasty",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "No added sugar"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Sweetness comes from the fruit. Nothing else."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Ginger Ignition",
+            "subtitle": "First thing AM",
+            "description": "Cold-pressed ginger root, raw apple, lemon, a pinch of cayenne. Wakes up your gut and your morning."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Immune Guard",
+            "subtitle": "When everyone's getting sick",
+            "description": "Turmeric, ginger, orange, black pepper. The combination your gran would approve of, with the science to back it."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Vital Sunshine",
+            "subtitle": "Recovery & afternoons",
+            "description": "Pineapple, turmeric, passionfruit, ginger. Bright, sharp, and made for the days you've earned."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Good Night",
+            "subtitle": "The wind-down",
+            "description": "Tart cherry, magnesium, chamomile, lemon balm. Lights-out support, no grogginess."
+          }
+        },
+        {
+          "type": "standard",
+          "settings": {
+            "label": "No added sugar",
+            "description": "Sweetness comes from the fruit. Nothing else."
+          }
+        },
+        {
+          "type": "standard",
+          "settings": {
+            "label": "No preservatives",
+            "description": "Pressed and bottled fresh, so we don't need them."
+          }
+        },
+        {
+          "type": "standard",
+          "settings": {
+            "label": "No concentrates",
+            "description": "Whole ingredients, pressed once. Never reconstituted."
+          }
+        },
+        {
+          "type": "standard",
+          "settings": {
+            "label": "No artificial anything",
+            "description": "No flavours, no colours, no fillers, no shortcuts."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

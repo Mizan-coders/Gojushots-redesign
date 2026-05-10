@@ -25,7 +25,18 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
@@ -59,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per bottle, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -68,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -120,14 +134,6 @@
             "content": "<p>Subscribe & Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allow up to 5 days for rural addresses.</p>",
             "metafield_key": ""
           }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
-          }
         }
       },
       "block_order": [
@@ -163,40 +169,40 @@
     "stats-band": {
       "type": "product-stats-band",
       "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": {
-            "number": "78%",
-            "label": "of customers have brought Action Shot more than once",
-            "sub": "Based on customer survey"
-          }
-        },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "100%",
-            "label": "natural, cold-pressed ingredients. Zero artificial additives",
-            "sub": "Third-party verified"
+            "number": "5000+",
+            "label": "years ginseng has been used for energy and focus",
+            "sub": "Effective ingredient through the ages"
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "3",
+            "label": "whole roots in every bottle",
+            "sub": "Triple root action"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "2,100+",
-            "label": "customers have chosen Action Shot for their daily wellness routine",
-            "sub": "And counting"
+            "number": "2000%",
+            "label": "more curcumin absorbed when paired with black pepper",
+            "sub": "Why we always pair them"
           }
         }
       },
       "block_order": [
-        "stat_1",
         "stat_2",
+        "stat_1",
         "stat_3"
       ],
       "settings": {
         "bg_color": "#00823e",
         "accent_color": "#752156",
-        "highlight_color": "#e0ec88",
+        "highlight_color": "#dada97",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -216,8 +222,8 @@
         "pill_3_icon": "🌍",
         "pill_3_text": "Sustainable packaging",
         "accent_color": "#00823e",
-        "image": "shopify://shop_images/pomelli-image_3.png",
-        "quote": "\"Real food. Real results. No shortcuts.\"",
+        "image": "shopify://shop_images/harry_morris_-_action_shot.jpg",
+        "quote": "\"Action Shot, true to it's name, is designed to help you power through.\"",
         "quote_attr": "— tom, GOJU Founder",
         "padding_top": 80,
         "padding_bottom": 80
@@ -331,8 +337,8 @@
         "heading": "How to take Action Shot",
         "heading_accent": "Action Shot",
         "accent_color": "#00823e",
-        "highlight_color": "#d0d893",
-        "image": "shopify://shop_images/pomelli-image_11.png",
+        "highlight_color": "#dada97",
+        "image": "shopify://shop_images/action_shot_with_ingredients.jpg",
         "visual_bg_color": "",
         "badge_text": "power body. charge mind.",
         "cta_label": "Shop Action Shot",

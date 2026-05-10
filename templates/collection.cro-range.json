@@ -13,34 +13,48 @@
       "type": "collection-goju",
       "settings": {
         "show_hero": true,
-        "hero_image": "shopify://shop_images/46346_1.jpg",
-        "hero_heading": "THE SHOT FOR",
-        "hero_heading_accent": "every need.",
-        "hero_desc": "60ml of cold-pressed, goal-specific nutrition. No fillers, no crash — just the right blend for what you're working toward.",
-        "hero_pill_1": "🌿 100% Natural",
-        "hero_pill_2": "🇳🇿 NZ Made",
-        "hero_pill_3": "❄️ Cold-Pressed",
-        "stat_1_num": "4.9★",
-        "stat_1_label": "Average rating",
-        "stat_2_num": "2,100+",
-        "stat_2_label": "Happy customers",
+        "hero_image": "shopify://shop_images/collection_banner.png",
+        "hero_image_mobile": "shopify://shop_images/collection_banner.png",
+        "hero_heading": "A SHOT FOR",
+        "hero_heading_accent": "the moment.",
+        "overlay_opacity": 30,
+        "hero_heading_color": "#ffffff",
+        "hero_accent_color": "#ffffff",
+        "hero_desc_color": "#ffffff",
+        "hero_pill_color": "#ffffff",
+        "hero_stat_color": "#ffffff",
+        "hero_stat_label_color": "#f3f3f3",
+        "hero_desc": "100% natural goal-specific nutrition.",
+        "hero_pill_1": "",
+        "hero_pill_2": "",
+        "hero_pill_3": "",
+        "stat_1_num": "",
+        "stat_1_label": "",
+        "stat_2_num": "",
+        "stat_2_label": "",
         "tab_all_label": "All Products",
+        "tab_1_image": "shopify://shop_images/performance-green.svg",
         "tab_1_icon": "⚡",
-        "tab_1_label": "Energy",
-        "tab_2_icon": "🛡️",
+        "tab_1_label": "Performance",
+        "tab_2_image": "shopify://shop_images/immunity-green.svg",
+        "tab_2_icon": "",
         "tab_2_label": "Immunity",
+        "tab_3_image": "shopify://shop_images/sleep-green.svg",
         "tab_3_icon": "😴",
         "tab_3_label": "Sleep",
+        "tab_4_image": "shopify://shop_images/recovery-green.svg",
         "tab_4_icon": "💪",
         "tab_4_label": "Recovery",
+        "tab_5_image": "shopify://shop_images/digestion-green.svg",
         "tab_5_icon": "🌿",
         "tab_5_label": "Digestion",
+        "tab_6_image": "shopify://shop_images/digestion-green.svg",
         "tab_6_icon": "",
         "tab_6_label": "",
         "hide_desc_mobile": true,
         "products_limit": 48,
         "columns": "3",
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "bg_color": "#e9e5df",
         "padding_bottom": 60
       }
@@ -51,6 +65,7 @@
         "perk_n3Hnfp": {
           "type": "perk",
           "settings": {
+            "custom_icon": "shopify://shop_images/savings-white.svg",
             "icon": "💰",
             "text": "Save 10% on every order automatically"
           }
@@ -58,6 +73,7 @@
         "perk_bVdwez": {
           "type": "perk",
           "settings": {
+            "custom_icon": "shopify://shop_images/shipping-white.svg",
             "icon": "🚚",
             "text": "Free shipping on every subscription order"
           }
@@ -65,6 +81,7 @@
         "perk_jPb3qj": {
           "type": "perk",
           "settings": {
+            "custom_icon": "shopify://shop_images/pause-skip-cancel-white.svg",
             "icon": "⏸️",
             "text": "Pause, skip or cancel anytime — no lock-in"
           }
@@ -72,6 +89,7 @@
         "perk_wmkyNf": {
           "type": "perk",
           "settings": {
+            "custom_icon": "shopify://shop_images/frequency-white.svg",
             "icon": "🎯",
             "text": "Choose your frequency — weekly, fortnightly or monthly"
           }
@@ -85,11 +103,21 @@
       ],
       "name": "Subscribe & Save",
       "settings": {
-        "bg_color": "#1a4a2e",
+        "bg_color": "#00823e",
         "eyebrow": "Subscribe & Save",
+        "eyebrow_color": "#1f1a17",
+        "eyebrow_size": 11,
         "title": "Never run out.",
         "title_italic": "Save every order.",
         "body_text": "Subscribe to your favourite GOJU shots and save 10% on every order, every time. Free shipping included. Pause or cancel anytime — no questions asked.",
+        "body_color": "#1f1a17",
+        "body_size": 16,
+        "perk_text_color": "#d9d4cd",
+        "heading_size": 56,
+        "heading_weight": "700",
+        "heading_transform": "uppercase",
+        "heading_color": "#1f1a17",
+        "italic_color": "#ffffff",
         "card_title": "Start Subscribing",
         "card_subtitle": "Pick your first product and lock in your savings today.",
         "subscribe_btn_label": "Subscribe & Save 10%",

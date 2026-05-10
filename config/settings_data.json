@@ -9,10 +9,10 @@
  */
 {
   "current": {
-    "goju_accent_color": "#F7F1E4",
     "goju_btn_primary_bg": "#1F1A17",
     "goju_btn_primary_text": "#F7F1E4",
     "goju_btn_secondary_bg": "#1F1A17",
+    "goju_accent_color": "#F7F1E4",
     "goju_accent_text_color": "#1F1A17",
     "colors_solid_button_labels": "#F7F1E4",
     "colors_accent_1": "#1F1A17",
@@ -119,20 +119,28 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
+          "announcement_iXtKgF": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free shipping over $90",
+              "link": ""
+            }
+          },
           "announcement-bar-0": {
             "type": "announcement",
             "settings": {
-              "text": "Subscribe & Save — 10% off + free shipping always",
-              "color_scheme": "inverse",
+              "text": "Subscribe & Save — 10% off + free shipping on every order",
               "link": "shopify://collections/all"
             }
           }
         },
         "block_order": [
+          "announcement_iXtKgF",
           "announcement-bar-0"
         ],
         "settings": {
-          "bg_color": "#191917"
+          "bg_color": "#752156",
+          "interval": 4000
         }
       },
       "header": {
@@ -147,8 +155,6 @@
           "menu_type_desktop": "dropdown",
           "show_line_separator": true,
           "enable_sticky_header": false,
-          "cta_nav_label": "Subscribe & Save",
-          "cta_nav_url": "",
           "margin_bottom": 0,
           "padding_top": 20,
           "padding_bottom": 20
@@ -199,17 +205,43 @@
           ".form-subscribe .suscribe-button {border-left: 1px solid #e5e5e5;}"
         ],
         "settings": {
-          "bg_color": "#b6a58b",
+          "bg_color": "#752156",
           "logo": "shopify://shop_images/Logo-white.png",
-          "tagline": "Real ingredients. Built to work. Crafted in New Zealand for people who take their health seriously.",
+          "tagline": "Real ingredients. Built to work. Crafted in New Zealand for those who read the label.",
           "heading": "Want $10 off your first purchase?",
           "paragraph": "Subscribe to our mailing list for exclusive Goju offers and the latest on health and wellness, and you'll get $10 off your first purchase.",
           "insta_url": "https://www.instagram.com/goju_shots/",
           "fb_url": "https://www.facebook.com/gojushots",
-          "tiktok_url": "",
+          "tiktok_url": "https://www.tiktok.com/@goju_shots",
           "youtube_url": "",
           "copyright": "© Copyright Goju",
           "have_question": "Have questions? Reach out to our team at team@gojushots.com"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "blocks": {
+          "banner_message_3CKLj9": {
+            "type": "banner_message",
+            "settings": {
+              "text": "Bundle and Save Up To $30"
+            }
+          },
+          "banner_message_UhQDzN": {
+            "type": "banner_message",
+            "settings": {
+              "text": "Subscribe and Save for 10% + Free Shipping Forever"
+            }
+          }
+        },
+        "block_order": [
+          "banner_message_3CKLj9",
+          "banner_message_UhQDzN"
+        ],
+        "settings": {
+          "free_shipping_dollars": 90,
+          "shipping_progress_text": "away from FREE SHIPPING!",
+          "shipping_unlocked_text": "🎉 Congrats! You've unlocked FREE SHIPPING!"
         }
       }
     },

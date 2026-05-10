@@ -25,17 +25,28 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
           "settings": {
             "pill_1_icon": "🌿",
             "pill_1_text": "100% Natural",
-            "pill_2_icon": "NZ",
+            "pill_2_icon": " 🇳🇿",
             "pill_2_text": "Made in NZ",
-            "pill_3_icon": "❄️",
-            "pill_3_text": "Cold-Pressed",
+            "pill_3_icon": " 💪🏽",
+            "pill_3_text": "High-Strength",
             "pill_4_icon": "✓",
             "pill_4_text": "No Preservatives"
           }
@@ -44,7 +55,8 @@
           "type": "variant_picker",
           "settings": {
             "variant_label": "Choose Pack Size",
-            "picker_type": "button"
+            "picker_type": "button",
+            "nosub_hint": "One-time purchase — subscribe & save on the 15 pack with free shipping always"
           }
         },
         "purchase_widget": {
@@ -58,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per shot, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -67,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -93,36 +108,31 @@
             "icon_3": "📋",
             "text_3": "30-day guarantee",
             "icon_4": "🌿",
-            "text_4": "Organic certified"
+            "text_4": "Organic ingredients"
           }
         },
         "acc_how_to": {
           "type": "accordion_item",
           "settings": {
             "title": "What's Included",
-            "content": "<p>Your Sample Pack contains a selection of GOJU's bestselling shots — the perfect way to find your favourite before committing to a full pack.</p>"
+            "content": "<p>Your Sample Pack contains a selection of GOJU's bestselling shots — the perfect way to find your favourite before committing to a full pack.</p>",
+            "metafield_key": ""
           }
         },
         "acc_ingredients": {
           "type": "accordion_item",
           "settings": {
             "title": "Ingredients",
-            "content": "<p>Each shot in the Sample Pack uses 100% natural, cold-pressed ingredients. Full ingredients are listed on each individual shot.</p>"
+            "content": "<p>Each shot in the Sample Pack uses 100% natural ingredients. Full ingredients are listed on each individual shot.</p>",
+            "metafield_key": ""
           }
         },
         "acc_shipping": {
           "type": "accordion_item",
           "settings": {
             "title": "Shipping Information",
-            "content": "<p>Subscribe &amp; Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–5 business days to NZ and 3–7 business days to Australia.</p>"
-          }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
+            "content": "<p>Subscribe &amp; Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–5 business days to NZ and 3–7 business days to Australia.</p>",
+            "metafield_key": ""
           }
         }
       },
@@ -145,9 +155,13 @@
         "gallery_layout": "thumbnail_slider",
         "hide_variants": false,
         "enable_video_looping": false,
-        "enable_sticky_info": true,
-        "sticky_rating_score": "5.0",
-        "sticky_review_count": "13",
+        "enable_sticky_info": false,
+        "button_scheme": "green",
+        "sticky_bg_color": "#191917",
+        "sticky_btn_color": "#f5f0e8",
+        "sticky_btn_text_color": "#191917",
+        "sticky_rating_score": "",
+        "sticky_review_count": "",
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -167,7 +181,7 @@
           "type": "stat",
           "settings": {
             "number": "100%",
-            "label": "natural, cold-pressed ingredients. Zero artificial additives",
+            "label": "natural, locally sourced ingredients. Zero artificial additives",
             "sub": "Third-party verified"
           }
         },
@@ -185,8 +199,11 @@
         "stat_2",
         "stat_3"
       ],
+      "disabled": true,
       "settings": {
         "bg_color": "",
+        "accent_color": "#752156",
+        "highlight_color": "#f7f1e4",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -195,18 +212,20 @@
       "type": "product-story",
       "settings": {
         "kicker": "The GOJU Story",
-        "heading": "Find your favourite shot",
+        "heading": "Discover your favourite shot",
         "heading_accent_word": "favourite shot",
         "body_1": "Not sure where to start? The Sample Pack lets you try GOJU's bestselling shots before committing to a full order.",
-        "body_2": "Cold-pressed, whole-food wellness — try them all and discover which one your body loves most.",
+        "body_2": "High-potency, whole-food wellness — try them all and discover which one your body loves most.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
         "pill_2_icon": "🧪",
         "pill_2_text": "Lab tested",
         "pill_3_icon": "🌍",
         "pill_3_text": "Sustainable packaging",
-        "quote": "\"Real food. Real results. No shortcuts.\"",
-        "quote_attr": "— GOJU Founder",
+        "accent_color": "#752156",
+        "image": "shopify://shop_images/samplepack3.png",
+        "quote": "\"We love the sample pack as an easy way to try all of our products.\"",
+        "quote_attr": "— Belle, goju founder",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -218,6 +237,7 @@
           "type": "ingredient",
           "settings": {
             "card_color": "#ff6b35",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-03-22_at_23.42.44.jpg",
             "emoji": "🫚",
             "name": "Fresh Ginger",
             "benefit": "Supports digestion, reduces nausea, and delivers powerful anti-inflammatory gingerols.",
@@ -228,6 +248,7 @@
           "type": "ingredient",
           "settings": {
             "card_color": "#f9c74f",
+            "image": "shopify://shop_images/turmeric_ea306678-089c-4107-abd4-348d6283151b.png",
             "emoji": "🟡",
             "name": "Turmeric Root",
             "benefit": "Curcumin in turmeric is one of nature's most studied anti-inflammatory compounds.",
@@ -238,16 +259,18 @@
           "type": "ingredient",
           "settings": {
             "card_color": "#a7c957",
+            "image": "shopify://shop_images/Honey.png",
             "emoji": "🍋",
-            "name": "Lemon Juice",
-            "benefit": "Natural source of Vitamin C to support immune function and skin health.",
-            "tag": "Vitamin C"
+            "name": "Mānuka Honey",
+            "benefit": "NZ mānuka honey contains bioactive properties and is known for it's wide ranging healing benefits.",
+            "tag": "Bioactive"
           }
         },
         "ing_4": {
           "type": "ingredient",
           "settings": {
             "card_color": "#2d2d4e",
+            "image": "shopify://shop_images/cherries.png",
             "emoji": "🍒",
             "name": "NZ Cherries",
             "benefit": "Rich in melatonin to support your natural sleep cycle.",
@@ -262,10 +285,12 @@
         "ing_4"
       ],
       "settings": {
-        "kicker": "What's Inside",
-        "heading": "Key Ingredients",
-        "heading_accent_word": "Ingredients",
-        "bg_color": "",
+        "kicker": "naturally beneficial ingredinets goju loves",
+        "heading": "Key ingredients you'll find",
+        "heading_accent_word": "",
+        "bg_color": "#752156",
+        "accent_color": "#f7f1e4",
+        "highlight_color": "#752156",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -312,8 +337,11 @@
         "kicker": "Simple Routine",
         "heading": "How to use Sample Pack",
         "heading_accent": "Sample Pack",
+        "accent_color": "#752156",
+        "highlight_color": "#f5f0e8",
+        "image": "shopify://shop_images/full_range_taranaki.png",
         "visual_bg_color": "",
-        "badge_text": "Try Before You Subscribe",
+        "badge_text": "Try them all",
         "cta_label": "Shop Sample Pack",
         "cta_url": "",
         "padding_top": 80,
@@ -362,7 +390,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What's in the Sample Pack?",
-            "answer": "The Sample Pack includes a selection of GOJU's bestselling shots so you can try before you commit. All shots are 100% natural and cold-pressed."
+            "answer": "The Sample Pack includes a selection of GOJU's bestselling shots so you can try before you commit."
           }
         },
         "faq_2": {
@@ -383,7 +411,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+            "answer": "Sorry to our friends across ditch - GOJU currently only ships within NZ"
           }
         }
       },
@@ -428,6 +456,102 @@
         "include_margins": false,
         "anchor_link_id": "reviews"
       }
+    },
+    "homepage_when_to_take_BKEiEa": {
+      "type": "homepage-when-to-take",
+      "blocks": {
+        "card_cGmqUE": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Ginger_ignition_2.png",
+            "image_url": "",
+            "time_label": "Post Breakfast",
+            "title": "Fire Up",
+            "description": "Start your day with Ginger Ignition shot designed to wake your digestive system up and support gut health.",
+            "tags": "Ginger Ignition",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_mdVEak": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Immune_guard_2_975f2a1e-d47d-427c-ac2b-96e0cf74b4bf.png",
+            "image_url": "",
+            "time_label": "Mid-Morning",
+            "title": "Daily Defence",
+            "description": "Immune Guard is here is support your immune system from all angles. Take in the morning to start the day strong.",
+            "tags": "Immune Guard",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_dzWith": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Action_shot_2.png",
+            "image_url": "",
+            "time_label": "Early Afternoon",
+            "title": "Power Through",
+            "description": "Ginseng, organic Fijian turmeric and ginger combine to help you tackle a big mental or physical shift.",
+            "tags": "Action Shot",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_tdBPAp": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png",
+            "image_url": "",
+            "time_label": "Post-workout",
+            "title": "Recover Stronger",
+            "description": "Vital Sunshine is designed for hardworking bodies and minds. Move better through your daily routine.",
+            "tags": "Vital Sunshine",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_DE8YqT": {
+          "type": "card",
+          "settings": {
+            "image_url": "",
+            "time_label": "Evening",
+            "title": "Wind Down",
+            "description": "Let Good Night do the work. Tart cherry, magnesium and L-theanine ease you into a relaxing evening routine.",
+            "tags": "Good Night",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "card_cGmqUE",
+        "card_mdVEak",
+        "card_dzWith",
+        "card_tdBPAp",
+        "card_DE8YqT"
+      ],
+      "name": "When to Take Your Shot",
+      "settings": {
+        "bg_color": "#F5F0E8",
+        "card_bg_color": "",
+        "eyebrow": "Daily Routine",
+        "eyebrow_color": "#1F1A17",
+        "eyebrow_size": 11,
+        "title": "When to take your",
+        "title_italic": "shot.",
+        "subtitle": "GOJU fits into your day wherever you need it most — morning, workout or afternoon slump.",
+        "subtitle_color": "#888888",
+        "subtitle_size": 16,
+        "heading_size": 52,
+        "heading_weight": "700",
+        "heading_transform": "none",
+        "heading_color": "#1F1A17",
+        "italic_color": "#1F1A17",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -440,6 +564,7 @@
     "ugc",
     "faq",
     "crosssell",
-    "loox-reviews"
+    "loox-reviews",
+    "homepage_when_to_take_BKEiEa"
   ]
 }

@@ -25,7 +25,18 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
@@ -38,17 +49,6 @@
             "pill_3_text": "High-Strength",
             "pill_4_icon": "✓",
             "pill_4_text": "No Additives"
-          }
-        },
-        "stats_row": {
-          "type": "stats_row",
-          "settings": {
-            "stat_1_number": "1 in 3",
-            "stat_1_label": "Adults don't get enough quality sleep",
-            "stat_2_number": "7 Hours",
-            "stat_2_label": "Sleep below this impacts energy and recovery",
-            "stat_3_number": "1 in 5",
-            "stat_3_label": "Report work stress impacting their sleep"
           }
         },
         "variant_picker": {
@@ -70,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per shot, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -79,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -131,14 +134,6 @@
             "content": "<p>Subscribe & Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allowing up to 5 days for rural addresses.</p>",
             "metafield_key": ""
           }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
-          }
         }
       },
       "block_order": [
@@ -147,7 +142,6 @@
         "short_description",
         "growave_review_avg",
         "benefit_pills",
-        "stats_row",
         "variant_picker",
         "purchase_widget",
         "recharge_widget",
@@ -164,7 +158,7 @@
         "enable_sticky_info": true,
         "button_scheme": "green",
         "sticky_bg_color": "#191917",
-        "sticky_btn_color": "#f9c74f",
+        "sticky_btn_color": "#e0c3da",
         "sticky_btn_text_color": "#191917",
         "sticky_rating_score": "5.0",
         "sticky_review_count": "13",
@@ -219,7 +213,7 @@
         "kicker": "The GOJU Story",
         "heading": "Wellness you can feel",
         "heading_accent_word": "can feel",
-        "body_1": "We built GOJU because we were tired of wellness products that were all label and no results. Good Night is a concentrated, cold-pressed blend of natural ingredients — nothing hidden, nothing artificial.",
+        "body_1": "We built GOJU because we were tired of wellness products that were all label and no results. Good Night is a concentrated blend of natural ingredients — nothing hidden, nothing artificial.",
         "body_2": "One shot before bed, and your body gets exactly what it needs to wind down, recover, and wake up refreshed.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
@@ -344,9 +338,9 @@
         "heading_accent": "Good Night",
         "accent_color": "#752156",
         "highlight_color": "#debdd2",
-        "image": "shopify://shop_images/pomelli-image_6.png",
+        "image": "shopify://shop_images/good-night-ingredients.jpg",
         "visual_bg_color": "",
-        "badge_text": "30-Day Guarantee",
+        "badge_text": "Relax. drift. dream.",
         "cta_label": "Shop Good Night",
         "cta_url": "",
         "padding_top": 80,
@@ -416,7 +410,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "We currently only ship within New Zealand."
+            "answer": "Sorry to our friends across ditch - GOJU currently only ships within NZ."
           }
         }
       },

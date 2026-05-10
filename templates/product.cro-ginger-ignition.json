@@ -25,7 +25,18 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
@@ -45,7 +56,7 @@
           "settings": {
             "variant_label": "Choose Pack Size",
             "picker_type": "button",
-            "nosub_hint": "One-time purchase only · No subscription available"
+            "nosub_hint": "One-time purchase only · Subscription available on 15 packs"
           }
         },
         "purchase_widget": {
@@ -59,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per shot, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -68,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -119,14 +133,6 @@
             "title": "Shipping Information",
             "content": "<p>Subscribe & Save and get free shipping on every order. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allowing up to 5 days for rural addresses.</p>",
             "metafield_key": ""
-          }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
           }
         }
       },
@@ -194,8 +200,8 @@
         "stat_3"
       ],
       "settings": {
-        "bg_color": "",
-        "accent_color": "#ca2c53",
+        "bg_color": "#c21f4b",
+        "accent_color": "#c21f4b",
         "highlight_color": "#f2d4d7",
         "padding_top": 60,
         "padding_bottom": 60
@@ -216,8 +222,8 @@
         "pill_3_icon": "🌍",
         "pill_3_text": "Sustainable packaging",
         "accent_color": "#e5194f",
-        "image": "shopify://shop_images/Gemini_Generated_Image_mylxommylxommylx.jpg",
-        "quote": "\"Real food. Real results. No shortcuts.\"",
+        "image": "shopify://shop_images/ginger-ignition-ingredients_26a55d1d-6256-49c2-8345-c6877e1d351c.jpg",
+        "quote": "\"Ginger Ignition is the most concentrated ginger wellness shot on the market.\"",
         "quote_attr": "— tom, GOJU Founder",
         "padding_top": 80,
         "padding_bottom": 80
@@ -332,7 +338,7 @@
         "heading_accent": "Ginger Ignition",
         "accent_color": "#e5194f",
         "highlight_color": "#f2d4d7",
-        "image": "shopify://shop_images/Gemini_Generated_Image_2geou12geou12geo.jpg",
+        "image": "shopify://shop_images/ginger_ignition_wellness_shot.jpg",
         "visual_bg_color": "",
         "badge_text": "Fire Up. Digest.",
         "cta_label": "Shop Ginger Ignition",

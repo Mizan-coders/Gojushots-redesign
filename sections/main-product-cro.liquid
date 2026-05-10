@@ -115,58 +115,8 @@
                 aria-label="{{ 'products.modal.label' | t }}"
                 tabindex="0"
               >
-                {%- comment -%} Slide order: image[1] first, then image[0], then image[2+] {%- endcomment -%}
-                {%- assign _slide_i = 0 -%}
-
-                {%- comment -%} Slot 0 — image[1] (shown first on product page) {%- endcomment -%}
-                {%- if product.media.size > 1 -%}
-                  {%- assign _m = product.media[1] -%}
-                  <div class="cro-gallery__slide is-active" data-index="0" aria-hidden="false">
-                    {%- if _m.media_type == 'video' -%}
-                      {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
-                    {%- elsif _m.media_type == 'external_video' -%}
-                      {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping }}
-                    {%- else -%}
-                      <img
-                        srcset="{{ _m | img_url: '480x' }} 480w, {{ _m | img_url: '720x' }} 720w, {{ _m | img_url: '1080x' }} 1080w"
-                        sizes="(min-width: 990px) 50vw, 100vw"
-                        src="{{ _m | img_url: '720x' }}"
-                        alt="{{ _m.alt | default: product.title | escape }}"
-                        loading="eager"
-                        width="{{ _m.preview_image.width }}"
-                        height="{{ _m.preview_image.height }}"
-                        data-media-id="{{ _m.id }}"
-                      >
-                    {%- endif -%}
-                  </div>
-                  {%- assign _slide_i = 1 -%}
-                {%- endif -%}
-
-                {%- comment -%} Slot 1 (or 0 if only 1 image) — original first image {%- endcomment -%}
-                {%- assign _m = product.media[0] -%}
-                <div class="cro-gallery__slide{% unless product.media.size > 1 %} is-active{% endunless %}" data-index="{{ _slide_i }}" aria-hidden="{% if product.media.size > 1 %}true{% else %}false{% endif %}">
-                  {%- if _m.media_type == 'video' -%}
-                    {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
-                  {%- elsif _m.media_type == 'external_video' -%}
-                    {{ _m | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping }}
-                  {%- else -%}
-                    <img
-                      srcset="{{ _m | img_url: '480x' }} 480w, {{ _m | img_url: '720x' }} 720w, {{ _m | img_url: '1080x' }} 1080w"
-                      sizes="(min-width: 990px) 50vw, 100vw"
-                      src="{{ _m | img_url: '720x' }}"
-                      alt="{{ _m.alt | default: product.title | escape }}"
-                      loading="lazy"
-                      width="{{ _m.preview_image.width }}"
-                      height="{{ _m.preview_image.height }}"
-                      data-media-id="{{ _m.id }}"
-                    >
-                  {%- endif -%}
-                </div>
-                {%- assign _slide_i = _slide_i | plus: 1 -%}
-
-                {%- comment -%} Slots 2+ — remaining images from index 2 onwards {%- endcomment -%}
-                {%- for media in product.media offset: 2 -%}
-                  <div class="cro-gallery__slide" data-index="{{ _slide_i }}" aria-hidden="true">
+                {%- for media in product.media -%}
+                  <div class="cro-gallery__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
                     {%- if media.media_type == 'video' -%}
                       {{ media | media_tag: image_size: '900x', autoplay: false, loop: section.settings.enable_video_looping, controls: true, preload: 'none' }}
                     {%- elsif media.media_type == 'external_video' -%}
@@ -177,14 +127,13 @@
                         sizes="(min-width: 990px) 50vw, 100vw"
                         src="{{ media | img_url: '720x' }}"
                         alt="{{ media.alt | default: product.title | escape }}"
-                        loading="lazy"
+                        loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                         width="{{ media.preview_image.width }}"
                         height="{{ media.preview_image.height }}"
                         data-media-id="{{ media.id }}"
                       >
                     {%- endif -%}
                   </div>
-                  {%- assign _slide_i = _slide_i | plus: 1 -%}
                 {%- endfor -%}
               </div>
 
@@ -224,28 +173,10 @@
         {%- comment -%} ── THUMBNAIL STRIP ── {%- endcomment -%}
         {%- if product.media.size > 1 -%}
           <div class="cro-gallery__thumbs" id="CroThumbs-{{ section.id }}" role="tablist">
-            {%- assign _ti = 0 -%}
-
-            {%- comment -%} Thumb 0 — image[1] first {%- endcomment -%}
-            {%- assign _m = product.media[1] -%}
-            <button class="cro-gallery__thumb is-active" data-index="0" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="true" aria-label="{{ _m.alt | default: product.title | escape }}">
-              <img src="{{ _m | img_url: '120x120', crop: 'center' }}" alt="{{ _m.alt | default: product.title | escape }}" loading="eager" width="120" height="120">
-            </button>
-            {%- assign _ti = 1 -%}
-
-            {%- comment -%} Thumb 1 — original first image {%- endcomment -%}
-            {%- assign _m = product.media[0] -%}
-            <button class="cro-gallery__thumb" data-index="{{ _ti }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="false" aria-label="{{ _m.alt | default: product.title | escape }}">
-              <img src="{{ _m | img_url: '120x120', crop: 'center' }}" alt="{{ _m.alt | default: product.title | escape }}" loading="lazy" width="120" height="120">
-            </button>
-            {%- assign _ti = 2 -%}
-
-            {%- comment -%} Thumbs 2+ — remaining images {%- endcomment -%}
-            {%- for media in product.media offset: 2 limit: 4 -%}
-              <button class="cro-gallery__thumb" data-index="{{ _ti }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="false" aria-label="{{ media.alt | default: product.title | escape }}">
-                <img src="{{ media | img_url: '120x120', crop: 'center' }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy" width="120" height="120">
+            {%- for media in product.media limit: 6 -%}
+              <button class="cro-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ media.alt | default: product.title | escape }}">
+                <img src="{{ media | img_url: '120x120', crop: 'center' }}" alt="{{ media.alt | default: product.title | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" width="120" height="120">
               </button>
-              {%- assign _ti = _ti | plus: 1 -%}
             {%- endfor -%}
           </div>
         {%- endif -%}
@@ -1899,7 +1830,7 @@
           "label": "No-subscription hint text",
           "default": "One-time purchase — subscribe & save on the 15 pack with free shipping always",
           "info": "Shown below variant buttons when the selected variant has no subscription plans."
-        }
+        },
       ]
     },
     {

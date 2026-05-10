@@ -25,7 +25,18 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
@@ -59,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per shot, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -68,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -119,14 +133,6 @@
             "title": "Shipping Information",
             "content": "<p>Subscribe & Save and get free shipping on every order — always. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allowing up to 5 days for rural addresses.</p>",
             "metafield_key": ""
-          }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
           }
         }
       },
@@ -194,7 +200,7 @@
         "stat_3"
       ],
       "settings": {
-        "bg_color": "#ef802e",
+        "bg_color": "#cf6f3c",
         "accent_color": "#ef802e",
         "highlight_color": "#fff2d7",
         "padding_top": 60,
@@ -207,7 +213,7 @@
         "kicker": "The GOJU Story",
         "heading": "Wellness you can feel",
         "heading_accent_word": "can feel",
-        "body_1": "Immune Guard is your daily line of defence — a potent, cold-pressed shot formulated to keep your immune system primed and ready.",
+        "body_1": "Immune Guard is your daily line of defence — a potent blend formulated to keep your immune system primed and ready.",
         "body_2": "Packed with vitamin C, zinc, and natural antioxidants, one shot a day gives your body the tools it needs to fight back.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
@@ -216,7 +222,7 @@
         "pill_3_icon": "🛡️",
         "pill_3_text": "Immune support",
         "accent_color": "#ef802e",
-        "image": "shopify://shop_images/Gemini_Generated_Image_7me7w27me7w27me7.jpg",
+        "image": "shopify://shop_images/Gemini_Generated_Image_uqfx2ouqfx2ouqfx_1c194683-82b6-480a-a701-2bd378e15cfb.png",
         "quote": "\"Mānuka honey is one of New Zealand's most naturally beneficial ingredients\"",
         "quote_attr": "— Tom, GOJU Founder",
         "padding_top": 80,
@@ -332,7 +338,7 @@
         "heading_accent": "Immune Guard",
         "accent_color": "#ef802e",
         "highlight_color": "#fff2d7",
-        "image": "shopify://shop_images/Gemini_Generated_Image_uqfx2ouqfx2ouqfx_1c194683-82b6-480a-a701-2bd378e15cfb.png",
+        "image": "shopify://shop_images/immune-guard-ingredients_d0f1953d-6c76-42e4-b4bb-b96124a038cd.jpg",
         "visual_bg_color": "",
         "badge_text": "Support immunity",
         "cta_label": "Shop Immune Guard",
@@ -404,7 +410,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "We currently only ship within New Zealand."
+            "answer": "Sorry to our friends across ditch - GOJU currently only ships within NZ."
           }
         }
       },

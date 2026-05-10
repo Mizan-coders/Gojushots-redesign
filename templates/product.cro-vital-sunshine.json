@@ -25,7 +25,18 @@
         },
         "short_description": {
           "type": "short_description",
-          "settings": {}
+          "settings": {
+            "read_more_label": "Read More",
+            "hide_read_more": false
+          }
+        },
+        "growave_review_avg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": "",
+            "element_to_scroll_id": "",
+            "element_to_click_id": ""
+          }
         },
         "benefit_pills": {
           "type": "benefit_pills",
@@ -59,6 +70,8 @@
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
+            "shots_per_pack": 15,
+            "per_shot_label": "Just {price} per shot, delivered to your door.",
             "freq_label": "Deliver every",
             "freq_unit": "weeks",
             "default_freq": "2w",
@@ -68,6 +81,7 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "nosub_upsell": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked."
           }
@@ -120,14 +134,6 @@
             "content": "<p>Subscribe & Save and get free shipping on every order. One-time orders: $8 flat rate NZ-wide. Delivered within 2–3 business days throughout NZ, allowing up to 5 days for rural addresses.</p>",
             "metafield_key": ""
           }
-        },
-        "growave_review_avg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewAvgProfile/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": "",
-            "element_to_scroll_id": "",
-            "element_to_click_id": ""
-          }
         }
       },
       "block_order": [
@@ -174,7 +180,7 @@
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "46x",
+            "number": "144×",
             "label": "Curcuwin® has 46 times greater relative absorption than standard curcumin",
             "sub": "Clinically proven, third party verified"
           }
@@ -207,7 +213,7 @@
         "kicker": "The GOJU Story",
         "heading": "Wellness that actually works",
         "heading_accent_word": "actually works",
-        "body_1": "Vital Sunshine is our daily recovery and vitality shot — a bright, cold-pressed blend of organic turmeric, CurcuWin® and Vitamin D, designed to support your joints, aid recovery and keep you moving well.",
+        "body_1": "Vital Sunshine is our daily recovery and vitality shot — a bright blend of organic turmeric, CurcuWin® and Vitamin D, designed to support your joints, aid recovery and keep you moving well.",
         "body_2": "Most turmeric products don't absorb properly. CurcuWin® is a clinically studied curcumin extract with 46× higher absorption than standard turmeric — so your body actually gets what it needs.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
@@ -217,7 +223,7 @@
         "pill_3_text": "Sustainable packaging",
         "accent_color": "#e94025",
         "image": "shopify://shop_images/Gemini_Generated_Image_71vle271vle271vl.png",
-        "quote": "\"Goju exists because I wanted something that actually worked.\"",
+        "quote": "\"Vital Sunshine contains one of the most effective, clinically backed curcumin extracts.\"",
         "quote_attr": "— Belle, GOJU Founder",
         "padding_top": 80,
         "padding_bottom": 80
@@ -332,7 +338,7 @@
         "heading_accent": "Vital Sunshine",
         "accent_color": "#e94025",
         "highlight_color": "#f5dfa3",
-        "image": "shopify://shop_images/pomelli-image_16.png",
+        "image": "shopify://shop_images/vital-sunshine-ingredients.jpg",
         "visual_bg_color": "",
         "badge_text": "30-Day Guarantee",
         "cta_label": "Shop Vital Sunshine",
@@ -404,7 +410,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+            "answer": "Sorry to our friends across the ditch - GOJU currently only ships within NZ."
           }
         }
       },

@@ -166,6 +166,29 @@
     .ws-{{ section.id }} .ws__grid {
       grid-template-columns: 1fr;
     }
+    @media screen and (max-width: 749px) {
+    .ws-{{ section.id }} {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .ws-{{ section.id }} .ws__inner {
+      padding-left: 20px;
+    }
+    .ws-{{ section.id }} .ws__grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 12px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 16px;
+    }
+    .ws-{{ section.id }} .ws__card {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
   }
 {%- endstyle -%}
 
