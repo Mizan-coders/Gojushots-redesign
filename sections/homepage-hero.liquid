@@ -1,9 +1,45 @@
+{%- liquid
+  assign text_h = section.settings.text_position_h | default: 'left'
+  assign text_v = section.settings.text_position_v | default: 'middle'
+  assign text_v_mobile = section.settings.text_position_v_mobile | default: 'bottom'
+
+  case text_h
+    when 'center'
+      assign hero_justify = 'center'
+    when 'right'
+      assign hero_justify = 'flex-end'
+    else
+      assign hero_justify = 'flex-start'
+  endcase
+
+  case text_v
+    when 'top'
+      assign hero_align = 'flex-start'
+    when 'bottom'
+      assign hero_align = 'flex-end'
+    else
+      assign hero_align = 'center'
+  endcase
+
+  case text_v_mobile
+    when 'top'
+      assign hero_align_mobile = 'flex-start'
+    when 'middle'
+      assign hero_align_mobile = 'center'
+    else
+      assign hero_align_mobile = 'flex-end'
+  endcase
+-%}
+
 {%- style -%}
   .hero-{{ section.id }} {
     position: relative;
     min-height: {{ section.settings.hero_height | default: 80 }}vh;
     display: flex;
-    align-items: center;
+    align-items: {{ hero_align }};
+    justify-content: {{ hero_justify }};
+    padding-top: 60px;
+    padding-bottom: 60px;
     overflow: hidden;
     background: #1F1A17;
     --hero-overlay: {{ section.settings.overlay_opacity | default: 45 | times: 0.01 }};
@@ -40,6 +76,7 @@
     padding-left: 80px;
     padding-right: 80px;
     max-width: 780px;
+    text-align: {{ text_h }};
   }
 
   /* ── Eyebrow ── */
@@ -80,6 +117,13 @@
     line-height: 1.6;
     margin: 0 0 40px;
     max-width: 480px;
+    {%- if text_h == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {%- elsif text_h == 'right' %}
+    margin-left: auto;
+    margin-right: 0;
+    {%- endif %}
   }
 
   /* ── CTAs ── */
@@ -87,6 +131,7 @@
     display: flex;
     gap: 14px;
     align-items: center;
+    justify-content: {{ hero_justify }};
     flex-wrap: wrap;
   }
   /* Primary CTA size override for hero */
@@ -120,11 +165,18 @@
   @media screen and (max-width: 749px) {
     .hero-{{ section.id }} {
       min-height: {{ section.settings.hero_height_mobile | default: 90 }}vh;
-      align-items: flex-end;
+      align-items: {{ hero_align_mobile }};
+      padding-top: 52px;
       padding-bottom: 52px;
     }
     .hero-{{ section.id }}::after {
+      {%- if text_v_mobile == 'top' %}
+      background: linear-gradient(to bottom, rgba(31, 26, 23, 0.65) 0%, transparent 65%);
+      {%- elsif text_v_mobile == 'middle' %}
+      background: rgba(31, 26, 23, var(--hero-overlay, 0.45));
+      {%- else %}
       background: linear-gradient(to top, rgba(31, 26, 23, 0.65) 0%, transparent 65%);
+      {%- endif %}
     }
     .hero-{{ section.id }} .hero__content {
       padding-left: 24px;
@@ -268,6 +320,45 @@
       "step": 5,
       "default": 90,
       "unit": "vh"
+    },
+    {
+      "type": "header",
+      "content": "Text Position"
+    },
+    {
+      "type": "select",
+      "id": "text_position_h",
+      "label": "Horizontal position (desktop)",
+      "info": "Moves the text block left, centre or right. Text alignment follows automatically.",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_position_v",
+      "label": "Vertical position (desktop)",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "text_position_v_mobile",
+      "label": "Vertical position (mobile)",
+      "info": "The dark gradient moves with the text so it stays readable.",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "bottom"
     },
     {
       "type": "header",
