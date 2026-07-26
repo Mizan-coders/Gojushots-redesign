@@ -43,6 +43,7 @@
     overflow: hidden;
     background: #1F1A17;
     --hero-overlay: {{ section.settings.overlay_opacity | default: 45 | times: 0.01 }};
+    --hero-overlay-mobile: {{ section.settings.overlay_opacity_mobile | default: 65 | times: 0.01 }};
   }
 
   /* ── Background image ── */
@@ -171,11 +172,11 @@
     }
     .hero-{{ section.id }}::after {
       {%- if text_v_mobile == 'top' %}
-      background: linear-gradient(to bottom, rgba(31, 26, 23, 0.65) 0%, transparent 65%);
+      background: linear-gradient(to bottom, rgba(31, 26, 23, var(--hero-overlay-mobile, 0.65)) 0%, transparent 65%);
       {%- elsif text_v_mobile == 'middle' %}
-      background: rgba(31, 26, 23, var(--hero-overlay, 0.45));
+      background: rgba(31, 26, 23, var(--hero-overlay-mobile, 0.65));
       {%- else %}
-      background: linear-gradient(to top, rgba(31, 26, 23, 0.65) 0%, transparent 65%);
+      background: linear-gradient(to top, rgba(31, 26, 23, var(--hero-overlay-mobile, 0.65)) 0%, transparent 65%);
       {%- endif %}
     }
     .hero-{{ section.id }} .hero__content {
@@ -368,11 +369,22 @@
       "type": "range",
       "id": "overlay_opacity",
       "label": "Overlay darkness (desktop)",
-      "info": "Higher = darker overlay. Mobile always uses a gradient.",
+      "info": "Higher = darker overlay, which makes light images easier to read text on.",
       "min": 0,
       "max": 80,
       "step": 5,
       "default": 45,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity_mobile",
+      "label": "Overlay darkness (mobile)",
+      "info": "On mobile the darkness fades away from the text, so this sets the strongest point. Set to 0% for no overlay.",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 65,
       "unit": "%"
     },
     {
