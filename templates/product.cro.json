@@ -66,7 +66,7 @@
             "label_sub": "Subscribe & Save",
             "discount_percent": 10,
             "sub_note": "Free shipping included",
-            "onetime_shipping": "+ $8 shipping · subscribe for free shipping always",
+            "onetime_shipping": "+ free shipping · subscribe for free shipping always",
             "perk_1": "10% off every order",
             "perk_2": "Free shipping, always",
             "perk_3": "Swap, skip or cancel anytime",
@@ -173,7 +173,7 @@
           "type": "stat",
           "settings": {
             "number": "5000+",
-            "label": "years ginseng has been used for energy and focus",
+            "label": "Years, valued for supporting vitality and overall wellbeing",
             "sub": "Effective ingredient through the ages"
           }
         },
@@ -213,8 +213,8 @@
         "kicker": "The GOJU Story",
         "heading": "Wellness you can feel",
         "heading_accent_word": "can feel",
-        "body_1": "We built GOJU because we were tired of wellness products that were all label and no results. Action Shot is a concentrated, cold-pressed blend of ginger root, turmeric, lemon and apple — nothing hidden, nothing artificial.",
-        "body_2": "One shot in the morning, and your body gets exactly what it needs to fight inflammation, support immunity, and power through the day. It's not a supplement. It's food.",
+        "body_1": "Action Shot combines organic Fijian ginger, turmeric and ginseng in a concentrated daily wellness juice. Finished with New Zealand mānuka honey, it’s built on the same ginger and turmeric foundation that made Supershot a customer favourite.",
+        "body_2": "Originally known as Supershot, Action Shot was created for people who want functional ingredients they can actually taste. No powders. No shortcuts. Just real ingredients in a convenient daily format.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
         "pill_2_icon": "🧪",
@@ -239,7 +239,7 @@
             "image": "shopify://shop_images/Ginseng_a7893554-2f78-49da-b76c-4cc99a6522fe.png",
             "emoji": "🌿",
             "name": "Ginseng",
-            "benefit": "Supports sustained energy, helping you stay sharp and focused without the spike or crash of artificial stimulants.",
+            "benefit": "Traditionally valued for supporting vitality and overall wellbeing",
             "tag": "Stamina"
           }
         },
@@ -250,7 +250,7 @@
             "image": "shopify://shop_images/turmeric_ea306678-089c-4107-abd4-348d6283151b.png",
             "emoji": "",
             "name": "Turmeric",
-            "benefit": "Turmeric's active compounds support the body's natural response to inflammation and aid recovery — helping your body handle the physical demands you put it through and bounce back faster.",
+            "benefit": "Turmeric's active compounds support the body's natural response to inflammation and aid recovery — helping your body handle physical demands.",
             "tag": "Anti-inflammatory"
           }
         },
@@ -261,7 +261,7 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-03-22_at_23.42.44.jpg",
             "emoji": "🟡",
             "name": "Ginger",
-            "benefit": "Ginger supports circulation and gets your system fired up — traditionally used to activate the body from the inside out.",
+            "benefit": "Traditionally used to support digestion and natural warmth.",
             "tag": "warming"
           }
         },
@@ -308,21 +308,21 @@
           "type": "step",
           "settings": {
             "title": "Take it in the morning",
-            "description": "Action Shot is built to power your day from the start. Ginseng supports sustained energy and focus without the spike or crash — take it first thing and feel the difference by mid-morning."
+            "description": "Action Shot combines ginger, turmeric and ginseng in a concentrated daily wellness juice. Many customers enjoy it first thing in the morning as part of their daily routine."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "title": "Or before training",
-            "description": "Ginger supports circulation and gets your system fired up. Turmeric helps your body handle the physical demands of training and recover from them."
+            "title": "Enjoy it your way",
+            "description": "Drink chilled straight from the bottle, or pour over ice. Action Shot is designed to fit easily into your day, wherever it works best for you."
           }
         },
         "step_4": {
           "type": "step",
           "settings": {
-            "title": "Make it your morning signal",
-            "description": "The people who get the most from Action Shot are the ones who make it part of how they start. Not a rule — just a ritual. Open the fridge, shake the bottle, and tackle the day with vigour."
+            "title": "Make it a daily ritual",
+            "description": "The people who get the most from Action Shot are the ones who make it part of how they start."
           }
         }
       },
@@ -401,14 +401,14 @@
           "type": "faq_item",
           "settings": {
             "question": "What ingredients are in an Action Shot?",
-            "answer": "Goju Shots contains fresh NZ ginger root, turmeric root, lemon juice, apple juice, and black pepper extract. No added sugar, no preservatives, no artificial flavours — ever."
+            "answer": "Organic Fijian ginger juice, organic Fijian turmeric juice, ginseng, organic NZ apple juice, NZ lime juice, NZ mānuka honey, black pepper to activate. No added sugar, no preservatives, no artificial flavours — ever."
           }
         },
         "faq_2": {
           "type": "faq_item",
           "settings": {
             "question": "When is the best time to drink it?",
-            "answer": "First thing in the morning on an empty stomach is ideal for maximum absorption. Many customers also enjoy it before a workout for natural energy support."
+            "answer": "Morning, before or with breakfast. Many customers enjoy Action Shot as part of their daily wellness routine, but it can be enjoyed any time of day."
           }
         },
         "faq_3": {
@@ -422,7 +422,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+            "answer": "NZ only for now. Working on it."
           }
         }
       },

@@ -100,6 +100,7 @@
         },
         "mini_trust": {
           "type": "mini_trust",
+          "disabled": true,
           "settings": {
             "icon_1": "🔒",
             "text_1": "Secure checkout",
@@ -158,8 +159,8 @@
         "enable_sticky_info": true,
         "button_scheme": "green",
         "sticky_bg_color": "#191917",
-        "sticky_btn_color": "#f9c74f",
-        "sticky_btn_text_color": "#191917",
+        "sticky_btn_color": "#c92653",
+        "sticky_btn_text_color": "#f5f0e8",
         "sticky_rating_score": "5.0",
         "sticky_review_count": "13",
         "padding_top": 40,
@@ -211,10 +212,10 @@
       "type": "product-story",
       "settings": {
         "kicker": "The GOJU Story",
-        "heading": "Wellness you can feel",
-        "heading_accent_word": "can feel",
-        "body_1": "Ginger Ignition is our high-potency ginger shot with apple cider vinegar to support gut health — it's a fiery, concentrated blend designed to ignite your system and power you through the day.",
-        "body_2": "Cold-pressed and packed with active gingerols, one shot is all it takes to fire up your digestion, reduce inflammation and get moving.",
+        "heading": "WELLNESS YOU CAN FEEL",
+        "heading_accent_word": "CAN FEEL",
+        "body_1": "Ginger Ignition is our high-potency ginger shot with apple cider vinegar to support gut health. It's a fiery, concentrated blend designed to ignite your system and power you through the day.",
+        "body_2": "Packed with active gingerols, one shot is all it takes to fire up your digestion, support gut health and get moving.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
         "pill_2_icon": "🧪",
@@ -223,8 +224,8 @@
         "pill_3_text": "Sustainable packaging",
         "accent_color": "#e5194f",
         "image": "shopify://shop_images/ginger-ignition-ingredients_26a55d1d-6256-49c2-8345-c6877e1d351c.jpg",
-        "quote": "\"Ginger Ignition is the most concentrated ginger wellness shot on the market.\"",
-        "quote_attr": "— tom, GOJU Founder",
+        "quote": "",
+        "quote_attr": "",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -285,8 +286,8 @@
       ],
       "settings": {
         "kicker": "What's Inside",
-        "heading": "Active Ingredients",
-        "heading_accent_word": "Ingredients",
+        "heading": "ACTIVE INGREDIENTS",
+        "heading_accent_word": "INGREDIENTS",
         "bg_color": "",
         "accent_color": "#f2d4d7",
         "highlight_color": "#e5194d",
@@ -334,13 +335,13 @@
       ],
       "settings": {
         "kicker": "Simple Routine",
-        "heading": "How to use Ginger Ignition",
-        "heading_accent": "Ginger Ignition",
+        "heading": "HOW TO USE GINGER IGNITION",
+        "heading_accent": "GINGER IGNITION",
         "accent_color": "#e5194f",
         "highlight_color": "#f2d4d7",
         "image": "shopify://shop_images/ginger_ignition_wellness_shot.jpg",
         "visual_bg_color": "",
-        "badge_text": "Fire Up. Digest.",
+        "badge_text": "FIRE UP. DIGEST.",
         "cta_label": "Shop Ginger Ignition",
         "cta_url": "",
         "padding_top": 80,
@@ -389,14 +390,14 @@
           "type": "faq_item",
           "settings": {
             "question": "What ingredients are in Ginger Ignition?",
-            "answer": "Ginger Ignition contains high-potency fresh ginger, turmeric root, lemon juice, and black pepper extract. No added sugar, no preservatives, no artificial flavours — ever."
+            "answer": "Organic Apple Juice, Organic Fijian Ginger Juice, Organic NZ Apple Cider Vinegar, NZ Lemon Juice"
           }
         },
         "faq_2": {
           "type": "faq_item",
           "settings": {
             "question": "When is the best time to drink it?",
-            "answer": "First thing in the morning on an empty stomach is ideal for maximum absorption. Also great before a workout for natural energy support."
+            "answer": "We like taking Ginger Ignition in the morning post breakfast. Use this shot to support digestion and gut health."
           }
         },
         "faq_3": {
@@ -410,7 +411,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Do you ship to Australia?",
-            "answer": "Yes! We ship to Australia and New Zealand. Free shipping applies on qualifying order values. Delivery typically takes 3–7 business days."
+            "answer": "Sorry to our friends across the ditch - GOJU currently only ships within New Zealand."
           }
         }
       },
@@ -445,7 +446,7 @@
         "collection_1"
       ],
       "settings": {
-        "heading": "Complete your Wellness Routine",
+        "heading": "COMPLETE YOUR WELLNESS ROUTINE",
         "info": ""
       }
     },

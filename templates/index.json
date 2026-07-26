@@ -13,24 +13,24 @@
       "type": "homepage-hero",
       "name": "Hero Banner",
       "settings": {
-        "image": "shopify://shop_images/Website_Hero_746312b5-0e75-470c-a023-0d4752198aee.png",
-        "image_mobile": "shopify://shop_images/Website_Hero_mobile.png",
+        "image": "shopify://shop_images/GOJU_GROUP_SHOT2_BANNER.jpg",
+        "image_mobile": "shopify://shop_images/GOJU_GROUP_SHOT1-P.png",
         "image_position": "center center",
         "hero_height": 95,
-        "hero_height_mobile": 100,
-        "overlay_opacity": 10,
-        "eyebrow": "Welcome to GOJU",
-        "eyebrow_color": "#1f1a17",
+        "hero_height_mobile": 65,
+        "overlay_opacity": 35,
+        "eyebrow": "",
+        "eyebrow_color": "#000000",
         "eyebrow_size": 11,
         "heading_line1": "Functional wellness",
         "heading_italic": "for those who read the label",
         "heading_line2": "",
-        "subtext": "Immunity, performance, sleep, digestion, recovery. We've got the shot to meet your lifestyle.",
-        "subtext_color": "#1f1a17",
+        "subtext": "High-strength wellness shots made in New Zealand. Clinically backed ingredients. No fillers. No watered-down formulas.",
+        "subtext_color": "#ffffff",
         "subtext_size": 17,
         "heading_size": 100,
         "heading_transform": "uppercase",
-        "heading_color": "#191917",
+        "heading_color": "#ffffff",
         "italic_color": "#ffffff",
         "cta1_label": "Shop GOJU Range →",
         "cta1_url": "shopify://collections/shop",
@@ -632,13 +632,90 @@
         "padding_bottom": 14
       }
     },
+    "homepage_reviews_fDwEyT": {
+      "type": "homepage-reviews",
+      "blocks": {
+        "review_njcbQ3": {
+          "type": "review",
+          "settings": {
+            "name": "Milly Stewart",
+            "initials": "MS",
+            "avatar_color": "#a5d6a7",
+            "rating": 5,
+            "review_text": "I take a Goju Ginger shot every morning, so great for waking me up and I swear I never get sick!",
+            "product_name": "GINGER IGNITION"
+          }
+        },
+        "review_QaeqNy": {
+          "type": "review",
+          "settings": {
+            "name": "Melanie Henshaw",
+            "initials": "MH",
+            "avatar_color": "#EDE4D1",
+            "rating": 5,
+            "review_text": "Such a good staple for our fridge. We run hard at life and while I'm not a scientist, I'm sure these have helped me keep away nasty bugs, recover from jet lag and boost my general vitamin intake. The vibes are high, the flavour is delicious.",
+            "product_name": "IMMUNE GUARD"
+          }
+        },
+        "review_UjUfiN": {
+          "type": "review",
+          "settings": {
+            "name": "Abbey Fox",
+            "initials": "AF",
+            "avatar_color": "#d4f24a",
+            "rating": 5,
+            "review_text": "Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling asleep faster which is essential as a busy mum of two.",
+            "product_name": "Good Night"
+          }
+        },
+        "review_YzWHJn": {
+          "type": "review",
+          "settings": {
+            "name": "Simon Dickson",
+            "initials": "SD",
+            "avatar_color": "#ffcc80",
+            "rating": 5,
+            "review_text": "Not diluted with the many additives others use in the market — great concentration of turmeric and pepper for that kick. Great after a good breakfast to set up your day.",
+            "product_name": "Vital Sunshine"
+          }
+        }
+      },
+      "block_order": [
+        "review_njcbQ3",
+        "review_QaeqNy",
+        "review_UjUfiN",
+        "review_YzWHJn"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "bg_color": "#ede4d1",
+        "headline": "Real results.",
+        "headline_italic": "Real people.",
+        "sub_headline": "",
+        "sub_color": "#888888",
+        "sub_size": 16,
+        "heading_size": 52,
+        "heading_weight": "700",
+        "heading_transform": "uppercase",
+        "heading_color": "#1f1a17",
+        "italic_color": "#1f1a17",
+        "score": "4.9",
+        "score_stars": 5,
+        "review_count": "Based on 100+ reviews",
+        "verified_count": "",
+        "write_review_label": "",
+        "write_review_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "homepage_press_AsSeenIn": {
       "type": "homepage-press",
       "blocks": {
         "logo_DrtcGa": {
           "type": "logo",
           "settings": {
-            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-04.svg",
+            "logo": "shopify://shop_images/URBAN-LIST.png",
             "logo_url": "",
             "logo_alt": ""
           }
@@ -687,7 +764,7 @@
         "label_text": "As Seen In",
         "label_color": "#666666",
         "label_size": 11,
-        "bg_color": "#f7f1e4",
+        "bg_color": "#e6ddcc",
         "padding_top": 32,
         "padding_bottom": 48
       }
@@ -695,36 +772,20 @@
     "homepage_pick_goal_GhQmtE": {
       "type": "homepage-pick-goal",
       "blocks": {
-        "product_card_gcqQRz": {
+        "product_card_gQ8Jd6": {
           "type": "product_card",
           "settings": {
-            "product": "good-night",
+            "product": "sample-pack",
             "name_override": "",
-            "goals": "Sleep, Recovery",
-            "goal_label": "RELAX. DRIFT. DREAM",
-            "badge_type": "bestseller",
-            "badge_text": "NEW",
-            "short_desc": "100mg L-theanine + 50mg magnesium with NZ cherry juice and lemon balm.",
+            "goals": "energy",
+            "goal_label": "BEST PLACE TO START.",
+            "badge_type": "new",
+            "badge_text": "START HERE",
+            "short_desc": "Discover your favourite GOJU formula with all 5 functional shots.",
             "price_text": "",
-            "pack_text": "/ 9 pack",
+            "pack_text": "/ 5 pack",
             "star_rating": 5,
-            "review_count": "0"
-          }
-        },
-        "product_card_4Ygmp9": {
-          "type": "product_card",
-          "settings": {
-            "product": "immune-guard",
-            "name_override": "",
-            "goals": "Immunity",
-            "goal_label": "Defend. Fortify.",
-            "badge_type": "bestseller",
-            "badge_text": "Best Seller",
-            "short_desc": "200% of your daily vitamin C, in one shot with ginger mānuka and zinc.",
-            "price_text": "",
-            "pack_text": "/ 9 pack",
-            "star_rating": 5,
-            "review_count": "12"
+            "review_count": "48"
           }
         },
         "product_card_niJt67": {
@@ -735,12 +796,44 @@
             "goals": "Performance, Recovery",
             "goal_label": "Power body. Charge mind.",
             "badge_type": "bestseller",
+            "badge_text": "FLAGSHIP",
+            "short_desc": "Our flagship blend for daily energy, performance and recovery.",
+            "price_text": "",
+            "pack_text": "/ 12 pack",
+            "star_rating": 5,
+            "review_count": "13"
+          }
+        },
+        "product_card_4Ygmp9": {
+          "type": "product_card",
+          "settings": {
+            "product": "immune-guard",
+            "name_override": "",
+            "goals": "Immunity",
+            "goal_label": "Defend. Fortify.",
+            "badge_type": "none",
             "badge_text": "Best Seller",
-            "short_desc": "200mg Ginseng in every bottle. Power up without the jitters.",
+            "short_desc": "200% daily vitamin C with mānuka honey and ginger to support immunity year-round.",
             "price_text": "",
             "pack_text": "/ 9 pack",
             "star_rating": 5,
-            "review_count": "15"
+            "review_count": "24"
+          }
+        },
+        "product_card_7hBCQ3": {
+          "type": "product_card",
+          "settings": {
+            "product": "ginger-ignition",
+            "name_override": "",
+            "goals": "Digestion",
+            "goal_label": "fire up. digest",
+            "badge_type": "new",
+            "badge_text": "",
+            "short_desc": "25% organic Fijian ginger juice – New Zealand’s highest-dosed ginger shot.",
+            "price_text": "",
+            "pack_text": "/ 9 pack",
+            "star_rating": 5,
+            "review_count": "24"
           }
         },
         "product_card_jaXcBw": {
@@ -756,23 +849,23 @@
             "price_text": "",
             "pack_text": "/ 9 pack",
             "star_rating": 5,
-            "review_count": "1"
+            "review_count": "14"
           }
         },
-        "product_card_7hBCQ3": {
+        "product_card_gcqQRz": {
           "type": "product_card",
           "settings": {
-            "product": "ginger-ignition",
+            "product": "good-night",
             "name_override": "",
-            "goals": "Digestion",
-            "goal_label": "fire up. digest",
-            "badge_type": "new",
-            "badge_text": "",
-            "short_desc": "25% organic Fijian ginger - the highest-dosed ginger shot in NZ.",
+            "goals": "Sleep, Recovery",
+            "goal_label": "RELAX. DRIFT. DREAM",
+            "badge_type": "none",
+            "badge_text": "NEW",
+            "short_desc": "100mg L-theanine + 50mg magnesium with NZ cherry juice and lemon balm.",
             "price_text": "",
             "pack_text": "/ 9 pack",
             "star_rating": 5,
-            "review_count": "10"
+            "review_count": "0"
           }
         },
         "product_card_8tABwR": {
@@ -802,7 +895,7 @@
             "badge_text": "",
             "short_desc": "Three shots, three different solutions.",
             "price_text": "",
-            "pack_text": "/ 12 pack",
+            "pack_text": "/ 9 pack",
             "star_rating": 5,
             "review_count": "0"
           }
@@ -826,11 +919,12 @@
         }
       },
       "block_order": [
-        "product_card_gcqQRz",
-        "product_card_4Ygmp9",
+        "product_card_gQ8Jd6",
         "product_card_niJt67",
-        "product_card_jaXcBw",
+        "product_card_4Ygmp9",
         "product_card_7hBCQ3",
+        "product_card_jaXcBw",
+        "product_card_gcqQRz",
         "product_card_8tABwR",
         "product_card_mRML7A",
         "product_card_EDqjMV"
@@ -841,10 +935,10 @@
         "eyebrow_color": "#1f1a17",
         "eyebrow_size": 11,
         "heading": "Find your",
-        "heading_accent": "formula",
+        "heading_accent": "FORMULA",
         "subtext": "Choose what you're working toward, we've got the right blend for it.",
         "heading_color": "#191917",
-        "italic_color": "#d0d893",
+        "italic_color": "#1f1a17",
         "heading_size": 60,
         "subtext_color": "#1f1a17",
         "subtext_size": 16,
@@ -893,7 +987,7 @@
           "settings": {
             "feature": "No Water or Filler",
             "goju_text": "Water is great but not in a wellness shot. Expect only quality ingredients.",
-            "competitor_text": "Water listed as thier first ingredient diluting and cheapening thier product."
+            "competitor_text": "Water listed as their first ingredient, diluting and cheapening their product."
           }
         },
         "row_qjUqei": {
@@ -955,10 +1049,10 @@
         "eyebrow": "When it comes to our products, we never cut corners",
         "eyebrow_color": "#f7f1e4",
         "eyebrow_size": 11,
-        "title_italic": "Why",
+        "title_italic": "WHY",
         "title_main": "GOJU",
         "heading_color": "#ffffff",
-        "italic_color": "#d0d893",
+        "italic_color": "#f7fafd",
         "heading_size": 68,
         "goju_logo": "shopify://shop_images/New_1_2x_2.png",
         "goju_logo_text": "GOJU.",
@@ -1028,7 +1122,7 @@
         "section_title_italic": "& SAVE",
         "section_sub": "Mix and match any 9-pack of shots.",
         "heading_color": "#0a0a0a",
-        "italic_color": "#d0d893",
+        "italic_color": "#1f1a17",
         "heading_size": 44,
         "sub_color": "#888888",
         "sub_size": 15,
@@ -1278,7 +1372,7 @@
         "heading_weight": "700",
         "heading_transform": "uppercase",
         "heading_color": "#ffffff",
-        "italic_color": "#d0d893",
+        "italic_color": "#551e41",
         "card_title": "Start Subscribing",
         "card_subtitle": "Pick your first product and lock in your savings today.",
         "subscribe_btn_label": "Subscribe & Save 10%",
@@ -1317,83 +1411,6 @@
         "view_all": "shopify://blogs/gojushots",
         "view_all_text": "Learn more",
         "enable_slider": false,
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "homepage_reviews_fDwEyT": {
-      "type": "homepage-reviews",
-      "blocks": {
-        "review_QaeqNy": {
-          "type": "review",
-          "settings": {
-            "name": "Jonathan Justice",
-            "initials": "JJ",
-            "avatar_color": "#EDE4D1",
-            "rating": 5,
-            "review_text": "First off the taste is great. I would have these every single morning if I got them in the USA. Very great flavor and easy to drink but no added sugars is a huge bonus for me.",
-            "product_name": "ACTION SHOT"
-          }
-        },
-        "review_UjUfiN": {
-          "type": "review",
-          "settings": {
-            "name": "Abbey Fox",
-            "initials": "AF",
-            "avatar_color": "#d4f24a",
-            "rating": 5,
-            "review_text": "\"Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling in love with Good Night.\"",
-            "product_name": "Good Night Shot"
-          }
-        },
-        "review_njcbQ3": {
-          "type": "review",
-          "settings": {
-            "name": "Michelle D. Frazer",
-            "initials": "MF",
-            "avatar_color": "#a5d6a7",
-            "rating": 5,
-            "review_text": "\"Love it! Delicious flavour, love the pepper hit. Only been drinking for three days so am keen to see improvement in inflammation soon.\"",
-            "product_name": "VITAL SUNSHINE"
-          }
-        },
-        "review_YzWHJn": {
-          "type": "review",
-          "settings": {
-            "name": "Bernadette Frost",
-            "initials": "BF",
-            "avatar_color": "#ffcc80",
-            "rating": 5,
-            "review_text": "\"Sooo refreshing plus sore throat compliments — I'm sure the super shot is stopping the throat getting worse. Love it!\"",
-            "product_name": "Vital Sunshine"
-          }
-        }
-      },
-      "block_order": [
-        "review_QaeqNy",
-        "review_UjUfiN",
-        "review_njcbQ3",
-        "review_YzWHJn"
-      ],
-      "name": "Reviews",
-      "settings": {
-        "bg_color": "#ede4d1",
-        "headline": "Real results.",
-        "headline_italic": "Real people.",
-        "sub_headline": "",
-        "sub_color": "#888888",
-        "sub_size": 16,
-        "heading_size": 52,
-        "heading_weight": "700",
-        "heading_transform": "uppercase",
-        "heading_color": "#1f1a17",
-        "italic_color": "#1f1a17",
-        "score": "4.9",
-        "score_stars": 5,
-        "review_count": "Based on 100+ reviews",
-        "verified_count": "",
-        "write_review_label": "Write a Review",
-        "write_review_url": "",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -1457,6 +1474,7 @@
     "homesec_3",
     "homesec_5",
     "homepage_trust_ticker_4Ew9FJ",
+    "homepage_reviews_fDwEyT",
     "homepage_press_AsSeenIn",
     "homepage_pick_goal_GhQmtE",
     "homepage_why_goju_cWe97M",
@@ -1465,7 +1483,6 @@
     "homepage_when_to_take_dBM67Q",
     "homepage_subscribe_iD7bTC",
     "homesec_11",
-    "homepage_reviews_fDwEyT",
     "16772150570bec987c",
     "homesec_7",
     "ecb75264-6232-4581-ba18-4272e75f00a9",

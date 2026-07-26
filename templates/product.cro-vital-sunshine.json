@@ -46,7 +46,7 @@
             "pill_2_icon": "🇳🇿",
             "pill_2_text": "Made in NZ",
             "pill_3_icon": "🔬",
-            "pill_3_text": "Clinically backed ingredients",
+            "pill_3_text": "144× Absorption",
             "pill_4_icon": "✓",
             "pill_4_text": "No Additives"
           }
@@ -123,7 +123,7 @@
           "type": "accordion_item",
           "settings": {
             "title": "Ingredients",
-            "content": "<p>Organic Fijian Turmeric Juice, Organic NZ Orange Juice, Organic Lemon Juice, CurcuWin® (curcumin extract), Vitamin D</p>",
+            "content": "<p>Organic Fijian turmeric juice, organic Fijian ginger juice, organic NZ apple juice, NZ lime juice, CurcuWin® Ultra+ (curcumin extract), vitamin D3, black pepper, cayenne pepper.</p>",
             "metafield_key": ""
           }
         },
@@ -181,7 +181,7 @@
           "type": "stat",
           "settings": {
             "number": "144×",
-            "label": "Curcuwin® has 46 times greater relative absorption than standard curcumin",
+            "label": "Higher absorption than standard curcumin.\nCurcuWin® Ultra+ — clinically studied, OmniActive authorised",
             "sub": "Clinically proven, third party verified"
           }
         },
@@ -189,7 +189,7 @@
           "type": "stat",
           "settings": {
             "number": "#1",
-            "label": "Curcumin is the most studied natural compound for inflammation and recovery",
+            "label": "Curcumin is the most studied natural compound for inflammation and recovery.",
             "sub": "Published research"
           }
         }
@@ -389,14 +389,14 @@
           "type": "faq_item",
           "settings": {
             "question": "What ingredients are in Vital Sunshine?",
-            "answer": "Vital Sunshine contains fresh lemon juice, turmeric root, apple juice, and ginger. No added sugar, no preservatives, no artificial flavours — ever."
+            "answer": "Organic turmeric juice, organic ginger juice, organic apple juice, NZ lemon juice, CurcuWin® Ultra+ (curcumin extract), vitamin D3, black pepper and cayenne pepper. No added sugar, no preservatives, no artificial flavours — ever."
           }
         },
         "faq_2": {
           "type": "faq_item",
           "settings": {
             "question": "When is the best time to drink it?",
-            "answer": "First thing in the morning on an empty stomach is ideal for maximum Vitamin C absorption and immune support."
+            "answer": "Morning, ideally with breakfast. Turmeric and Vitamin D are both fat-soluble — pairing your shot with a meal that contains healthy fats helps your body absorb the active ingredients."
           }
         },
         "faq_3": {

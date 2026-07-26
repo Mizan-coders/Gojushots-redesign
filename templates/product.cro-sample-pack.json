@@ -54,7 +54,7 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "variant_label": "Choose Pack Size",
+            "variant_label": "One pack size. all Five products.",
             "picker_type": "button",
             "nosub_hint": "One-time purchase — subscribe & save on the 15 pack with free shipping always"
           }
@@ -100,6 +100,7 @@
         },
         "mini_trust": {
           "type": "mini_trust",
+          "disabled": true,
           "settings": {
             "icon_1": "🔒",
             "text_1": "Secure checkout",
@@ -161,7 +162,7 @@
         "sticky_btn_color": "#f5f0e8",
         "sticky_btn_text_color": "#191917",
         "sticky_rating_score": "",
-        "sticky_review_count": "",
+        "sticky_review_count": "48",
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -208,6 +209,103 @@
         "padding_bottom": 60
       }
     },
+    "homepage_when_to_take_BKEiEa": {
+      "type": "homepage-when-to-take",
+      "blocks": {
+        "card_cGmqUE": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Ginger_ignition_2.png",
+            "image_url": "",
+            "time_label": "DIGESTION",
+            "title": "Fire Up",
+            "description": "Start your day with Ginger Ignition shot designed to wake your digestive system up and support gut health.",
+            "tags": "Ginger Ignition",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_mdVEak": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Immune_guard_2_975f2a1e-d47d-427c-ac2b-96e0cf74b4bf.png",
+            "image_url": "",
+            "time_label": "IMMUNITY",
+            "title": "Daily Defence",
+            "description": "Immune Guard is here is support your immune system from all angles. Take in the morning to start the day strong.",
+            "tags": "Immune Guard",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_dzWith": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Action_shot_2.png",
+            "image_url": "",
+            "time_label": "PERFORMANCE",
+            "title": "Power Through",
+            "description": "Ginseng, organic Fijian turmeric and ginger combine to help you tackle a big mental or physical shift.",
+            "tags": "Action Shot",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_tdBPAp": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png",
+            "image_url": "",
+            "time_label": "RECOVERY",
+            "title": "Recover Stronger",
+            "description": "Vital Sunshine is designed for hardworking bodies and minds. Move better through your daily routine.",
+            "tags": "Vital Sunshine",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        },
+        "card_DE8YqT": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Good_night_2.png",
+            "image_url": "",
+            "time_label": "SLEEP",
+            "title": "Wind Down",
+            "description": "Let Good Night do the work. Tart cherry, magnesium and L-theanine ease you into a relaxing evening routine.",
+            "tags": "Good Night",
+            "card_color": "#f7f8f4",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "card_cGmqUE",
+        "card_mdVEak",
+        "card_dzWith",
+        "card_tdBPAp",
+        "card_DE8YqT"
+      ],
+      "name": "When to Take Your Shot",
+      "settings": {
+        "bg_color": "#f5f0e8",
+        "card_bg_color": "",
+        "eyebrow": "Daily Routine",
+        "eyebrow_color": "#1f1a17",
+        "eyebrow_size": 11,
+        "title": "When to take your",
+        "title_italic": "shot.",
+        "subtitle": "GOJU fits into your day wherever you need it most.",
+        "subtitle_color": "#888888",
+        "subtitle_size": 16,
+        "heading_size": 52,
+        "heading_weight": "700",
+        "heading_transform": "none",
+        "heading_color": "#1f1a17",
+        "italic_color": "#1f1a17",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "product-story": {
       "type": "product-story",
       "settings": {
@@ -224,8 +322,8 @@
         "pill_3_text": "Sustainable packaging",
         "accent_color": "#752156",
         "image": "shopify://shop_images/samplepack3.png",
-        "quote": "\"We love the sample pack as an easy way to try all of our products.\"",
-        "quote_attr": "— Belle, goju founder",
+        "quote": "",
+        "quote_attr": "",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -261,7 +359,7 @@
             "card_color": "#a7c957",
             "image": "shopify://shop_images/Honey.png",
             "emoji": "🍋",
-            "name": "Mānuka Honey",
+            "name": "Manuka Honey",
             "benefit": "NZ mānuka honey contains bioactive properties and is known for it's wide ranging healing benefits.",
             "tag": "Bioactive"
           }
@@ -333,6 +431,7 @@
         "step_3",
         "step_4"
       ],
+      "disabled": true,
       "settings": {
         "kicker": "Simple Routine",
         "heading": "How to use Sample Pack",
@@ -354,7 +453,7 @@
         "growave_reviews": {
           "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.reviewWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
           "settings": {
-            "min_images_for_slider_visibility": 6,
+            "min_images_for_slider_visibility": 12,
             "reviews_per_page": 5,
             "custom_css": ""
           }
@@ -446,7 +545,7 @@
         "collection_1"
       ],
       "settings": {
-        "heading": "Complete your Wellness Routine",
+        "heading": "Found your favourite?",
         "info": ""
       }
     },
@@ -456,107 +555,12 @@
         "include_margins": false,
         "anchor_link_id": "reviews"
       }
-    },
-    "homepage_when_to_take_BKEiEa": {
-      "type": "homepage-when-to-take",
-      "blocks": {
-        "card_cGmqUE": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Ginger_ignition_2.png",
-            "image_url": "",
-            "time_label": "Post Breakfast",
-            "title": "Fire Up",
-            "description": "Start your day with Ginger Ignition shot designed to wake your digestive system up and support gut health.",
-            "tags": "Ginger Ignition",
-            "card_color": "#f7f8f4",
-            "featured": false
-          }
-        },
-        "card_mdVEak": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Immune_guard_2_975f2a1e-d47d-427c-ac2b-96e0cf74b4bf.png",
-            "image_url": "",
-            "time_label": "Mid-Morning",
-            "title": "Daily Defence",
-            "description": "Immune Guard is here is support your immune system from all angles. Take in the morning to start the day strong.",
-            "tags": "Immune Guard",
-            "card_color": "#f7f8f4",
-            "featured": false
-          }
-        },
-        "card_dzWith": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Action_shot_2.png",
-            "image_url": "",
-            "time_label": "Early Afternoon",
-            "title": "Power Through",
-            "description": "Ginseng, organic Fijian turmeric and ginger combine to help you tackle a big mental or physical shift.",
-            "tags": "Action Shot",
-            "card_color": "#f7f8f4",
-            "featured": false
-          }
-        },
-        "card_tdBPAp": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Vital_sunshine_2_d72a021a-571e-4816-b0ca-5de91cb9fc2a.png",
-            "image_url": "",
-            "time_label": "Post-workout",
-            "title": "Recover Stronger",
-            "description": "Vital Sunshine is designed for hardworking bodies and minds. Move better through your daily routine.",
-            "tags": "Vital Sunshine",
-            "card_color": "#f7f8f4",
-            "featured": false
-          }
-        },
-        "card_DE8YqT": {
-          "type": "card",
-          "settings": {
-            "image_url": "",
-            "time_label": "Evening",
-            "title": "Wind Down",
-            "description": "Let Good Night do the work. Tart cherry, magnesium and L-theanine ease you into a relaxing evening routine.",
-            "tags": "Good Night",
-            "card_color": "#f7f8f4",
-            "featured": false
-          }
-        }
-      },
-      "block_order": [
-        "card_cGmqUE",
-        "card_mdVEak",
-        "card_dzWith",
-        "card_tdBPAp",
-        "card_DE8YqT"
-      ],
-      "name": "When to Take Your Shot",
-      "settings": {
-        "bg_color": "#F5F0E8",
-        "card_bg_color": "",
-        "eyebrow": "Daily Routine",
-        "eyebrow_color": "#1F1A17",
-        "eyebrow_size": 11,
-        "title": "When to take your",
-        "title_italic": "shot.",
-        "subtitle": "GOJU fits into your day wherever you need it most — morning, workout or afternoon slump.",
-        "subtitle_color": "#888888",
-        "subtitle_size": 16,
-        "heading_size": 52,
-        "heading_weight": "700",
-        "heading_transform": "none",
-        "heading_color": "#1F1A17",
-        "italic_color": "#1F1A17",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
     }
   },
   "order": [
     "main",
     "stats-band",
+    "homepage_when_to_take_BKEiEa",
     "product-story",
     "ingredients",
     "how-to-use",
@@ -564,7 +568,6 @@
     "ugc",
     "faq",
     "crosssell",
-    "loox-reviews",
-    "homepage_when_to_take_BKEiEa"
+    "loox-reviews"
   ]
 }

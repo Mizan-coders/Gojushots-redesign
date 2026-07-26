@@ -1045,7 +1045,7 @@
     }
 
     // ── 3. Mode toggle (One-time / Subscribe) ──
-    var stickyMode = 'sub';
+    var stickyMode = (pw && pw.dataset.noSub === 'true') ? 'once' : 'sub';
 
     function setMode(mode) {
       stickyMode = mode;
@@ -1088,7 +1088,7 @@
     }
 
     // Initialise price display
-    if (priceEl) priceEl.textContent = getStickyPrice('sub', window._croCurrentVariantPrice);
+    if (priceEl) priceEl.textContent = getStickyPrice(stickyMode, window._croCurrentVariantPrice);
 
     // ── 4. Variant change ──
     document.addEventListener('variant:change', function(e) {
@@ -1149,6 +1149,7 @@
     var onetimePrice = rawPrice / 100;
     var subPrice     = Math.round(rawPrice * (1 - discount / 100)) / 100;
     var saving       = Math.round((onetimePrice - subPrice) * 100) / 100;
+    var freeShipThreshold = 85; // NZD: orders at or over this get free shipping
 
     // Build planId → per_delivery_price map from variant selling_plan_allocations
     var planPriceMap = {};
@@ -1230,7 +1231,8 @@
       var displayPrice  = (planId && planPriceMap[String(planId)] !== undefined)
                           ? planPriceMap[String(planId)] / 100
                           : subPrice;
-      var displaySaving = Math.round((onetimePrice + 8 - displayPrice) * 100) / 100;
+      var _otShip = onetimePrice >= freeShipThreshold ? 0 : 8;
+      var displaySaving = Math.round((onetimePrice + _otShip - displayPrice) * 100) / 100;
       if (elPrice)  elPrice.textContent  = money(displayPrice);
       if (elWas)    elWas.innerHTML      = '<s>' + money(onetimePrice) + '</s> one-time price';
       if (elSaving) { elSaving.textContent = 'Save ' + money(displaySaving) + ' per order'; elSaving.hidden = false; }
@@ -1266,14 +1268,19 @@
       if (elPrice)  elPrice.textContent  = money(onetimePrice);
       if (elWas)    elWas.innerHTML      = '';
       if (elSaving) elSaving.hidden      = true;
-      var _ship = 8;
+     var _ship = onetimePrice >= freeShipThreshold ? 0 : 8;
       var _otTotal = Math.round((onetimePrice + _ship) * 100) / 100;
       var _saving  = Math.round((onetimePrice + _ship - subPrice) * 100) / 100;
       if (elNote) {
+        var _otText = _ship === 0
+          ? 'One-time: ' + money(onetimePrice) + ' delivered, free shipping included.'
+          : 'One-time: ' + money(onetimePrice) + ' + $' + _ship + ' shipping = ' + money(_otTotal) + ' delivered.';
         if (currentVariantHasPlans) {
-          elNote.innerHTML = 'One-time: ' + money(onetimePrice) + ' + $' + _ship + ' shipping = ' + money(_otTotal) + ' delivered. Subscribe: <span style="color:#1D9E75;font-weight:500;">' + money(subPrice) + ' with free shipping always</span> — save ' + money(_saving) + ' every order. Cancel anytime.';
+          var _subText = ' Subscribe: <span style="color:#1D9E75;font-weight:500;">' + money(subPrice) + ' with free shipping always</span>.';
+          if (_saving > 0) { _subText += ' Save ' + money(_saving) + ' every order.'; }
+          elNote.innerHTML = _otText + _subText + ' Cancel anytime.';
         } else {
-          elNote.textContent = 'One-time: ' + money(onetimePrice) + ' + $' + _ship + ' shipping = ' + money(_otTotal) + ' delivered.';
+          elNote.textContent = _otText;
         }
       }
       if (elPerks)  elPerks.hidden       = true;

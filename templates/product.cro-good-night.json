@@ -46,7 +46,7 @@
             "pill_2_icon": "🇳🇿",
             "pill_2_text": "Made in NZ",
             "pill_3_icon": "🍒",
-            "pill_3_text": "High-Strength",
+            "pill_3_text": "Clinical Dose",
             "pill_4_icon": "✓",
             "pill_4_text": "No Additives"
           }
@@ -389,7 +389,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What ingredients are in Good Night?",
-            "answer": "Good Night contains NZ cherries, L-theanine, magnesium, and lemon balm. No added sugar, no preservatives, no artificial flavours — ever."
+            "answer": "NZ cherry juice (52%), NZ kiwifruit juice, NZ boysenberry juice, NZ lemon juice, lemon balm leaf extract, magnesium gluconate, and L-theanine. No added sugar, no preservatives, no artificial flavours — ever"
           }
         },
         "faq_2": {

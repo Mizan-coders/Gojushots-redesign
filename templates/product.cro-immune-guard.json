@@ -373,6 +373,17 @@
     },
     "ugc": {
       "type": "product-ugc",
+      "blocks": {
+        "photo_9w8mHX": {
+          "type": "photo",
+          "settings": {
+            "handle": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_9w8mHX"
+      ],
       "disabled": true,
       "settings": {
         "heading": "Loved by our community",
