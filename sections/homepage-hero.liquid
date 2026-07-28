@@ -29,6 +29,33 @@
     else
       assign hero_align_mobile = 'flex-end'
   endcase
+
+  assign cta_space_above = section.settings.cta_space_above | default: 0
+  assign cta_align = section.settings.cta_align | default: 'inherit'
+  assign cta_align_mobile = section.settings.cta_align_mobile | default: 'stretch'
+  assign cta_position = section.settings.cta_position | default: 'below'
+
+  case cta_align
+    when 'left'
+      assign cta_justify = 'flex-start'
+    when 'center'
+      assign cta_justify = 'center'
+    when 'right'
+      assign cta_justify = 'flex-end'
+    else
+      assign cta_justify = hero_justify
+  endcase
+
+  case cta_align_mobile
+    when 'left'
+      assign cta_justify_mobile = 'flex-start'
+    when 'center'
+      assign cta_justify_mobile = 'center'
+    when 'right'
+      assign cta_justify_mobile = 'flex-end'
+    else
+      assign cta_justify_mobile = 'stretch'
+  endcase
 -%}
 
 {%- style -%}
@@ -132,9 +159,20 @@
     display: flex;
     gap: 14px;
     align-items: center;
-    justify-content: {{ hero_justify }};
+    justify-content: {{ cta_justify }};
     flex-wrap: wrap;
   }
+  {%- if cta_position == 'above' %}
+  .hero-{{ section.id }} .hero__ctas--above {
+    margin-bottom: 32px;
+  }
+  {%- endif %}
+  {%- if cta_space_above > 0 %}
+  /* padding, not margin — margin would collapse against .hero__sub's margin-bottom */
+  .hero-{{ section.id }} .hero__ctas {
+    padding-top: {{ cta_space_above }}px;
+  }
+  {%- endif %}
   /* Primary CTA size override for hero */
   .hero-{{ section.id }} .goju-btn--lg {
     padding: 16px 36px;
@@ -193,7 +231,8 @@
     }
     .hero-{{ section.id }} .hero__ctas {
       flex-direction: column;
-      align-items: stretch;
+      align-items: {{ cta_justify_mobile }};
+      justify-content: flex-start;
       gap: 10px;
     }
     .hero-{{ section.id }} .hero__btn-primary,
@@ -227,7 +266,28 @@
     </div>
   {%- endif -%}
 
+  {%- capture hero_ctas -%}
+    {%- if section.settings.cta1_label != blank or section.settings.cta2_label != blank -%}
+      <div class="hero__ctas{% if cta_position == 'above' %} hero__ctas--above{% endif %}">
+        {%- if section.settings.cta1_label != blank -%}
+          <a href="{{ section.settings.cta1_url | default: '#' }}" class="goju-btn goju-btn--primary goju-btn--lg">
+            {{- section.settings.cta1_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}
+          <a href="{{ section.settings.cta2_url | default: '#' }}" class="hero__btn-secondary">
+            {{- section.settings.cta2_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endcapture -%}
+
   <div class="hero__content">
+
+    {%- if cta_position == 'above' -%}
+      {{ hero_ctas }}
+    {%- endif -%}
 
     {%- if section.settings.eyebrow != blank -%}
       <span class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</span>
@@ -247,20 +307,9 @@
       <p class="hero__sub">{{ section.settings.subtext }}</p>
     {%- endif -%}
 
-    {%- if section.settings.cta1_label != blank or section.settings.cta2_label != blank -%}
-      <div class="hero__ctas">
-        {%- if section.settings.cta1_label != blank -%}
-          <a href="{{ section.settings.cta1_url | default: '#' }}" class="goju-btn goju-btn--primary goju-btn--lg">
-            {{- section.settings.cta1_label | escape -}}
-          </a>
-        {%- endif -%}
-        {%- if section.settings.cta2_label != blank -%}
-          <a href="{{ section.settings.cta2_url | default: '#' }}" class="hero__btn-secondary">
-            {{- section.settings.cta2_label | escape -}}
-          </a>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
+    {%- unless cta_position == 'above' -%}
+      {{ hero_ctas }}
+    {%- endunless -%}
 
   </div>
 
@@ -495,6 +544,54 @@
     {
       "type": "header",
       "content": "CTA Buttons"
+    },
+    {
+      "type": "select",
+      "id": "cta_position",
+      "label": "Button position",
+      "info": "Whether the buttons sit above the heading or below the subtext.",
+      "options": [
+        { "value": "below", "label": "Below the text" },
+        { "value": "above", "label": "Above the text" }
+      ],
+      "default": "below"
+    },
+    {
+      "type": "range",
+      "id": "cta_space_above",
+      "label": "Space above buttons",
+      "info": "Pushes the buttons further down, away from the text.",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "cta_align",
+      "label": "Button alignment (desktop)",
+      "info": "\"Same as text\" keeps the buttons lined up with the heading. The other options move the buttons on their own.",
+      "options": [
+        { "value": "inherit", "label": "Same as text" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "cta_align_mobile",
+      "label": "Button alignment (mobile)",
+      "info": "Full width stretches the buttons across the screen. The other options shrink them to fit their text.",
+      "options": [
+        { "value": "stretch", "label": "Full width" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "stretch"
     },
     {
       "type": "text",
