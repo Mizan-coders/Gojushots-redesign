@@ -115,7 +115,7 @@
           "type": "accordion_item",
           "settings": {
             "title": "How to Take",
-            "content": "<p>Drink 1/2 to a full bottle daily. Best taken in the morning.</p>",
+            "content": "<p>Enjoy ½ to 1 bottle daily. Morning is a great place to start, but Action Shot is designed to fit into your day—whenever works for you.</p>",
             "metafield_key": ""
           }
         },
@@ -172,25 +172,25 @@
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "5000+",
-            "label": "Years, valued for supporting vitality and overall wellbeing",
-            "sub": "Effective ingredient through the ages"
+            "number": "5000+ years",
+            "label": "Traditional ingredients",
+            "sub": "Valued through generations"
           }
         },
         "stat_1": {
           "type": "stat",
           "settings": {
             "number": "3",
-            "label": "whole roots in every bottle",
-            "sub": "Triple root action"
+            "label": "Triple Root Blend",
+            "sub": "Ginger • Turmeric • Ginseng"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "2000%",
-            "label": "more curcumin absorbed when paired with black pepper",
-            "sub": "Why we always pair them"
+            "number": "200mg",
+            "label": "Ginseng",
+            "sub": "For focus and stamina support"
           }
         }
       },
@@ -211,10 +211,10 @@
       "type": "product-story",
       "settings": {
         "kicker": "The GOJU Story",
-        "heading": "Wellness you can feel",
-        "heading_accent_word": "can feel",
-        "body_1": "Action Shot combines organic Fijian ginger, turmeric and ginseng in a concentrated daily wellness juice. Finished with New Zealand mānuka honey, it’s built on the same ginger and turmeric foundation that made Supershot a customer favourite.",
-        "body_2": "Originally known as Supershot, Action Shot was created for people who want functional ingredients they can actually taste. No powders. No shortcuts. Just real ingredients in a convenient daily format.",
+        "heading": "Wellness you can look forward to.",
+        "heading_accent_word": "",
+        "body_1": "Action Shot is built on the same ginger and turmeric recipe GOJU customers came to love as Supershot, now enhanced with 200mg of ginseng.",
+        "body_2": "Made with organic Fijian ginger, turmeric, New Zealand mānuka honey and real fruit juice, it's bold, refreshing and designed to become part of your daily routine.\nNo shortcuts. Just real ingredients you'll actually enjoy drinking.",
         "pill_1_icon": "🌱",
         "pill_1_text": "Whole-food ingredients",
         "pill_2_icon": "🧪",
@@ -239,8 +239,8 @@
             "image": "shopify://shop_images/Ginseng_a7893554-2f78-49da-b76c-4cc99a6522fe.png",
             "emoji": "🌿",
             "name": "Ginseng",
-            "benefit": "Traditionally valued for supporting vitality and overall wellbeing",
-            "tag": "Stamina"
+            "benefit": "200mg of ginseng per bottle for focus and stamina support.",
+            "tag": "FOCUS"
           }
         },
         "ing_1": {
@@ -250,8 +250,8 @@
             "image": "shopify://shop_images/turmeric_ea306678-089c-4107-abd4-348d6283151b.png",
             "emoji": "",
             "name": "Turmeric",
-            "benefit": "Turmeric's active compounds support the body's natural response to inflammation and aid recovery — helping your body handle physical demands.",
-            "tag": "Anti-inflammatory"
+            "benefit": "TRIPLE ROOT BLEND:\nOrganic Fijian turmeric, one of the three roots that give Action Shot its bold flavour.",
+            "tag": "TRIPLE ROOT BLEND"
           }
         },
         "ing_2": {
@@ -261,8 +261,8 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-03-22_at_23.42.44.jpg",
             "emoji": "🟡",
             "name": "Ginger",
-            "benefit": "Traditionally used to support digestion and natural warmth.",
-            "tag": "warming"
+            "benefit": "Organic Fijian ginger for the refreshing kick customers love.",
+            "tag": "BOLD FLAVOUR"
           }
         },
         "ing_3": {
@@ -272,8 +272,8 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-03-22_at_22.44.00.jpg",
             "emoji": "🍋",
             "name": "Mānuka Honey",
-            "benefit": "NZ Mānuka honey is valued for its unique natural bioactive properties — rounding out the blend with a smoother finish and supporting overall wellbeing without refined sugars.",
-            "tag": "bioactive"
+            "benefit": "New Zealand mānuka honey brings a naturally smoother finish to the blend.",
+            "tag": "SMOOTH FINISH"
           }
         }
       },

@@ -11,31 +11,36 @@
   "sections": {
     "homepage_hero_mw6d6P": {
       "type": "homepage-hero",
+      "custom_css": [
+        "h2 {font-size: 32px;}",
+        ".hero__content {align-self: flex-start; padding-top: 8vh;}",
+        "@media (max-width: 749px) {section::after {background: linear-gradient( 180deg, rgba(31, 26, 23, 0.62), rgba(31, 26, 23, 0.35) 40%, transparent 68% ); } .hero__content {min-height: 62vh; display: flex; flex-direction: column; } .hero__ctas {margin-top: auto; }}"
+      ],
       "name": "Hero Banner",
       "settings": {
         "image": "shopify://shop_images/GOJU_GROUP_SHOT2_BANNER.jpg",
         "image_mobile": "shopify://shop_images/GOJU_GROUP_SHOT1-P.png",
-        "image_position": "center center",
+        "image_position": "center top",
         "hero_height": 95,
         "hero_height_mobile": 65,
         "overlay_opacity": 35,
-        "eyebrow": "",
-        "eyebrow_color": "#000000",
+        "eyebrow": "100% natural • Made in NZ",
+        "eyebrow_color": "#ffffff",
         "eyebrow_size": 11,
-        "heading_line1": "Functional wellness",
-        "heading_italic": "for those who read the label",
+        "heading_line1": "HIGH-STRENGTH WELLNESS SHOTS",
+        "heading_italic": "For those who read the label.",
         "heading_line2": "",
-        "subtext": "High-strength wellness shots made in New Zealand. Clinically backed ingredients. No fillers. No watered-down formulas.",
+        "subtext": "",
         "subtext_color": "#ffffff",
         "subtext_size": 17,
-        "heading_size": 100,
+        "heading_size": 62,
         "heading_transform": "uppercase",
         "heading_color": "#ffffff",
         "italic_color": "#ffffff",
         "cta1_label": "Shop GOJU Range →",
         "cta1_url": "shopify://collections/shop",
         "cta2_label": "",
-        "cta2_url": "shopify://products/action-shot"
+        "cta2_url": "shopify://products/sample-pack"
       }
     },
     "14926c13-dcef-4666-a0cb-7a9f0c2f1275": {
@@ -60,6 +65,29 @@
     "homesec_1": {
       "type": "hero-banner",
       "blocks": {
+        "hero_zknbJt": {
+          "type": "hero",
+          "settings": {
+            "text_color": "#fcfbf4",
+            "full_url": "",
+            "sub_heading_1": "",
+            "heading": "",
+            "sub_heading_2": "",
+            "text": "",
+            "sub_heading_3": "",
+            "btn1_color": "#191917",
+            "btn1_text_color": "#fcfbf4",
+            "btn_text": "",
+            "btn_url": "",
+            "btn2_color": "#191917",
+            "btn2_text_color": "#fcfbf4",
+            "btn_text_2": "",
+            "btn_url_2": "",
+            "video_id": "",
+            "flex_align": "align--middle-center",
+            "flex_align_mobile": "align--top-left--mobile"
+          }
+        },
         "2a52b8d6-a450-41bd-8a6b-a0be76e622e5": {
           "type": "hero",
           "settings": {
@@ -113,6 +141,7 @@
         }
       },
       "block_order": [
+        "hero_zknbJt",
         "2a52b8d6-a450-41bd-8a6b-a0be76e622e5",
         "5c3a0e4d-6577-4537-8900-47d3825be746"
       ],
@@ -622,7 +651,7 @@
       ],
       "name": "Trust Ticker",
       "settings": {
-        "bg_color": "#752156",
+        "bg_color": "#00823e",
         "text_color": "#ffffff",
         "text_size": 12,
         "slides_to_show": 5,
@@ -630,143 +659,6 @@
         "autoplay_speed": 2000,
         "padding_top": 14,
         "padding_bottom": 14
-      }
-    },
-    "homepage_reviews_fDwEyT": {
-      "type": "homepage-reviews",
-      "blocks": {
-        "review_njcbQ3": {
-          "type": "review",
-          "settings": {
-            "name": "Milly Stewart",
-            "initials": "MS",
-            "avatar_color": "#a5d6a7",
-            "rating": 5,
-            "review_text": "I take a Goju Ginger shot every morning, so great for waking me up and I swear I never get sick!",
-            "product_name": "GINGER IGNITION"
-          }
-        },
-        "review_QaeqNy": {
-          "type": "review",
-          "settings": {
-            "name": "Melanie Henshaw",
-            "initials": "MH",
-            "avatar_color": "#EDE4D1",
-            "rating": 5,
-            "review_text": "Such a good staple for our fridge. We run hard at life and while I'm not a scientist, I'm sure these have helped me keep away nasty bugs, recover from jet lag and boost my general vitamin intake. The vibes are high, the flavour is delicious.",
-            "product_name": "IMMUNE GUARD"
-          }
-        },
-        "review_UjUfiN": {
-          "type": "review",
-          "settings": {
-            "name": "Abbey Fox",
-            "initials": "AF",
-            "avatar_color": "#d4f24a",
-            "rating": 5,
-            "review_text": "Loving this new addition to the Goju line-up! Delicious and such a lovely evening ritual. I'm definitely falling asleep faster which is essential as a busy mum of two.",
-            "product_name": "Good Night"
-          }
-        },
-        "review_YzWHJn": {
-          "type": "review",
-          "settings": {
-            "name": "Simon Dickson",
-            "initials": "SD",
-            "avatar_color": "#ffcc80",
-            "rating": 5,
-            "review_text": "Not diluted with the many additives others use in the market — great concentration of turmeric and pepper for that kick. Great after a good breakfast to set up your day.",
-            "product_name": "Vital Sunshine"
-          }
-        }
-      },
-      "block_order": [
-        "review_njcbQ3",
-        "review_QaeqNy",
-        "review_UjUfiN",
-        "review_YzWHJn"
-      ],
-      "name": "Reviews",
-      "settings": {
-        "bg_color": "#ede4d1",
-        "headline": "Real results.",
-        "headline_italic": "Real people.",
-        "sub_headline": "",
-        "sub_color": "#888888",
-        "sub_size": 16,
-        "heading_size": 52,
-        "heading_weight": "700",
-        "heading_transform": "uppercase",
-        "heading_color": "#1f1a17",
-        "italic_color": "#1f1a17",
-        "score": "4.9",
-        "score_stars": 5,
-        "review_count": "Based on 100+ reviews",
-        "verified_count": "",
-        "write_review_label": "",
-        "write_review_url": "",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "homepage_press_AsSeenIn": {
-      "type": "homepage-press",
-      "blocks": {
-        "logo_DrtcGa": {
-          "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/URBAN-LIST.png",
-            "logo_url": "",
-            "logo_alt": ""
-          }
-        },
-        "logo_8nRfUx": {
-          "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-02.svg",
-            "logo_url": "",
-            "logo_alt": ""
-          }
-        },
-        "logo_TY8KEq": {
-          "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-03.svg",
-            "logo_url": "",
-            "logo_alt": ""
-          }
-        },
-        "logo_4m8aYY": {
-          "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-01.svg",
-            "logo_url": "",
-            "logo_alt": ""
-          }
-        },
-        "logo_am8HHh": {
-          "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-06_f00c9498-f95b-4dfb-af63-f316779792b7.svg",
-            "logo_url": "",
-            "logo_alt": ""
-          }
-        }
-      },
-      "block_order": [
-        "logo_DrtcGa",
-        "logo_8nRfUx",
-        "logo_TY8KEq",
-        "logo_4m8aYY",
-        "logo_am8HHh"
-      ],
-      "settings": {
-        "label_text": "As Seen In",
-        "label_color": "#666666",
-        "label_size": 11,
-        "bg_color": "#e6ddcc",
-        "padding_top": 32,
-        "padding_bottom": 48
       }
     },
     "homepage_pick_goal_GhQmtE": {
@@ -797,7 +689,7 @@
             "goal_label": "Power body. Charge mind.",
             "badge_type": "bestseller",
             "badge_text": "FLAGSHIP",
-            "short_desc": "Our flagship blend for daily energy, performance and recovery.",
+            "short_desc": "Our flagship blend — 200mg ginseng for focus, stamina and everyday performance.",
             "price_text": "",
             "pack_text": "/ 12 pack",
             "star_rating": 5,
@@ -813,7 +705,7 @@
             "goal_label": "Defend. Fortify.",
             "badge_type": "none",
             "badge_text": "Best Seller",
-            "short_desc": "200% daily vitamin C with mānuka honey and ginger to support immunity year-round.",
+            "short_desc": "200% of your daily Vitamin C, with NZ mānuka honey and ginger — for daily immune support.",
             "price_text": "",
             "pack_text": "/ 9 pack",
             "star_rating": 5,
@@ -971,6 +863,166 @@
         "padding_bottom": 80
       }
     },
+    "homepage_reviews_fDwEyT": {
+      "type": "homepage-reviews",
+      "blocks": {
+        "review_YzWHJn": {
+          "type": "review",
+          "settings": {
+            "name": "Simon Dickson",
+            "initials": "SD",
+            "avatar_color": "#ffcc80",
+            "rating": 5,
+            "review_text": "Not diluted with the many additives others use in the market — great concentration of turmeric and pepper for that kick. Great after a good breakfast to set up your day.",
+            "product_name": "Vital Sunshine"
+          }
+        },
+        "review_njcbQ3": {
+          "type": "review",
+          "settings": {
+            "name": "Bernadette Frost",
+            "initials": "BF",
+            "avatar_color": "#a5d6a7",
+            "rating": 5,
+            "review_text": "Wow!! Manuka Ginger with Vitamin C sooooooo yum 😋 Thank you Goju",
+            "product_name": "IMMUNE GUARD"
+          }
+        },
+        "review_QaeqNy": {
+          "type": "review",
+          "settings": {
+            "name": "Karen Scott",
+            "initials": "KS",
+            "avatar_color": "#EDE4D1",
+            "rating": 5,
+            "review_text": "My 12 year old son and I do the ginger shot every morning. We both love it 😍",
+            "product_name": "IMMUNE GUARD"
+          }
+        },
+        "review_UjUfiN": {
+          "type": "review",
+          "settings": {
+            "name": "Lara Kendall",
+            "initials": "AF",
+            "avatar_color": "#d4f24a",
+            "rating": 5,
+            "review_text": "Delicious and zingy. Feels and tastes full of healthy freshness. Speedy delivery thank you.",
+            "product_name": "GINGER IGNITION"
+          }
+        }
+      },
+      "block_order": [
+        "review_YzWHJn",
+        "review_njcbQ3",
+        "review_QaeqNy",
+        "review_UjUfiN"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "bg_color": "#ede4d1",
+        "headline": "Real results.",
+        "headline_italic": "Real people.",
+        "sub_headline": "",
+        "sub_color": "#888888",
+        "sub_size": 16,
+        "heading_size": 52,
+        "heading_weight": "700",
+        "heading_transform": "uppercase",
+        "heading_color": "#1f1a17",
+        "italic_color": "#1f1a17",
+        "score": "4.9",
+        "score_stars": 5,
+        "review_count": "Based on 100+ reviews",
+        "verified_count": "",
+        "write_review_label": "",
+        "write_review_url": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "homepage_bundle_v2_UMVFRy": {
+      "type": "homepage-bundle-v2",
+      "blocks": {
+        "product_item_LctCcQ": {
+          "type": "product_item",
+          "settings": {
+            "product": "ginger-ignition",
+            "name": "",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#e61a4e"
+          }
+        },
+        "product_item_jMh9Et": {
+          "type": "product_item",
+          "settings": {
+            "product": "vital-sunshine",
+            "name": "",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#e94025"
+          }
+        },
+        "product_item_mWqeDk": {
+          "type": "product_item",
+          "settings": {
+            "product": "good-night",
+            "name": "",
+            "tags": "",
+            "price": "",
+            "tile_bg_color": "#752156"
+          }
+        },
+        "product_item_8JCCHP": {
+          "type": "product_item",
+          "settings": {
+            "product": "immune-guard",
+            "name": "",
+            "tags": "",
+            "price": "50",
+            "tile_bg_color": "#f17c29"
+          }
+        }
+      },
+      "block_order": [
+        "product_item_LctCcQ",
+        "product_item_jMh9Et",
+        "product_item_mWqeDk",
+        "product_item_8JCCHP"
+      ],
+      "name": "Bundle Builder V2",
+      "settings": {
+        "section_eyebrow": "can't pick just one?",
+        "eyebrow_color": "#1f1a17",
+        "eyebrow_size": 11,
+        "section_title": "Bundle",
+        "section_title_italic": "& SAVE",
+        "section_sub": "Mix and match any 9-pack of shots.",
+        "heading_color": "#0a0a0a",
+        "italic_color": "#1f1a17",
+        "heading_size": 44,
+        "sub_color": "#888888",
+        "sub_size": 15,
+        "pack_3_label": "3 × 9-Pack",
+        "pack_3_badge": "Most Popular",
+        "pack_3_display_price": "$135",
+        "pack_3_was_price": "was $150",
+        "pack_3_saving_strip": "💰 You save $15",
+        "pack_3_savings_amount": 15,
+        "pack_4_label": "4 × 9-Pack",
+        "pack_4_badge": "Best Value",
+        "pack_4_display_price": "$170",
+        "pack_4_was_price": "was $200",
+        "pack_4_saving_strip": "💰 You save $30",
+        "pack_4_savings_amount": 30,
+        "step_label": "Step 1 — Choose your packs",
+        "cart_btn_label": "Add Bundle to Cart →",
+        "bg_color": "#f7f1e4",
+        "card_bg_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "homepage_why_goju_cWe97M": {
       "type": "homepage-why-goju",
       "blocks": {
@@ -1063,87 +1115,64 @@
         "padding_bottom": 80
       }
     },
-    "homepage_bundle_v2_UMVFRy": {
-      "type": "homepage-bundle-v2",
+    "homepage_press_AsSeenIn": {
+      "type": "homepage-press",
       "blocks": {
-        "product_item_LctCcQ": {
-          "type": "product_item",
+        "logo_DrtcGa": {
+          "type": "logo",
           "settings": {
-            "product": "ginger-ignition",
-            "name": "",
-            "tags": "",
-            "price": "50",
-            "tile_bg_color": "#e61a4e"
+            "logo": "shopify://shop_images/URBAN-LIST.png",
+            "logo_url": "",
+            "logo_alt": ""
           }
         },
-        "product_item_jMh9Et": {
-          "type": "product_item",
+        "logo_8nRfUx": {
+          "type": "logo",
           "settings": {
-            "product": "vital-sunshine",
-            "name": "",
-            "tags": "",
-            "price": "50",
-            "tile_bg_color": "#e94025"
+            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-02.svg",
+            "logo_url": "",
+            "logo_alt": ""
           }
         },
-        "product_item_mWqeDk": {
-          "type": "product_item",
+        "logo_TY8KEq": {
+          "type": "logo",
           "settings": {
-            "product": "good-night",
-            "name": "",
-            "tags": "",
-            "price": "",
-            "tile_bg_color": "#752156"
+            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-03.svg",
+            "logo_url": "",
+            "logo_alt": ""
           }
         },
-        "product_item_8JCCHP": {
-          "type": "product_item",
+        "logo_4m8aYY": {
+          "type": "logo",
           "settings": {
-            "product": "immune-guard",
-            "name": "",
-            "tags": "",
-            "price": "50",
-            "tile_bg_color": "#f17c29"
+            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-01.svg",
+            "logo_url": "",
+            "logo_alt": ""
+          }
+        },
+        "logo_am8HHh": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/AS_SEEN_IN_LOGOS-06_f00c9498-f95b-4dfb-af63-f316779792b7.svg",
+            "logo_url": "",
+            "logo_alt": ""
           }
         }
       },
       "block_order": [
-        "product_item_LctCcQ",
-        "product_item_jMh9Et",
-        "product_item_mWqeDk",
-        "product_item_8JCCHP"
+        "logo_DrtcGa",
+        "logo_8nRfUx",
+        "logo_TY8KEq",
+        "logo_4m8aYY",
+        "logo_am8HHh"
       ],
-      "name": "Bundle Builder V2",
       "settings": {
-        "section_eyebrow": "can't pick just one?",
-        "eyebrow_color": "#1f1a17",
-        "eyebrow_size": 11,
-        "section_title": "Bundle",
-        "section_title_italic": "& SAVE",
-        "section_sub": "Mix and match any 9-pack of shots.",
-        "heading_color": "#0a0a0a",
-        "italic_color": "#1f1a17",
-        "heading_size": 44,
-        "sub_color": "#888888",
-        "sub_size": 15,
-        "pack_3_label": "3 × 9-Pack",
-        "pack_3_badge": "Most Popular",
-        "pack_3_display_price": "$135",
-        "pack_3_was_price": "was $150",
-        "pack_3_saving_strip": "💰 You save $15",
-        "pack_3_savings_amount": 15,
-        "pack_4_label": "4 × 9-Pack",
-        "pack_4_badge": "Best Value",
-        "pack_4_display_price": "$170",
-        "pack_4_was_price": "was $200",
-        "pack_4_saving_strip": "💰 You save $30",
-        "pack_4_savings_amount": 30,
-        "step_label": "Step 1 — Choose your packs",
-        "cart_btn_label": "Add Bundle to Cart →",
-        "bg_color": "#f7f1e4",
-        "card_bg_color": "#ffffff",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "label_text": "As Seen In",
+        "label_color": "#666666",
+        "label_size": 11,
+        "bg_color": "#e6ddcc",
+        "padding_top": 32,
+        "padding_bottom": 48
       }
     },
     "homepage_bundle_gihCYP": {
@@ -1372,7 +1401,7 @@
         "heading_weight": "700",
         "heading_transform": "uppercase",
         "heading_color": "#ffffff",
-        "italic_color": "#551e41",
+        "italic_color": "#38112a",
         "card_title": "Start Subscribing",
         "card_subtitle": "Pick your first product and lock in your savings today.",
         "subscribe_btn_label": "Subscribe & Save 10%",
@@ -1474,11 +1503,11 @@
     "homesec_3",
     "homesec_5",
     "homepage_trust_ticker_4Ew9FJ",
-    "homepage_reviews_fDwEyT",
-    "homepage_press_AsSeenIn",
     "homepage_pick_goal_GhQmtE",
-    "homepage_why_goju_cWe97M",
+    "homepage_reviews_fDwEyT",
     "homepage_bundle_v2_UMVFRy",
+    "homepage_why_goju_cWe97M",
+    "homepage_press_AsSeenIn",
     "homepage_bundle_gihCYP",
     "homepage_when_to_take_dBM67Q",
     "homepage_subscribe_iD7bTC",

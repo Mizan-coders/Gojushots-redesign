@@ -206,7 +206,7 @@
           ".form-subscribe .suscribe-button {border-left: 1px solid #e5e5e5;}"
         ],
         "settings": {
-          "bg_color": "#461D3C",
+          "bg_color": "#00823e",
           "logo": "shopify://shop_images/Logo-white.png",
           "tagline": "Real ingredients. Built to work. Crafted in New Zealand for those who read the label.",
           "heading": "Want $10 off your first purchase?",
