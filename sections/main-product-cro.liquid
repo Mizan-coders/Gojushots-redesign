@@ -221,6 +221,23 @@
     padding: 12px 14px;
     margin: 12px 0 0;
   }
+
+  /* ── Sample Pack entry link ───────────────────────────────── */
+  .pdp-cro .cro-sample-link {
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+    color: #1A1A1A;
+    margin: 14px 0 0;
+  }
+  .pdp-cro .cro-sample-link__lead { color: #1A1A1A; }
+  .pdp-cro .cro-sample-link a {
+    color: #00823E;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pdp-cro .cro-sample-link a:hover { color: #056230; }
 {% endstyle %}
 
 {%- assign product_form_id = 'product-form-cro-' | append: section.id -%}
@@ -801,6 +818,29 @@
                         {%- assign note_tpl = block.settings.soldout_note | default: 'The [pack] is currently unavailable. Other packs are unaffected — your selection hasn’t been changed.' -%}
                       {%- endif -%}
                       {{ note_tpl | replace: '[pack]', cro_soldout_labels }}
+                    </p>
+                  {%- endif -%}
+
+                  {%- comment -%}
+                    Sample Pack entry point. Falls back to the sample-pack product
+                    when no URL is set, and never renders on the Sample Pack itself
+                    — offering a customer the product they are already looking at.
+                  {%- endcomment -%}
+                  {%- liquid
+                    assign sample_url = block.settings.sample_url
+                    if sample_url == blank
+                      assign sample_product = all_products['sample-pack']
+                      if sample_product != empty
+                        assign sample_url = sample_product.url
+                      endif
+                    endif
+                    assign sample_label = block.settings.sample_label | default: 'Start with the Sample Pack'
+                  -%}
+                  {%- if sample_url != blank and product.handle != 'sample-pack' and sample_label != blank -%}
+                    <p class="cro-sample-link">
+                      {%- assign sample_lead = block.settings.sample_lead | default: 'New to GOJU?' -%}
+                      {%- if sample_lead != blank -%}<span class="cro-sample-link__lead">{{ sample_lead }}</span> {% endif -%}
+                      <a href="{{ sample_url }}" data-cro-sample-link>{{ sample_label }}</a>
                     </p>
                   {%- endif -%}
                 </div>
@@ -1969,12 +2009,29 @@
   }
 
   // ── Init on DOM ready ─────────────────────────────────────────
+  // ── Sample Pack click tracking ────────────────────────────────
+  // Delegated so it survives Dawn re-rendering the buy box on variant change.
+  function initSamplePackTracking() {
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest ? e.target.closest('[data-cro-sample-link]') : null;
+      if (!link) return;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'sample_pack_click',
+        landing_product: '{{ product.title | escape }}',
+        landing_product_handle: '{{ product.handle }}',
+        destination: link.getAttribute('href') || ''
+      });
+    }, true);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     CroGallery('{{ section.id }}');
     CroStickyATC('{{ section.id }}');
     initScrollLinks();
     initReadMore('{{ section.id }}');
     autoSelectPlanVariant();
+    initSamplePackTracking();
   });
 
   // Re-init on Shopify theme editor section reload
@@ -2257,6 +2314,10 @@
       "name": "Buy Buttons",
       "limit": 1,
       "settings": [
+        { "type": "header", "content": "Sample Pack Link" },
+        { "type": "text", "id": "sample_lead", "label": "Lead-in text", "default": "New to GOJU?", "info": "Leave blank to show only the link." },
+        { "type": "text", "id": "sample_label", "label": "Link text", "default": "Start with the Sample Pack", "info": "Leave blank to hide the link entirely." },
+        { "type": "url", "id": "sample_url", "label": "Link URL", "info": "Defaults to the sample-pack product when left empty. Never shown on the Sample Pack page itself." },
         { "type": "header", "content": "Sold Out Notice" },
         { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently unavailable. Subscription resumes when it\u2019s back in stock \u2014 your selection hasn\u2019t been changed." },
         { "type": "textarea", "id": "soldout_note", "label": "Notice when other packs still available", "default": "The [pack] is currently unavailable. Other packs are unaffected \u2014 your selection hasn\u2019t been changed." },
