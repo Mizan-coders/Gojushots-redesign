@@ -157,16 +157,69 @@
   .pdp-cro .cro-variant-row--cards input[type="radio"]:checked + .cro-pack-card .cro-pack-card__foot--sel {
     display: block; color: #00823E;
   }
-  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out { opacity: .55; cursor: not-allowed; }
+  /* Sold out: grey the text rather than fading the whole card. A blanket
+     opacity also washes out the border and background, which made the card
+     look broken rather than deliberately unavailable. */
+  .pdp-cro .cro-variant-row--cards input[type="radio"]:disabled + .cro-pack-card {
+    /* Dawn strikes through disabled variant labels
+       (.product-form__input input:disabled + label). The approved design greys
+       the card instead — a struck-out price reads as a discount, not stock. */
+    text-decoration: none;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out {
+    cursor: not-allowed;
+    background: #FCFCFA;
+    border-color: #EDEBE3;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out:hover { border-color: #EDEBE3; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__name,
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__price { color: #AFADA2; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__sub { color: #B8B6AC; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__badge--out {
+    background: #EDEBE3;
+    color: #8A887E;
+  }
   .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__foot--switch { display: none; }
   .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__foot--out {
-    display: block; color: #A33; font-weight: 600;
+    display: block; color: #B4685F; font-weight: 500;
   }
   @media screen and (max-width: 480px) {
     .pdp-cro .cro-variant-row--cards { gap: 10px; }
     .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card { padding: 16px 12px 12px; }
     .pdp-cro .cro-variant-row--cards .cro-pack-card__price { font-size: 21px; }
     .pdp-cro .cro-variant-row--cards .cro-pack-card__sub { font-size: 12px; }
+  }
+
+  /* ── Subscription blocked / sold-out messaging ────────────── */
+  .pdp-cro .cro-pw__toggle--sub-blocked .cro-pw__tog-btn.is-blocked {
+    cursor: not-allowed;
+    color: #8A887E;
+    background: transparent;
+    border-color: #EDEBE3;
+  }
+  .pdp-cro .cro-pw__toggle--sub-blocked .cro-pw__tog-btn.is-blocked:hover {
+    background: transparent;
+  }
+  .pdp-cro .cro-pw__sub-blocked-hint {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #6B6B66;
+    margin: 8px 0 0;
+  }
+  .pdp-cro .cro-pw__sub-blocked-hint::before {
+    content: 'ⓘ';
+    margin-right: 6px;
+    color: #8A887E;
+  }
+  .pdp-cro .cro-pw__soldout-note {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #A5453A;
+    background: #FDF0EE;
+    border: 1px solid #F5D9D4;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 12px 0 0;
   }
 {% endstyle %}
 
@@ -291,6 +344,54 @@
           class="cro-info-panel__sticky"
           id="CroInfoSticky-{{ section.id }}"
         >
+
+          {%- comment -%}
+            Subscription availability, computed once for the whole panel so the
+            toggle, the hint and the note under the CTA all read the same state.
+
+            sub_blocked means: the product HAS subscribable variants, but none of
+            them are in stock. That is different from a product that simply never
+            offers subscription (no_sub / no selling plans at all), which must not
+            show an "unavailable" message.
+          {%- endcomment -%}
+          {%- liquid
+            assign cro_no_sub = false
+            if product.tags contains 'no-subscription'
+              assign cro_no_sub = true
+            endif
+            assign cro_sub_exists = false
+            assign cro_sub_in_stock = false
+            assign cro_sub_labels = ''
+            assign cro_soldout_labels = ''
+            unless cro_no_sub
+              for v in product.variants
+                if v.selling_plan_allocations.size > 0
+                  assign cro_sub_exists = true
+                  if cro_sub_labels == ''
+                    assign cro_sub_labels = v.title
+                  else
+                    assign cro_sub_labels = cro_sub_labels | append: ' and ' | append: v.title
+                  endif
+                  if v.available
+                    assign cro_sub_in_stock = true
+                  endif
+                endif
+              endfor
+            endunless
+            for v in product.variants
+              unless v.available
+                if cro_soldout_labels == ''
+                  assign cro_soldout_labels = v.title
+                else
+                  assign cro_soldout_labels = cro_soldout_labels | append: ' and ' | append: v.title
+                endif
+              endunless
+            endfor
+            assign cro_sub_blocked = false
+            if cro_sub_exists and cro_sub_in_stock == false
+              assign cro_sub_blocked = true
+            endif
+          -%}
 
           {%- assign first_app_seen = false -%}
           {%- for block in section.blocks -%}
@@ -526,6 +627,15 @@
                                         assign badge_kind = 'value'
                                       endif
                                     endif
+                                    comment
+                                      An unavailable pack takes over the badge slot: "Sold out" replaces
+                                      "Best value" rather than sitting alongside it, so the card cannot
+                                      advertise a pack that cannot be bought.
+                                    endcomment
+                                    if pack_variant.available == false
+                                      assign badge_text = block.settings.soldout_badge | default: 'Sold out'
+                                      assign badge_kind = 'out'
+                                    endif
                                   -%}
                                   <label
                                     for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
@@ -545,7 +655,7 @@
                                       {%- endif -%}
                                     </span>
                                     {%- if pack_variant.available == false -%}
-                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Sold out' }}</span>
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Unavailable' }}</span>
                                     {%- else -%}
                                       <span class="cro-pack-card__foot cro-pack-card__foot--sel">✓ {{ block.settings.selected_text | default: 'Selected' }}</span>
                                       <span class="cro-pack-card__foot cro-pack-card__foot--switch">{{ block.settings.switch_text | default: 'Tap to switch' }}</span>
@@ -675,6 +785,22 @@
                       </div>
                     {%- endform -%}
                   </product-form>
+
+                  {%- comment -%}
+                    Sold-out notice, under the CTA. Reassures that the customer's
+                    own selection was left alone — the approved behaviour is never
+                    to switch packs silently.
+                  {%- endcomment -%}
+                  {%- if cro_soldout_labels != blank -%}
+                    <p class="cro-pw__soldout-note" role="status">
+                      {%- if cro_sub_blocked -%}
+                        {%- assign note_tpl = block.settings.soldout_note_sub | default: 'The [pack] is currently unavailable. Subscription resumes when it’s back in stock — your selection hasn’t been changed.' -%}
+                      {%- else -%}
+                        {%- assign note_tpl = block.settings.soldout_note | default: 'The [pack] is currently unavailable. Other packs are unaffected — your selection hasn’t been changed.' -%}
+                      {%- endif -%}
+                      {{ note_tpl | replace: '[pack]', cro_soldout_labels }}
+                    </p>
+                  {%- endif -%}
                 </div>
 
               {%- when 'mini_trust' -%}
@@ -713,10 +839,24 @@
                 >
                   {%- comment -%} One-time / Subscribe toggle — hidden for no-subscription products {%- endcomment -%}
                   {%- unless no_sub -%}
-                  <div class="cro-pw__toggle">
-                    <button class="cro-pw__tog-btn" data-mode="once" type="button">{{ block.settings.label_onetime }}</button>
-                    <button class="cro-pw__tog-btn is-active" data-mode="sub" type="button">{{ block.settings.label_sub }}{% if pw_discount > 0 %} {{ pw_discount }}%{% endif %}</button>
+                  <div class="cro-pw__toggle{% if cro_sub_blocked %} cro-pw__toggle--sub-blocked{% endif %}">
+                    <button class="cro-pw__tog-btn{% if cro_sub_blocked %} is-active{% endif %}" data-mode="once" type="button">{{ block.settings.label_onetime }}</button>
+                    <button
+                      class="cro-pw__tog-btn{% unless cro_sub_blocked %} is-active{% endunless %}{% if cro_sub_blocked %} is-blocked{% endif %}"
+                      data-mode="sub"
+                      type="button"
+                      {% if cro_sub_blocked %}disabled aria-disabled="true"{% endif %}
+                    >
+                      {{- block.settings.label_sub }}{% if pw_discount > 0 %} {{ pw_discount }}%{% endif %}
+                      {%- if cro_sub_blocked %} — {{ block.settings.sub_unavailable_suffix | default: 'unavailable' }}{% endif -%}
+                    </button>
                   </div>
+                  {%- if cro_sub_blocked -%}
+                    <p class="cro-pw__sub-blocked-hint">
+                      {%- assign blocked_hint = block.settings.sub_blocked_hint | default: 'Subscription is unavailable while the [pack] is out of stock.' -%}
+                      {{ blocked_hint | replace: '[pack]', cro_sub_labels }}
+                    </p>
+                  {%- endif -%}
                   {%- endunless -%}
 
                   {%- comment -%} Price block {%- endcomment -%}
@@ -2080,8 +2220,15 @@
         {
           "type": "text",
           "id": "soldout_text",
-          "label": "Sold out label",
-          "default": "Sold out"
+          "label": "Sold out label (in card)",
+          "default": "Unavailable"
+        },
+        {
+          "type": "text",
+          "id": "soldout_badge",
+          "label": "Sold out badge",
+          "default": "Sold out",
+          "info": "Replaces the pack's usual badge when that pack is out of stock."
         },
         {
           "type": "text",
@@ -2097,6 +2244,9 @@
       "name": "Buy Buttons",
       "limit": 1,
       "settings": [
+        { "type": "header", "content": "Sold Out Notice" },
+        { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently unavailable. Subscription resumes when it\u2019s back in stock \u2014 your selection hasn\u2019t been changed." },
+        { "type": "textarea", "id": "soldout_note", "label": "Notice when other packs still available", "default": "The [pack] is currently unavailable. Other packs are unaffected \u2014 your selection hasn\u2019t been changed." },
         {
           "type": "checkbox",
           "id": "show_dynamic_checkout",
@@ -2189,6 +2339,9 @@
           "type": "header",
           "content": "Notes"
         },
+        { "type": "header", "content": "Subscription Unavailable" },
+        { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
+        { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
         { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "15 Shots with Subscribe & Save — save 10% with free shipping always." },
         { "type": "textarea", "id": "onetime_note", "label": "One-time nudge note", "default": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime." },
         { "type": "text", "id": "cancel_note", "label": "Cancel reassurance", "default": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked." }
