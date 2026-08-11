@@ -60,7 +60,8 @@
   }
   #CroStickyATC-{{ section.id }} .cro-sticky-atc__btn:hover:not(:disabled) {
     background: {{ section.settings.sticky_btn_color }};
-    opacity: 0.88;
+    opacity: 1;
+    filter: brightness(0.88);
   }
   {%- endif -%}
   {%- if section.settings.sticky_btn_text_color != blank and section.settings.sticky_btn_text_color != 'rgba(0,0,0,0)' -%}

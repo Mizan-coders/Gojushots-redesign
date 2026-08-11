@@ -1039,13 +1039,18 @@ html.shopify-design-mode .cro-fade-up {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  transition: opacity 0.2s ease, background 0.2s ease, filter 0.2s ease;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
+/* Darkens on hover to match the main CTA (#1F1A17 -> #0F0D0C) instead of
+   fading. Opacity washed the button toward the dark sticky bar behind it.
+   brightness() keeps whatever colour the product's sticky_btn_color is set
+   to, so this works for the green and yellow variants alike. */
 .cro-sticky-atc__btn:hover:not(:disabled) {
-  opacity: 0.88;
+  opacity: 1;
+  filter: brightness(0.88);
 }
 
 .cro-sticky-atc__btn:disabled {
