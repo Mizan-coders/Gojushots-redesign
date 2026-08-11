@@ -43,6 +43,7 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
+            "per_bottle_suffix": "/ shot",
             "variant_label": "Choose Pack Size",
             "picker_type": "button"
           }
@@ -51,7 +52,7 @@
           "type": "purchase_widget",
           "settings": {
             "label_onetime": "One-time",
-            "label_sub": "Subscribe & Save",
+            "label_sub": "Subscribe & save",
             "discount_percent": 10,
             "sub_note": "Free shipping included — always",
             "onetime_shipping": "+ $8 shipping · subscribe for free shipping always",

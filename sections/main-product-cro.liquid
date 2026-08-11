@@ -74,6 +74,11 @@
   .cro-pw[data-variant-has-plans="0"] .cro-pw__perks,
   .cro-pw[data-variant-has-plans="0"] .cro-pw__freq,
   .cro-pw[data-variant-has-plans="0"] .cro-pw__cancel-note { display: none !important; }
+  /* ...but when ANOTHER pack is subscribable, the Subscribe option stays on
+     screen. It is how the customer asks to switch — hiding it removes the
+     entry point to subscription entirely on the smaller pack. The subscribe
+     detail panels stay hidden until the switch has happened. */
+  .cro-pw[data-variant-has-plans="0"][data-sub-elsewhere="true"] .cro-pw__toggle { display: flex !important; }
 
   /* ── Pack cards (Choose your pack) ──────────────────────────
      Selectors are scoped through `.pdp-cro` and the adjacent input so they
@@ -238,6 +243,27 @@
     text-underline-offset: 2px;
   }
   .pdp-cro .cro-sample-link a:hover { color: #056230; }
+
+  /* ── Pack auto-switch confirmation ────────────────────────── */
+  .pdp-cro .cro-pw__switch-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1F4A33;
+    background: #E6F2EA;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0 0;
+  }
+  .pdp-cro .cro-pw__switch-note::before {
+    content: '✓';
+    color: #00823E;
+    font-weight: 800;
+    flex: none;
+  }
+  .pdp-cro .cro-pw__switch-note[hidden] { display: none; }
 {% endstyle %}
 
 {%- assign product_form_id = 'product-form-cro-' | append: section.id -%}
@@ -674,10 +700,10 @@
                                       {%- endif -%}
                                     </span>
                                     {%- if pack_variant.available == false -%}
-                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Unavailable' }}</span>
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Sold out' }}</span>
                                     {%- else -%}
                                       <span class="cro-pack-card__foot cro-pack-card__foot--sel">✓ {{ block.settings.selected_text | default: 'Selected' }}</span>
-                                      <span class="cro-pack-card__foot cro-pack-card__foot--switch">{{ block.settings.switch_text | default: 'Tap to switch' }}</span>
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--switch">{{ block.settings.switch_text | default: 'Select' }}</span>
                                     {%- endif -%}
                                   </label>
                                 {%- else -%}
@@ -813,9 +839,9 @@
                   {%- if cro_soldout_labels != blank -%}
                     <p class="cro-pw__soldout-note" role="status">
                       {%- if cro_sub_blocked -%}
-                        {%- assign note_tpl = block.settings.soldout_note_sub | default: 'The [pack] is currently unavailable. Subscription resumes when it’s back in stock — your selection hasn’t been changed.' -%}
+                        {%- assign note_tpl = block.settings.soldout_note_sub | default: 'The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn’t changed.' -%}
                       {%- else -%}
-                        {%- assign note_tpl = block.settings.soldout_note | default: 'The [pack] is currently unavailable. Other packs are unaffected — your selection hasn’t been changed.' -%}
+                        {%- assign note_tpl = block.settings.soldout_note | default: '[pack] is currently sold out. Other pack sizes are still available.' -%}
                       {%- endif -%}
                       {{ note_tpl | replace: '[pack]', cro_soldout_labels }}
                     </p>
@@ -876,6 +902,7 @@
                   data-section="{{ section.id }}"
                   data-no-sub="{{ no_sub }}"
                   data-variant-has-plans="{%- if no_sub -%}0{%- else -%}{{ product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 }}{%- endif -%}"
+                  data-sub-elsewhere="{% if cro_sub_exists and cro_sub_blocked == false %}true{% else %}false{% endif %}"
                   data-per-shot-label="{{ block.settings.per_shot_label | escape }}"
                   {{ block.shopify_attributes }}
                 >
@@ -910,6 +937,18 @@
                       {{ blocked_hint | replace: '[pack]', cro_sub_labels }}
                     </p>
                   {%- endif -%}
+                  {%- comment -%}
+                    Announced when choosing Subscribe moved the customer to a
+                    different pack. role="status" so screen readers hear it, since
+                    the change happens away from where they clicked.
+                  {%- endcomment -%}
+                  <div
+                    class="cro-pw__switch-note"
+                    id="CroPWSwitchNote-{{ section.id }}"
+                    role="status"
+                    data-template="{{ block.settings.switch_note | default: 'Subscription is available on the [pack]. Your pack has been updated.' | escape }}"
+                    hidden
+                  ></div>
                   {%- endunless -%}
 
                   {%- comment -%} Price block {%- endcomment -%}
@@ -1430,7 +1469,14 @@
 
     if (modeEl) {
       modeEl.querySelectorAll('.cro-sticky-atc__mode-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() { setMode(btn.dataset.mode); });
+        btn.addEventListener('click', function() {
+          // setMode mirrors to the main widget with a programmatic .click(),
+          // which the auto-switch guard would otherwise reject. This came from
+          // a real user, so flag it for the duration of the mirror.
+          window._croUserInitiated = true;
+          setMode(btn.dataset.mode);
+          setTimeout(function() { window._croUserInitiated = false; }, 0);
+        });
       });
     }
 
@@ -1594,11 +1640,22 @@
       var displayPrice  = (planId && planPriceMap[String(planId)] !== undefined)
                           ? planPriceMap[String(planId)] / 100
                           : subPrice;
-      var _otShip = onetimePrice >= freeShipThreshold ? 0 : 8;
-      var displaySaving = Math.round((onetimePrice + _otShip - displayPrice) * 100) / 100;
+      // Product-price difference only. Shipping is deliberately excluded: the
+      // shipping status is shown on its own line, and folding it in here made
+      // the figure disagree with the two prices on screen (e.g. $75 -> $67.50
+      // displayed as "Save $15.50").
+      var displaySaving = Math.round((onetimePrice - displayPrice) * 100) / 100;
       if (elPrice)  elPrice.textContent  = money(displayPrice);
       if (elWas)    elWas.innerHTML      = '<s>' + money(onetimePrice) + '</s> one-time price';
-      if (elSaving) { elSaving.textContent = 'Save ' + money(displaySaving) + ' per order'; elSaving.hidden = false; }
+      // Hidden rather than "Save $0.00" if a plan carries no discount.
+      if (elSaving) {
+        if (displaySaving > 0) {
+          elSaving.textContent = 'Save ' + money(displaySaving) + ' per order';
+          elSaving.hidden = false;
+        } else {
+          elSaving.hidden = true;
+        }
+      }
       if (elNote)   elNote.textContent   = '{{ block.settings.sub_note | default: "Free shipping included — always" }}';
       if (elPerks)  elPerks.hidden       = false;
       if (elFreq)   elFreq.hidden        = false;
@@ -1691,6 +1748,63 @@
       });
     });
 
+    // ── Auto-switch to a subscribable pack ────────────────────
+    // Choosing Subscribe on a pack with no selling plan moves the customer to
+    // the pack that has one, and says so. Only ever on a genuine user action:
+    // the 800ms ReCharge sync and the sticky-bar mirror both use programmatic
+    // .click(), and neither may move the customer's pack underneath them.
+    var SWITCH_KEY = 'croPackSwitched-{{ section.id }}';
+
+    function croFindSubscribableVariant() {
+      var el = document.querySelector('[data-cst_variant="data"]');
+      if (!el) return null;
+      try {
+        var vs = JSON.parse(el.textContent);
+        for (var i = 0; i < vs.length; i++) {
+          var v = vs[i];
+          if (v.available && v.selling_plan_allocations && v.selling_plan_allocations.length > 0) return v;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function croShowSwitchNote(label) {
+      var note = document.getElementById('CroPWSwitchNote-{{ section.id }}');
+      if (!note || !label) return;
+      var tpl = note.dataset.template || 'Subscription is available on the [pack]. Your pack has been updated.';
+      note.textContent = tpl.replace('[pack]', label);
+      note.hidden = false;
+    }
+
+    // The variant change re-renders the buy box, so the note is handed across
+    // in sessionStorage rather than written straight to the DOM.
+    try {
+      var pendingSwitch = sessionStorage.getItem(SWITCH_KEY);
+      if (pendingSwitch) {
+        sessionStorage.removeItem(SWITCH_KEY);
+        croShowSwitchNote(pendingSwitch);
+      }
+    } catch (e) {}
+
+    var croSubToggle = pw.querySelector('.cro-pw__tog-btn[data-mode="sub"]');
+    if (croSubToggle) {
+      croSubToggle.addEventListener('click', function (e) {
+        if (!e.isTrusted && !window._croUserInitiated) return;
+        if (pw.dataset.noSub === 'true') return;
+        if (pw.dataset.variantHasPlans !== '0') return;  // current pack already subscribable
+        var target = croFindSubscribableVariant();
+        if (!target) return;                             // nothing valid — never switch silently
+        var radios = document.querySelectorAll('.cro-variant-row input[type="radio"], .cro-variant-row--cards input[type="radio"]');
+        for (var i = 0; i < radios.length; i++) {
+          if (radios[i].value === target.options[0] && !radios[i].disabled) {
+            try { sessionStorage.setItem(SWITCH_KEY, target.title); } catch (err) {}
+            radios[i].click();
+            return;
+          }
+        }
+      }, true);
+    }
+
     // ── Frequency buttons ─────────────────────────────────────
     var freqBtns = pw.querySelectorAll('.cro-pw__freq-btn');
     freqBtns.forEach(function (btn) {
@@ -1739,11 +1853,18 @@
         renderOnetime();
         return;
       }
-      // Initial variant has no plans — show One-time only (e.g. 9-shot pack)
+      // Initial variant has no plans — show One-time only (e.g. 9-shot pack).
+      // The toggle itself stays when another pack can be subscribed to, so the
+      // customer still has a way to ask for a subscription.
       if (pw.dataset.variantHasPlans === '0') {
         currentMode = 'once';
         var toggle = pw.querySelector('.cro-pw__toggle');
-        if (toggle) toggle.hidden = true;
+        if (toggle) toggle.hidden = pw.dataset.subElsewhere !== 'true';
+        if (toggle && pw.dataset.subElsewhere === 'true') {
+          toggle.querySelectorAll('.cro-pw__tog-btn').forEach(function (b) {
+            b.classList.toggle('is-active', b.dataset.mode === 'once');
+          });
+        }
         if (elPerks)  elPerks.hidden  = true;
         if (elFreq)   elFreq.hidden   = true;
         if (elCancel) elCancel.hidden = true;
@@ -2285,13 +2406,13 @@
           "type": "text",
           "id": "switch_text",
           "label": "Unselected label",
-          "default": "Tap to switch"
+          "default": "Select"
         },
         {
           "type": "text",
           "id": "soldout_text",
           "label": "Sold out label (in card)",
-          "default": "Unavailable"
+          "default": "Sold out"
         },
         {
           "type": "text",
@@ -2319,8 +2440,8 @@
         { "type": "text", "id": "sample_label", "label": "Link text", "default": "Start with the Sample Pack", "info": "Leave blank to hide the link entirely." },
         { "type": "url", "id": "sample_url", "label": "Link URL", "info": "Defaults to the sample-pack product when left empty. Never shown on the Sample Pack page itself." },
         { "type": "header", "content": "Sold Out Notice" },
-        { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently unavailable. Subscription resumes when it\u2019s back in stock \u2014 your selection hasn\u2019t been changed." },
-        { "type": "textarea", "id": "soldout_note", "label": "Notice when other packs still available", "default": "The [pack] is currently unavailable. Other packs are unaffected \u2014 your selection hasn\u2019t been changed." },
+        { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn\u2019t changed." },
+        { "type": "textarea", "id": "soldout_note", "label": "Notice when other packs still available", "default": "[pack] is currently sold out. Other pack sizes are still available." },
         {
           "type": "checkbox",
           "id": "show_dynamic_checkout",
@@ -2414,6 +2535,7 @@
           "content": "Notes"
         },
         { "type": "header", "content": "Subscription Unavailable" },
+        { "type": "textarea", "id": "switch_note", "label": "Pack switched confirmation", "default": "Subscription is available on the [pack]. Your pack has been updated.", "info": "Shown when choosing Subscribe moves the customer to a subscribable pack. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_only_suffix", "label": "Subscribe button \u2014 single pack suffix", "default": "\u2014 [pack] only", "info": "Shown when only one pack can be subscribed to. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
         { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
