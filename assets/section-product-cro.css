@@ -3156,7 +3156,10 @@ html.shopify-design-mode .cro-fade-up {
 }
 .pdp-cro .cro-pw__nosub-upsell::before {
   content: '→';
-  font-size: 0.875rem;
+  /* px, not rem — the root font-size is 10px here, so the previous 0.875rem
+     resolved to 8.75px, smaller than the 12px text beside it. */
+  font-size: 16px;
+  line-height: 1;
   color: #1D9E75;
   flex-shrink: 0;
 }

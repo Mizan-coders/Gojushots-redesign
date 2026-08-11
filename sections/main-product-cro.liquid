@@ -755,7 +755,7 @@
                   {%- assign pw_v_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
                   {%- comment -%} Upsell only shows for per-variant no-sub (not when whole product is tagged no-subscription) {%- endcomment -%}
                   <div class="cro-pw__nosub-upsell" id="CroPWNoSubUpsell-{{ section.id }}" {% if pw_v_has_plans > 0 or no_sub %}hidden{% endif %}>
-                    <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '→ 15 Shots with Subscribe &amp; Save — save 10% with free shipping always.' }}</a>
+                    <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '15 Shots with Subscribe &amp; Save — save 10% with free shipping always.' }}</a>
                   </div>
 
                   {%- comment -%} Cancel reassurance {%- endcomment -%}
@@ -2188,7 +2188,7 @@
           "type": "header",
           "content": "Notes"
         },
-        { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "→ 15 Shots with Subscribe & Save — save 10% with free shipping always." },
+        { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "15 Shots with Subscribe & Save — save 10% with free shipping always." },
         { "type": "textarea", "id": "onetime_note", "label": "One-time nudge note", "default": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime." },
         { "type": "text", "id": "cancel_note", "label": "Cancel reassurance", "default": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked." }
       ]
