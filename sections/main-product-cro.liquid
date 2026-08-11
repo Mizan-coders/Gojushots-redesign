@@ -362,11 +362,13 @@
             assign cro_sub_exists = false
             assign cro_sub_in_stock = false
             assign cro_sub_labels = ''
+            assign cro_sub_count = 0
             assign cro_soldout_labels = ''
             unless cro_no_sub
               for v in product.variants
                 if v.selling_plan_allocations.size > 0
                   assign cro_sub_exists = true
+                  assign cro_sub_count = cro_sub_count | plus: 1
                   if cro_sub_labels == ''
                     assign cro_sub_labels = v.title
                   else
@@ -848,7 +850,18 @@
                       {% if cro_sub_blocked %}disabled aria-disabled="true"{% endif %}
                     >
                       {{- block.settings.label_sub }}{% if pw_discount > 0 %} {{ pw_discount }}%{% endif %}
-                      {%- if cro_sub_blocked %} — {{ block.settings.sub_unavailable_suffix | default: 'unavailable' }}{% endif -%}
+                      {%- comment -%}
+                        When exactly one pack is subscribable, name it — the customer
+                        should know before clicking that Subscribe implies a different
+                        pack. With two or more subscribable packs there is nothing to
+                        disambiguate, so the suffix is omitted.
+                      {%- endcomment -%}
+                      {%- if cro_sub_blocked -%}
+                        {{ ' — ' }}{{ block.settings.sub_unavailable_suffix | default: 'unavailable' }}
+                      {%- elsif cro_sub_count == 1 and product.variants.size > 1 -%}
+                        {%- assign only_suffix = block.settings.sub_only_suffix | default: '— [pack] only' -%}
+                        {{ ' ' }}{{ only_suffix | replace: '[pack]', cro_sub_labels }}
+                      {%- endif -%}
                     </button>
                   </div>
                   {%- if cro_sub_blocked -%}
@@ -2340,6 +2353,7 @@
           "content": "Notes"
         },
         { "type": "header", "content": "Subscription Unavailable" },
+        { "type": "text", "id": "sub_only_suffix", "label": "Subscribe button \u2014 single pack suffix", "default": "\u2014 [pack] only", "info": "Shown when only one pack can be subscribed to. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
         { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
         { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "15 Shots with Subscribe & Save — save 10% with free shipping always." },
