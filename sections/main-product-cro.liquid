@@ -73,6 +73,100 @@
   .cro-pw[data-variant-has-plans="0"] .cro-pw__perks,
   .cro-pw[data-variant-has-plans="0"] .cro-pw__freq,
   .cro-pw[data-variant-has-plans="0"] .cro-pw__cancel-note { display: none !important; }
+
+  /* ── Pack cards (Choose your pack) ──────────────────────────
+     Selectors are scoped through `.pdp-cro` and the adjacent input so they
+     out-rank Dawn's `.product-form__input input[type=radio] + label` rule,
+     which otherwise restyles these as pill buttons. Selected state comes
+     from :checked, not a server-rendered class, so it survives re-render. */
+  .pdp-cro .cro-variant-row--cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    flex: 1 1 100%;
+    margin: 14px 0 12px;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card {
+    position: relative;
+    display: block;
+    border: 1.5px solid #E4E1D6;
+    border-radius: 14px;
+    padding: 18px 14px 14px;
+    background: #fff;
+    cursor: pointer;
+    min-height: 0;
+    text-align: left;
+    transition: border-color .15s ease;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card:hover { border-color: #00823E; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"]:checked + .cro-pack-card {
+    border-width: 2px;
+    border-color: #00823E;
+    padding: 17.5px 13.5px 13.5px;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"]:focus-visible + .cro-pack-card {
+    outline: 2px solid #00823E;
+    outline-offset: 2px;
+  }
+  /* Inner text colours are routed through `input[type="radio"] +` to reach
+     specificity 0,5,0. Dawn's theme sets `...input[type=radio]+label span
+     {color:#AFADA2}` and `:checked+label span {color:#32312E}` at 0,2,2 /
+     0,3,2, which otherwise repaint the badge and pack text. */
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__badge {
+    position: absolute;
+    top: -11px;
+    left: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.6;
+    padding: 2px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__badge--start {
+    background: #00823E;
+    color: #FFFFFF;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__badge--value {
+    background: #E6F2EA;
+    color: #00823E;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__name {
+    display: block; font-size: 15px; font-weight: 600; line-height: 1.3;
+    margin: 4px 0 2px; color: #1A1A1A;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__price {
+    display: block; font-size: 24px; font-weight: 700; line-height: 1.2;
+    margin: 0 0 4px; color: #1A1A1A;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__sub {
+    display: block; font-size: 13px; font-weight: 400; line-height: 1.45; color: #6B6B66;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__foot {
+    display: none; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__foot--switch {
+    display: block; color: #6B6B66; font-weight: 400;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"]:checked + .cro-pack-card .cro-pack-card__foot--switch {
+    display: none;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"]:checked + .cro-pack-card .cro-pack-card__foot--sel {
+    display: block; color: #00823E;
+  }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out { opacity: .55; cursor: not-allowed; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card--out .cro-pack-card__foot--switch { display: none; }
+  .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card .cro-pack-card__foot--out {
+    display: block; color: #A33; font-weight: 600;
+  }
+  @media screen and (max-width: 480px) {
+    .pdp-cro .cro-variant-row--cards { gap: 10px; }
+    .pdp-cro .cro-variant-row--cards input[type="radio"] + .cro-pack-card { padding: 16px 12px 12px; }
+    .pdp-cro .cro-variant-row--cards .cro-pack-card__price { font-size: 21px; }
+    .pdp-cro .cro-variant-row--cards .cro-pack-card__sub { font-size: 12px; }
+  }
 {% endstyle %}
 
 {%- assign product_form_id = 'product-form-cro-' | append: section.id -%}
@@ -369,11 +463,36 @@
                         data-section="{{ section.id }}"
                         data-url="{{ product.url }}"
                       >
+                        {%- comment -%}
+                          Pack cards render only for single-option products, where each
+                          option value maps 1:1 to a variant (so price / availability /
+                          per-bottle are resolvable). Multi-option products keep the
+                          original pill layout.
+                        {%- endcomment -%}
+                        {%- assign use_pack_cards = false -%}
+                        {%- if block.settings.pack_cards != false and product.options_with_values.size == 1 -%}
+                          {%- assign use_pack_cards = true -%}
+                        {%- endif -%}
+                        {%- assign ship_threshold = block.settings.free_ship_threshold | default: 85 -%}
+                        {%- assign ship_cost = block.settings.ship_cost | default: 8 -%}
+                        {%- assign ship_threshold_cents = ship_threshold | times: 100 -%}
+
                         {%- for option in product.options_with_values -%}
                           <fieldset class="js product-form__input">
                             <legend class="cro-label">{{ option.name }}</legend>
-                            <div class="cro-variant-row">
+                            <div class="{% if use_pack_cards %}cro-variant-row--cards{% else %}cro-variant-row{% endif %}">
                               {%- for value in option.values -%}
+                                {%- liquid
+                                  assign pack_variant = nil
+                                  if use_pack_cards
+                                    for v in product.variants
+                                      if v.title == value
+                                        assign pack_variant = v
+                                        break
+                                      endif
+                                    endfor
+                                  endif
+                                -%}
                                 <input
                                   type="radio"
                                   id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
@@ -382,13 +501,63 @@
                                   form="{{ product_form_id }}"
                                   class="visually-hidden"
                                   {% if option.selected_value == value %}checked{% endif %}
+                                  {% if pack_variant and pack_variant.available == false %}disabled{% endif %}
                                 >
-                                <label
-                                  for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                  class="cro-variant-btn{% if option.selected_value == value %} is-active{% endif %}"
-                                >
-                                  {{ value }}
-                                </label>
+                                {%- if pack_variant -%}
+                                  {%- liquid
+                                    assign bottles = value | split: ' ' | first | times: 1
+                                    assign per_bottle = 0
+                                    if bottles > 0
+                                      assign per_bottle = pack_variant.price | times: 1.0 | divided_by: bottles | round
+                                    endif
+                                    assign ships_free = false
+                                    if pack_variant.price >= ship_threshold_cents
+                                      assign ships_free = true
+                                    endif
+                                    assign badge_text = ''
+                                    assign badge_kind = ''
+                                    if option.values.size > 1
+                                      if forloop.first
+                                        assign badge_text = block.settings.badge_first | default: 'Start here'
+                                        assign badge_kind = 'start'
+                                      elsif forloop.last
+                                        assign badge_text = block.settings.badge_last | default: 'Best value'
+                                        assign badge_kind = 'value'
+                                      endif
+                                    endif
+                                  -%}
+                                  <label
+                                    for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                    class="cro-pack-card{% if pack_variant.available == false %} cro-pack-card--out{% endif %}{% if option.selected_value == value %} is-active{% endif %}"
+                                  >
+                                    {%- if badge_text != blank -%}
+                                      <span class="cro-pack-card__badge cro-pack-card__badge--{{ badge_kind }}">{{ badge_text }}</span>
+                                    {%- endif -%}
+                                    <span class="cro-pack-card__name">{{ value }}</span>
+                                    <span class="cro-pack-card__price">{{ pack_variant.price | money_without_trailing_zeros }}</span>
+                                    <span class="cro-pack-card__sub">
+                                      {%- if per_bottle > 0 -%}{{ per_bottle | money }} {{ block.settings.per_bottle_suffix | default: '/ bottle' }} · {% endif -%}
+                                      {%- if ships_free -%}
+                                        {{ block.settings.ships_free_text | default: 'delivered, ships free' }}
+                                      {%- else -%}
+                                        + ${{ ship_cost }} {{ block.settings.ship_text | default: 'shipping' }}
+                                      {%- endif -%}
+                                    </span>
+                                    {%- if pack_variant.available == false -%}
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Sold out' }}</span>
+                                    {%- else -%}
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--sel">✓ {{ block.settings.selected_text | default: 'Selected' }}</span>
+                                      <span class="cro-pack-card__foot cro-pack-card__foot--switch">{{ block.settings.switch_text | default: 'Tap to switch' }}</span>
+                                    {%- endif -%}
+                                  </label>
+                                {%- else -%}
+                                  <label
+                                    for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                    class="cro-variant-btn{% if option.selected_value == value %} is-active{% endif %}"
+                                  >
+                                    {{ value }}
+                                  </label>
+                                {%- endif -%}
                               {%- endfor -%}
                             </div>
                           </fieldset>
@@ -1830,6 +1999,88 @@
           ],
           "default": "button",
           "label": "Style"
+        },
+        {
+          "type": "header",
+          "content": "Pack Cards"
+        },
+        {
+          "type": "checkbox",
+          "id": "pack_cards",
+          "label": "Show packs as cards",
+          "default": true,
+          "info": "Cards show price, per-bottle price and shipping. Only applies to products with a single option (pack size). Uncheck to use the old pills."
+        },
+        {
+          "type": "text",
+          "id": "badge_first",
+          "label": "Badge on smallest pack",
+          "default": "Start here",
+          "info": "Leave blank to hide."
+        },
+        {
+          "type": "text",
+          "id": "badge_last",
+          "label": "Badge on largest pack",
+          "default": "Best value"
+        },
+        {
+          "type": "range",
+          "id": "free_ship_threshold",
+          "label": "Free shipping threshold",
+          "info": "Packs priced at or above this show as shipping free. Must match the rule configured in checkout.",
+          "min": 0,
+          "max": 150,
+          "step": 5,
+          "default": 85,
+          "unit": "$"
+        },
+        {
+          "type": "range",
+          "id": "ship_cost",
+          "label": "Standard shipping cost",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "default": 8,
+          "unit": "$"
+        },
+        {
+          "type": "text",
+          "id": "per_bottle_suffix",
+          "label": "Per-unit wording",
+          "default": "/ bottle"
+        },
+        {
+          "type": "text",
+          "id": "ships_free_text",
+          "label": "Free shipping wording",
+          "default": "delivered, ships free"
+        },
+        {
+          "type": "text",
+          "id": "ship_text",
+          "label": "Paid shipping wording",
+          "default": "shipping",
+          "info": "Shown after the cost, e.g. \"+ $8 shipping\"."
+        },
+        {
+          "type": "text",
+          "id": "selected_text",
+          "label": "Selected label",
+          "default": "Selected"
+        },
+        {
+          "type": "text",
+          "id": "switch_text",
+          "label": "Unselected label",
+          "default": "Tap to switch"
+        },
+        {
+          "type": "text",
+          "id": "soldout_text",
+          "label": "Sold out label",
+          "default": "Sold out"
         },
         {
           "type": "text",
