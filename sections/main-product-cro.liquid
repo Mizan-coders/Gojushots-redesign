@@ -995,7 +995,13 @@
                   </div>
 
                   {%- comment -%} Cancel reassurance {%- endcomment -%}
-                  <div class="cro-pw__cancel-note" id="CroPWCancel-{{ section.id }}">{{ block.settings.cancel_note }}</div>
+                  {%- comment -%}
+                    Guarded: the note carries a top border, so an empty setting
+                    would leave a stray rule across the widget.
+                  {%- endcomment -%}
+                  {%- if block.settings.cancel_note != blank -%}
+                    <div class="cro-pw__cancel-note" id="CroPWCancel-{{ section.id }}">{{ block.settings.cancel_note }}</div>
+                  {%- endif -%}
                   {%- endunless -%}
                 </div>
 
