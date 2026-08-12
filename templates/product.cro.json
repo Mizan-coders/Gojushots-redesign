@@ -174,25 +174,25 @@
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "5000+ years",
-            "label": "Traditional ingredients",
-            "sub": "Valued through generations"
+            "number": "",
+            "label": "FOCUS + STAMINA",
+            "sub": "200 mg ginseng for focus and stamina support"
           }
         },
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "3",
-            "label": "Triple Root Blend",
-            "sub": "Ginger • Turmeric • Ginseng"
+            "number": "",
+            "label": "TRIPLE ROOT BLEND",
+            "sub": "Ginseng · turmeric · ginger"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "200mg",
-            "label": "Ginseng",
-            "sub": "For focus and stamina support"
+            "number": "",
+            "label": "ONE BOTTLE DAILY",
+            "sub": "Recommended use: 200 mL"
           }
         }
       },
@@ -205,8 +205,8 @@
         "bg_color": "#00823e",
         "accent_color": "#752156",
         "highlight_color": "#dada97",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 44,
+        "padding_bottom": 44
       }
     },
     "product-story": {
