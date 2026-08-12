@@ -389,6 +389,17 @@
         >
 
           {%- comment -%}
+            Phase gate. The new purchase experience — pack cards, one-time-first
+            default, sold-out messaging, sample link — ships per product rather
+            than to the whole range at once, because all 12 product templates
+            share this section. The brief migrates products one at a time.
+
+            Off: the product keeps its previous behaviour (pill selector,
+            subscribe-first). On: the approved Action Shot experience.
+          {%- endcomment -%}
+          {%- assign cro_new_ux = section.settings.new_purchase_experience | default: false -%}
+
+          {%- comment -%}
             Subscription availability, computed once for the whole panel so the
             toggle, the hint and the note under the CTA all read the same state.
 
@@ -617,7 +628,7 @@
                           original pill layout.
                         {%- endcomment -%}
                         {%- assign use_pack_cards = false -%}
-                        {%- if block.settings.pack_cards != false and product.options_with_values.size == 1 -%}
+                        {%- if cro_new_ux and block.settings.pack_cards != false and product.options_with_values.size == 1 -%}
                           {%- assign use_pack_cards = true -%}
                         {%- endif -%}
                         {%- assign ship_threshold = block.settings.free_ship_threshold | default: 85 -%}
@@ -839,7 +850,7 @@
                     own selection was left alone — the approved behaviour is never
                     to switch packs silently.
                   {%- endcomment -%}
-                  {%- if cro_soldout_labels != blank -%}
+                  {%- if cro_new_ux and cro_soldout_labels != blank -%}
                     <p class="cro-pw__soldout-note" role="status">
                       {%- if cro_sub_blocked -%}
                         {%- assign note_tpl = block.settings.soldout_note_sub | default: 'The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn’t changed.' -%}
@@ -865,7 +876,7 @@
                     endif
                     assign sample_label = block.settings.sample_label | default: 'Try the Sample Pack.'
                   -%}
-                  {%- if sample_url != blank and product.handle != 'sample-pack' and sample_label != blank -%}
+                  {%- if cro_new_ux and sample_url != blank and product.handle != 'sample-pack' and sample_label != blank -%}
                     <p class="cro-sample-link">
                       {%- assign sample_lead = block.settings.sample_lead | default: 'New to GOJU?' -%}
                       {%- if sample_lead != blank -%}<span class="cro-sample-link__lead">{{ sample_lead }}</span> {% endif -%}
@@ -906,6 +917,7 @@
                   data-no-sub="{{ no_sub }}"
                   data-variant-has-plans="{%- if no_sub -%}0{%- else -%}{{ product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 }}{%- endif -%}"
                   data-sub-elsewhere="{% if cro_sub_exists and cro_sub_blocked == false %}true{% else %}false{% endif %}"
+                  data-new-ux="{% if cro_new_ux %}true{% else %}false{% endif %}"
                   data-per-shot-label="{{ block.settings.per_shot_label | escape }}"
                   {{ block.shopify_attributes }}
                 >
@@ -928,13 +940,13 @@
                       {%- endcomment -%}
                       {%- if cro_sub_blocked -%}
                         {{ ' — ' }}{{ block.settings.sub_unavailable_suffix | default: 'unavailable' }}
-                      {%- elsif cro_sub_count == 1 and product.variants.size > 1 -%}
+                      {%- elsif cro_new_ux and cro_sub_count == 1 and product.variants.size > 1 -%}
                         {%- assign only_suffix = block.settings.sub_only_suffix | default: '— [pack] only' -%}
                         {{ ' ' }}{{ only_suffix | replace: '[pack]', cro_sub_labels }}
                       {%- endif -%}
                     </button>
                   </div>
-                  {%- if cro_sub_blocked -%}
+                  {%- if cro_new_ux and cro_sub_blocked -%}
                     <p class="cro-pw__sub-blocked-hint">
                       {%- assign blocked_hint = block.settings.sub_blocked_hint | default: 'Subscription is unavailable while the [pack] is out of stock.' -%}
                       {{ blocked_hint | replace: '[pack]', cro_sub_labels }}
@@ -1744,6 +1756,9 @@
     // campaign or deep link carrying selling_plan. Every path that used to force
     // Subscribe on load is gated on this.
     function croWantsSub() {
+      // Legacy products keep subscribe-first until they are migrated. Only the
+      // new experience opens one-time unless the URL asks for a subscription.
+      if (pw.dataset.newUx !== 'true') return true;
       try { return new URLSearchParams(window.location.search).has('selling_plan'); }
       catch (e) { return false; }
     }
@@ -2203,7 +2218,11 @@
     // the smallest pack, one-time, so this is gated on selling_plan being asked
     // for explicitly.
     var params = new URLSearchParams(window.location.search);
-    if (!params.has('selling_plan')) return;
+    var pwEl = document.getElementById('CroPW-{{ section.id }}');
+    var newUx = pwEl && pwEl.dataset.newUx === 'true';
+    // Legacy products keep the old behaviour: jump to the subscribable variant
+    // on any visit without an explicit ?variant.
+    if (newUx && !params.has('selling_plan')) return;
     if (params.has('variant')) return;
     var pw = document.getElementById('CroPW-{{ section.id }}');
     if (!pw || pw.dataset.noSub === 'true') return;
@@ -2734,6 +2753,17 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Purchase Experience"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_purchase_experience",
+      "label": "Use new purchase experience",
+      "default": false,
+      "info": "Pack cards, one-time-first default, sold-out messaging and the Sample Pack link. Enable per product as each one is migrated and approved — all product templates share this section, so leaving it off keeps a product on its previous behaviour."
+    },
     {
       "type": "header",
       "content": "Gallery"

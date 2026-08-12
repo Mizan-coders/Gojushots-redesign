@@ -153,6 +153,7 @@
         "acc_shipping"
       ],
       "settings": {
+        "new_purchase_experience": true,
         "gallery_layout": "thumbnail_slider",
         "hide_variants": false,
         "enable_video_looping": false,
