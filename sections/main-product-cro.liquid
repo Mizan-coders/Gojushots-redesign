@@ -699,12 +699,15 @@
                                         + ${{ ship_cost }} {{ block.settings.ship_text | default: 'shipping' }}
                                       {%- endif -%}
                                     </span>
-                                    {%- if pack_variant.available == false -%}
-                                      <span class="cro-pack-card__foot cro-pack-card__foot--out">{{ block.settings.soldout_text | default: 'Sold out' }}</span>
-                                    {%- else -%}
+                                    {%- comment -%}
+                                      Sold out is shown on the badge only — the lower status
+                                      line is deliberately omitted so the card doesn't say it
+                                      twice. The badge slot is taken over above.
+                                    {%- endcomment -%}
+                                    {%- unless pack_variant.available == false -%}
                                       <span class="cro-pack-card__foot cro-pack-card__foot--sel">✓ {{ block.settings.selected_text | default: 'Selected' }}</span>
                                       <span class="cro-pack-card__foot cro-pack-card__foot--switch">{{ block.settings.switch_text | default: 'Select' }}</span>
-                                    {%- endif -%}
+                                    {%- endunless -%}
                                   </label>
                                 {%- else -%}
                                   <label
@@ -860,7 +863,7 @@
                         assign sample_url = sample_product.url
                       endif
                     endif
-                    assign sample_label = block.settings.sample_label | default: 'Start with the Sample Pack'
+                    assign sample_label = block.settings.sample_label | default: 'Try the Sample Pack.'
                   -%}
                   {%- if sample_url != blank and product.handle != 'sample-pack' and sample_label != blank -%}
                     <p class="cro-sample-link">
@@ -946,7 +949,7 @@
                     class="cro-pw__switch-note"
                     id="CroPWSwitchNote-{{ section.id }}"
                     role="status"
-                    data-template="{{ block.settings.switch_note | default: 'Subscription is available on the [pack]. Your pack has been updated.' | escape }}"
+                    data-template="{{ block.settings.switch_note | default: 'Subscriptions are available on the [pack]. We’ve updated your selection.' | escape }}"
                     hidden
                   ></div>
                   {%- endunless -%}
@@ -1771,7 +1774,7 @@
     function croShowSwitchNote(label) {
       var note = document.getElementById('CroPWSwitchNote-{{ section.id }}');
       if (!note || !label) return;
-      var tpl = note.dataset.template || 'Subscription is available on the [pack]. Your pack has been updated.';
+      var tpl = note.dataset.template || 'Subscriptions are available on the [pack]. We’ve updated your selection.';
       note.textContent = tpl.replace('[pack]', label);
       note.hidden = false;
     }
@@ -2498,7 +2501,7 @@
       "settings": [
         { "type": "header", "content": "Sample Pack Link" },
         { "type": "text", "id": "sample_lead", "label": "Lead-in text", "default": "New to GOJU?", "info": "Leave blank to show only the link." },
-        { "type": "text", "id": "sample_label", "label": "Link text", "default": "Start with the Sample Pack", "info": "Leave blank to hide the link entirely." },
+        { "type": "text", "id": "sample_label", "label": "Link text", "default": "Try the Sample Pack.", "info": "Leave blank to hide the link entirely." },
         { "type": "url", "id": "sample_url", "label": "Link URL", "info": "Defaults to the sample-pack product when left empty. Never shown on the Sample Pack page itself." },
         { "type": "header", "content": "Sold Out Notice" },
         { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn\u2019t changed." },
@@ -2596,7 +2599,7 @@
           "content": "Notes"
         },
         { "type": "header", "content": "Subscription Unavailable" },
-        { "type": "textarea", "id": "switch_note", "label": "Pack switched confirmation", "default": "Subscription is available on the [pack]. Your pack has been updated.", "info": "Shown when choosing Subscribe moves the customer to a subscribable pack. [pack] is replaced with that pack's name." },
+        { "type": "textarea", "id": "switch_note", "label": "Pack switched confirmation", "default": "Subscriptions are available on the [pack]. We\u2019ve updated your selection.", "info": "Shown when choosing Subscribe moves the customer to a subscribable pack. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_only_suffix", "label": "Subscribe button \u2014 single pack suffix", "default": "\u2014 [pack] only", "info": "Shown when only one pack can be subscribed to. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
         { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
