@@ -2,7 +2,7 @@
 
 **Theme:** `155130822824` "Subscription Update Aug 2026" (unpublished) · **Live `152550834344` never touched**
 **Sources:** `GOJU_PDP_System_Developer_Brief.docx` · `GOJU_Action_Shot_Phase1_Build.docx` · `GOJU_Action_Shot_Approved_Copy.docx`
-**Last updated:** 12 August 2026
+**Last updated:** 12 August 2026 (rev 2)
 
 ## Legend
 
@@ -37,8 +37,9 @@
 | Return to one-time keeps larger pack | ✅ | by design |
 | Toggle names the subscribable pack | ✅ | `775603b` |
 | Sold-out card: badge only, greyed, no strikethrough | ✅ | `7bc9ecc`, `51d708e` |
-| Subscription-blocked state + messaging | 🟡 | Built; **never tested** — no product has a sold-out *subscribable* variant |
-| Sold-out deep link → auto-select + approved message | ⬜ | Next task |
+| Subscription-blocked state + messaging | 🟡 | Built; **never tested** — needs a sold-out *subscribable* variant. The duplicate product cannot test it: duplicating drops Recharge selling plans |
+| Sold-out deep link → auto-select + approved message | ✅ | `5e05fd1` — verified against a real sold-out variant |
+| Everything-sold-out message | 🟡 | `5e05fd1` — built, no product has all variants unavailable |
 | Direct variant / selling_plan deep links | ✅ | `b31c645` |
 | Subscription terms visible before add-to-cart | ✅ | pre-existing |
 | Sticky cart synchronised | 🟡 | Mode sync verified; pack label + price not re-verified since cards |
@@ -66,6 +67,7 @@
 | Standalone How-to-Use hidden, control retained | ✅ | `d9ce7c2` |
 | Savings = product-price difference only | ✅ | `c78e4fb` |
 | Separate stats band — remove or keep? | 🚫 | Tom — duplicates the pills, wording not approved |
+| Per-product phase gate | ✅ | `f4cec46` — new experience on for Action Shot, off for the range |
 | Loox removed / Growave only | 🚫 | Tom — Loox is the only rating on product cards |
 | Growave rating live, never hardcoded | 🟡 | Widget present; not audited for hardcoded values |
 | Tighten Growave spacing | ⬜ | |
@@ -93,7 +95,8 @@
 | Phase 2 item | State |
 |---|---|
 | 2. Pack selector, purchase type, CTA — reusable | **Effectively complete.** Built data-driven from variants + selling plans; renders any product's packs with no code change |
-| Editable content for the above | **Partly complete.** ~20 new settings: badges, state labels, per-unit wording, shipping threshold, shipping cost, all state messages |
+| Editable content for the above | **Partly complete.** 24 new settings: badges, state labels, per-unit wording, shipping threshold, shipping cost, sample link, and every state message |
+| Per-product enable/disable | **Complete.** The gate makes each product's migration a theme-editor toggle rather than code |
 | 6. Trust badges | Already metafield-driven before this work (pre-existing) |
 | 1, 3, 4, 5, 7, 8, 9, 10, 11, 12 | Not started |
 
@@ -103,23 +106,30 @@
 
 ## Phase 3 — Range migration
 
-**⚠️ Not started deliberately — but partially triggered as a side effect.**
+**Not started, and no longer triggered by accident.**
 
-All 12 product templates share `sections/main-product-cro.liquid`, so these are already live on the whole range on the dev theme:
+All 12 product templates share `sections/main-product-cro.liquid`, so the new
+behaviour was initially live across the whole range on the dev theme. The
+commercially material part was the purchase-type default — the 60ml PDPs would
+have moved from subscribe-first to one-time-first, which was approved as a test
+on Action Shot only.
 
-- Pack cards replacing pills
-- Sold-out and subscription-blocked states
-- Clean-URL default → **60ml PDPs would open on 9 Shots + one-time instead of 15 Shots + Subscribe**
-- Toggle suffix, Sample Pack link, analytics events
-- Template wording: sentence case + per-unit noun, applied to all 12
+**Contained** by a per-product gate (`f4cec46`): section setting *"Use new
+purchase experience"*, default off, enabled on Action Shot alone. It gates the
+pack cards, one-time-first default, subscribable-pack suffix, sold-out and
+subscription-unavailable messaging, and the Sample Pack link.
 
-**Risk:** publishing the theme at cutover migrates all 12 PDPs at once. Phase 3 says *"Do not migrate all products at once. Complete and approve each product before moving to the next."*
+Verified: Immune Guard renders 0 pack cards, 2 pills, no sample link, and opens
+on 15 Shots + Subscribe. Action Shot renders the full new experience.
 
-The purchase-type default is the commercially material one — Tom approved one-time-first as a **test on Action Shot**, not for the range.
+Deliberately left range-wide, being corrections rather than redesign:
 
-**Proposed mitigation:** a section setting *"Use new purchase experience"*, default off, enabled on Action Shot only. ~1 hour. Decision pending.
+- savings calculation (was adding shipping into the discount figure)
+- duplicated arrow on the upsell line
+- primary button hover colour
+- sentence-case subscription wording
 
----
+**Migration per product is now:** tick the box, QA, approve — no code.
 
 ## Open decisions
 
@@ -152,3 +162,25 @@ Steps 4 before 5 deliberately: in the gap the site says $85 while checkout gives
 ## Out of scope
 
 60ml PDP migration · replacing standalone How-to-Use · Why People Choose / Is this right for you? · the separate live *About Subscriptions* content source (separate ticket) · anything beyond the agreed Phase 1 ceiling without prior approval
+
+---
+
+## Verification debt
+
+Built but never exercised against real data. These must not be reported as done:
+
+| Item | What it needs |
+|---|---|
+| Subscription-blocked state | A sold-out *subscribable* variant. The duplicate product can't test it — duplicating a product drops its Recharge selling plans |
+| Everything-sold-out message | A product with no purchasable variant |
+| `pack_selected` event | One real click on a pack card (synthetic events are rejected by design) |
+| Sticky cart after the card change | Pack label and price re-checked |
+| Mobile at ~390px | Browser here won't render below 1272px |
+| Cart and checkout end to end | A real add-to-cart in both purchase types |
+
+## Working notes
+
+- **Shopify puts `blocks` before `settings`** in both the section schema and template JSON. Inserting at the first `"settings"` match lands inside a block. Hit twice; anchor past `block_order`.
+- **The buy box re-renders on variant change.** Anything shown after a switch needs a `sessionStorage` handoff, not a direct DOM write.
+- **Scripts run before `variant-radios` upgrades.** Setting `checked` at parse time changes the radio without Dawn noticing — the card switches while price and CTA go stale. Defer to `DOMContentLoaded` and dispatch a bubbling `change`.
+- **Programmatic clicks must never move the customer's pack.** The 800ms Recharge sync clicks Subscribe on every load; auto-switch and analytics are both guarded on `isTrusted`.
