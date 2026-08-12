@@ -41,14 +41,14 @@
         "benefit_pills": {
           "type": "benefit_pills",
           "settings": {
-            "pill_1_icon": "🌿",
-            "pill_1_text": "100% Natural",
-            "pill_2_icon": "🇳🇿",
-            "pill_2_text": "Made in NZ",
-            "pill_3_icon": "💪🏽",
-            "pill_3_text": "High-strength",
-            "pill_4_icon": "✓",
-            "pill_4_text": "No Additives"
+            "pill_1_icon": "",
+            "pill_1_text": "200 mg ginseng",
+            "pill_2_icon": "",
+            "pill_2_text": "10% organic Fijian ginger",
+            "pill_3_icon": "",
+            "pill_3_text": "10% organic Fijian turmeric",
+            "pill_4_icon": "🇳🇿",
+            "pill_4_text": "Made in New Zealand"
           }
         },
         "variant_picker": {
@@ -216,12 +216,12 @@
         "heading_accent_word": "",
         "body_1": "Action Shot is built on the same ginger and turmeric recipe GOJU customers came to love as Supershot, now enhanced with 200mg of ginseng.",
         "body_2": "Made with organic Fijian ginger, turmeric, New Zealand mānuka honey and real fruit juice, it's bold, refreshing and designed to become part of your daily routine.\nNo shortcuts. Just real ingredients you'll actually enjoy drinking.",
-        "pill_1_icon": "🌱",
-        "pill_1_text": "Real ingredients",
-        "pill_2_icon": "🧪",
-        "pill_2_text": "Lab tested",
-        "pill_3_icon": "🌍",
-        "pill_3_text": "Sustainable packaging",
+        "pill_1_icon": "",
+        "pill_1_text": "",
+        "pill_2_icon": "",
+        "pill_2_text": "",
+        "pill_3_icon": "",
+        "pill_3_text": "",
         "accent_color": "#00823e",
         "image": "shopify://shop_images/harry_morris_-_action_shot.jpg",
         "quote": "",
