@@ -1739,8 +1739,17 @@
     }
 
     // ── Toggle buttons ────────────────────────────────────────
+    // A clean product URL must open on the smallest pack, one-time. Subscription
+    // is pre-selected only when the URL explicitly asks for it — an approved
+    // campaign or deep link carrying selling_plan. Every path that used to force
+    // Subscribe on load is gated on this.
+    function croWantsSub() {
+      try { return new URLSearchParams(window.location.search).has('selling_plan'); }
+      catch (e) { return false; }
+    }
+
     var togBtns = pw.querySelectorAll('.cro-pw__tog-btn');
-    var currentMode = 'sub';
+    var currentMode = croWantsSub() ? 'sub' : 'once';
     togBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         togBtns.forEach(function (b) { b.classList.remove('is-active'); });
@@ -1941,6 +1950,20 @@
         renderOnetime();
         return;
       }
+      // Clean visit — open on one-time. The subscribe panels stay hidden until
+      // the customer chooses Subscribe.
+      if (!croWantsSub()) {
+        currentMode = 'once';
+        pw.querySelectorAll('.cro-pw__tog-btn').forEach(function (b) {
+          b.classList.toggle('is-active', b.dataset.mode === 'once');
+        });
+        if (elPerks)  elPerks.hidden  = true;
+        if (elFreq)   elFreq.hidden   = true;
+        if (elCancel) elCancel.hidden = true;
+        renderOnetime();
+        return;
+      }
+
       currentMode = 'sub';
       // Set default frequency button
       var defBtn = pw.querySelector('.cro-pw__freq-btn.is-active') || pw.querySelector('.cro-pw__freq-btn');
@@ -2023,6 +2046,7 @@
     initPW();
     // After 800ms: simulate clicks to sync all 3 layers (UI + ReCharge + Shopify selling_plan)
     setTimeout(function() {
+      if (!croWantsSub()) return;                     // clean visit stays one-time
       if (pw.dataset.noSub === 'true') return;
       if (pw.dataset.variantHasPlans === '0') return; // 9-shot or other no-plan variant — stay One-time
       var subBtn = pw.querySelector('.cro-pw__tog-btn[data-mode="sub"]');
@@ -2171,10 +2195,16 @@
   // If the default variant has no plans (e.g. 9-shot), switch to the first
   // variant that does (e.g. 15-shot) so Subscribe & Save shows by default.
   function autoSelectPlanVariant() {
-    // Only run when no specific variant was requested in the URL.
-    // Once the user picks a variant (9-shot or 15-shot), it appears in the URL
-    // and this guard prevents auto-switching from overriding their choice.
-    if (new URLSearchParams(window.location.search).has('variant')) return;
+    // Deep-link resolution only: if a link asks for a subscription on a variant
+    // that has no selling plan, move to the nearest variant that does.
+    //
+    // This used to run on every visit with no ?variant, which is what made a
+    // clean product URL open on the larger pack. A clean URL must now open on
+    // the smallest pack, one-time, so this is gated on selling_plan being asked
+    // for explicitly.
+    var params = new URLSearchParams(window.location.search);
+    if (!params.has('selling_plan')) return;
+    if (params.has('variant')) return;
     var pw = document.getElementById('CroPW-{{ section.id }}');
     if (!pw || pw.dataset.noSub === 'true') return;
     if (pw.dataset.variantHasPlans !== '0') return; // already on a plan variant
