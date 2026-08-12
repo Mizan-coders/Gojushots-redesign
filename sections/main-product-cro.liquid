@@ -338,7 +338,22 @@
                         srcset="{{ media | img_url: '480x' }} 480w, {{ media | img_url: '720x' }} 720w, {{ media | img_url: '1080x' }} 1080w"
                         sizes="(min-width: 990px) 50vw, 100vw"
                         src="{{ media | img_url: '720x' }}"
-                        alt="{{ media.alt | default: product.title | escape }}"
+                        {%- comment -%}
+                          Liquid's media.alt returns the PRODUCT TITLE when no alt has
+                          been entered against the image — it is not blank, so a
+                          `default` filter never fires. Treating "alt equals the product
+                          title" as "no real alt" is what makes the fallback work, so
+                          gallery images are at least distinguishable to a screen reader.
+                          A genuine description entered in the admin always wins.
+                        {%- endcomment -%}
+                        {%- capture media_alt -%}
+                          {%- if media.alt != blank and media.alt != product.title -%}
+                            {{ media.alt }}
+                          {%- else -%}
+                            {{ product.title }} — image {{ forloop.index }} of {{ product.media.size }}
+                          {%- endif -%}
+                        {%- endcapture -%}
+                        alt="{{ media_alt | strip | escape }}"
                         loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                         width="{{ media.preview_image.width }}"
                         height="{{ media.preview_image.height }}"
@@ -387,7 +402,7 @@
           <div class="cro-gallery__thumbs" id="CroThumbs-{{ section.id }}" role="tablist">
             {%- for media in product.media limit: 6 -%}
               <button class="cro-gallery__thumb{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" data-target="CroSlides-{{ section.id }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ media.alt | default: product.title | escape }}">
-                <img src="{{ media | img_url: '120x120', crop: 'center' }}" alt="{{ media.alt | default: product.title | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" width="120" height="120">
+                {%- capture thumb_alt -%}{% if media.alt != blank and media.alt != product.title %}{{ media.alt }}{% else %}View image {{ forloop.index }} of {{ product.media.size }}{% endif %}{%- endcapture -%}<img src="{{ media | img_url: '120x120', crop: 'center' }}" alt="{{ thumb_alt | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" width="120" height="120">
               </button>
             {%- endfor -%}
           </div>
