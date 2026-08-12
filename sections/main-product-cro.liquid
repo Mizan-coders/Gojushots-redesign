@@ -2586,7 +2586,7 @@
           "id": "badge_first",
           "label": "Badge on smallest pack",
           "default": "Start here",
-          "info": "Leave blank to hide."
+          "info": "Clearing this restores \"Start here\" rather than hiding the badge."
         },
         {
           "type": "text",
@@ -2648,12 +2648,6 @@
         },
         {
           "type": "text",
-          "id": "soldout_text",
-          "label": "Sold out label (in card)",
-          "default": "Sold out"
-        },
-        {
-          "type": "text",
           "id": "soldout_badge",
           "label": "Sold out badge",
           "default": "Sold out",
@@ -2675,7 +2669,7 @@
       "settings": [
         { "type": "header", "content": "Sample Pack Link" },
         { "type": "text", "id": "sample_lead", "label": "Lead-in text", "default": "New to GOJU?", "info": "Leave blank to show only the link." },
-        { "type": "text", "id": "sample_label", "label": "Link text", "default": "Try the Sample Pack.", "info": "Leave blank to hide the link entirely." },
+        { "type": "text", "id": "sample_label", "label": "Link text", "default": "Try the Sample Pack.", "info": "Clearing this restores the default wording. To hide the link, clear the Link URL instead." },
         { "type": "url", "id": "sample_url", "label": "Link URL", "info": "Defaults to the sample-pack product when left empty. Never shown on the Sample Pack page itself." },
         { "type": "header", "content": "Sold Out Notice" },
         { "type": "textarea", "id": "soldout_note_sub", "label": "Notice when subscription is blocked", "default": "The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn\u2019t changed." },
