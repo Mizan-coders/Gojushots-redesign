@@ -264,6 +264,27 @@
     flex: none;
   }
   .pdp-cro .cro-pw__switch-note[hidden] { display: none; }
+
+  /* ── Sold-out pack switch + all-sold-out ──────────────────── */
+  .pdp-cro .cro-pw__switch-note--soldout {
+    color: #7A5B23;
+    background: #FBF3E2;
+  }
+  .pdp-cro .cro-pw__switch-note--soldout::before {
+    content: '!';
+    color: #B4863B;
+  }
+  .pdp-cro .cro-pw__all-soldout {
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #A5453A;
+    background: #FDF0EE;
+    border: 1px solid #F5D9D4;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0 0;
+  }
 {% endstyle %}
 
 {%- assign product_form_id = 'product-form-cro-' | append: section.id -%}
@@ -446,6 +467,26 @@
             assign cro_sub_blocked = false
             if cro_sub_exists and cro_sub_in_stock == false
               assign cro_sub_blocked = true
+            endif
+
+            comment
+              Deep links and saved selections can point at a pack that is now
+              sold out. selected_or_first_available_variant returns the
+              requested variant even when unavailable, so this detects that
+              case and names a pack we can move the customer to instead.
+            endcomment
+            assign cro_any_available = false
+            assign cro_first_available = ''
+            for v in product.variants
+              if v.available and cro_first_available == ''
+                assign cro_any_available = true
+                assign cro_first_available = v.title
+              endif
+            endfor
+            assign cro_selected_variant = product.selected_or_first_available_variant
+            assign cro_deeplink_soldout = false
+            if cro_selected_variant.available == false and cro_any_available
+              assign cro_deeplink_soldout = true
             endif
           -%}
 
@@ -965,6 +1006,31 @@
                     hidden
                   ></div>
                   {%- endunless -%}
+
+                  {%- comment -%}
+                    Deep link landed on a sold-out pack. The customer is moved to
+                    an available one and told so — never switched silently.
+                  {%- endcomment -%}
+                  {%- if cro_new_ux -%}
+                    <div
+                      class="cro-pw__switch-note cro-pw__switch-note--soldout"
+                      id="CroPWSoldOutSwitch-{{ section.id }}"
+                      role="status"
+                      data-template="{{ block.settings.soldout_switch_note | default: 'The [pack] is sold out. We’ve selected the [available].' | escape }}"
+                      data-active="{% if cro_deeplink_soldout %}true{% else %}false{% endif %}"
+                      data-soldout-pack="{{ cro_selected_variant.title | escape }}"
+                      data-available-pack="{{ cro_first_available | escape }}"
+                      hidden
+                    ></div>
+
+                    {%- comment -%} Nothing can be purchased at all. {%- endcomment -%}
+                    {%- unless cro_any_available -%}
+                      <p class="cro-pw__all-soldout" role="status">
+                        {%- assign all_out = block.settings.all_soldout_note | default: '[product] is currently sold out.' -%}
+                        {{ all_out | replace: '[product]', product.title }}
+                      </p>
+                    {%- endunless -%}
+                  {%- endif -%}
 
                   {%- comment -%} Price block {%- endcomment -%}
                   <div class="cro-pw__price-main" id="CroPWPrice-{{ section.id }}"></div>
@@ -1819,6 +1885,59 @@
       }
     } catch (e) {}
 
+    // ── Sold-out pack requested by a deep link or saved selection ──
+    // Move to an available pack and say so. Uses the same sessionStorage
+    // handoff as the subscribe switch, because changing the variant re-renders
+    // the buy box and would discard a message written straight to the DOM.
+    var SOLDOUT_KEY = 'croSoldOutSwitch-{{ section.id }}';
+    var soldOutNote = document.getElementById('CroPWSoldOutSwitch-{{ section.id }}');
+
+    try {
+      var pendingOut = sessionStorage.getItem(SOLDOUT_KEY);
+      if (pendingOut && soldOutNote) {
+        sessionStorage.removeItem(SOLDOUT_KEY);
+        var parts = pendingOut.split('|');
+        var tpl = soldOutNote.dataset.template || 'The [pack] is sold out. We’ve selected the [available].';
+        soldOutNote.textContent = tpl.replace('[pack]', parts[0]).replace('[available]', parts[1]);
+        soldOutNote.hidden = false;
+      }
+    } catch (e) {}
+
+    function croShowSoldOutNote(outPack, availPack) {
+      if (!soldOutNote) return;
+      var tpl = soldOutNote.dataset.template || 'The [pack] is sold out. We’ve selected the [available].';
+      soldOutNote.textContent = tpl.replace('[pack]', outPack).replace('[available]', availPack);
+      soldOutNote.hidden = false;
+    }
+
+    function croResolveSoldOutSelection() {
+      if (!soldOutNote || soldOutNote.dataset.active !== 'true') return;
+      var outPack = soldOutNote.dataset.soldoutPack;
+      var availPack = soldOutNote.dataset.availablePack;
+      var radios = document.querySelectorAll('.cro-variant-row--cards input[type="radio"], .cro-variant-row input[type="radio"]');
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].value === availPack && !radios[i].disabled) {
+          try { sessionStorage.setItem(SOLDOUT_KEY, outPack + '|' + availPack); } catch (err) {}
+          // checked + bubbling change, not .click(): variant-radios listens for
+          // change, and this has to survive running before the element upgrades.
+          radios[i].checked = true;
+          radios[i].dispatchEvent(new Event('change', { bubbles: true }));
+          // Shown now in case the buy box is updated in place rather than
+          // re-rendered; the sessionStorage handoff covers the re-render case.
+          croShowSoldOutNote(outPack, availPack);
+          break;
+        }
+      }
+    }
+
+    // Deferred: running at parse time changes `checked` before variant-radios
+    // has upgraded, so Dawn never sees the change and the price goes stale.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', croResolveSoldOutSelection);
+    } else {
+      croResolveSoldOutSelection();
+    }
+
     var croSubToggle = pw.querySelector('.cro-pw__tog-btn[data-mode="sub"]');
     if (croSubToggle) {
       croSubToggle.addEventListener('click', function (e) {
@@ -2654,6 +2773,8 @@
           "content": "Notes"
         },
         { "type": "header", "content": "Subscription Unavailable" },
+        { "type": "textarea", "id": "soldout_switch_note", "label": "Sold-out pack switched", "default": "The [pack] is sold out. We\u2019ve selected the [available].", "info": "Shown when a link or saved selection points at a sold-out pack. [pack] and [available] are replaced with the pack names." },
+        { "type": "textarea", "id": "all_soldout_note", "label": "Everything sold out", "default": "[product] is currently sold out.", "info": "[product] is replaced with the product title." },
         { "type": "textarea", "id": "switch_note", "label": "Pack switched confirmation", "default": "Subscriptions are available on the [pack]. We\u2019ve updated your selection.", "info": "Shown when choosing Subscribe moves the customer to a subscribable pack. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_only_suffix", "label": "Subscribe button \u2014 single pack suffix", "default": "\u2014 [pack] only", "info": "Shown when only one pack can be subscribed to. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
