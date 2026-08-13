@@ -1,3 +1,11 @@
+{%- comment -%}
+  The product loop below reuses the variable name `product`, which shadows the
+  page's own product. Capture the current handle first so it can be excluded.
+{%- endcomment -%}
+{%- assign xsell_current_handle = product.handle -%}
+{%- assign xsell_max = section.settings.max_products | default: 0 -%}
+{%- assign xsell_exclude = section.settings.exclude_current_product -%}
+
 {% style %}
 
 .neutral .custom-arrow .slick-arrow {
@@ -306,7 +314,15 @@
               class="collection-product-list tab-content {% if forloop.first %}active{% endif %}"
             >
               <ul class="cp-list featured-product-slider">
+                {%- assign xsell_shown = 0 -%}
                 {%- for product in collection_products -%}
+                  {%- if xsell_exclude and product.handle == xsell_current_handle -%}
+                    {%- continue -%}
+                  {%- endif -%}
+                  {%- if xsell_max > 0 and xsell_shown >= xsell_max -%}
+                    {%- break -%}
+                  {%- endif -%}
+                  {%- assign xsell_shown = xsell_shown | plus: 1 -%}
                   <li class="cp-item">
                     <div class="newproduct-card">
                       <div class="newproduct-head">
@@ -423,6 +439,26 @@
   "name": "Get Going",
   "tag": "section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Maximum products to show",
+      "info": "0 shows every product in the collection.",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "exclude_current_product",
+      "label": "Hide the product being viewed",
+      "default": false
+    },
     {
       "type": "text",
       "id": "heading",
