@@ -1022,9 +1022,14 @@
                          they click, so the switch is never a surprise
                       3. more than one subscribable pack — nothing to
                          disambiguate, so a plain benefit line
-                    Deliberately silent when the customer is already on the
-                    subscribable pack: "Selecting Subscribe switches to the
-                    12-pack" reads oddly when the 12-pack is already selected.
+                    The line is always present when there is something to say,
+                    as in the approved prototype — it is not hidden once the
+                    customer is on the subscribable pack.
+
+                    The switch wording needs a pack to switch FROM, so a
+                    single-variant product falls through to the general benefit
+                    line. Action Shot shows that today and will show the switch
+                    wording automatically once the 6-pack exists.
                   {%- endcomment -%}
                   {%- if cro_new_ux -%}
                     {%- liquid
@@ -1032,10 +1037,10 @@
                       if cro_sub_blocked
                         assign hint_tpl = block.settings.sub_blocked_hint | default: 'Subscription is unavailable while the [pack] is out of stock.'
                         assign cro_hint = hint_tpl | replace: '[pack]', cro_sub_labels
-                      elsif cro_sub_count == 1 and cro_current_subscribable == false
+                      elsif cro_sub_count == 1 and product.variants.size > 1
                         assign hint_tpl = block.settings.sub_switch_hint | default: 'Selecting Subscribe switches to the [pack]: 10% off + free shipping.'
                         assign cro_hint = hint_tpl | replace: '[pack]', cro_sub_labels
-                      elsif cro_sub_count > 1
+                      elsif cro_sub_count > 0
                         assign cro_hint = block.settings.sub_general_hint | default: 'Subscribe saves 10% on every order and always ships free.'
                       endif
                     -%}
