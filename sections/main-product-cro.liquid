@@ -211,6 +211,7 @@
     color: #6B6B66;
     margin: 8px 0 0;
   }
+  .pdp-cro .cro-pw__sub-blocked-hint[hidden] { display: none; }
   .pdp-cro .cro-pw__sub-blocked-hint::before {
     content: 'ⓘ';
     margin-right: 6px;
@@ -1045,7 +1046,11 @@
                       endif
                     -%}
                     {%- if cro_hint != blank -%}
-                      <p class="cro-pw__sub-blocked-hint">{{ cro_hint }}</p>
+                      <p
+                        class="cro-pw__sub-blocked-hint"
+                        id="CroPWHintLine-{{ section.id }}"
+                        data-persist="{% if cro_sub_blocked %}true{% else %}false{% endif %}"
+                      >{{ cro_hint }}</p>
                     {%- endif -%}
                   {%- endif -%}
                   {%- comment -%}
@@ -1891,6 +1896,7 @@
         togBtns.forEach(function (b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
         currentMode = btn.dataset.mode;
+        croSyncHint();
         if (currentMode === 'sub') {
           var activeFreq = pw.querySelector('.cro-pw__freq-btn.is-active');
           var planId = activeFreq ? activeFreq.dataset.planId : (pw.querySelector('.cro-pw__freq-btn') ? pw.querySelector('.cro-pw__freq-btn').dataset.planId : '');
@@ -2073,6 +2079,20 @@
       }, true);
     }
 
+    // ── Hint visibility ───────────────────────────────────────
+    // The hint tells the customer what choosing Subscribe will do, so it has no
+    // job once they have chosen it — and leaving it up stacks "Selecting
+    // Subscribe switches to the 12-pack" directly above "Your pack has been
+    // updated". The approved prototype leaves it visible in both states; this
+    // is a deliberate improvement on that.
+    // The unavailable message is exempt: it explains why Subscribe cannot be
+    // used at all, so it stays regardless.
+    var croHintLine = document.getElementById('CroPWHintLine-{{ section.id }}');
+    function croSyncHint() {
+      if (!croHintLine || croHintLine.dataset.persist === 'true') return;
+      croHintLine.hidden = currentMode === 'sub';
+    }
+
     // ── Frequency buttons ─────────────────────────────────────
     var freqBtns = pw.querySelectorAll('.cro-pw__freq-btn');
     freqBtns.forEach(function (btn) {
@@ -2233,6 +2253,7 @@
 
     // Run immediately for visual state
     initPW();
+    croSyncHint();
     // After 800ms: simulate clicks to sync all 3 layers (UI + ReCharge + Shopify selling_plan)
     setTimeout(function() {
       if (!croWantsSub()) return;                     // clean visit stays one-time
