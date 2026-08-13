@@ -348,7 +348,12 @@
                               <div class="tag">{{ product.metafields.custom.product_contents }}</div>
                             {% endif %}
                           </div>
-                          {% if product.metafields.custom.rating_text != blank %}
+                          {%- comment -%}
+                            This rating is a manually entered metafield, not live
+                            review data. Hidden on migrated products until Growave
+                            supplies the figure.
+                          {%- endcomment -%}
+                          {% if product.metafields.custom.rating_text != blank and section.settings.hide_manual_rating != true %}
                             <div class="rating">{{ product.metafields.custom.rating_text }}</div>
                           {% endif %}
                         </div>
@@ -439,6 +444,13 @@
   "name": "Get Going",
   "tag": "section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_manual_rating",
+      "label": "Hide the manually entered rating",
+      "default": false,
+      "info": "The rating on these cards is typed in per product, not live review data. Hide it until Growave supplies the figure."
+    },
     {
       "type": "header",
       "content": "Product Selection"

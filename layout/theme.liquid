@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
+    {%- comment -%}
+      Products tagged "staging" are work-in-progress duplicates used to test a
+      build before it reaches the live catalogue. They are reachable by direct
+      URL but must not be indexed or surfaced in search results.
+    {%- endcomment -%}
+    {%- if product.tags contains 'staging' -%}
+      <meta name="robots" content="noindex,nofollow">
+    {%- endif -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preload" as="font" href="{{ 'Ratch-Thin.woff2' | asset_url }}" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="{{ 'Ratch-Light.woff2' | asset_url }}" type="font/woff2" crossorigin>

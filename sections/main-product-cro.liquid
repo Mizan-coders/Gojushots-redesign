@@ -1794,7 +1794,17 @@
       // shipping status is shown on its own line, and folding it in here made
       // the figure disagree with the two prices on screen (e.g. $75 -> $67.50
       // displayed as "Save $15.50").
-      var displaySaving = Math.round((onetimePrice - displayPrice) * 100) / 100;
+      // Product-price difference only on migrated products. Unmigrated 60ml PDPs
+      // keep their existing live presentation, which folds the shipping benefit
+      // into the figure, until each is migrated and the corrected calculation is
+      // validated for that product.
+      var displaySaving;
+      if (pw.dataset.newUx === 'true') {
+        displaySaving = Math.round((onetimePrice - displayPrice) * 100) / 100;
+      } else {
+        var _legacyShip = onetimePrice >= freeShipThreshold ? 0 : 8;
+        displaySaving = Math.round((onetimePrice + _legacyShip - displayPrice) * 100) / 100;
+      }
       if (elPrice)  elPrice.textContent  = money(displayPrice);
       if (elWas)    elWas.innerHTML      = '<s>' + money(onetimePrice) + '</s> one-time price';
       // Hidden rather than "Save $0.00" if a plan carries no discount.

@@ -193,3 +193,48 @@ Built but never exercised against real data. These must not be reported as done:
 - **The buy box re-renders on variant change.** Anything shown after a switch needs a `sessionStorage` handoff, not a direct DOM write.
 - **Scripts run before `variant-radios` upgrades.** Setting `checked` at parse time changes the radio without Dawn noticing — the card switches while price and CTA go stale. Defer to `DOMContentLoaded` and dispatch a bubbling `change`.
 - **Programmatic clicks must never move the customer's pack.** The 800ms Recharge sync clicks Subscribe on every load; auto-switch and analytics are both guarded on `isTrusted`.
+
+---
+
+## Close-out allowance — approved 14 August 2026
+
+Phase 1 ceiling raised from 18 to **24.5 billed hours**. Up to 6.5 additional:
+
+- **1.5h** staging setup, threshold configuration, remaining public $85 updates
+- **3.5h** staging QA, one-time-only checks, cutover, live verification
+- **1.5h** contingency for functional defects found during staging or cutover
+
+Log only time actually used. The three reusable-component hours remain outside
+this, unbilled, credited to any future approved phase.
+
+### Defect log
+
+Defects found during staging or cutover, and the correction made. Required by
+the client when contingency time is used.
+
+| Date | Where | Defect | Correction | Time |
+|---|---|---|---|---|
+| — | — | none yet | — | — |
+
+### Corrected cutover sequence
+
+The client identified a dependency the earlier sequence missed: dropping the
+12-pack to $84 before the threshold moved to $70 would have put it below the old
+$85 threshold and removed its free shipping.
+
+1. Publish the approved theme — 12-pack still $85, threshold still $85
+2. Change the checkout threshold to $70 and test at exactly $70
+3. Update the theme threshold setting and public $85 wording
+4. Change the 12-pack to $84 — now safely above $70
+5. Create the 6-pack at $42 with no selling plan
+6. Full live testing
+
+### Before any live cutover
+
+- Staging QA results and any open defects sent to the client
+- Staging product's practical visibility and direct-URL exposure confirmed
+- The five one-time-only checks completed
+- Cutover window and exact sequence agreed
+- Client confirmation on Recharge impact to existing subscribers and queued charges
+
+No changes to existing subscribers, and no cutover, without the client's approval.

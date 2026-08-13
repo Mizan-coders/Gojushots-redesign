@@ -481,6 +481,7 @@
         "collection_1"
       ],
       "settings": {
+        "hide_manual_rating": true,
         "max_products": 3,
         "exclude_current_product": true,
         "heading": "Complete your Wellness Routine",
