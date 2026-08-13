@@ -41,11 +41,11 @@
         "benefit_pills": {
           "type": "benefit_pills",
           "settings": {
-            "pill_1_icon": "",
+            "pill_1_icon": "🌿",
             "pill_1_text": "200 mg ginseng",
-            "pill_2_icon": "",
+            "pill_2_icon": "🫚",
             "pill_2_text": "10% organic Fijian ginger",
-            "pill_3_icon": "",
+            "pill_3_icon": "🍠",
             "pill_3_text": "10% organic Fijian turmeric",
             "pill_4_icon": "🇳🇿",
             "pill_4_text": "Made in New Zealand"
@@ -54,9 +54,19 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "per_bottle_suffix": "/ bottle",
             "variant_label": "Choose Pack Size",
             "picker_type": "button",
+            "pack_cards": true,
+            "badge_first": "Start here",
+            "badge_last": "Best value",
+            "free_ship_threshold": 85,
+            "ship_cost": 8,
+            "per_bottle_suffix": "/ bottle",
+            "ships_free_text": "delivered, ships free",
+            "ship_text": "shipping",
+            "selected_text": "Selected",
+            "switch_text": "Select",
+            "soldout_badge": "Sold out",
             "nosub_hint": "One-time purchase only · Subscription available on 15 packs only"
           }
         },
@@ -82,6 +92,12 @@
             "hint_3w": "Most days — great buffer without over-ordering.",
             "plan_4w": "2724724904",
             "hint_4w": "A few times a week — clean monthly rhythm.",
+            "soldout_switch_note": "The [pack] is sold out. We’ve selected the [available].",
+            "all_soldout_note": "[product] is currently sold out.",
+            "switch_note": "Subscriptions are available on the [pack]. We’ve updated your selection.",
+            "sub_only_suffix": "— [pack] only",
+            "sub_unavailable_suffix": "unavailable",
+            "sub_blocked_hint": "Subscription is unavailable while the [pack] is out of stock.",
             "nosub_upsell": "15 Shots with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": ""
@@ -96,6 +112,11 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "sample_lead": "New to GOJU?",
+            "sample_label": "Try the Sample Pack.",
+            "sample_url": "",
+            "soldout_note_sub": "The [pack] is currently sold out, so new subscriptions are temporarily unavailable. Your selection hasn’t changed.",
+            "soldout_note": "[pack] is currently sold out. Other pack sizes are still available.",
             "show_dynamic_checkout": false
           }
         },
@@ -297,7 +318,6 @@
       }
     },
     "how-to-use": {
-      "disabled": true,
       "type": "product-how-to-use",
       "blocks": {
         "step_1": {
@@ -335,6 +355,7 @@
         "step_3",
         "step_4"
       ],
+      "disabled": true,
       "settings": {
         "kicker": "Simple Routine",
         "heading": "How to take Action Shot",
@@ -398,54 +419,54 @@
       }
     },
     "faq": {
-      "type": "product-faq-cro",
-      "blocks": {
-        "faq_1": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What ingredients are in an Action Shot?",
-            "answer": "Organic Fijian ginger juice, organic Fijian turmeric juice, ginseng, organic NZ apple juice, NZ lime juice, NZ mānuka honey, black pepper to activate. No added sugar, no preservatives, no artificial flavours — ever."
-          }
-        },
-        "faq_2": {
-          "type": "faq_item",
-          "settings": {
-            "question": "When is the best time to drink it?",
-            "answer": "Morning, before or with breakfast. Many customers enjoy Action Shot as part of their daily wellness routine, but it can be enjoyed any time of day."
-          }
-        },
-        "faq_3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How does the subscription work?",
-            "answer": "Choose your pack size, select 'Subscribe & Save', and we'll deliver your shots on your chosen schedule. You save 10% on every order and get free shipping. Pause, skip or cancel anytime — no lock-in."
-          }
-        },
-        "faq_4": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Do you ship to Australia?",
-            "answer": "NZ only for now. Working on it."
-          }
-        }
-      },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
-      ],
+  "type": "product-faq-cro",
+  "blocks": {
+    "faq_1": {
+      "type": "faq_item",
       "settings": {
-        "kicker": "Got Questions?",
-        "heading": "Frequently Asked",
-        "subtext": "Can't find what you're looking for? Reach out to our team.",
-        "contact_label": "Contact us",
-        "contact_url": "",
-        "bg_color": "",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "question": "What does Action Shot taste like?",
+        "answer": "Bold, zingy and refreshing. A wellness shot made to be enjoyed."
       }
     },
+    "faq_2": {
+      "type": "faq_item",
+      "settings": {
+        "question": "How much should I take?",
+        "answer": "Recommended use: 1 bottle (200 mL) daily."
+      }
+    },
+    "faq_3": {
+      "type": "faq_item",
+      "settings": {
+        "question": "How does the subscription work?",
+        "answer": "Subscribe to the 12-pack and save 10% on every order. Choose delivery every 2, 3 or 4 weeks. Skip, pause or cancel future orders anytime from your account."
+      }
+    },
+    "faq_4": {
+      "type": "faq_item",
+      "settings": {
+        "question": "How does shipping work?",
+        "answer": "Free shipping on orders of $70 or more. Otherwise, shipping is $8 NZ-wide. GOJU currently ships within New Zealand only."
+      }
+    }
+  },
+  "block_order": [
+    "faq_1",
+    "faq_2",
+    "faq_3",
+    "faq_4"
+  ],
+  "settings": {
+    "kicker": "Got Questions?",
+    "heading": "Frequently Asked",
+    "subtext": "Can't find what you're looking for? Reach out to our team.",
+    "contact_label": "Contact us",
+    "contact_url": "",
+    "bg_color": "",
+    "padding_top": 80,
+    "padding_bottom": 80
+  }
+},
     "crosssell": {
       "type": "product-recommendations",
       "blocks": {
