@@ -2,7 +2,7 @@
 
 **Theme:** `155130822824` "Subscription Update Aug 2026" (unpublished) · **Live `152550834344` never touched**
 **Sources:** `GOJU_PDP_System_Developer_Brief.docx` · `GOJU_Action_Shot_Phase1_Build.docx` · `GOJU_Action_Shot_Approved_Copy.docx`
-**Last updated:** 12 August 2026 (rev 2)
+**Last updated:** 13 August 2026 (rev 3)
 
 ## Legend
 
@@ -66,15 +66,15 @@
 | "Recommended use: 1 bottle (200 mL) daily." | ✅ | `d9ce7c2` |
 | Standalone How-to-Use hidden, control retained | ✅ | `d9ce7c2` |
 | Savings = product-price difference only | ✅ | `c78e4fb` |
-| Separate stats band — remove or keep? | 🚫 | Tom — duplicates the pills, wording not approved |
+| Stats band — new content + height | ✅ | `9a8b274` — client's 3 items, 60→44px (26.7%). Type weight: awaiting his call |
 | Per-product phase gate | ✅ | `f4cec46` — new experience on for Action Shot, off for the range |
 | Loox removed / Growave only | 🚫 | Tom — Loox is the only rating on product cards |
-| Growave rating live, never hardcoded | 🟡 | Widget present; not audited for hardcoded values |
-| Tighten Growave spacing | ⬜ | |
+| Growave rating live, never hardcoded | ✅ | Audited `7564d47` — the section's rating_score/review_count_text settings exist but are never rendered |
+| Tighten Growave spacing | ✅ | `7564d47` — 80/120 → 56/72px, 36% less chrome |
 | Sticky cart desktop footprint reduced | ⬜ | Hover aligned only (`ac20aa6`) |
 | FAQ limited to unresolved objections | ⬜ | |
-| Complete Your Routine: 3 products, exclude self, live data | ⬜ | Not verified |
-| Alt text on product images | ⬜ | |
+| Complete Your Routine: 3 products, exclude self, live data | ✅ | `7564d47` — was showing 9 incl. itself and the test duplicate |
+| Alt text on product images | 🟡 | `03a4a4c` — theme fallback distinguishes images; real descriptions drafted, Mizan entering in admin |
 
 ### E. Tracking
 
@@ -130,6 +130,15 @@ Deliberately left range-wide, being corrections rather than redesign:
 - sentence-case subscription wording
 
 **Migration per product is now:** tick the box, QA, approve — no code.
+
+## Handover deliverables
+
+| Item | Status |
+|---|---|
+| `GOJU_PDP_FIELD_MAP.md` — 23 editable fields | ✅ `461ec0e` |
+| `GOJU_PDP_PHASE_TRACKER.md` | ✅ this file |
+| 60 ml parity confirmation | ⬜ — behaviour identical; savings figure differs by design, disclose it |
+| Final walkthrough vs build doc §6 | ⬜ |
 
 ## Open decisions
 
