@@ -503,6 +503,17 @@
             if cro_selected_variant.available == false and cro_any_available
               assign cro_deeplink_soldout = true
             endif
+
+            comment
+              Whether the pack the customer is looking at can itself be
+              subscribed to. Drives the hint under the purchase toggle: there is
+              no point telling someone Subscribe will move them to another pack
+              when they are already on it.
+            endcomment
+            assign cro_current_subscribable = false
+            if cro_selected_variant.selling_plan_allocations.size > 0
+              assign cro_current_subscribable = true
+            endif
           -%}
 
           {%- assign first_app_seen = false -%}
@@ -1002,11 +1013,35 @@
                       {%- endif -%}
                     </button>
                   </div>
-                  {%- if cro_new_ux and cro_sub_blocked -%}
-                    <p class="cro-pw__sub-blocked-hint">
-                      {%- assign blocked_hint = block.settings.sub_blocked_hint | default: 'Subscription is unavailable while the [pack] is out of stock.' -%}
-                      {{ blocked_hint | replace: '[pack]', cro_sub_labels }}
-                    </p>
+                  {%- comment -%}
+                    One hint line under the toggle, three states, matching the
+                    approved prototype:
+                      1. subscription blocked — no subscribable pack in stock
+                      2. one subscribable pack and the customer is not on it —
+                         warns that choosing Subscribe will move them, BEFORE
+                         they click, so the switch is never a surprise
+                      3. more than one subscribable pack — nothing to
+                         disambiguate, so a plain benefit line
+                    Deliberately silent when the customer is already on the
+                    subscribable pack: "Selecting Subscribe switches to the
+                    12-pack" reads oddly when the 12-pack is already selected.
+                  {%- endcomment -%}
+                  {%- if cro_new_ux -%}
+                    {%- liquid
+                      assign cro_hint = ''
+                      if cro_sub_blocked
+                        assign hint_tpl = block.settings.sub_blocked_hint | default: 'Subscription is unavailable while the [pack] is out of stock.'
+                        assign cro_hint = hint_tpl | replace: '[pack]', cro_sub_labels
+                      elsif cro_sub_count == 1 and cro_current_subscribable == false
+                        assign hint_tpl = block.settings.sub_switch_hint | default: 'Selecting Subscribe switches to the [pack]: 10% off + free shipping.'
+                        assign cro_hint = hint_tpl | replace: '[pack]', cro_sub_labels
+                      elsif cro_sub_count > 1
+                        assign cro_hint = block.settings.sub_general_hint | default: 'Subscribe saves 10% on every order and always ships free.'
+                      endif
+                    -%}
+                    {%- if cro_hint != blank -%}
+                      <p class="cro-pw__sub-blocked-hint">{{ cro_hint }}</p>
+                    {%- endif -%}
                   {%- endif -%}
                   {%- comment -%}
                     Announced when choosing Subscribe moved the customer to a
@@ -2787,6 +2822,8 @@
         { "type": "textarea", "id": "switch_note", "label": "Pack switched confirmation", "default": "Subscriptions are available on the [pack]. We\u2019ve updated your selection.", "info": "Shown when choosing Subscribe moves the customer to a subscribable pack. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_only_suffix", "label": "Subscribe button \u2014 single pack suffix", "default": "\u2014 [pack] only", "info": "Shown when only one pack can be subscribed to. [pack] is replaced with that pack's name." },
         { "type": "text", "id": "sub_unavailable_suffix", "label": "Subscribe button suffix", "default": "unavailable", "info": "Appended to the Subscribe label when no subscribable pack is in stock." },
+        { "type": "textarea", "id": "sub_switch_hint", "label": "Hint — Subscribe will change the pack", "default": "Selecting Subscribe switches to the [pack]: 10% off + free shipping.", "info": "Shown before the customer clicks, when only one pack is subscribable and they are not on it. [pack] is replaced automatically." },
+        { "type": "textarea", "id": "sub_general_hint", "label": "Hint — more than one pack subscribable", "default": "Subscribe saves 10% on every order and always ships free." },
         { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
         { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "15 Shots with Subscribe & Save — save 10% with free shipping always." },
         { "type": "textarea", "id": "onetime_note", "label": "One-time nudge note", "default": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime." },
