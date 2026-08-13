@@ -209,7 +209,10 @@
     font-size: 12px;
     line-height: 1.5;
     color: #6B6B66;
-    margin: 8px 0 0;
+    /* Needs space on BOTH sides: with a top margin only, the price block sat
+       flush against it. The toggle above contributes 16px of its own margin,
+       which collapses with this one. */
+    margin: 18px 0 22px;
   }
   .pdp-cro .cro-pw__sub-blocked-hint[hidden] { display: none; }
   .pdp-cro .cro-pw__sub-blocked-hint::before {
