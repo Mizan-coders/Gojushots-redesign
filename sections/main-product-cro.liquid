@@ -1884,10 +1884,20 @@
     // is pre-selected only when the URL explicitly asks for it — an approved
     // campaign or deep link carrying selling_plan. Every path that used to force
     // Subscribe on load is gated on this.
+    // Captured once, before anything consumes it: a pack switch re-renders the
+    // buy box, and the customer's intent to subscribe has to survive that. The
+    // flag is read here rather than inside croWantsSub because the note-handling
+    // code below clears the key, and initPW asks again afterwards.
+    var croSwitchKey = 'croPackSwitched-{{ section.id }}';
+    var croPendingSubIntent = false;
+    try { croPendingSubIntent = sessionStorage.getItem(croSwitchKey) !== null; } catch (e) {}
+
     function croWantsSub() {
       // Legacy products keep subscribe-first until they are migrated. Only the
       // new experience opens one-time unless the URL asks for a subscription.
       if (pw.dataset.newUx !== 'true') return true;
+      // Just moved here by choosing Subscribe — honour that, not the URL.
+      if (croPendingSubIntent) return true;
       try { return new URLSearchParams(window.location.search).has('selling_plan'); }
       catch (e) { return false; }
     }
@@ -1916,7 +1926,7 @@
     // the pack that has one, and says so. Only ever on a genuine user action:
     // the 800ms ReCharge sync and the sticky-bar mirror both use programmatic
     // .click(), and neither may move the customer's pack underneath them.
-    var SWITCH_KEY = 'croPackSwitched-{{ section.id }}';
+    var SWITCH_KEY = croSwitchKey;
 
     function croFindSubscribableVariant() {
       var el = document.querySelector('[data-cst_variant="data"]');
