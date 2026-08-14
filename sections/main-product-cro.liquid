@@ -518,6 +518,23 @@
             if cro_selected_variant.selling_plan_allocations.size > 0
               assign cro_current_subscribable = true
             endif
+
+            comment
+              The free-shipping threshold and flat shipping cost are set on the variant
+              picker block, but the purchase widget's script needs them too and sits in a
+              different block. Hoisted to section scope so both read one value. Held apart,
+              a pack card could say an order ships free while the line directly beneath the
+              price still added shipping to it.
+            endcomment
+            assign cro_ship_threshold = 85
+            assign cro_ship_cost = 8
+            for b in section.blocks
+              if b.type == 'variant_picker'
+                assign cro_ship_threshold = b.settings.free_ship_threshold | default: 85
+                assign cro_ship_cost = b.settings.ship_cost | default: 8
+                break
+              endif
+            endfor
           -%}
 
           {%- assign first_app_seen = false -%}
@@ -702,8 +719,8 @@
                         {%- if cro_new_ux and block.settings.pack_cards != false and product.options_with_values.size == 1 -%}
                           {%- assign use_pack_cards = true -%}
                         {%- endif -%}
-                        {%- assign ship_threshold = block.settings.free_ship_threshold | default: 85 -%}
-                        {%- assign ship_cost = block.settings.ship_cost | default: 8 -%}
+                        {%- assign ship_threshold = cro_ship_threshold -%}
+                        {%- assign ship_cost = cro_ship_cost -%}
                         {%- assign ship_threshold_cents = ship_threshold | times: 100 -%}
 
                         {%- comment -%}
@@ -1034,6 +1051,8 @@
                   data-sub-elsewhere="{% if cro_sub_exists and cro_sub_blocked == false %}true{% else %}false{% endif %}"
                   data-new-ux="{% if cro_new_ux %}true{% else %}false{% endif %}"
                   data-per-shot-label="{{ block.settings.per_shot_label | escape }}"
+                  data-free-ship-threshold="{{ cro_ship_threshold }}"
+                  data-ship-cost="{{ cro_ship_cost }}"
                   {{ block.shopify_attributes }}
                 >
                   {%- comment -%} One-time / Subscribe toggle — hidden for no-subscription products {%- endcomment -%}
@@ -1752,7 +1771,13 @@
     var onetimePrice = rawPrice / 100;
     var subPrice     = Math.round(rawPrice * (1 - discount / 100)) / 100;
     var saving       = Math.round((onetimePrice - subPrice) * 100) / 100;
-    var freeShipThreshold = 85; // NZD: orders at or over this get free shipping
+    // Both come from the variant picker's settings, so the pack cards and the lines
+    // below the price cannot disagree about shipping. The literals are a last resort
+    // for a page rendered without a variant picker block.
+    var freeShipThreshold = parseFloat(pw.dataset.freeShipThreshold);
+    if (isNaN(freeShipThreshold)) freeShipThreshold = 85;
+    var shipCost = parseFloat(pw.dataset.shipCost);
+    if (isNaN(shipCost)) shipCost = 8;
 
     // Build planId → per_delivery_price map from variant selling_plan_allocations
     var planPriceMap = {};
@@ -1846,7 +1871,7 @@
       if (pw.dataset.newUx === 'true') {
         displaySaving = Math.round((onetimePrice - displayPrice) * 100) / 100;
       } else {
-        var _legacyShip = onetimePrice >= freeShipThreshold ? 0 : 8;
+        var _legacyShip = onetimePrice >= freeShipThreshold ? 0 : shipCost;
         displaySaving = Math.round((onetimePrice + _legacyShip - displayPrice) * 100) / 100;
       }
       if (elPrice)  elPrice.textContent  = money(displayPrice);
@@ -1892,7 +1917,7 @@
       if (elPrice)  elPrice.textContent  = money(onetimePrice);
       if (elWas)    elWas.innerHTML      = '';
       if (elSaving) elSaving.hidden      = true;
-     var _ship = onetimePrice >= freeShipThreshold ? 0 : 8;
+     var _ship = onetimePrice >= freeShipThreshold ? 0 : shipCost;
       var _otTotal = Math.round((onetimePrice + _ship) * 100) / 100;
       var _saving  = Math.round((onetimePrice + _ship - subPrice) * 100) / 100;
       if (elNote) {
