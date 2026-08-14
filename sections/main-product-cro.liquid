@@ -841,7 +841,14 @@
                       </variant-radios>
                       {%- assign hint_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
                       {%- if product.tags contains 'no-subscription' -%}{%- assign hint_has_plans = 0 -%}{%- endif -%}
-                      <p id="CroNoSubHint-{{ section.id }}" class="cro-variant-nosub-hint" {% if hint_has_plans > 0 %}hidden{% endif %}>{{ block.settings.nosub_hint | default: 'One-time purchase — subscribe & save on the 15 pack with free shipping always' }}</p>
+                      {%- comment -%}
+                        [pack] is filled in with the pack that can actually be subscribed to,
+                        so this line cannot name the wrong pack. These templates are copied
+                        product to product, and a hardcoded pack name travels with the copy —
+                        the Action Shot template arrived saying "15 packs" because it began
+                        life as a 60 ml one.
+                      {%- endcomment -%}
+                      <p id="CroNoSubHint-{{ section.id }}" class="cro-variant-nosub-hint" {% if hint_has_plans > 0 %}hidden{% endif %}>{{ block.settings.nosub_hint | default: 'One-time purchase only · Subscription available on the [pack] only' | replace: '[pack]', cro_sub_labels }}</p>
                     {%- else -%}
                       <variant-selects
                         class="no-js-hidden"
@@ -1164,7 +1171,7 @@
                   {%- assign pw_v_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
                   {%- comment -%} Upsell only shows for per-variant no-sub (not when whole product is tagged no-subscription) {%- endcomment -%}
                   <div class="cro-pw__nosub-upsell" id="CroPWNoSubUpsell-{{ section.id }}" {% if pw_v_has_plans > 0 or no_sub %}hidden{% endif %}>
-                    <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '15 Shots with Subscribe &amp; Save — save 10% with free shipping always.' }}</a>
+                    <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '[pack] with Subscribe &amp; Save — save 10% with free shipping always.' | replace: '[pack]', cro_sub_labels }}</a>
                   </div>
 
                   {%- comment -%} Cancel reassurance {%- endcomment -%}
@@ -2160,7 +2167,7 @@
       });
     });
 
-    // ── "Choose the 15 pack" link — switch to first variant with plans ──
+    // ── Upsell link — switch to the first variant that has plans ──
     var noSubLink = document.getElementById('CroPWNoSubLink-{{ section.id }}');
     if (noSubLink) {
       noSubLink.addEventListener('click', function(e) {
@@ -2788,8 +2795,8 @@
           "type": "text",
           "id": "nosub_hint",
           "label": "No-subscription hint text",
-          "default": "One-time purchase — subscribe & save on the 15 pack with free shipping always",
-          "info": "Shown below variant buttons when the selected variant has no subscription plans."
+          "default": "One-time purchase only · Subscription available on the [pack] only",
+          "info": "Shown below the pack cards when the selected pack has no subscription plans. [pack] is replaced with the pack that can be subscribed to — keep it in the sentence rather than naming a pack directly, or the line will name the wrong pack on another product."
         }
       ]
     },
@@ -2906,7 +2913,7 @@
         { "type": "textarea", "id": "sub_switch_hint", "label": "Hint — Subscribe will change the pack", "default": "Selecting Subscribe switches to the [pack]: 10% off + free shipping.", "info": "Shown before the customer clicks, when only one pack is subscribable and they are not on it. [pack] is replaced automatically." },
         { "type": "textarea", "id": "sub_general_hint", "label": "Hint — more than one pack subscribable", "default": "Subscribe saves 10% on every order and always ships free." },
         { "type": "textarea", "id": "sub_blocked_hint", "label": "Subscription blocked hint", "default": "Subscription is unavailable while the [pack] is out of stock.", "info": "[pack] is replaced with the subscribable pack name(s)." },
-        { "type": "textarea", "id": "nosub_upsell", "label": "9-pack subscription upsell text", "default": "15 Shots with Subscribe & Save — save 10% with free shipping always." },
+        { "type": "textarea", "id": "nosub_upsell", "label": "Subscription upsell text (pack without a plan)", "info": "[pack] is replaced with the pack that can be subscribed to.", "default": "[pack] with Subscribe & Save — save 10% with free shipping always." },
         { "type": "textarea", "id": "onetime_note", "label": "One-time nudge note", "default": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime." },
         { "type": "text", "id": "cancel_note", "label": "Cancel reassurance", "default": "No lock-in. Skip, pause or cancel anytime from your account — no questions asked." }
       ]

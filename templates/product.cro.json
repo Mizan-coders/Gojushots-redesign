@@ -67,7 +67,7 @@
             "selected_text": "Selected",
             "switch_text": "Select",
             "soldout_badge": "Sold out",
-            "nosub_hint": "One-time purchase only · Subscription available on 15 packs only"
+            "nosub_hint": "One-time purchase only · Subscription available on the [pack] only"
           }
         },
         "purchase_widget": {
@@ -98,7 +98,7 @@
             "sub_only_suffix": "— [pack] only",
             "sub_unavailable_suffix": "unavailable",
             "sub_blocked_hint": "Subscription is unavailable while the [pack] is out of stock.",
-            "nosub_upsell": "15 Shots with Subscribe & Save — save 10% with free shipping always.",
+            "nosub_upsell": "[pack] with Subscribe & Save — save 10% with free shipping always.",
             "onetime_note": "<strong>One-time purchase.</strong> Subscribe & Save to get 10% off + free shipping on every order. Cancel anytime.",
             "cancel_note": ""
           }
