@@ -706,6 +706,38 @@
                         {%- assign ship_cost = block.settings.ship_cost | default: 8 -%}
                         {%- assign ship_threshold_cents = ship_threshold | times: 100 -%}
 
+                        {%- comment -%}
+                          Badges follow price, not variant order. Shopify appends newly created
+                          variants to the end of the list, so a 6-pack added after a 12-pack would
+                          otherwise take "Best value" while the 12-pack took "Start here". Cheapest
+                          pack gets the starter badge, dearest gets the value badge, whatever order
+                          the variants happen to sit in. If every pack costs the same neither badge
+                          is shown, since there is no smallest or largest to point at.
+                        {%- endcomment -%}
+                        {%- liquid
+                          assign cro_pack_min_id = nil
+                          assign cro_pack_max_id = nil
+                          if use_pack_cards
+                            for v in product.variants
+                              if forloop.first
+                                assign cro_pack_min_id = v.id
+                                assign cro_pack_max_id = v.id
+                                assign cro_pack_min_price = v.price
+                                assign cro_pack_max_price = v.price
+                              else
+                                if v.price < cro_pack_min_price
+                                  assign cro_pack_min_price = v.price
+                                  assign cro_pack_min_id = v.id
+                                endif
+                                if v.price > cro_pack_max_price
+                                  assign cro_pack_max_price = v.price
+                                  assign cro_pack_max_id = v.id
+                                endif
+                              endif
+                            endfor
+                          endif
+                        -%}
+
                         {%- for option in product.options_with_values -%}
                           <fieldset class="js product-form__input">
                             <legend class="cro-label">{{ option.name }}</legend>
@@ -745,11 +777,11 @@
                                     endif
                                     assign badge_text = ''
                                     assign badge_kind = ''
-                                    if option.values.size > 1
-                                      if forloop.first
+                                    if option.values.size > 1 and cro_pack_min_id != cro_pack_max_id
+                                      if pack_variant.id == cro_pack_min_id
                                         assign badge_text = block.settings.badge_first | default: 'Start here'
                                         assign badge_kind = 'start'
-                                      elsif forloop.last
+                                      elsif pack_variant.id == cro_pack_max_id
                                         assign badge_text = block.settings.badge_last | default: 'Best value'
                                         assign badge_kind = 'value'
                                       endif
