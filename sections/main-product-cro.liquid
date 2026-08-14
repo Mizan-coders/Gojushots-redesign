@@ -848,7 +848,12 @@
                         the Action Shot template arrived saying "15 packs" because it began
                         life as a 60 ml one.
                       {%- endcomment -%}
-                      <p id="CroNoSubHint-{{ section.id }}" class="cro-variant-nosub-hint" {% if hint_has_plans > 0 %}hidden{% endif %}>{{ block.settings.nosub_hint | default: 'One-time purchase only · Subscription available on the [pack] only' | replace: '[pack]', cro_sub_labels }}</p>
+                      {%- comment -%}
+                        Also hidden when no pack on the product can be subscribed to. There is
+                        nothing for [pack] to name in that case, and the sentence would render
+                        with a hole where the pack should be.
+                      {%- endcomment -%}
+                      <p id="CroNoSubHint-{{ section.id }}" class="cro-variant-nosub-hint" {% if hint_has_plans > 0 or cro_sub_count == 0 %}hidden{% endif %}>{{ block.settings.nosub_hint | default: 'One-time purchase only · Subscription available on the [pack] only' | replace: '[pack]', cro_sub_labels }}</p>
                     {%- else -%}
                       <variant-selects
                         class="no-js-hidden"
@@ -1170,7 +1175,7 @@
                   {%- comment -%} No-plan variant upsell — shown instead of onetime nudge {%- endcomment -%}
                   {%- assign pw_v_has_plans = product.selected_or_first_available_variant.selling_plan_allocations.size | default: 0 -%}
                   {%- comment -%} Upsell only shows for per-variant no-sub (not when whole product is tagged no-subscription) {%- endcomment -%}
-                  <div class="cro-pw__nosub-upsell" id="CroPWNoSubUpsell-{{ section.id }}" {% if pw_v_has_plans > 0 or no_sub %}hidden{% endif %}>
+                  <div class="cro-pw__nosub-upsell" id="CroPWNoSubUpsell-{{ section.id }}" {% if pw_v_has_plans > 0 or no_sub or cro_sub_count == 0 %}hidden{% endif %}>
                     <a href="#" class="cro-pw__nosub-link" id="CroPWNoSubLink-{{ section.id }}">{{ block.settings.nosub_upsell | default: '[pack] with Subscribe &amp; Save — save 10% with free shipping always.' | replace: '[pack]', cro_sub_labels }}</a>
                   </div>
 
