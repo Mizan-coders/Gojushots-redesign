@@ -32,7 +32,7 @@
 |---|---|---|
 | Pack cards: badge, price, per-unit, shipping line | ✅ | `5547c6f` |
 | Per-bottle price from variant price (both packs $7) | ✅ | `5547c6f` |
-| Default first visit → smallest pack + one-time | ✅ | `b31c645` |
+| Default first visit → smallest pack + one-time | 🟡 | `b31c645` — one-time defaults correctly. **Smallest pack does not**: selection follows Shopify's first variant, and a 6-pack added after a 12-pack sits second. Never seen on the 60 ml range, which lists smallest first. Awaiting the client's choice between reordering variants and selecting by price |
 | Subscribe on non-subscribable pack → switches + confirms | ✅ | `7bc9ecc` |
 | Return to one-time keeps larger pack | ✅ | by design |
 | Toggle names the subscribable pack | ✅ | `775603b` |
@@ -44,14 +44,14 @@
 | Subscription terms visible before add-to-cart | ✅ | pre-existing |
 | Sticky cart synchronised | 🟡 | Mode sync verified; pack label + price not re-verified since cards |
 | Buy box compact on mobile | 🚫 | Mizan — cannot measure; browser won't drop below 1272px |
-| 6-pack cannot be subscribed anywhere (incl. Recharge swap) | 🚫 | Needs the variant + Recharge portal QA |
+| 6-pack cannot be subscribed anywhere (incl. Recharge swap) | 🟡 | Storefront half verified 14 Aug on the staging duplicate: 6-pack holds zero selling plans, Subscribe moves to the 12-pack, and a deep link carrying a 12-pack plan falls back to one-time. Recharge portal half — swap, add-product, change-variant — still to run |
 
 ### C. Default storefront behaviour
 
 | Item | Status | Commit |
 |---|---|---|
 | Clean URL, no `selling_plan` appended | ✅ | `b31c645` |
-| Opens smallest pack + one-time | ✅ | `b31c645` |
+| Opens smallest pack + one-time | 🟡 | `b31c645` — one-time correct, smallest pack not. See section B |
 | Empty `selling_plan` input on one-time | ✅ | `b31c645` |
 
 ### D. Existing-page refinements
