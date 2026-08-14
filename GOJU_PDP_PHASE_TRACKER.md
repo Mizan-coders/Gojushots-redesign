@@ -251,9 +251,21 @@ to correct it, and the choice is the client's:
   order, but overrides Shopify's canonical variant and leaves the collection
   price showing whichever variant is first.
 
-**SKU format.** The 6-pack was entered as `AS-200ml-6-pack` while the 12-pack
-uses `AS 200ml 12-pack`. The spec asks for `AS 200ml 6-pack`. Worth matching
-before any orders exist, so the two group together in exports.
+**SKU format.** Resolved 14 August. Both packs now follow one convention —
+`AS 200ml 12-pack` and `AS 200ml 6-pack` — so they group together in exports.
+
+### Staging commercial configuration — signed off 14 August 2026
+
+| | 12 pack | 6 pack |
+|---|---|---|
+| Price | $84 | $42 |
+| SKU | `AS 200ml 12-pack` | `AS 200ml 6-pack` |
+| Selling plans | 3, at 2/3/4 weeks | **none** |
+| Subscription price | $75.60 | not applicable |
+
+This is the configuration the range migration should be measured against. The
+6-pack holding zero selling plans is the data rule the whole one-time-only
+guarantee rests on — it is not enforced by wording or by the theme.
 
 ### Corrected cutover sequence
 
