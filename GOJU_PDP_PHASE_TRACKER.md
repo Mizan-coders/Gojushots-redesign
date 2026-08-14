@@ -214,7 +214,46 @@ the client when contingency time is used.
 
 | Date | Where | Defect | Correction | Time |
 |---|---|---|---|---|
-| — | — | none yet | — | — |
+| 14 Aug | Recharge | 6-pack carried all three selling plans; no discount applied; frequencies 1/2/3 weeks all shipping weekly | Plans rebuilt at 2/3/4 weeks with 10%, then restricted to the 12-pack via Recharge support guidance | client-side |
+| 14 Aug | `main-product-cro.liquid` | Pack badges assigned by variant order, not price. "Start here" landed on the 12-pack and "Best value" on the 6-pack. Shopify appends new variants last, so the live Action Shot would have inverted the same way once its 6-pack was added | Badges now derive from price — cheapest takes the starter badge, dearest the value badge. Neither shows when all packs cost the same | `966d4de` |
+| 14 Aug | `product.cro.json` | Buy box read "Subscription available on 15 packs only" and "15 Shots with Subscribe & Save" — 60 ml wording inherited when the template was copied. Never seen before because both lines only render when the selected pack has no plan, and the live product has one variant | Both lines take `[pack]` and fill it from the pack that holds the selling plans. Schema defaults use the placeholder so the next migrated product cannot inherit another product's pack name | `d839df0` |
+
+### Staging QA — 14 August 2026
+
+Run against `action-shot-duplicate` on theme 155130822824.
+
+| Check | Result |
+|---|---|
+| 6-pack holds zero selling plans | Pass — `planCount 0` |
+| 12-pack subscription price | Pass — $84 → $75.60, exactly 10% |
+| Plan frequencies and naming | Pass — 2, 3 and 4 weeks, matching production |
+| Clean URL opens one-time | Pass |
+| Subscribe names the only subscribable pack | Pass — "Subscribe & save 10% — 12 pack only" |
+| Warning before the pack moves | Pass — "Selecting Subscribe switches to the 12 pack" |
+| Subscribe on the 6-pack switches packs | Pass — moves to 12-pack with confirmation |
+| Savings figure | Pass — "Save $8.40 per order", product price difference only |
+| Deep link to 6-pack carrying a 12-pack plan | Pass — falls back to one-time at $42, plan cleared |
+| Clean URL opens on the smallest pack | **Fail** — opens on the 12-pack; see below |
+| 6-pack blocked in the Recharge customer portal | Not yet run — needs portal access |
+| Cart and checkout, both purchase types | Not yet run — needs a real order |
+| Sold-out states | Not yet run — needs a pack taken out of stock |
+
+**Open defect — default pack.** A clean product URL opens on the 12-pack rather
+than the smallest pack. The selection follows Shopify's first variant, and the
+duplicate lists 12-pack first because the 6-pack was added afterwards. The 60 ml
+products list smallest first, which is why this never appeared before. Two ways
+to correct it, and the choice is the client's:
+
+- **Reorder the variants in Shopify** so the 6-pack sits first. Consistent with
+  the rest of the range, no code. Side effect: collection cards, search and the
+  product feed would show the product from $42 rather than $84.
+- **Select the cheapest pack in the theme** on a clean visit. Robust to variant
+  order, but overrides Shopify's canonical variant and leaves the collection
+  price showing whichever variant is first.
+
+**SKU format.** The 6-pack was entered as `AS-200ml-6-pack` while the 12-pack
+uses `AS 200ml 12-pack`. The spec asks for `AS 200ml 6-pack`. Worth matching
+before any orders exist, so the two group together in exports.
 
 ### Corrected cutover sequence
 
