@@ -308,6 +308,56 @@ $85 threshold and removed its free shipping.
 5. Create the 6-pack at $42 with no selling plan
 6. Full live testing
 
+### Threshold change — every place $85 is read
+
+Confirmed 14 August. The theme only controls what the page *says*; checkout is
+changed separately and first. Three places, not one:
+
+1. **Announcement bar** — `config/settings_data.json`, "Free shipping on all
+   orders over $85". Global, affects every page.
+2. **Action Shot template** — `free_ship_threshold`, currently 85.
+3. **The schema default** — the other eleven cro templates carry no value and
+   fall back to the default in the section. Since the script now reads this
+   setting, leaving it at 85 would keep the line beneath the price saying $85 on
+   every unmigrated product while checkout charged $70.
+
+Already carrying $70: the FAQ shipping answer. Publish-gated, correct after
+cutover, deliberately inconsistent with the staging page before it.
+
+### Display after the threshold moves to $70
+
+Confirmed against the code, with the 12-pack at $84:
+
+| | Shown |
+|---|---|
+| 6-pack | $42 · $7.00 / bottle · + $8 shipping |
+| 12-pack | $84 · $7.00 / bottle · delivered, ships free |
+| 12-pack subscription | $75.60 |
+| Subscription saving | $8.40 per order |
+
+The per-unit prices are computed, not typed: $42 ÷ 6 and $84 ÷ 12 both give
+$7.00. The saving is the product-price difference only, $84 − $75.60, with
+shipping stated separately.
+
+### Variant reordering and Recharge
+
+Selling plans are allocated per variant **ID**; ordering is a separate position
+field. Reordering changes which variant Shopify treats as first — and so which
+pack the page opens on — without touching IDs, allocations or existing
+subscriptions. To be proved on the staging duplicate before the live product is
+touched, rather than asserted.
+
+Two sequencing points for cutover:
+
+- The 6-pack does not exist on the live product yet. Shopify appends new variants
+  last, so it must be **created first, then moved to first position**.
+- Collection cards and the product feed show the lowest variant price regardless
+  of order — `card-product.liquid` renders the price from the product, not from
+  the first variant. Verified on Immune Guard, whose card reads "From $50.00"
+  against variants at $50 and $75. "From $42" therefore follows from the 6-pack
+  existing, not from the reorder. The reorder is what changes the pack the
+  product page opens on.
+
 ### Before any live cutover
 
 - Staging QA results and any open defects sent to the client
