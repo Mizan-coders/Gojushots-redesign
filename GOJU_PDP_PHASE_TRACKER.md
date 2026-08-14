@@ -102,6 +102,34 @@
 
 **Why it happened:** hardcoding Action Shot's two packs would have made the "— 15 Shots only" label and per-product units impossible without per-product code. Generalising was the cheaper route to Phase 1 — and it happens to satisfy Phase 2 item 2.
 
+### Carried into Phase 2 — deferred 14 August 2026
+
+**The sticky bar hardcodes the discount.** The buy box takes its percentage from
+the `discount_percent` setting, but the sticky add-to-cart button has
+"Subscribe & Save 10%" written into the section in four places — one in markup,
+three in script. Every product is set to 10% today, so nothing is wrong on the
+storefront. The moment one product's Recharge discount differs, the two bars
+will state different numbers on the same page. Fix is to read the same setting
+the buy box reads.
+
+**Subscription perks are free text.** "Save 10% on every order." is typed into a
+perk field, so it will not follow `discount_percent` either. Worth deciding in
+Phase 2 whether perks should support a `[discount]` placeholder the way messages
+support `[pack]`.
+
+**How the three copy mechanisms differ** — recorded because it governs what has
+to be checked when each product is migrated:
+
+- *Pack names* are automatic. `[pack]` resolves from the variants that actually
+  hold selling plans, so no product-level editing is required and a template
+  copied from another product cannot carry the wrong pack name.
+- *Unit nouns* (`/ bottle` versus `/ shot`) are per-product settings. Audited
+  14 August — correct on all 12 templates.
+- *Per-unit prices* are computed by parsing the leading number from the variant
+  title. "12 pack" and "15 Shots" both work; a title that does not start with a
+  count yields zero and the per-unit line is omitted rather than shown wrong.
+  Any new pack should keep the "&lt;count&gt; &lt;noun&gt;" naming.
+
 ---
 
 ## Phase 3 — Range migration
