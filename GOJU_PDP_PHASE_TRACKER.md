@@ -32,7 +32,7 @@
 |---|---|---|
 | Pack cards: badge, price, per-unit, shipping line | ✅ | `5547c6f` |
 | Per-bottle price from variant price (both packs $7) | ✅ | `5547c6f` |
-| Default first visit → smallest pack + one-time | 🟡 | `b31c645` — one-time defaults correctly. **Smallest pack does not**: selection follows Shopify's first variant, and a 6-pack added after a 12-pack sits second. Never seen on the 60 ml range, which lists smallest first. Awaiting the client's choice between reordering variants and selecting by price |
+| Default first visit → smallest pack + one-time | ✅ | `b31c645` — selection follows Shopify's first variant. Client chose to reorder the variants rather than select by price; proved on the duplicate 16 Aug, page now opens on the 6-pack at $42, one-time. The live product must have its 6-pack **created first, then moved to first position** |
 | Subscribe on non-subscribable pack → switches + confirms | ✅ | `7bc9ecc` |
 | Return to one-time keeps larger pack | ✅ | by design |
 | Toggle names the subscribable pack | ✅ | `775603b` |
@@ -51,7 +51,7 @@
 | Item | Status | Commit |
 |---|---|---|
 | Clean URL, no `selling_plan` appended | ✅ | `b31c645` |
-| Opens smallest pack + one-time | 🟡 | `b31c645` — one-time correct, smallest pack not. See section B |
+| Opens smallest pack + one-time | ✅ | `b31c645` — via variant order, proved on the duplicate 16 Aug. See section B |
 | Empty `selling_plan` input on one-time | ✅ | `b31c645` |
 
 ### D. Existing-page refinements
@@ -343,9 +343,30 @@ shipping stated separately.
 
 Selling plans are allocated per variant **ID**; ordering is a separate position
 field. Reordering changes which variant Shopify treats as first — and so which
-pack the page opens on — without touching IDs, allocations or existing
-subscriptions. To be proved on the staging duplicate before the live product is
-touched, rather than asserted.
+pack the page opens on — without touching IDs or allocations.
+
+**Proved on the staging duplicate, 16 August 2026.** Variants reordered in
+Shopify admin, storefront data captured either side:
+
+| | Before | After |
+|---|---|---|
+| Variant order | 12 pack, 6 pack | 6 pack, 12 pack |
+| 6-pack ID | 55868212412584 | unchanged |
+| 12-pack ID | 55868202582184 | unchanged |
+| 12-pack plan IDs | 2931228840, 2931261608, 2931294376 | identical |
+| 12-pack subscription | $75.60 | $75.60 |
+| 6-pack plans | 0 | 0 |
+| Page opens on | 12 pack, $84 | 6 pack, $42 |
+
+The subscribe path was re-run from the new default with a real click: Subscribe
+on the 6-pack moves to the 12-pack, shows the confirmation, and prices at $75.60
+with a $8.40 saving. Badges kept their packs, since they follow price rather than
+order.
+
+**What this does not prove.** The duplicate has no subscribers, so it cannot show
+anything about existing subscriptions. It establishes that plan allocations are
+bound to variant IDs and survive a reorder; whether live subscribers are
+unaffected is the client's existing-subscriber check, run separately.
 
 Two sequencing points for cutover:
 
