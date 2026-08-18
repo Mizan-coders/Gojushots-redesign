@@ -2501,31 +2501,65 @@
       }, true); // capture phase — runs before ReCharge can interfere
     }
     // Belt-and-suspenders: intercept fetch to strip selling_plan from /cart/add
-    // when the selected variant has no subscription plans (e.g. 9-shot).
+    // when the variant *being added* has no subscription plans (e.g. 9-shot).
     // Dawn sends FormData; ReCharge may send JSON or URLSearchParams — handle all formats.
+    //
+    // The test is on the variant in the request, not the one on screen. Keying it
+    // to the displayed pack meant that while the customer looked at the 6-pack —
+    // which holds no plans — every add lost its selling plan, including a genuine
+    // 12-pack subscription added by an upsell, a cross-sell or the cart drawer.
+    // Proved on the staging duplicate 19 August: the same subscription add gave
+    // $75.60 with the 4-week plan through an unpatched request and $84 with no
+    // plan through this one.
+    //
+    // Unknown variants are left alone. Stripping a plan the customer asked for
+    // charges them the one-time price and silently creates no subscription;
+    // leaving one on a variant that cannot take it makes Shopify reject the add
+    // with a visible error. Between a silent wrong charge and a loud failure,
+    // this errs towards the loud one.
     (function() {
+      function croVariantIsPlanless(id) {
+        if (!id) return false;
+        var el = document.querySelector('[data-cst_variant="data"]');
+        if (!el) return false;
+        try {
+          var vs = JSON.parse(el.textContent);
+          for (var i = 0; i < vs.length; i++) {
+            if (String(vs[i].id) === String(id)) {
+              return !(vs[i].selling_plan_allocations && vs[i].selling_plan_allocations.length > 0);
+            }
+          }
+        } catch (e) {}
+        return false;
+      }
+
       var _origFetch = window.fetch;
       window.fetch = function(resource, init) {
         var url = typeof resource === 'string' ? resource
                 : (resource && resource.url) ? resource.url : '';
-        if (url.indexOf('/cart/add') !== -1 && pw.dataset.variantHasPlans === '0') {
-          if (init && init.body) {
-            if (init.body instanceof FormData) {
-              init.body.delete('selling_plan');
-            } else if (init.body instanceof URLSearchParams) {
-              init.body.delete('selling_plan');
-            } else if (typeof init.body === 'string') {
-              try {
-                var body = JSON.parse(init.body);
+        if (url.indexOf('/cart/add') !== -1 && init && init.body) {
+          if (init.body instanceof FormData || init.body instanceof URLSearchParams) {
+            if (croVariantIsPlanless(init.body.get('id'))) init.body.delete('selling_plan');
+          } else if (typeof init.body === 'string') {
+            try {
+              var body = JSON.parse(init.body);
+              // /cart/add.js takes either a single line or an items array.
+              if (Array.isArray(body.items)) {
+                body.items.forEach(function (line) {
+                  if (line && croVariantIsPlanless(line.id)) delete line.selling_plan;
+                });
+              } else if (croVariantIsPlanless(body.id)) {
                 delete body.selling_plan;
-                init = Object.assign({}, init, { body: JSON.stringify(body) });
-              } catch(e) {
-                try {
-                  var params = new URLSearchParams(init.body);
+              }
+              init = Object.assign({}, init, { body: JSON.stringify(body) });
+            } catch(e) {
+              try {
+                var params = new URLSearchParams(init.body);
+                if (croVariantIsPlanless(params.get('id'))) {
                   params.delete('selling_plan');
                   init = Object.assign({}, init, { body: params.toString() });
-                } catch(e2) {}
-              }
+                }
+              } catch(e2) {}
             }
           }
         }

@@ -213,7 +213,7 @@ Built but never exercised against real data. These must not be reported as done:
 | `pack_selected` event | One real click on a pack card (synthetic events are rejected by design) |
 | Sticky cart after the card change | Pack label and price re-checked. Opening mode fixed 18 Aug; needs a storefront run |
 | Mobile at ~390px | Browser here won't render below 1272px |
-| Cart and checkout end to end | A real add-to-cart in both purchase types. **Blocked** — the duplicate is set subscription-only, so no one-time add succeeds; see 19 August |
+| ~~Cart and checkout end to end~~ | Add-to-cart **passed in both modes 19 August** — see below. Completing a real order at checkout is still Tom's side |
 
 ## Working notes
 
@@ -684,3 +684,68 @@ flag is cleared it cannot be run on the duplicate at all.
 Not fixed in the theme, deliberately. Detecting the flag and hiding one-time would
 hide a misconfiguration rather than surface it, and would leave a permanent
 workaround for a setting that should simply be off.
+
+---
+
+## One-time restored, and the add-to-cart row closed — 19 August 2026
+
+The client added a **one-time plan** in Recharge (Products → Action Shot Duplicate
+→ One-time plan). That was the right correction, and it did exactly what was
+needed without the side effect I was worried about:
+
+| | Before | After |
+|---|---|---|
+| `requires_selling_plan` (product and both variants) | true | **false** |
+| 6-pack selling plans | 0 | **0 — unchanged** |
+| 12-pack selling plans | 3 at $75.60 | 3 at $75.60 — unchanged |
+
+The important part is the middle row. Recharge's one-time plan is a Recharge-side
+construct for the customer and merchant portals; it does **not** publish a Shopify
+selling plan onto the variant. So the 6-pack still holds zero allocations and the
+one-time-only guarantee is intact — the theme still reads it as unsubscribable and
+still refuses to offer Subscribe on it.
+
+Had it published a real selling plan, the pack logic would have inverted: the
+6-pack would have been treated as subscribable, offered at a subscription price
+that does not exist. It didn't. Worth stating plainly because the same correction
+will be needed on the live product.
+
+### Fourth defect, found by the add-to-cart test
+
+**The `/cart/add` interception keyed off the displayed pack, not the pack being
+added.** The theme strips `selling_plan` from cart adds when a variant cannot take
+one — correct in itself, but the test was `pw.dataset.variantHasPlans === '0'`,
+which describes the variant *on screen*.
+
+So while the customer was looking at the 6-pack, **every** add lost its selling
+plan. Measured on the duplicate, same request, same moment:
+
+| Route | Result |
+|---|---|
+| Through the theme's patched `fetch` | 12-pack, **$84, no plan** |
+| Through an unpatched request (XHR) | 12-pack, **$75.60, 4-week plan** |
+
+A subscription add silently became a one-time add at full price. Reachable from
+anything that adds the 12-pack while the 6-pack is displayed — an upsell, a
+cross-sell (Recharge's is enabled), the cart drawer, a quick-add.
+
+Corrected to read the variant id out of the request and check that variant's
+allocations, handling FormData, URLSearchParams, JSON and the `items` array form.
+Unknown variants are now left alone: stripping a plan the customer asked for is a
+silent wrong charge, while leaving one on a variant that cannot take it makes
+Shopify reject the add with a visible error. Loud failure beats quiet overcharge.
+
+### Add-to-cart verified, both modes, real buttons
+
+Cart cleared before and after; nothing left behind.
+
+| Route | Line | Price | Plan |
+|---|---|---|---|
+| 6-pack, One-time, "Add to cart — $42" | 6 pack | $42 | none |
+| Subscribe → 12-pack, "Subscribe — $75.60" | 12 pack | $75.60 | 2 week subscription with 10% discount |
+| 12-pack subscription added while viewing the 6-pack | 12 pack | $75.60 | 4 week subscription with 10% discount |
+| 6-pack sent with a plan it cannot take | 6 pack | $42 | stripped, as intended |
+
+**Cart drawer threshold corroborated.** With $42 in the cart the drawer read
+"You're $43.00 away from FREE SHIPPING" — $85, from its own setting, confirming
+from the storefront what the code review found. It is the fourth place to change.
