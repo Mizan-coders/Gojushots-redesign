@@ -388,7 +388,8 @@ Two sequencing points for cutover:
 ### Before any live cutover
 
 - Staging QA results and any open defects sent to the client
-- Staging product's practical visibility and direct-URL exposure confirmed
+- Staging product's practical visibility and direct-URL exposure confirmed —
+  **checked 19 August, and it is exposed.** See below
 - The five one-time-only checks completed
 - Cutover window and exact sequence agreed
 - Client confirmation on Recharge impact to existing subscribers and queued charges
@@ -752,3 +753,36 @@ Cart cleared before and after; nothing left behind.
 **Cart drawer threshold corroborated.** With $42 in the cart the drawer read
 "You're $43.00 away from FREE SHIPPING" — $85, from its own setting, confirming
 from the storefront what the code review found. It is the fourth place to change.
+
+---
+
+## Staging product exposure — checked 19 August 2026
+
+`action-shot-duplicate` is published and reachable by real customers. Measured
+from the storefront:
+
+| Surface | Exposed? |
+|---|---|
+| Storefront search for "action shot" | **Yes** |
+| Collection `our-range-1` | **Yes** |
+| Collection `our-range-copy` | **Yes** |
+| Collection `all` — linked from the homepage | **Yes** |
+| XML sitemap | No — so search engines are not indexing it |
+
+`Immune Guard Copy` sits in the same collections and carries the same risk.
+
+So a customer can reach a test product from the homepage, and buy a 12-pack at $84
+or start a real Recharge subscription against it. Not indexed, so the exposure is
+to people already on the site rather than to search traffic — but it is live.
+
+**Do not set it back to draft.** It is still needed: the three Recharge portal
+checks run against it, and any further correction has to be re-verified on it.
+Drafting it 404s the storefront and blocks that work, which already cost one round
+trip on 19 August.
+
+**Reduce the exposure instead** — remove it, and Immune Guard Copy, from
+`our-range-1`, `our-range-copy` and any other customer-facing collection. That
+leaves the direct URL and site search as the only routes in, which is acceptable
+for the short window to cutover and keeps it fully testable.
+
+Delete or draft both test products once cutover is signed off, not before.
