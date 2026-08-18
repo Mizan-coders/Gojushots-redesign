@@ -775,14 +775,23 @@ So a customer can reach a test product from the homepage, and buy a 12-pack at $
 or start a real Recharge subscription against it. Not indexed, so the exposure is
 to people already on the site rather than to search traffic — but it is live.
 
-**Do not set it back to draft.** It is still needed: the three Recharge portal
-checks run against it, and any further correction has to be re-verified on it.
-Drafting it 404s the storefront and blocks that work, which already cost one round
-trip on 19 August.
+**Decision: draft both test products.** Taken 19 August. My first recommendation
+was to keep the duplicate published and merely pull it from the collections, so it
+stayed testable. That weighted the developer's convenience above a live commercial
+risk, and the client's call went the other way — correctly. Drafting removes every
+route in at once, including site search and the direct URL, rather than narrowing
+them.
 
-**Reduce the exposure instead** — remove it, and Immune Guard Copy, from
-`our-range-1`, `our-range-copy` and any other customer-facing collection. That
-leaves the direct URL and site search as the only routes in, which is acceptable
-for the short window to cutover and keeps it fully testable.
+The cost is a round trip whenever it has to go back: republish, re-verify, draft
+again. That is seconds of client time against the possibility of a real customer
+starting a real Recharge subscription on a test product.
 
-Delete or draft both test products once cutover is signed off, not before.
+`Immune Guard Copy` carries the same exposure and should be drafted with it.
+
+**The one dependency to watch.** Tom's outstanding portal checks — swap,
+add-product, change-variant — run in the Recharge customer portal, and it is not
+established here whether Recharge still offers a product whose Shopify listing is
+unpublished. If those checks come back showing the 6-pack simply absent, that may
+be the draft status rather than the guarantee working. Republish before running
+them, or confirm the behaviour first, so an inconclusive result is not read as a
+pass.
