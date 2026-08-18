@@ -42,7 +42,7 @@
 | Everything-sold-out message | 🟡 | `5e05fd1` — built, no product has all variants unavailable |
 | Direct variant / selling_plan deep links | ✅ | `b31c645` |
 | Subscription terms visible before add-to-cart | ✅ | pre-existing |
-| Sticky cart synchronised | 🟡 | Mode sync verified; pack label + price not re-verified since cards |
+| Sticky cart synchronised | 🟡 | Opened in Subscribe over a one-time buy box, at the subscription price — fixed 18 Aug, see below. Not yet verified on the storefront |
 | Buy box compact on mobile | 🚫 | Mizan — cannot measure; browser won't drop below 1272px |
 | 6-pack cannot be subscribed anywhere (incl. Recharge swap) | 🟡 | Storefront half verified 14 Aug on the staging duplicate: 6-pack holds zero selling plans, Subscribe moves to the 12-pack, and a deep link carrying a 12-pack plan falls back to one-time. Recharge portal half — swap, add-product, change-variant — still to run |
 
@@ -177,11 +177,11 @@ Deliberately left range-wide, being corrections rather than redesign:
 | 3 | Checkout attribution: line-item properties or Web Pixels? | Tom |
 | 4 | Build the Phase 1/3 gate, or accept range-wide change? | Mizan → Tom |
 | 5 | Safest 6-pack creation — staging product recommended | Tom |
-| 6 | Does repricing the 12-pack affect existing Recharge subscriptions? | Verify before cutover |
+| 6 | Does repricing the 12-pack affect existing Recharge subscriptions? | Verify before cutover — Tom has now instructed that the 11 existing subscriptions, their prices and queued charges stay unchanged |
 
 ## Publish gates
 
-- **"Skip it. Pause it. Cancel it. Anytime."** — built, must not go live until Tom confirms Skip/Pause/Cancel tested in the Recharge portal
+- ~~**"Skip it. Pause it. Cancel it. Anytime."**~~ — **cleared 18 August 2026.** Tom confirmed Skip, Pause and Cancel in the Recharge portal
 - **$70 shipping copy** — must not go live before the checkout threshold changes
 - **Nothing publishes without Tom's approval**
 
@@ -211,7 +211,7 @@ Built but never exercised against real data. These must not be reported as done:
 | Subscription-blocked state | A sold-out *subscribable* variant. The duplicate product can't test it — duplicating a product drops its Recharge selling plans |
 | Everything-sold-out message | A product with no purchasable variant |
 | `pack_selected` event | One real click on a pack card (synthetic events are rejected by design) |
-| Sticky cart after the card change | Pack label and price re-checked |
+| Sticky cart after the card change | Pack label and price re-checked. Opening mode fixed 18 Aug; needs a storefront run |
 | Mobile at ~390px | Browser here won't render below 1272px |
 | Cart and checkout end to end | A real add-to-cart in both purchase types |
 
@@ -388,3 +388,240 @@ Two sequencing points for cutover:
 - Client confirmation on Recharge impact to existing subscribers and queued charges
 
 No changes to existing subscribers, and no cutover, without the client's approval.
+
+---
+
+## Client Recharge sign-off — 18 August 2026
+
+Tom confirmed the Recharge portal round by email. Run by the client, not
+reproducible here, and recorded as his result rather than ours:
+
+| Check | Result |
+|---|---|
+| Real subscription order at $75.60 | Pass — free subscriber shipping applied |
+| 4-week frequency carried through | Pass |
+| Skip | Pass |
+| Pause — 2 weeks, 1 month, 2 months | Pass |
+| Immediate cancellation after first order | Pass — no minimum-order restriction |
+| Cancelled subscription → inactive, reactivable | Pass |
+| Public cancellation policy | Pass — no early-cancellation chargeback wording |
+
+The test order and subscription were cancelled; the $75.60 refund is processing.
+
+**Publish gate cleared.** "Skip it. Pause it. Cancel it. Anytime." is approved for
+publication. The remaining publish gate — $70 shipping copy — is unchanged and
+still tied to the checkout threshold.
+
+**Still open, and not covered by this round.** The verification debt row "6-pack
+cannot be subscribed anywhere (incl. Recharge swap)" asks for three portal
+actions — swap, add-product, change-variant. Tom's list covers the subscription
+lifecycle, not those three. The one-time-only guarantee rests on the 6-pack
+holding zero selling plans, and the customer portal is the one surface that could
+put a 6-pack onto a subscription without touching the storefront. Row stays 🟡.
+
+### New cutover constraint — existing subscribers
+
+Tom: leave the 11 existing Action Shot subscriptions, their prices and their
+queued charges unchanged. $75.60 applies to **new** subscriptions only.
+
+This lands directly on step 4 of the corrected sequence, changing the 12-pack to
+$84 — repricing a variant is exactly the operation that can propagate to queued
+charges. Open decision 6 now has a client instruction attached to it: confirm in
+Recharge, before the cutover window, that the reprice does not rewrite existing
+subscriptions or queued charges. If it would, the price change needs a Recharge-side
+exclusion rather than a plain variant edit.
+
+## Purchase type must survive a pack change — 18 August 2026
+
+Tom's rule, in his words:
+
+- One-time 6-pack → select 12-pack → remain on one-time.
+- One-time 12-pack → select 6-pack → remain on one-time.
+- Explicit Subscribe while on the 6-pack → still move to the 12-pack with the message.
+
+### What a pack change actually does
+
+Worth recording, because it governs every fix in this area and it is not what the
+code appeared to assume. `VariantSelects.updateVariantInput` in `assets/global.js`
+ends in `location.reload()`. **Every pack change is a full page load** at
+`?variant=<id>`. Proved on the storefront 18 August: a marker set on `window`
+before clicking a pack is gone afterwards, and the URL carries the new variant.
+
+Two consequences:
+
+- No JavaScript state survives a pack change. Anything that has to persist across
+  one needs `sessionStorage`, which is why the switch note and the sold-out note
+  already work that way.
+- The `variant:change` handler's "moved to a pack with plans" branch never runs
+  for a pack-card click — the page is gone before it matters. Instrumented on a
+  live two-variant PDP: zero `variant:change` events for a non-initial variant.
+
+### Measured against Tom's three rules
+
+Rules 1 and 2 already hold on the reload path and were confirmed on the storefront:
+a clean URL and `?variant=<a variant that has plans>` both open **one-time** under
+the new experience. Rule 3 holds through the existing `croPackSwitched-` handoff.
+
+So Tom's exact sequence could not be reproduced here — and the product it was
+reported against no longer exists. `/products.json` now lists 9 products;
+`action-shot-duplicate` is gone and `action-shot` still has one variant at $85.
+Re-running the 6-pack paths needs the staging duplicate restored.
+
+### Two defects found while checking, both fixed
+
+**1. Sticky bar advertised a subscription over a one-time buy box.** Reproduced on
+the live Action Shot PDP on theme 155130822824, clean URL, no pack change needed:
+
+| | Buy box | Sticky bar |
+|---|---|---|
+| Purchase type | One-time | Subscribe |
+| Price | $85 | $76.50 |
+
+`stickyMode` initialised to `'sub'` for any subscribable product, which was correct
+while every product opened subscribe-first and became wrong when the new experience
+opened one-time. This is commercial, not cosmetic: the sticky button only clicks the
+product form's own submit, and `selling_plan` was empty, so a customer shown
+"Subscribe & Save 10% — $76.50" would have been **added to cart one-time at $85**.
+The bar now derives its opening mode from the buy box's resolved state, and re-states
+the mode classes and the button label at init rather than only the price. It follows
+the buy box and never mirrors back into it.
+
+**2. Landing on a subscribable pack forced Subscribe.** The `variant:change`
+handler set `currentMode = 'sub'` whenever the new variant had plans. Latent today
+because nothing dispatches that event for a non-initial variant — the dispatcher is
+an app, not the theme — but it is Tom's rule stated in reverse, so it is corrected
+rather than left. The branch now keeps the customer's mode and only renders the
+subscribe panels when they were already subscribing.
+
+**Also added: purchase type carried across the reload.** Rules 1 and 2 hold today
+by accident of Action Shot having exactly one subscribable pack — a customer who is
+subscribing and changes pack has nowhere to keep subscribing to. On any product with
+two subscribable packs the reload would drop them to one-time, which is the same rule
+broken the other way. The chosen mode is now written on a trusted pack-card change
+and read once on the next load, deleted on read so it cannot pin a later clean visit
+into Subscribe. Explicit Subscribe still wins: `croWantsSub` reads the auto-switch
+key first.
+
+### Verified on the staging theme — 18 August 2026
+
+Pushed to `155130822824` (remote checked for drift first, none) and run against the
+live Action Shot PDP:
+
+| Check | Result |
+|---|---|
+| Clean URL — buy box | Pass — One-time, $85 |
+| Clean URL — sticky bar | Pass — One-time, "Add to Cart", $85 |
+| `selling_plan` on load | Pass — empty |
+| Explicit Subscribe click — buy box | Pass — Subscribe, $76.50, "Save $8.50 per order" |
+| Explicit Subscribe click — sticky bar | Pass — Subscribe, $76.50 |
+| `selling_plan` after Subscribe | Pass — set |
+| The two bars agreeing in both modes | Pass — the defect above is gone |
+
+**Verified in full on 19 August** once the duplicate was restored — see below.
+
+Changed in `sections/main-product-cro.liquid`.
+
+### Free-shipping threshold — the surface is four places, not three
+
+The earlier "Threshold change — every place $85 is read" section is wrong. The cart
+drawer's progress bar does **not** read the PDP's `free_ship_threshold`. It has its
+own section setting:
+
+- `sections/cart-drawer.liquid` reads `section.settings.free_shipping_dollars`
+- currently `85` in `config/settings_data.json`
+- **schema fallback is 80, not 85** — any theme where the setting is unset shows $80
+
+So it will not follow the PDP change, and it is a fourth manual edit at cutover:
+
+1. Announcement bar — `config/settings_data.json`, the "$85" wording
+2. Action Shot template — `free_ship_threshold` in `templates/product.cro.json`
+3. The fallback for the eleven unmigrated cro templates, which is **two literals,
+   not one**, and both must change together:
+   - `sections/main-product-cro.liquid:533` — `| default: 85` on the Liquid assign
+   - the same file's schema, `"id": "free_ship_threshold"` → `"default": 85`
+4. **Cart drawer — `free_shipping_dollars` in `config/settings_data.json`, plus
+   `sections/cart-drawer.liquid:1` where the fallback is `default: 80`**
+
+Unifying the two settings is a Phase 2 change, not a cutover change. Recommended,
+not done.
+
+## Recommended cutover window
+
+**Tuesday 25 or Wednesday 26 August 2026, 07:00–09:00 NZST**, with a preference for
+the Wednesday.
+
+Reasoning, and it is reasoning rather than measurement — confirm it against GOJU's
+own analytics before committing:
+
+- Midweek avoids both the weekend and the Monday catch-up.
+- Early morning NZST is ahead of the lunchtime and evening ordering peaks, so the
+  window where the site says $85 while checkout gives free shipping at $70 (steps 2
+  to 3 of the corrected sequence) covers as few customers as possible. That gap
+  favours the customer by design, but it should still be short.
+- It is a working morning, not the small hours: the sequence has six steps and
+  live testing after each, and it needs Tom reachable for the Recharge steps.
+- Allow 90 minutes. The threshold test at exactly $70 and the 6-pack creation
+  and reposition are the slow parts.
+
+Two things must land **before** the window opens, not inside it:
+
+1. Confirmation that repricing the 12-pack leaves the 11 existing subscriptions and
+   their queued charges untouched. This is the one step that cannot be undone by
+   changing a setting back.
+2. The 6-pack portal checks — swap, add-product, change-variant — since the
+   one-time-only guarantee is the thing the whole pack structure rests on.
+
+---
+
+## Tom's three rules — verified 19 August 2026
+
+`action-shot-duplicate` was restored to the storefront (6-pack $42 at position 1,
+12-pack $84 at position 2, IDs unchanged from the 16 August record). All runs on
+theme `155130822824`, with real clicks, sampled at 5–6 seconds so ReCharge's late
+writes are included.
+
+| # | Case | Pack | Mode | Price | `selling_plan` input | URL | Sticky bar |
+|---|---|---|---|---|---|---|---|
+| — | Clean URL | 6 pack | One-time | $42 | empty | clean | One-time $42 |
+| 1 | One-time 6-pack → select 12-pack | 12 pack | **One-time** | $84 | empty | clean | One-time $84 |
+| 2 | One-time 12-pack → select 6-pack | 6 pack | **One-time** | $42 | empty | clean | One-time $42 |
+| 3 | Subscribe while on the 6-pack | **12 pack** | Subscribe | $75.60 | set | — | Subscribe $75.60 |
+| + | Refresh while on the one-time 12-pack | 12 pack | One-time | $84 | empty | clean | One-time $84 |
+| + | Subscribe on 12-pack → select 6-pack | 6 pack | One-time | $42 | empty | clean | One-time $42 |
+
+Case 3 also shows the approved message — "Subscriptions are available on the 12
+pack. We've updated your selection." — and the saving reads $8.40 per order, the
+product-price difference only.
+
+The last row is the combination Tom did not list. Dropping to one-time is the only
+correct outcome, since the 6-pack holds no selling plans, and the plan is cleared
+from both the form and the URL on the way.
+
+### Third defect, found during this verification
+
+**ReCharge writes `selling_plan` into the address bar while the customer is in
+one-time**, and the theme was treating that parameter as the customer asking for a
+subscription. Two ways it bit:
+
+- `croWantsSub()` re-read `location.search` each time it was called. The 800ms
+  ReCharge sync calls it — and by 800ms the parameter was there. Landing on the
+  12-pack one-time and doing nothing at all flipped the page to Subscribe at
+  $75.60. **This is the mechanism behind Tom's report**: the pack change reloads
+  onto `?variant=<12-pack>`, and 800ms later the sync moved the customer to
+  Subscribe.
+- The parameter then persisted, so refreshing, bookmarking or sharing that URL
+  reopened it in Subscribe.
+
+Two corrections:
+
+1. The URL's subscription intent is captured **once at parse time**, before ReCharge
+   has run, and never re-read. A genuine campaign deep link still works; a
+   parameter ReCharge adds later does not count as intent.
+2. `history.pushState` / `replaceState` are wrapped so `selling_plan` cannot be
+   written into the URL while the buy box is in one-time. Timed clean-up passes were
+   tried first and lost the race — ReCharge re-appends at no fixed moment, and a
+   re-appearance was measured after every delay tried. Guarded on the live mode, so
+   it never fights a customer who has actually chosen Subscribe.
+
+Same pattern as the existing `/cart/add` fetch interception: the write is
+intercepted rather than cleaned up afterwards.
