@@ -305,10 +305,13 @@ $85 threshold and removed its free shipping.
 2. Change the checkout threshold to $70 and test at exactly $70
 3. Update the theme threshold setting and public $85 wording
 4. Change the 12-pack to $84 — now safely above $70
-5. Create the 6-pack at $42 with no selling plan. **Leave the product's
-   subscription-only restriction off** — see the 19 August defect. Restricting the
-   product rather than the plan allocations makes the 6-pack unbuyable and stops
-   one-time purchases of the 12-pack too
+5. Create the 6-pack at $42 with no selling plan, then **add a one-time plan in
+   Recharge against the product** and leave the product's subscription-only
+   restriction **off** — see the 19 August defect. Restricting the product rather
+   than the plan allocations makes the 6-pack unbuyable and stops one-time
+   purchases of the 12-pack too. Verify afterwards that the 6-pack still holds zero
+   *subscription* plans: the one-time plan must not publish a selling plan onto it,
+   which is what was confirmed on the duplicate
 6. Full live testing, including a real one-time add to cart for both packs
 
 ### Threshold change — every place $85 is read
