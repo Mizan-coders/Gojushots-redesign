@@ -213,7 +213,7 @@ Built but never exercised against real data. These must not be reported as done:
 | `pack_selected` event | One real click on a pack card (synthetic events are rejected by design) |
 | Sticky cart after the card change | Pack label and price re-checked. Opening mode fixed 18 Aug; needs a storefront run |
 | Mobile at ~390px | Browser here won't render below 1272px |
-| Cart and checkout end to end | A real add-to-cart in both purchase types |
+| Cart and checkout end to end | A real add-to-cart in both purchase types. **Blocked** — the duplicate is set subscription-only, so no one-time add succeeds; see 19 August |
 
 ## Working notes
 
@@ -305,8 +305,11 @@ $85 threshold and removed its free shipping.
 2. Change the checkout threshold to $70 and test at exactly $70
 3. Update the theme threshold setting and public $85 wording
 4. Change the 12-pack to $84 — now safely above $70
-5. Create the 6-pack at $42 with no selling plan
-6. Full live testing
+5. Create the 6-pack at $42 with no selling plan. **Leave the product's
+   subscription-only restriction off** — see the 19 August defect. Restricting the
+   product rather than the plan allocations makes the 6-pack unbuyable and stops
+   one-time purchases of the 12-pack too
+6. Full live testing, including a real one-time add to cart for both packs
 
 ### Threshold change — every place $85 is read
 
@@ -625,3 +628,59 @@ Two corrections:
 
 Same pattern as the existing `/cart/add` fetch interception: the write is
 intercepted rather than cleaned up afterwards.
+
+---
+
+## Blocking defect — the duplicate is set subscription-only — 19 August 2026
+
+Reported from the storefront: adding the 6-pack to cart returns Shopify's
+**"Variant can only be purchased with a selling plan."**
+
+Not a theme fault. `action-shot-duplicate` carries `requires_selling_plan: true`
+on the product and therefore on both variants — Shopify's "this product can only
+be sold as a subscription" setting.
+
+| Product | `requires_selling_plan` | 6 pack | 12 pack |
+|---|---|---|---|
+| `action-shot-duplicate` | **true** | req=true, **0 plans** | req=true, 3 plans |
+| `action-shot` (live) | false | — | req=false, 3 plans |
+| all six 60 ml products | false | — | — |
+
+The duplicate is the only product in the catalogue with the flag set.
+
+**What it breaks:**
+
+- **6-pack — unbuyable in any mode.** It requires a selling plan and holds zero
+  plans, so there is no combination that adds it to cart. This is the reported error.
+- **12-pack — one-time is impossible.** Only the subscription path can be added.
+
+So the entire one-time path on the duplicate is blocked at the data layer. The
+theme is behaving correctly and saying the true thing — "One-time purchase only ·
+Subscription available on the 12 pack only" — while Shopify refuses to sell it.
+
+**Where it came from.** Almost certainly the 14 August remediation in the defect
+log: plans rebuilt, "then restricted to the 12-pack via Recharge support guidance."
+Restricting a product to subscription-only sets this flag at product level, which
+then applies to every variant including the one meant to stay one-time.
+
+**Fix — client side, not theme.** Turn the subscription-only restriction off for
+the product. Since Recharge manages the restriction, check whether it has to be
+cleared in Recharge rather than Shopify admin, or it will be re-applied. The
+correct end state is the one already signed off on 14 August: the 6-pack holds
+zero selling plans and is freely purchasable one-time, and the restriction lives in
+the plan allocations, not in a product-level flag.
+
+**Why this matters more than the duplicate.** The live product is currently clean.
+When the 6-pack is created on the live Action Shot at cutover, **this flag must stay
+off**. Applying the same "restrict to the 12-pack" step to live would stop one-time
+purchases of the 12-pack as well — the current revenue path. Added to the cutover
+checks below.
+
+**It also explains a gap.** The outstanding verification-debt row is "Cart and
+checkout end to end — a real add-to-cart in both purchase types." That check has
+never been run, and it is exactly the check that would have caught this. Until the
+flag is cleared it cannot be run on the duplicate at all.
+
+Not fixed in the theme, deliberately. Detecting the flag and hiding one-time would
+hide a misconfiguration rather than surface it, and would leave a permanent
+workaround for a setting that should simply be off.
