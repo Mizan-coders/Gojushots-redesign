@@ -1660,7 +1660,25 @@
     }
 
     // ── 3. Mode toggle (One-time / Subscribe) ──
-    var stickyMode = (pw && pw.dataset.noSub === 'true') ? 'once' : 'sub';
+    // Follow the buy box rather than assuming Subscribe. Defaulting to 'sub' was
+    // right while every product opened subscribe-first, but under the new
+    // experience the buy box opens one-time, and the bar was left advertising
+    // "Subscribe & Save 10%" at the subscription price over a one-time buy box.
+    // The bar only clicks the form's own submit, so the cart took the one-time
+    // price the buy box was showing — the customer saw one number and was
+    // charged another.
+    // Safe to read here: the widget runs at parse time and initPW has already
+    // resolved the toggle, while this runs on DOMContentLoaded.
+    function croStickyInitialMode() {
+      if (!pw) return 'once';
+      if (pw.dataset.noSub === 'true') return 'once';
+      // No plan on this pack — one-time is the only thing that can be bought.
+      // Checked before the toggle because a hidden toggle keeps its markup state.
+      if (pw.dataset.variantHasPlans === '0') return 'once';
+      var active = pw.querySelector('.cro-pw__tog-btn.is-active');
+      return active && active.dataset.mode === 'sub' ? 'sub' : 'once';
+    }
+    var stickyMode = croStickyInitialMode();
 
     function setMode(mode) {
       stickyMode = mode;
@@ -1709,7 +1727,20 @@
       });
     }
 
-    // Initialise price display
+    // Initialise the bar to the mode the buy box actually resolved to. The markup
+    // marks Subscribe active because that was the old default, so the classes and
+    // the button label have to be re-stated here as well as the price — otherwise
+    // the bar keeps advertising a subscription over a one-time buy box.
+    // Deliberately not setMode(): that mirrors back into the buy box with a
+    // programmatic click, and the bar must follow the buy box, never move it.
+    if (modeEl) {
+      modeEl.querySelectorAll('.cro-sticky-atc__mode-btn').forEach(function (b) {
+        b.classList.toggle('is-active', b.dataset.mode === stickyMode);
+      });
+    }
+    if (stickyBtn && stickyMode !== 'sub' && stickyBtn.dataset.labelAdd) {
+      stickyBtn.textContent = stickyBtn.dataset.labelAdd;
+    }
     if (priceEl) priceEl.textContent = getStickyPrice(stickyMode, window._croCurrentVariantPrice);
 
     // ── 4. Variant change ──
@@ -1947,16 +1978,63 @@
       // Clear native Shopify selling_plan so one-time purchase doesn't carry a subscription
       var spInput = document.querySelector('input[name="selling_plan"]');
       if (spInput) { spInput.value = ''; spInput.dispatchEvent(new Event('change', { bubbles: true })); }
+      croDropPlanFromUrl();
       // Delayed clears: catch any async re-set by ReCharge's event handlers
       setTimeout(function() {
         var sp = document.querySelector('input[name="selling_plan"]');
         if (sp && sp.value) { sp.value = ''; sp.dispatchEvent(new Event('change', { bubbles: true })); }
+        croDropPlanFromUrl();
       }, 150);
       setTimeout(function() {
         var sp = document.querySelector('input[name="selling_plan"]');
         if (sp && sp.value) { sp.value = ''; sp.dispatchEvent(new Event('change', { bubbles: true })); }
+        croDropPlanFromUrl();
       }, 600);
+      // ReCharge writes the parameter later than it re-sets the input — measured
+      // around two seconds. Without these the address bar keeps a subscription the
+      // customer is not in, and refreshing or sharing that link opens Subscribe.
+      setTimeout(croDropPlanFromUrl, 1500);
+      setTimeout(croDropPlanFromUrl, 3000);
     }
+
+    // The address bar must not claim a subscription while the buy box says
+    // one-time. Guarded on the live mode so it can never fight a customer who has
+    // genuinely chosen Subscribe, and it leaves ?variant alone.
+    function croDropPlanFromUrl() {
+      if (currentMode === 'sub') return;
+      try {
+        var u = new URL(window.location.href);
+        if (!u.searchParams.has('selling_plan')) return;
+        u.searchParams.delete('selling_plan');
+        window.history.replaceState({}, '', u.pathname + (u.search || '') + u.hash);
+      } catch (e) {}
+    }
+
+    // Timed passes lose this race — ReCharge re-appends the parameter at no fixed
+    // moment, and measured re-appearances landed after every delay we tried. So
+    // the write itself is intercepted rather than cleaned up afterwards. Same
+    // belt-and-braces reasoning as the /cart/add interception further down, and
+    // it only ever removes selling_plan while the customer is in one-time.
+    (function () {
+      if (window.__croHistoryPatched) return;
+      window.__croHistoryPatched = true;
+      ['pushState', 'replaceState'].forEach(function (fn) {
+        var original = history[fn];
+        if (typeof original !== 'function') return;
+        history[fn] = function (state, title, url) {
+          try {
+            if (url != null && currentMode !== 'sub') {
+              var u = new URL(url, window.location.href);
+              if (u.searchParams.has('selling_plan')) {
+                u.searchParams.delete('selling_plan');
+                url = u.pathname + (u.search || '') + u.hash;
+              }
+            }
+          } catch (e) {}
+          return original.call(this, state, title, url);
+        };
+      });
+    })();
 
     // ── Toggle buttons ────────────────────────────────────────
     // A clean product URL must open on the smallest pack, one-time. Subscription
@@ -1967,9 +2045,35 @@
     // buy box, and the customer's intent to subscribe has to survive that. The
     // flag is read here rather than inside croWantsSub because the note-handling
     // code below clears the key, and initPW asks again afterwards.
+    // Read once, here, and never again from the URL. ReCharge appends its own
+    // `selling_plan` to the address bar within a second of load, even when the
+    // customer is sitting in one-time — so by the time the 800ms sync asks, the
+    // URL claims a subscription the customer never chose, and the sync clicks
+    // Subscribe for them. Captured at parse time, before ReCharge has run, the
+    // flag still means what it was built to mean: this link asked for a
+    // subscription. Proved on the staging duplicate 19 August — reading it late
+    // turned a one-time $84 into a subscription at $75.60 with no interaction.
+    var croUrlAskedForSub = false;
+    try { croUrlAskedForSub = new URLSearchParams(window.location.search).has('selling_plan'); } catch (e) {}
+
     var croSwitchKey = 'croPackSwitched-{{ section.id }}';
     var croPendingSubIntent = false;
     try { croPendingSubIntent = sessionStorage.getItem(croSwitchKey) !== null; } catch (e) {}
+
+    // Purchase type carried across a pack change. Changing the pack reloads the
+    // whole page — `updateVariantInput` in global.js ends in location.reload() —
+    // so the chosen mode cannot survive in a variable. A customer who is already
+    // subscribing and then changes pack must stay subscribing, which is only
+    // visible on a product with two subscribable packs; Action Shot has one, so
+    // the read below is what keeps the rule true for the rest of the range.
+    // Read once and deleted immediately: a key left behind would pin the next
+    // clean visit into Subscribe, which is the behaviour Phase 1 removed.
+    var croModeKey = 'croPackMode-{{ section.id }}';
+    var croPendingMode = null;
+    try {
+      croPendingMode = sessionStorage.getItem(croModeKey);
+      if (croPendingMode !== null) sessionStorage.removeItem(croModeKey);
+    } catch (e) {}
 
     function croWantsSub() {
       // Legacy products keep subscribe-first until they are migrated. Only the
@@ -1977,8 +2081,10 @@
       if (pw.dataset.newUx !== 'true') return true;
       // Just moved here by choosing Subscribe — honour that, not the URL.
       if (croPendingSubIntent) return true;
-      try { return new URLSearchParams(window.location.search).has('selling_plan'); }
-      catch (e) { return false; }
+      // Carried over from the pack the customer just left.
+      if (croPendingMode === 'sub') return true;
+      if (croPendingMode === 'once') return false;
+      return croUrlAskedForSub;
     }
 
     var togBtns = pw.querySelectorAll('.cro-pw__tog-btn');
@@ -1999,6 +2105,19 @@
         }
       });
     });
+
+    // ── Carry the purchase type across a pack change ──────────
+    // Written in the capture phase so it lands before variant-radios starts the
+    // reload. Trusted events only: the auto-switch and the sold-out resolver both
+    // change the radio programmatically, and neither is the customer choosing a
+    // purchase type. The auto-switch is unaffected either way — croWantsSub reads
+    // its own key first, so an explicit Subscribe still wins over a carried mode.
+    document.addEventListener('change', function (e) {
+      var t = e.target;
+      if (!t || t.type !== 'radio' || !e.isTrusted) return;
+      if (!t.closest('.cro-variant-row, .cro-variant-row--cards')) return;
+      try { sessionStorage.setItem(croModeKey, currentMode); } catch (err) {}
+    }, true);
 
     // ── Auto-switch to a subscribable pack ────────────────────
     // Choosing Subscribe on a pack with no selling plan moves the customer to
@@ -2334,12 +2453,24 @@
       } else {
         pw.dataset.variantHasPlans = '1';
         if (toggle) toggle.hidden = false;
-        currentMode = 'sub';
-        togBtns.forEach(function(b) { b.classList.toggle('is-active', b.dataset.mode === 'sub'); });
-        var activeFreq = pw.querySelector('.cro-pw__freq-btn.is-active');
-        var planId = activeFreq ? activeFreq.dataset.planId : (pw.querySelector('.cro-pw__freq-btn') ? pw.querySelector('.cro-pw__freq-btn').dataset.planId : '');
-        var hint   = activeFreq ? activeFreq.dataset.hint   : '';
-        renderSub(planId, hint);
+        // Landing on a subscribable pack does not make the customer a subscriber.
+        // This used to force Subscribe, which broke the rule that only an explicit
+        // Subscribe click moves the purchase type. Nothing in the theme dispatches
+        // variant:change — an app does — so this must never be an entry point to
+        // subscription. Where the pack genuinely has no plan the branch above
+        // still drops to one-time, because there is no subscription to keep.
+        togBtns.forEach(function(b) { b.classList.toggle('is-active', b.dataset.mode === currentMode); });
+        if (currentMode === 'sub') {
+          var activeFreq = pw.querySelector('.cro-pw__freq-btn.is-active');
+          var planId = activeFreq ? activeFreq.dataset.planId : (pw.querySelector('.cro-pw__freq-btn') ? pw.querySelector('.cro-pw__freq-btn').dataset.planId : '');
+          var hint   = activeFreq ? activeFreq.dataset.hint   : '';
+          renderSub(planId, hint);
+        } else {
+          if (elPerks)  elPerks.hidden  = true;
+          if (elFreq)   elFreq.hidden   = true;
+          if (elCancel) elCancel.hidden = true;
+          renderOnetime();
+        }
       }
     });
 
