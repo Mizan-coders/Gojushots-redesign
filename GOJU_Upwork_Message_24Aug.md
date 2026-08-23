@@ -33,7 +33,7 @@ Steps 1–3 (publish theme, checkout threshold to $70, update site wording) touc
 
 TWO THINGS TO CONFIRM
 
-1. The order — threshold to $70 before the 12-pack drops to $84. Reversed, the $84 pack falls under the old $85 threshold and loses free shipping. Also confirm that publishing the theme is inside what you are authorising.
+1. The order, with one change I found today. The approved theme's FAQ already reads "Free shipping on orders of $70 or more", while its announcement bar and product page still say $85, and the current live theme says $85 everywhere. So if we publish the theme first, the site promises free shipping that checkout will not honour for another few minutes. Doing the checkout threshold first avoids that — the old theme says $85 while checkout already gives $70, so customers get better than promised rather than worse. Revised order: 1 checkout threshold to $70, 2 publish the theme, 3 update the site wording, 4 reprice the 12-pack to $84, 5 create the 6-pack, 6 test. Steps 3 to 6 are as you had them. The threshold still has to reach $70 before the 12-pack drops to $84, for the reason you raised originally. Also confirm that publishing the theme is inside what you are authorising.
 
 2. When the 6-pack is created live, it needs a one-time plan in Recharge and the product must not be set subscription-only. That is what broke staging: it is a product-wide switch, so it stopped one-time purchases of the 12-pack too. Creating the variant alone is not enough.
 
