@@ -795,3 +795,30 @@ unpublished. If those checks come back showing the 6-pack simply absent, that ma
 be the draft status rather than the guarantee working. Republish before running
 them, or confirm the behaviour first, so an inconclusive result is not read as a
 pass.
+
+---
+
+## Cutover order corrected again — 24 August 2026
+
+The sequence must open with the **checkout threshold**, not with publishing the
+theme. Verified from both themes on 24 August:
+
+| | Live theme `152550834344` | Approved theme `155130822824` |
+|---|---|---|
+| Any `$70` on the page | **none** | FAQ: "Free shipping on orders of $70 or more" |
+| Announcement bar | $85 | $85 |
+| Cart drawer | $85 | $85 |
+| Product page threshold | $85 | $85 |
+
+Publishing first would put a live page promising free shipping at $70 while checkout
+still charged below $85 — promising more than checkout honours, which is precisely
+what the corrected sequence was written to avoid. The FAQ is the exception that
+breaks the rule, because it was written with the post-cutover figure and is
+publish-gated.
+
+Moving the checkout change ahead of the publish inverts it safely: the old theme says
+$85 everywhere while checkout already gives free shipping at $70, so customers get
+better than promised rather than worse.
+
+Steps 3 to 6 are unchanged. Recorded in `GOJU_Cutover_Runbook.md`, which is the sheet
+to work from during the window.
