@@ -530,7 +530,7 @@
             assign cro_ship_cost = 8
             for b in section.blocks
               if b.type == 'variant_picker'
-                assign cro_ship_threshold = b.settings.free_ship_threshold | default: 85
+                assign cro_ship_threshold = b.settings.free_ship_threshold | default: 70
                 assign cro_ship_cost = b.settings.ship_cost | default: 8
                 break
               endif
@@ -2935,7 +2935,7 @@
           "min": 0,
           "max": 150,
           "step": 5,
-          "default": 85,
+          "default": 70,
           "unit": "$"
         },
         {
