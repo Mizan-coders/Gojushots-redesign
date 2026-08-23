@@ -21,9 +21,16 @@ Your checkout figures also match what I measured on staging exactly — $42 plus
 
 ONE PROBLEM WITH THE WINDOW
 
-07:00 NZST is 01:00 my time. The Wednesday backup is the same. I can do it if that is genuinely the best slot for the store, but I would rather flag it than have you find out at 2am that the person running a six-step live change has been awake all night. The step where we create the 6-pack lands around 02:30 my time, and that is the step with the least margin for error.
+I am in Bangladesh, six hours behind you, so every time below is written as NZST first and my time second to avoid any mix-up.
 
-Could we look at 10:00–12:00 NZST on Tuesday 25 August instead? That is 04:00–06:00 for me, which is workable, and it is still ahead of your lunchtime and evening ordering peaks. If you would rather hold 07:00, tell me and I will be there.
+Your proposal, Tuesday 25 August 07:00–09:00 NZST, is 01:00–03:00 my time. The Wednesday backup is the same, 07:00–09:00 NZST / 01:00–03:00 my time. I can do it if that is genuinely the best slot for the store, but I would rather raise it now than have you discover at 2am your time that the person running a six-step live change has been awake all night. Step 5, creating the 6-pack, would land around 08:30 NZST / 02:30 my time, and that is the step with the least margin for error.
+
+Two alternatives, both on Tuesday 25 August:
+
+- 14:00–16:00 NZST, which is 08:00–10:00 my time. My preference. It puts me squarely in my working day for the steps that matter, at the cost of a slightly busier period for you. Given the only irreversible step is the 12-pack reprice, and that one is gated on Recharge anyway, I would rather be fully alert than have the site marginally quieter.
+- 10:00–12:00 NZST, which is 04:00–06:00 my time. A middle option, still ahead of your lunchtime and evening peaks.
+
+If you would rather hold 07:00–09:00 NZST / 01:00–03:00 my time, tell me and I will be there.
 
 RECHARGE CONFIRMATION
 
@@ -61,7 +68,7 @@ Flagging again because it is easy to treat as a single switch:
 
 The cart drawer has its own separate setting and will not follow the others. Its built-in fallback is $80 rather than $85, so it has to be set to $70 explicitly rather than cleared.
 
-So: Tuesday 25 August provisionally reserved, Wednesday 26 held as backup. Let me know on the timing and I will confirm.
+So: Tuesday 25 August provisionally reserved, Wednesday 26 August held as backup. Just confirm which of the three time slots you want and I will lock it in.
 
 Thanks,
 Mizan
