@@ -44,7 +44,7 @@ everywhere while checkout already gives free shipping at $70, so customers get
 | P1 | Recharge written confirmation received, or accept that steps 4–5 are held | Tom |
 | P2 | Republish `action-shot-duplicate` if anything needs re-testing first, else leave drafted | Mizan |
 | P3 | `git status` clean, `main` pushed | Mizan |
-| P4 | Confirm which Shopify shipping profile/rate carries the $85 condition, so it isn't hunted for live | Mizan |
+| P4 | ~~Locate the shipping rate~~ — **done**: profile `59411497128`, zone New Zealand Customers, **two** rates. Still to confirm no second profile exists | Mizan |
 | P5 | ~~Prepare the schema-default edit~~ — **done**, staged on branch `cutover/threshold-70` | Mizan |
 | P6 | Both parties on a call or chat for the window | Both |
 
@@ -85,16 +85,43 @@ Paste into the browser console on `gojushots.com` at every checkpoint below.
 
 ## Step 1 — Checkout threshold $85 → $70
 
-**Owner:** Tom · **Where:** Shopify admin → Settings → Shipping and delivery → the
-rate carrying the free-shipping condition.
+**Owner:** Tom · **Where:** Settings → Shipping and delivery → profile
+`59411497128` ("All products not in other profiles") → zone **New Zealand Customers**.
 
-Change the minimum order value from $85 to $70.
+**Two rates, not one.** Confirmed from the admin on 24 August:
 
-**Verify before moving on.** Build a cart at **exactly $70** and reach checkout.
-Shipping must be free. Then test at **$69** — shipping must be $8. The boundary is
-the point of the test; testing at $100 proves nothing.
+| Rate | Now | Change to |
+|---|---|---|
+| Free Shipping | Orders **$85.00 and up** → Free | Orders **$70.00 and up** → Free |
+| Standard Shipping | Orders **$0.00–$84.00** → $8.00 | Orders **$0.00–$69.99** → $8.00 |
 
-**Rollback:** set it back to $85. Instant, no side effects.
+Change **both**. Moving only the free rate leaves Standard covering $0–$84, so
+everything from $70 to $84 matches both rules and the customer is offered a paid
+option alongside the free one.
+
+**Use $69.99, not $69.00.** Shopify's price bands are inclusive at both ends, so a
+maximum of $69.00 leaves $69.01–$69.99 matching *no* rate — and a cart in that band
+gets "no shipping rates available" and cannot check out. The current setup has
+exactly this hole between $84.01 and $84.99; it has gone unnoticed because the
+product prices are whole dollars. Do not carry it forward.
+
+**Before changing anything, confirm this is the only profile.** The page header reads
+"All products not in other profiles" — if a second profile exists, it carries its own
+rates and needs the same edit.
+
+**Verify before moving on.**
+
+- Cart at **exactly $70.00** → free shipping, and no $8 option offered alongside it
+- Cart at **$69.99** → $8.00
+- Cart at **$69.50** → $8.00, not an empty rate list
+
+The boundary is the whole point; a $100 cart proves nothing.
+
+**Subscriptions are separate.** Tom's test order took free subscriber shipping at
+$75.60, which does not come from these rates. Re-check a subscription checkout after
+the change to confirm it is unaffected.
+
+**Rollback:** restore $85.00-and-up and $0.00–$84.00. Instant, no side effects.
 
 **State after:** site says $85, checkout gives free at $70. Customers get better
 than promised. Safe to sit here indefinitely.
