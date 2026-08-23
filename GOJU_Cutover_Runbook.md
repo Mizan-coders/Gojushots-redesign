@@ -45,12 +45,13 @@ everywhere while checkout already gives free shipping at $70, so customers get
 | P2 | Republish `action-shot-duplicate` if anything needs re-testing first, else leave drafted | Mizan |
 | P3 | `git status` clean, `main` pushed | Mizan |
 | P4 | Confirm which Shopify shipping profile/rate carries the $85 condition, so it isn't hunted for live | Mizan |
-| P5 | Prepare the schema-default edit (step 3d) locally but **do not push** | Mizan |
+| P5 | ~~Prepare the schema-default edit~~ — **done**, staged on branch `cutover/threshold-70` | Mizan |
 | P6 | Both parties on a call or chat for the window | Both |
 
-**P5 — prepare, don't push.** In `sections/main-product-cro.liquid`:
-line 533 `| default: 85` → `| default: 70`, and the `free_ship_threshold` schema
-entry `"default": 85` → `"default": 70`. Commit locally. The push is step 3d.
+**P5 is done.** Branch `cutover/threshold-70` moves both literals in
+`sections/main-product-cro.liquid` — the Liquid assign at line 533 and the
+`free_ship_threshold` schema default. They have to move together, or the eleven
+unmigrated products disagree with checkout. Nothing is pushed to the theme.
 
 ---
 
@@ -131,18 +132,24 @@ Its built-in fallback is **80**, so set it explicitly — never clear it.
 **3c. Action Shot template** — Customize → open Action Shot → CRO Product Page →
 variant picker block → *Free shipping threshold* `85` → **70**.
 
-**3d. Schema default, for the eleven products not yet migrated** — push the commit
-prepared at P5:
+**3d. Schema default, for the eleven products not yet migrated** — already staged on
+the branch `cutover/threshold-70`. `main` still carries 85, so it cannot reach the
+theme by accident.
 
 ```
 cd "/Volumes/Mac Working/Shopify/Gojushots"
+git checkout cutover/threshold-70
 shopify theme push --store goju-shots.myshopify.com --theme 155130822824 \
   --only sections/main-product-cro.liquid --nodelete
 ```
 
-**Pull before pushing** if anything was edited in the theme editor since — the
-customiser writes JSON, not this file, so a push of this one file is safe, but
-check `git status` is clean first.
+After the window closes successfully, fold it back in:
+
+```
+git checkout main && git merge cutover/threshold-70 && git push
+```
+
+If the cutover is abandoned, stay on `main` and re-push that file to restore 85.
 
 **Verify.** Reload the homepage: announcement bar reads $70. Add anything to the
 cart: the drawer's progress bar counts towards $70, not $85. Open Action Shot and a
