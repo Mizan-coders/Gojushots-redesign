@@ -822,3 +822,76 @@ better than promised rather than worse.
 
 Steps 3 to 6 are unchanged. Recorded in `GOJU_Cutover_Runbook.md`, which is the sheet
 to work from during the window.
+
+---
+
+## 60 mL parity confirmed — 26 August 2026
+
+Tom's publish gate: does the per-product switch preserve the current customer-facing
+experience on Ginger Ignition, Vital Sunshine and Good Night? Answered by comparing
+the live theme `152550834344` against the approved theme `155130822824`, rendered,
+product by product.
+
+**Identical on all three:** 0 pack cards · 2 variant pills · opens on 15 Shots with
+Subscribe pre-selected · $67.50 · "Free shipping included — always" · sticky bar mode
+matching the buy box · no Sample Pack link. The gate holds.
+
+**Two copy differences**, in the templates, identical across all three products and
+deliberate range-wide corrections from Phase 1:
+
+| Setting | Live | Approved |
+|---|---|---|
+| `label_sub` | "Subscribe & Save" | "Subscribe & save" |
+| `nosub_upsell` | "→ 15 Shots with Subscribe & Save…" | "15 Shots with Subscribe & Save…" — duplicated arrow removed |
+
+A third template difference, `per_bottle_suffix: "/ shot"`, is **inert on these
+pages**: it renders only inside pack cards, at line 826, and these products render
+none. Added for consistency ahead of migration.
+
+**One figure changes at the threshold step, not at publish.** The legacy savings
+calculation still adds avoided shipping — the Phase 1 correction applies only to the
+new experience, so `renderSub` keeps the old formula when `newUx` is false. Moving
+the threshold to $70 therefore changes what the 15 Shots subscription advertises:
+
+| | Threshold $85 | Threshold $70 |
+|---|---|---|
+| 15 Shots saving | $15.50 | **$7.50** |
+| 15 Shots one-time line | "$75 + $8 shipping = $83 delivered" | "$75 delivered, free shipping included" |
+| 9 Shots saving | $13.00 | $13.00 — unchanged, $50 is below both |
+
+Correct in both cases: at $85 a $75 order pays $8, so the saving genuinely was $7.50
+plus the $8 avoided; at $70 it ships free either way. Leaving $15.50 on the page
+after the threshold moved would be the wrong outcome, not the right one.
+
+**Also changed on these pages, though barely reachable:** the `/cart/add` fix keys
+the selling-plan strip to the variant being added rather than the one displayed. On a
+60 mL product the old behaviour only bit if the customer had selected 9 Shots and a
+subscription was then added from elsewhere on the page. Strictly a correction.
+
+## Recharge confirmation received — 26 August 2026
+
+Written confirmation that repricing the Shopify variant does not alter the 11
+existing subscriptions, queued charges, upcoming orders or discounts. $75.60 applies
+to new subscriptions only. **Gate on steps 4 and 5 is cleared.**
+
+Caveat accepted by the client: an existing subscriber may move to the current
+selling-plan price if they later change frequency or swap through the portal. That
+is $76.50 → $75.60, ninety cents in the customer's favour.
+
+## Agreed sequence and window — 26 August 2026
+
+**Thursday 27 August**, 10:00–12:00 London / 15:00–17:00 Dhaka / 21:00–23:00 NZST.
+Cross-checked: all three are the same two hours from 09:00 UTC.
+
+Noted to the client, not blocking: 21:00–23:00 NZST is a weekday evening rather than
+a quiet period. Acceptable because the agreed order keeps the storefront and checkout
+consistent at every point.
+
+The client's step order supersedes the runbook's, and is better. Theme settings move
+to $70 on the **unpublished** theme, so publishing flips everything at once onto a
+checkout that already matches — no interval where the two disagree.
+
+**The trap in it:** those settings live in the theme. Applied to the current live
+theme they would be discarded the moment the approved theme publishes. They must be
+made on `155130822824` while it is still unpublished, together with the schema
+default push, which is the fourth place and the one his list omits.
