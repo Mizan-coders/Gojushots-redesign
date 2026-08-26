@@ -4,7 +4,8 @@
 sheet works whichever slot Tom picks. Fill the wall-clock column once he confirms.
 
 **Theme to publish:** `155130822824` "Subscription Update Aug 2026"
-**Current live theme:** `152550834344` — this is the rollback target. Do not delete it.
+**Current live theme:** "With Bundle Update April 2026" — `152550834344`. This is the
+rollback target. Do not delete it.
 
 **Gate:** steps 4 and 5 must not start without Recharge's written confirmation that
 repricing the 12-pack leaves the 11 existing subscriptions, their queued charges and
@@ -130,13 +131,14 @@ than promised. Safe to sit here indefinitely.
 
 ## Step 2 — Publish the theme
 
-**Owner:** Mizan · **Where:** Online Store → Themes → `155130822824` → Publish.
+**Owner:** Mizan · **Where:** Online Store → Themes → **"Subscription Update Aug 2026"**
+(`155130822824`) → Publish.
 
 **Verify.** Run the snippet — `Shopify.theme.id` should read `155130822824` and role
 `main`. Then load `/products/action-shot` and confirm: pack card renders, buy box
 opens **One-time**, sticky bar also reads One-time at the same price, FAQ reads $70.
 
-**Rollback:** publish `152550834344` again. Under a minute, and the only loss is the
+**Rollback:** publish **"With Bundle Update April 2026"** (`152550834344`) again. Under a minute, and the only loss is the
 time spent. This is the cheapest rollback in the whole sequence — take it early
 rather than debugging live.
 

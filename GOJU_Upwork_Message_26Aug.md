@@ -34,7 +34,7 @@ That is correct rather than a regression. The saving has always included the shi
 
 ONE CORRECTION TO STEP 2
 
-Your sequence is right, but step 2 has to be done on the new theme, not the current one. Those three values are theme settings, so if they are changed on the live theme they will be discarded the moment the approved theme publishes at step 3. I will make them on theme 155130822824 while it is still unpublished.
+Your sequence is right, but step 2 has to be done on the new theme, not the current one. Those three values are theme settings, so if they are changed on the live theme they will be discarded the moment the approved theme publishes at step 3. I will make them on the approved theme, "Subscription Update Aug 2026" (theme ID 155130822824), while it is still unpublished — not on the current live theme, "With Bundle Update April 2026".
 
 There is also a fourth place, which I will do in the same pass: the built-in default that covers the eleven products not yet migrated, so their shipping wording moves to $70 too. That one is a code change on my side, already prepared.
 
