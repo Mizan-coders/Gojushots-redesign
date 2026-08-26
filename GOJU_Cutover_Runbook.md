@@ -1,42 +1,49 @@
 # GOJU Action Shot — cutover runbook
 
-**Window:** to be confirmed. Times below are relative (T+0 = window opens), so the
-sheet works whichever slot Tom picks. Fill the wall-clock column once he confirms.
+**Window:** Thursday 27 August 2026 — 10:00–12:00 London · **15:00–17:00 Dhaka** ·
+21:00–23:00 NZST. Two hours, all three the same window from 09:00 UTC.
 
 **Theme to publish:** `155130822824` "Subscription Update Aug 2026"
 **Current live theme:** "With Bundle Update April 2026" — `152550834344`. This is the
 rollback target. Do not delete it.
 
-**Gate:** steps 4 and 5 must not start without Recharge's written confirmation that
-repricing the 12-pack leaves the 11 existing subscriptions, their queued charges and
-their discounts untouched. Steps 1–3 do not depend on it.
+**Gate: cleared 26 August.** Recharge confirmed in writing that repricing the variant
+does not alter the 11 existing subscriptions, queued charges, upcoming orders or
+discounts. Steps 4 and 5 are unblocked. Existing subscriptions and queued charges
+still must not be touched during the window.
 
 ---
 
-## The order changed — read this first
+## The sequence, and the one trap in it
 
-The sequence Tom has been working to opens by publishing the theme. **Do not.**
-Publish the theme *after* the checkout threshold moves.
+Seven steps, as the client set them out on 26 August. His order is better than the
+one this runbook first carried: the site wording moves to $70 on the theme *before*
+it publishes, so publishing flips everything at once onto a checkout that already
+matches. There is no interval where the storefront and the checkout disagree.
 
-Verified 24 August: the approved theme's Action Shot FAQ already reads *"Free
-shipping on orders of $70 or more"*, while its announcement bar, cart drawer and
-product page all still say $85. The live theme contains no `$70` anywhere.
+| | |
+|---|---|
+| 1 | Checkout free-shipping threshold → $70, and test it |
+| 2 | Announcement bar, cart drawer, product template **and the schema default** → $70 |
+| 3 | Publish the approved theme |
+| 4 | Reprice the live 12-pack to $84 |
+| 5 | Create the live 6-pack at $42 |
+| 6 | Immediate live QA |
+| 7 | Archive the staging duplicate |
 
-So publishing first creates a live page promising free shipping at $70 while
-checkout still charges below $85 — promising more than checkout honours, which is
-the failure mode the original sequence was written to avoid.
+**The trap is step 2.** Those values are *theme settings*. Change them on the current
+live theme and they are discarded the moment the approved theme publishes at step 3.
+They must be made on **"Subscription Update Aug 2026"** while it is still unpublished.
 
-Moving the checkout change first inverts it safely: the old theme says $85
-everywhere while checkout already gives free shipping at $70, so customers get
-**better** than promised for a few minutes rather than worse.
+The client's step 2 also names three places. There are **four** — the schema default
+covering the eleven unmigrated products is a code change, and it goes to the same
+unpublished theme in the same pass.
 
-| | Old order | This runbook |
-|---|---|---|
-| 1 | Publish theme | **Checkout threshold → $70** |
-| 2 | Checkout threshold → $70 | **Publish theme** |
-| 3–6 | unchanged | unchanged |
-
----
+Why the checkout moves first: the approved theme's FAQ already reads *"Free shipping
+on orders of $70 or more"*, while the live theme says $85 everywhere. Publishing
+ahead of the checkout change would promise free shipping the checkout would not
+honour. This way round, the live theme says $85 while checkout already gives $70 —
+customers get better than promised for the few minutes in between.
 
 ## Before the window
 
@@ -129,27 +136,12 @@ than promised. Safe to sit here indefinitely.
 
 ---
 
-## Step 2 — Publish the theme
-
-**Owner:** Mizan · **Where:** Online Store → Themes → **"Subscription Update Aug 2026"**
-(`155130822824`) → Publish.
-
-**Verify.** Run the snippet — `Shopify.theme.id` should read `155130822824` and role
-`main`. Then load `/products/action-shot` and confirm: pack card renders, buy box
-opens **One-time**, sticky bar also reads One-time at the same price, FAQ reads $70.
-
-**Rollback:** publish **"With Bundle Update April 2026"** (`152550834344`) again. Under a minute, and the only loss is the
-time spent. This is the cheapest rollback in the whole sequence — take it early
-rather than debugging live.
-
-**State after:** FAQ $70 is now truthful. Announcement bar, cart drawer and product
-page still say $85 — still the safe direction.
-
----
-
-## Step 3 — Move the threshold wording to $70, all four places
+## Step 2 — Threshold wording to $70, all four places, on the UNPUBLISHED theme
 
 **Owner:** Mizan. All four, or the site contradicts itself.
+
+> **Every one of these goes on "Subscription Update Aug 2026" while it is still
+> unpublished.** Applied to the live theme they are thrown away at step 3.
 
 **3a. Announcement bar** — Customize → Announcement bar → text
 "Free shipping on all orders over $85" → **$70**.
@@ -180,18 +172,40 @@ git checkout main && git merge cutover/threshold-70 && git push
 
 If the cutover is abandoned, stay on `main` and re-push that file to restore 85.
 
-**Verify.** Reload the homepage: announcement bar reads $70. Add anything to the
-cart: the drawer's progress bar counts towards $70, not $85. Open Action Shot and a
-60 ml product: shipping lines reference $70 on both.
+**Verify — in the theme preview, not on the live site.** The theme is still
+unpublished, so open it from Online Store → Themes → Preview. Check: announcement bar
+reads $70; add anything to the cart and the drawer counts towards $70; Action Shot
+and a 60 ml product both reference $70. The live storefront should still say $85
+throughout — if it has changed, the edits went to the wrong theme.
 
 **Rollback:** reverse each setting; re-push the file with 85.
 
 ---
 
+## Step 3 — Publish the theme
+
+**Owner:** Mizan · **Where:** Online Store → Themes → **"Subscription Update Aug 2026"**
+(`155130822824`) → Publish.
+
+**Verify.** Run the snippet — `Shopify.theme.id` should read `155130822824` and role
+`main`. Then load `/products/action-shot` and confirm: pack card renders, buy box
+opens **One-time**, sticky bar also reads One-time at the same price, FAQ reads $70,
+announcement bar reads $70, and the cart drawer counts towards $70.
+
+**Rollback:** publish **"With Bundle Update April 2026"** (`152550834344`) again. Under a minute, and the only loss is the
+time spent. This is the cheapest rollback in the whole sequence — take it early
+rather than debugging live.
+
+**State after:** the whole storefront reads $70 and checkout already gives $70. This
+is the moment everything becomes consistent — which is why step 2 comes first.
+
+---
+
 ## Step 4 — 12-pack $85 → $84  ⚠ GATED
 
-**Do not start without the Recharge confirmation (P1).** This is the only step in
-the sequence that cannot be cleanly undone — it touches live subscription pricing.
+**Gate cleared 26 August** — Recharge confirmed in writing. Still the only step in
+the sequence that cannot be cleanly undone, because it touches live subscription
+pricing, so the verification below is not optional.
 
 **Owner:** Tom · **Where:** Products → Action Shot → 12 pack variant → price → 84.
 
@@ -267,6 +281,15 @@ refundable test.
 
 ---
 
+## Step 7 — Archive the staging duplicate
+
+**Owner:** Tom · Archive `action-shot-duplicate`, and `Immune Guard Copy` with it.
+
+Only after step 6 passes. While anything is still unresolved, the duplicate is the
+one place a fix can be tested without touching live.
+
+---
+
 ## Abort criteria
 
 Stop and roll back if any of these appear:
@@ -285,11 +308,14 @@ Rolling back the theme (step 2) does not undo steps 1, 4 or 5. Reverse in the or
 
 ## After the window
 
-- Draft or delete `action-shot-duplicate` and `Immune Guard Copy`
 - Update the tracker with what was done, what was skipped and anything found
 - Send Tom a short confirmation with the step-6 results
-- Watch the first day's orders for a one-time line that carries a selling plan, or a
-  subscription line at $84 — either would mean something in step 5 is wrong
+- **Friday cover, agreed with the client.** The window ends at 23:00 NZST, so the
+  first full New Zealand trading day is Friday — which is the middle of the night in
+  Dhaka and late Thursday evening in London. Mizan checks around 13:00 NZST Friday
+  (mid-morning Dhaka); Tom looks during his Friday morning.
+- What to look for: a one-time order carrying a selling plan, or a subscription order
+  at $84 rather than $75.60. Either means step 5 needs correcting quickly.
 
 ## Deferred, not part of this window
 
