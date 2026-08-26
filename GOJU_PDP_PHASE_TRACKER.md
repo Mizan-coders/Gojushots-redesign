@@ -822,3 +822,70 @@ better than promised rather than worse.
 
 Steps 3 to 6 are unchanged. Recorded in `GOJU_Cutover_Runbook.md`, which is the sheet
 to work from during the window.
+
+---
+
+# CUTOVER LOG — 26 August 2026
+
+Brought forward from the confirmed Thursday window at the client's request; he was
+ready and available, so the window ran on Wednesday 26 August instead. Times in
+Dhaka (UTC+6). Client in London, storefront customers in New Zealand.
+
+## Step 1 — checkout rates · Tom · PASS
+
+Client changed and tested the New Zealand zone himself:
+
+| Rate | Set to |
+|---|---|
+| Standard Shipping | $8 for $0–$69.99 |
+| Free Shipping | $70 and above |
+
+Tested $50 → $8, and $75 → free. He did not test the exact boundary; the bands are
+contiguous so no gap exists by construction, and $70.00 is covered in step 6 QA.
+
+## Step 2 — threshold wording · Mizan · PASS
+
+Applied to `155130822824` **while still unpublished**. Pulled first and diffed:
+exactly three values changed, no customiser settings disturbed.
+
+| Place | File | Change |
+|---|---|---|
+| Announcement bar | `config/settings_data.json:126` | $85 → $70 |
+| Cart drawer | `config/settings_data.json:243` | 85 → 70 |
+| Action Shot template | `templates/product.cro.json:62` | 85 → 70 |
+| Default for 11 unmigrated | `sections/main-product-cro.liquid` | 85 → 70, both literals |
+
+**The check that mattered:** the live theme was confirmed still reading $85 in the
+announcement bar and cart drawer, proving the edits landed on the right theme.
+
+## Step 3 — publish · Mizan · PASS
+
+`shopify theme publish --theme 155130822824`. Live at 19:07 Dhaka.
+
+| Check | Result |
+|---|---|
+| Published theme | `155130822824` main, "Subscription Update Aug 2026" |
+| Announcement bar | $70 |
+| Cart drawer | $50 cart reads "$20.00 away from FREE SHIPPING" |
+| PDP threshold · FAQ | $70 · $70 |
+| Buy box | One-time, $85, `selling_plan` empty |
+| Sticky bar | One-time, $85, "Add to Cart" — matches the buy box |
+| Ginger Ignition | 0 pack cards, 2 pills, no sample link — unchanged |
+
+The sticky-bar defect found on 19 August is confirmed fixed in production: the two
+bars agree, where previously the sticky bar advertised $76.50 over an $85 buy box.
+
+Action Shot renders a single "12 pack" card, correct until the 6-pack exists.
+
+**Note for future windows.** The verification first came back showing the *old*
+theme, because the browser still held a preview cookie from checking the live theme
+during step 2. Cleared with `?preview_theme_id=`. A stale preview cookie can make a
+successful publish look like it failed, or worse, make a failed one look fine.
+
+## Step 4 — 12-pack reprice · Tom · pending
+
+## Step 5 — create the 6-pack · Tom · pending
+
+## Step 6 — live QA · both · pending
+
+## Step 7 — archive duplicates · Tom · pending
