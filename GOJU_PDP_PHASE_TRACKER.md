@@ -882,7 +882,53 @@ theme, because the browser still held a preview cookie from checking the live th
 during step 2. Cleared with `?preview_theme_id=`. A stale preview cookie can make a
 successful publish look like it failed, or worse, make a failed one look fine.
 
-## Step 4 — 12-pack reprice · Tom · pending
+## Step 4 — 12-pack reprice · Tom · PASS
+
+Repriced $85 → $84.
+
+**Storefront:**
+
+| Check | Result |
+|---|---|
+| 12-pack price | $84, SKU `AS 200ml 12-pack` |
+| Subscription price | $75.60 — exactly 10% |
+| Selling plans | 3, intact |
+| Saving shown | $8.40, product-price difference only |
+| Per bottle · shipping | $7.00 · "delivered, ships free" |
+| Buy box · sticky bar | One-time $84, both, `selling_plan` empty |
+| `requires_selling_plan` | false on product and variant |
+
+The 12-pack reads "ships free" only because the threshold moved first. Under the old
+$85 rule an $84 pack would now show "+ $8 shipping" — the reordered sequence earned
+its keep here.
+
+**Recharge — the 11 existing subscriptions, checked in the admin:**
+
+| | Finding |
+|---|---|
+| Count | 11 of 11, filtered to Action Shot |
+| Nine subscriptions | $76.50 — 10% off the old $85 base, unmoved |
+| Two subscriptions | $71.40 — investigated, see below |
+| Queued charges | Untouched, amounts and dates |
+
+**The two at $71.40 needed resolving**, because the figure is ambiguous on its own:
+16% off $85 (pre-existing) and 15% off $84 (would mean the reprice propagated) are
+both exactly $71.40.
+
+Settled by opening #684492520: the subscription carries a discount code
+(`WELCOME10MQ2F3SL5`) on top of the plan, and its charge history shows $71.40 on
+every order back to **March 2026** — five months before the reprice. A July charge
+cannot have been caused by an August price change.
+
+A neat corroboration in the same history: orders before March read $79.40, exactly
+$8.00 more, which is the shipping charge disappearing when free subscriber shipping
+came in. The line price itself never moved.
+
+The second, #467738087, was not opened. A propagated reprice would have moved all
+eleven rather than two, and would have produced $75.60 rather than $71.40.
+
+**Noted, unrelated:** #692540491 shows no next charge date — probably paused. Worth a
+look outside the window.
 
 ## Step 5 — create the 6-pack · Tom · pending
 
