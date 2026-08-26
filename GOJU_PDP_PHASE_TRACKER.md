@@ -931,8 +931,73 @@ eleven rather than two, and would have produced $75.60 rather than $71.40.
 **Noted, unrelated:** #692540491 shows no next charge date — probably paused. Worth a
 look outside the window.
 
-## Step 5 — create the 6-pack · Tom · pending
+## Step 5 — create the 6-pack · Tom · PASS, after one defect
 
-## Step 6 — live QA · both · pending
+Created at $42, variant ID `55912476967080`. Attributes verified from the storefront:
+SKU `AS 200ml 6-pack`, barcode `09421905154499`, weight 2300 g, position 1 after the
+reorder, `requires_selling_plan` false.
 
-## Step 7 — archive duplicates · Tom · pending
+**It inherited all three selling plans on creation** — the same thing that happened
+on staging on 14 August. Shopify attaches new variants to a product's existing
+selling plan groups automatically. The client contained it immediately by switching
+off "sell when out of stock" while inventory was zero, so a $37.80 subscription was
+never purchasable.
+
+**Removing it from the plans then destroyed the 4-week plan.** See the defect log
+entry for 26 August. Resolution: Recharge advised creating a new plan rather than
+restoring the old one, and confirmed existing subscribers were unaffected. New
+4-week plan `2954756264` created and attached to the 12-pack only.
+
+| Plan | ID | Attached to |
+|---|---|---|
+| 2 week | `2724757672` | 12-pack only |
+| 3 week | `2724692136` | 12-pack only |
+| 4 week | `2954756264` — **new** | 12-pack only |
+
+All three price at $75.60. The 6-pack holds zero subscription plans.
+
+**Creating the plan pre-attached to the 12-pack avoided the grid that caused the
+original deletion.** Worth repeating on any future product: allocate at creation
+rather than by unticking afterwards.
+
+**No theme change was required.** The frequency buttons render from
+`product.selling_plan_groups` with `data-plan-id` taken from the plan itself, so the
+new plan appeared unaided. The `plan_2w` / `plan_3w` / `plan_4w` settings carry stale
+IDs but are never read — confirmed by grep, they appear only inside the schema block.
+Vestigial; tidy in Phase 2.
+
+## Step 6 — live QA · PASS on everything testable from the storefront
+
+| Check | Result |
+|---|---|
+| Clean URL | 6 pack, $42, One-time |
+| Pack cards | $42 / $84, both $7.00 per bottle |
+| Shipping lines | 6-pack "+ $8 shipping", 12-pack "delivered, ships free" |
+| Badges | "Start here" / "Best value" |
+| Subscribe on the 6-pack | → 12 pack, $75.60, save $8.40, approved message shown |
+| Frequencies | 2, 3 and 4 weeks all present |
+| Sticky bar | Matches the buy box in both modes |
+| Cart — 6-pack one-time | $42, no plan on the line |
+| Cart — 12-pack one-time | $84, no plan |
+| Cart — 12-pack, new 4-week plan | $75.60, plan named correctly |
+| Sold-out pack card | Verified while the 6-pack was unavailable — greyed, badge, not selectable |
+
+Test cart cleared after each pass.
+
+The sold-out card row had been outstanding since 14 August as "built, never tested
+against a real sold-out variant". The window closed it incidentally.
+
+**Left with the client:** re-checking the 11 subscriptions now that Recharge have
+been into the account, the customer-portal checks on the live 6-pack, checkout on the
+three paths, and the $70.00 / $69.99 boundary.
+
+## Step 7 — archive duplicates · Tom · pending the above
+
+## Not a fault — Klaviyo popup, noted for Phase 2
+
+The "$10 off your first order" popup opens over the buy box on product pages. Tested:
+it is frequency-capped, fires once per visitor and does not return — a fresh load with
+20 seconds of dwell did not reproduce it, and the form sits at 0×0 in the DOM
+afterwards. Not a defect and not caused by the cutover. But while open it covers the
+pack selector and purchase toggle, which is the area this phase optimised, so whether
+it should be suppressed on PDPs is worth a decision in Phase 2.
