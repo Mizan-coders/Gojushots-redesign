@@ -59,7 +59,7 @@
             "pack_cards": true,
             "badge_first": "Start here",
             "badge_last": "Best value",
-            "free_ship_threshold": 85,
+            "free_ship_threshold": 70,
             "ship_cost": 8,
             "per_bottle_suffix": "/ bottle",
             "ships_free_text": "delivered, ships free",
