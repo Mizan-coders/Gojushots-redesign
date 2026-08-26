@@ -44,9 +44,15 @@ One detail for step 1: there are two rates in the New Zealand zone, Free Shippin
 
 THE WINDOW
 
-Thursday 27 August works — 15:00–17:00 my time. One thing worth you weighing: 21:00–23:00 NZST is a weekday evening, which is not your quietest traffic. Because the revised order keeps the site and checkout consistent at every point, the exposure is small, so I am happy to go ahead if you are.
+Thursday 27 August works — 15:00–17:00 my time. One thing worth weighing: 21:00–23:00 NZST is a weekday evening in New Zealand, so it is not the store's quietest period. Because the revised order keeps the site and checkout consistent at every point, the exposure is small, and I am happy to go ahead if you are.
 
-Confirm and I will be ready.
+WHO WATCHES THE FIRST TRADING DAY
+
+Worth agreeing now, because the three time zones leave a gap. We finish at 23:00 New Zealand time on Thursday, so the first full New Zealand trading day is Friday — and Friday morning in New Zealand is the middle of the night for me and late Thursday evening for you.
+
+I suggest I check orders and the product pages at around 13:00 New Zealand time on Friday, which is mid-morning for me, and you take a look during your Friday morning. What I will be looking for is a one-time order carrying a subscription plan, or a subscription order at $84 rather than $75.60 — either would mean something in step 5 needs correcting quickly.
+
+Confirm the window and I will be ready.
 
 Thanks,
 Mizan
