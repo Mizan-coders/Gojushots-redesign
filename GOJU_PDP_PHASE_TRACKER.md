@@ -1061,6 +1061,28 @@ against a real sold-out variant". The window closed it incidentally.
 been into the account, the customer-portal checks on the live 6-pack, checkout on the
 three paths, and the $70.00 / $69.99 boundary.
 
+## Existing subscriptions re-checked after Recharge's intervention · PASS
+
+Compared row for row against the list captured before Recharge went into the account.
+All 11 identical — prices, frequencies and next charge dates.
+
+| | Before | After |
+|---|---|---|
+| Count | 11 | 11 |
+| At $76.50 | 9 | 9 |
+| At $71.40 | 2 | 2 |
+| Moved to $75.60 | — | **none** |
+| Next charge dates | Aug 28 · Sep 1, 2, 3, 4, 9, 9, 14 · Oct 26 | identical |
+
+**The point that was worth waiting for evidence on:** the eight subscribers on the
+4-week frequency still show 4 weeks, on their original dates, despite the plan they
+were bound to (`2724724904`) having been deleted. Recharge holds the frequency on the
+subscription record, not on the plan. Asserted as likely earlier in the day, refused
+as a claim until checked, now confirmed.
+
+`#692540491` still shows no next charge date, exactly as it did before the plan work.
+Pre-existing, unrelated, probably paused.
+
 ## Step 7 — archive duplicates · Tom · pending the above
 
 ## Not a fault — Klaviyo popup, noted for Phase 2
