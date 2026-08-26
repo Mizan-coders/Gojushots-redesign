@@ -123,7 +123,7 @@
           "announcement_iXtKgF": {
             "type": "announcement",
             "settings": {
-              "text": "Free shipping on all orders over $85",
+              "text": "Free shipping on all orders over $70",
               "link": ""
             }
           },
@@ -240,7 +240,7 @@
           "banner_message_UhQDzN"
         ],
         "settings": {
-          "free_shipping_dollars": 85,
+          "free_shipping_dollars": 70,
           "shipping_progress_text": "away from FREE SHIPPING!",
           "shipping_unlocked_text": "🎉 Congrats! You've unlocked FREE SHIPPING!"
         }

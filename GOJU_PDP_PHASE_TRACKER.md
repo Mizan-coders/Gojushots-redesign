@@ -243,6 +243,7 @@ the client when contingency time is used.
 | Date | Where | Defect | Correction | Time |
 |---|---|---|---|---|
 | 14 Aug | Recharge | 6-pack carried all three selling plans; no discount applied; frequencies 1/2/3 weeks all shipping weekly | Plans rebuilt at 2/3/4 weeks with 10%, then restricted to the 12-pack via Recharge support guidance | client-side |
+| 26 Aug | Recharge, live | Removing the new 6-pack from the three selling plans also removed the **4-week plan** (`2724724904`) from the product entirely. Storefront left offering 2- and 3-week only. The grid showed the 12-pack still ticked for 4-week at the moment of saving, so the plan should have been retained | 6-pack availability held off, variant reorder and remaining QA paused, detail and IDs supplied to the client who raised it with Recharge support. Not rebuilt locally — a new plan would carry a new ID and most of the 11 subscribers are bound to the original | ~1h, contingency |
 | 14 Aug | `main-product-cro.liquid` | Pack badges assigned by variant order, not price. "Start here" landed on the 12-pack and "Best value" on the 6-pack. Shopify appends new variants last, so the live Action Shot would have inverted the same way once its 6-pack was added | Badges now derive from price — cheapest takes the starter badge, dearest the value badge. Neither shows when all packs cost the same | `966d4de` |
 | 14 Aug | `product.cro.json` | Buy box read "Subscription available on 15 packs only" and "15 Shots with Subscribe & Save" — 60 ml wording inherited when the template was copied. Never seen before because both lines only render when the selected pack has no plan, and the live product has one variant | Both lines take `[pack]` and fill it from the pack that holds the selling plans. Schema defaults use the placeholder so the next migrated product cannot inherit another product's pack name | `d839df0` |
 
@@ -895,3 +896,178 @@ checkout that already matches — no interval where the two disagree.
 theme they would be discarded the moment the approved theme publishes. They must be
 made on `155130822824` while it is still unpublished, together with the schema
 default push, which is the fourth place and the one his list omits.
+# CUTOVER LOG — 26 August 2026
+
+Brought forward from the confirmed Thursday window at the client's request; he was
+ready and available, so the window ran on Wednesday 26 August instead. Times in
+Dhaka (UTC+6). Client in London, storefront customers in New Zealand.
+
+## Step 1 — checkout rates · Tom · PASS
+
+Client changed and tested the New Zealand zone himself:
+
+| Rate | Set to |
+|---|---|
+| Standard Shipping | $8 for $0–$69.99 |
+| Free Shipping | $70 and above |
+
+Tested $50 → $8, and $75 → free. He did not test the exact boundary; the bands are
+contiguous so no gap exists by construction, and $70.00 is covered in step 6 QA.
+
+## Step 2 — threshold wording · Mizan · PASS
+
+Applied to `155130822824` **while still unpublished**. Pulled first and diffed:
+exactly three values changed, no customiser settings disturbed.
+
+| Place | File | Change |
+|---|---|---|
+| Announcement bar | `config/settings_data.json:126` | $85 → $70 |
+| Cart drawer | `config/settings_data.json:243` | 85 → 70 |
+| Action Shot template | `templates/product.cro.json:62` | 85 → 70 |
+| Default for 11 unmigrated | `sections/main-product-cro.liquid` | 85 → 70, both literals |
+
+**The check that mattered:** the live theme was confirmed still reading $85 in the
+announcement bar and cart drawer, proving the edits landed on the right theme.
+
+## Step 3 — publish · Mizan · PASS
+
+`shopify theme publish --theme 155130822824`. Live at 19:07 Dhaka.
+
+| Check | Result |
+|---|---|
+| Published theme | `155130822824` main, "Subscription Update Aug 2026" |
+| Announcement bar | $70 |
+| Cart drawer | $50 cart reads "$20.00 away from FREE SHIPPING" |
+| PDP threshold · FAQ | $70 · $70 |
+| Buy box | One-time, $85, `selling_plan` empty |
+| Sticky bar | One-time, $85, "Add to Cart" — matches the buy box |
+| Ginger Ignition | 0 pack cards, 2 pills, no sample link — unchanged |
+
+The sticky-bar defect found on 19 August is confirmed fixed in production: the two
+bars agree, where previously the sticky bar advertised $76.50 over an $85 buy box.
+
+Action Shot renders a single "12 pack" card, correct until the 6-pack exists.
+
+**Note for future windows.** The verification first came back showing the *old*
+theme, because the browser still held a preview cookie from checking the live theme
+during step 2. Cleared with `?preview_theme_id=`. A stale preview cookie can make a
+successful publish look like it failed, or worse, make a failed one look fine.
+
+## Step 4 — 12-pack reprice · Tom · PASS
+
+Repriced $85 → $84.
+
+**Storefront:**
+
+| Check | Result |
+|---|---|
+| 12-pack price | $84, SKU `AS 200ml 12-pack` |
+| Subscription price | $75.60 — exactly 10% |
+| Selling plans | 3, intact |
+| Saving shown | $8.40, product-price difference only |
+| Per bottle · shipping | $7.00 · "delivered, ships free" |
+| Buy box · sticky bar | One-time $84, both, `selling_plan` empty |
+| `requires_selling_plan` | false on product and variant |
+
+The 12-pack reads "ships free" only because the threshold moved first. Under the old
+$85 rule an $84 pack would now show "+ $8 shipping" — the reordered sequence earned
+its keep here.
+
+**Recharge — the 11 existing subscriptions, checked in the admin:**
+
+| | Finding |
+|---|---|
+| Count | 11 of 11, filtered to Action Shot |
+| Nine subscriptions | $76.50 — 10% off the old $85 base, unmoved |
+| Two subscriptions | $71.40 — investigated, see below |
+| Queued charges | Untouched, amounts and dates |
+
+**The two at $71.40 needed resolving**, because the figure is ambiguous on its own:
+16% off $85 (pre-existing) and 15% off $84 (would mean the reprice propagated) are
+both exactly $71.40.
+
+Settled by opening #684492520: the subscription carries a discount code
+(`WELCOME10MQ2F3SL5`) on top of the plan, and its charge history shows $71.40 on
+every order back to **March 2026** — five months before the reprice. A July charge
+cannot have been caused by an August price change.
+
+A neat corroboration in the same history: orders before March read $79.40, exactly
+$8.00 more, which is the shipping charge disappearing when free subscriber shipping
+came in. The line price itself never moved.
+
+The second, #467738087, was not opened. A propagated reprice would have moved all
+eleven rather than two, and would have produced $75.60 rather than $71.40.
+
+**Noted, unrelated:** #692540491 shows no next charge date — probably paused. Worth a
+look outside the window.
+
+## Step 5 — create the 6-pack · Tom · PASS, after one defect
+
+Created at $42, variant ID `55912476967080`. Attributes verified from the storefront:
+SKU `AS 200ml 6-pack`, barcode `09421905154499`, weight 2300 g, position 1 after the
+reorder, `requires_selling_plan` false.
+
+**It inherited all three selling plans on creation** — the same thing that happened
+on staging on 14 August. Shopify attaches new variants to a product's existing
+selling plan groups automatically. The client contained it immediately by switching
+off "sell when out of stock" while inventory was zero, so a $37.80 subscription was
+never purchasable.
+
+**Removing it from the plans then destroyed the 4-week plan.** See the defect log
+entry for 26 August. Resolution: Recharge advised creating a new plan rather than
+restoring the old one, and confirmed existing subscribers were unaffected. New
+4-week plan `2954756264` created and attached to the 12-pack only.
+
+| Plan | ID | Attached to |
+|---|---|---|
+| 2 week | `2724757672` | 12-pack only |
+| 3 week | `2724692136` | 12-pack only |
+| 4 week | `2954756264` — **new** | 12-pack only |
+
+All three price at $75.60. The 6-pack holds zero subscription plans.
+
+**Creating the plan pre-attached to the 12-pack avoided the grid that caused the
+original deletion.** Worth repeating on any future product: allocate at creation
+rather than by unticking afterwards.
+
+**No theme change was required.** The frequency buttons render from
+`product.selling_plan_groups` with `data-plan-id` taken from the plan itself, so the
+new plan appeared unaided. The `plan_2w` / `plan_3w` / `plan_4w` settings carry stale
+IDs but are never read — confirmed by grep, they appear only inside the schema block.
+Vestigial; tidy in Phase 2.
+
+## Step 6 — live QA · PASS on everything testable from the storefront
+
+| Check | Result |
+|---|---|
+| Clean URL | 6 pack, $42, One-time |
+| Pack cards | $42 / $84, both $7.00 per bottle |
+| Shipping lines | 6-pack "+ $8 shipping", 12-pack "delivered, ships free" |
+| Badges | "Start here" / "Best value" |
+| Subscribe on the 6-pack | → 12 pack, $75.60, save $8.40, approved message shown |
+| Frequencies | 2, 3 and 4 weeks all present |
+| Sticky bar | Matches the buy box in both modes |
+| Cart — 6-pack one-time | $42, no plan on the line |
+| Cart — 12-pack one-time | $84, no plan |
+| Cart — 12-pack, new 4-week plan | $75.60, plan named correctly |
+| Sold-out pack card | Verified while the 6-pack was unavailable — greyed, badge, not selectable |
+
+Test cart cleared after each pass.
+
+The sold-out card row had been outstanding since 14 August as "built, never tested
+against a real sold-out variant". The window closed it incidentally.
+
+**Left with the client:** re-checking the 11 subscriptions now that Recharge have
+been into the account, the customer-portal checks on the live 6-pack, checkout on the
+three paths, and the $70.00 / $69.99 boundary.
+
+## Step 7 — archive duplicates · Tom · pending the above
+
+## Not a fault — Klaviyo popup, noted for Phase 2
+
+The "$10 off your first order" popup opens over the buy box on product pages. Tested:
+it is frequency-capped, fires once per visitor and does not return — a fresh load with
+20 seconds of dwell did not reproduce it, and the form sits at 0×0 in the DOM
+afterwards. Not a defect and not caused by the cutover. But while open it covers the
+pack selector and purchase toggle, which is the area this phase optimised, so whether
+it should be suppressed on PDPs is worth a decision in Phase 2.
