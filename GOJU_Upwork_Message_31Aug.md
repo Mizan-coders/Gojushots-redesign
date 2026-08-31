@@ -82,7 +82,20 @@ The per-product hour and a half covers turning the switch on, confirming it open
 
 If the Recharge configuration turns out to be yours rather than mine, take 3.5 hours off that figure.
 
-Availability: [MIZAN — fill in your start date and hours per day here]
+AVAILABILITY AND TIMELINE
+
+I can start tomorrow, Tuesday 1 September, at 3 hours a day on weekdays.
+
+On that basis:
+
+- Immune Guard ready for your review by Wednesday 2 September
+- The remaining five, the Recharge configuration, the field documentation and the review audit through the following week
+- Publishing and live QA at a time we agree, coordinated with you as before
+- All work complete around Wednesday 9 September
+
+Two things will move that date, and neither is in my control. The four questions above need answering before I can start the Recharge side, and the timeline assumes a reasonably prompt review of Immune Guard — the remaining five are deliberately held until you have approved the pattern on the first, so any delay there pushes everything behind it.
+
+Note the 21 hours is the work itself; 18 is what I bill, since three are already delivered. So the schedule runs on 21.
 
 Approach as you set out: build on an unpublished theme, Immune Guard reviewed and approved first, then the remaining five in one pass, and no live product, Recharge or publication changes without you.
 
