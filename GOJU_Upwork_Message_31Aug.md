@@ -62,14 +62,25 @@ INDICATIVE ESTIMATE
 
 Subject to the four answers above, particularly who does the Recharge work:
 
-- Immune Guard first, end to end, as the pattern: 2.5 to 3 hours
-- The remaining five, configuration and testing: about 1 hour each
-- Recharge contingency across six products: 1.5 hours
-- Documenting which fields and metafields you and Belle edit, and which live in the theme editor: 1 hour
-- Review audit across the six: 1 hour
-- Walkthrough and handover: half an hour
+- Immune Guard first, end to end, including one round of your review and any changes: 4 hours
+- The remaining five, configuration and full testing: 1.5 hours each, so 7.5 hours
+- Recharge: adding and verifying the 9-pack plans across six products: 3.5 hours
+- Documenting which fields and metafields you and Belle edit directly, and which live in the theme editor: 1.5 hours
+- Review audit across the six, including hiding ratings where there are none: 1.5 hours
+- Publishing and immediate live QA: 2 hours
+- Final walkthrough and handover: 1 hour
 
-That is roughly 11 to 12 hours gross, less the three reusable-component hours already delivered, so about 8 to 9 billable. I will convert that into a firm capped figure once the questions are answered, and I would rather cap it low and come in under than pad it.
+That is about 21 hours gross. Less the three reusable-component hours already delivered, I would cap it at 18 billable hours.
+
+Two notes on how I have arrived at that, since it is higher than a straight "reuse what exists" reading might suggest.
+
+The Recharge line is priced on experience rather than optimism. Last week a single plan change on one product removed a live selling plan and cost about an hour to diagnose, escalate and put right. Phase 2 repeats that operation on six products, and each one needs verifying afterwards rather than assumed. I would rather carry that as a real line than discover it mid-rollout.
+
+Publishing is its own event. The work sits on an unpublished theme, so going live is a coordinated change with checks afterwards, in the same shape as last week even if much smaller. It was not in my first rough cut and it should have been.
+
+The per-product hour and a half covers turning the switch on, confirming it opens on the 9-pack in One-time, checking the per-shot maths and shipping lines against that product's real prices, the subscribe-switch behaviour, the sticky bar, and cart adds in both purchase types. That is the same list we worked through on Action Shot, and it is what gives you the confidence that six pages went live without surprises.
+
+If the Recharge configuration turns out to be yours rather than mine, take 3.5 hours off that figure.
 
 Availability: [MIZAN — fill in your start date and hours per day here]
 
