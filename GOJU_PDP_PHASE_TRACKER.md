@@ -21,9 +21,9 @@
 
 | Item | Status | Note |
 |---|---|---|
-| Action Shot 6-pack $42 exists | 🚫 | Client — variant not created. Blocks most acceptance checks |
-| 12-pack $85 → $84 | 🚫 | Client — deferred to cutover, per Tom |
-| Free-shipping threshold $85 → $70 | 🚫 | Client — checkout change at cutover. Theme setting built, left at 85 |
+| Action Shot 6-pack $42 exists | ✅ | Created live 26 Aug, first position, zero selling plans |
+| 12-pack $85 → $84 | ✅ | Done at cutover 26 Aug. Subscription $75.60, existing subscribers unchanged |
+| Free-shipping threshold $85 → $70 | ✅ | Checkout rates and all four theme locations changed 26 Aug |
 | Core 60ml prices / 9-pack selling plans | ⬜ | Phase 3 |
 
 ### B. Buy box and pack selector
@@ -42,7 +42,7 @@
 | Everything-sold-out message | 🟡 | `5e05fd1` — built, no product has all variants unavailable |
 | Direct variant / selling_plan deep links | ✅ | `b31c645` |
 | Subscription terms visible before add-to-cart | ✅ | pre-existing |
-| Sticky cart synchronised | 🟡 | Opened in Subscribe over a one-time buy box, at the subscription price — fixed 18 Aug, see below. Not yet verified on the storefront |
+| Sticky cart synchronised | ✅ | Defect fixed 19 Aug; verified in production 26 Aug in both purchase modes |
 | Buy box compact on mobile | 🚫 | Mizan — cannot measure; browser won't drop below 1272px |
 | 6-pack cannot be subscribed anywhere (incl. Recharge swap) | 🟡 | Storefront half verified 14 Aug on the staging duplicate: 6-pack holds zero selling plans, Subscribe moves to the 12-pack, and a deep link carrying a 12-pack plan falls back to one-time. Recharge portal half — swap, add-product, change-variant — still to run |
 
@@ -264,7 +264,7 @@ Run against `action-shot-duplicate` on theme 155130822824.
 | Deep link to 6-pack carrying a 12-pack plan | Pass — falls back to one-time at $42, plan cleared |
 | Clean URL opens on the smallest pack | **Fail** — opens on the 12-pack; see below |
 | 6-pack blocked in the Recharge customer portal | Not yet run — needs portal access |
-| Cart and checkout, both purchase types | Not yet run — needs a real order |
+| Cart and checkout, both purchase types | Cart verified in production 26 Aug across all three paths. Checkout completion remains the client's |
 | Sold-out states | Not yet run — needs a pack taken out of stock |
 
 **Open defect — default pack.** A clean product URL opens on the 12-pack rather
@@ -1093,3 +1093,53 @@ it is frequency-capped, fires once per visitor and does not return — a fresh l
 afterwards. Not a defect and not caused by the cutover. But while open it covers the
 pack selector and purchase toggle, which is the area this phase optimised, so whether
 it should be suppressed on PDPs is worth a decision in Phase 2.
+
+---
+
+# PHASE 1 — CLOSED 31 AUGUST 2026
+
+Action Shot went live 26 August. Staging duplicate archived by the client.
+
+## What is live
+
+| | |
+|---|---|
+| Theme | `155130822824` "Subscription Update Aug 2026", published 26 Aug |
+| 6-pack | $42, first position, **zero selling plans**, one-time only |
+| 12-pack | $84, three plans at $75.60, all 12-pack only |
+| Frequencies | 2 week `2724757672` · 3 week `2724692136` · 4 week `2954756264` |
+| Free shipping | $70 at checkout and in all four theme locations |
+| Existing subscribers | 11, unchanged — verified twice on cutover day |
+
+Re-checked 31 August, five days after go-live: all of the above still correct.
+
+## Still open, and honestly so
+
+| Item | Owner | Note |
+|---|---|---|
+| Customer-portal checks on the **live** 6-pack | Tom | Passed on the staging product 19 Aug; not repeated against the live variant |
+| Checkout completion, three paths + $70.00/$69.99 boundary | Tom | Cart verified; a completed order has never been placed by us |
+| `pack_selected` analytics — positive case | — | Guard verified; the event firing on a real card click was never observed |
+| Subscription-blocked state | — | Needs a sold-out *subscribable* variant, which has never existed |
+| Everything-sold-out message | — | Needs a product with no purchasable variant |
+| Buy box at ~390px | Mizan | Browser here will not render below 1272px |
+| Alt text in admin | Mizan | Drafted; entry outstanding |
+| Loox removal / Growave on product cards | Tom | Open decision 2, never resolved |
+| Checkout attribution — line-item properties vs Web Pixels | Tom | Open decision 3, never resolved |
+
+## Carried to Phase 2, not defects
+
+- Sticky bar hardcodes "Subscribe & Save 10%" in four places; perk text types the
+  discount rather than reading `discount_percent`. Harmless while every product is
+  at 10%.
+- `plan_2w` / `plan_3w` / `plan_4w` settings hold stale IDs and are never read.
+  Vestigial; removing them touches twelve templates.
+- Klaviyo welcome popup opens over the buy box on PDPs. Frequency-capped and not a
+  defect, but it covers the area this phase optimised.
+- The two threshold settings — PDP and cart drawer — remain separate and must be
+  changed together.
+
+## Hours
+
+Ceiling 25, approved by the client on 26 August. The three reusable-component hours
+remain unbilled and outside it, credited to a future approved phase.
