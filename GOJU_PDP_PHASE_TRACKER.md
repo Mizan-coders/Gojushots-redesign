@@ -1143,3 +1143,52 @@ Re-checked 31 August, five days after go-live: all of the above still correct.
 
 Ceiling 25, approved by the client on 26 August. The three reusable-component hours
 remain unbilled and outside it, credited to a future approved phase.
+
+---
+
+## Post-launch store audit — 31 August 2026
+
+Five days after go-live. Client confirmed the 28 August order monitoring was clean.
+
+**Catalogue.** 8 products. Both test products — `action-shot-duplicate` and
+`immune-guard-copy` — are gone from the storefront. Step 7 complete.
+
+**Action Shot**
+
+| | |
+|---|---|
+| Theme | `155130822824` main |
+| 6 pack | pos 1 · $42 · 0 plans · `requires_selling_plan` false · available |
+| 12 pack | pos 2 · $84 · 3 plans · $75.60 · available |
+| Plan groups | 2 week · 3 week · 4 week (the replacement) |
+| Page opens on | 6 pack · $42 · One-time · no plan attached |
+
+**Threshold — all four locations at $70**
+
+| Location | Value |
+|---|---|
+| Announcement bar | $70 |
+| Cart drawer progress | $70 |
+| Action Shot template | 70 |
+| Schema default (7 unmigrated products) | 70 on every one |
+
+**Cart, live adds then cleared**
+
+| Line | Result |
+|---|---|
+| Action Shot 6-pack one-time | $42, no plan |
+| Action Shot 12-pack one-time | $84, no plan |
+| Action Shot 12-pack subscription | $75.60, plan named |
+| Immune Guard 9 Shots one-time | $50, no plan |
+
+**60 mL products — gate still off, behaviour preserved**
+
+All seven report `newUx false`, 0 pack cards, no Sample Pack link, threshold 70.
+Immune Guard opens on 15 Shots + Subscribe at $67.50 with four frequencies, exactly
+as before migration.
+
+The one approved change has landed correctly: the 15 Shots saving now reads
+**"Save $7.50 per order"** rather than $15.50, because $75 clears the $70 threshold
+and no longer carries $8 of avoided shipping into the figure.
+
+**No regressions found.**
