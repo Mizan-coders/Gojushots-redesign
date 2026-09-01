@@ -7,7 +7,7 @@ auto-approve ceiling), flags one assumption and one go-live method point.
 
 Hi Tom,
 
-Clear brief, thank you. Estimate below, and it comes in under your six hours, so I will start on that basis.
+Clear brief, thank you. You will have seen the baseline already — this is the estimate that goes with it, sent slightly out of order. It comes in under your six hours, so I have started on that basis.
 
 WHY IT IS CHEAPER THAN IT LOOKS
 
@@ -51,9 +51,11 @@ I would recommend the second. It happens to be very clean here, because the whol
 
 Either way, nothing gets published without you.
 
-STARTING
+WHERE I AM
 
-I will take the copy from the current live theme today and send you the Recharge baseline before I make any change to plans. The remaining five stay held until you have reviewed the pilot, as you set out.
+The working copy is taken — "Phase 2 Pilot - Immune Guard (Sep 2026)", theme 155631714472, unpublished, copied from the current live theme today so it carries all the Phase 1 work. The Recharge baseline is with you, and no plan has been touched yet.
+
+The remaining five stay held until you have reviewed the pilot, as you set out.
 
 Thanks,
 Mizan
