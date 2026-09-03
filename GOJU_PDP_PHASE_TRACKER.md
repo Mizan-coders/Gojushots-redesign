@@ -43,7 +43,7 @@
 | Direct variant / selling_plan deep links | ✅ | `b31c645` |
 | Subscription terms visible before add-to-cart | ✅ | pre-existing |
 | Sticky cart synchronised | ✅ | Defect fixed 19 Aug; verified in production 26 Aug in both purchase modes |
-| Buy box compact on mobile | 🚫 | Mizan — cannot measure; browser won't drop below 1272px |
+| Buy box compact on mobile | ✅ | Verified 3 Sep on an iPhone 14 Pro Max: pack cards sit side by side, toggle, price, trust row and accordions all correct beneath |
 | 6-pack cannot be subscribed anywhere (incl. Recharge swap) | 🟡 | Storefront half verified 14 Aug on the staging duplicate: 6-pack holds zero selling plans, Subscribe moves to the 12-pack, and a deep link carrying a 12-pack plan falls back to one-time. Recharge portal half — swap, add-product, change-variant — still to run |
 
 ### C. Default storefront behaviour
@@ -212,7 +212,7 @@ Built but never exercised against real data. These must not be reported as done:
 | Everything-sold-out message | A product with no purchasable variant |
 | `pack_selected` event | One real click on a pack card (synthetic events are rejected by design) |
 | Sticky cart after the card change | Pack label and price re-checked. Opening mode fixed 18 Aug; needs a storefront run |
-| Mobile at ~390px | Browser here won't render below 1272px |
+| ~~Mobile at ~390px~~ | **Closed 3 Sep.** Checked on a real iPhone 14 Pro Max. The row was only ever open because the browser here will not emulate below 1272px — not because anything had been found wrong |
 | ~~Cart and checkout end to end~~ | Add-to-cart **passed in both modes 19 August** — see below. Completing a real order at checkout is still Tom's side |
 
 ## Working notes
@@ -1192,3 +1192,49 @@ The one approved change has landed correctly: the 15 Shots saving now reads
 and no longer carries $8 of avoided shipping into the figure.
 
 **No regressions found.**
+
+---
+
+## Phase 2 pilot — Immune Guard, in review 3 September 2026
+
+Built on `155631714472` "Phase 2 Pilot - Immune Guard (Sep 2026)", unpublished.
+Nothing live touched; no Recharge change made or required — the client dropped the
+9-pack subscription from scope, so 9 Shots stays one-time only at $50.
+
+**Migrated and verified:** opens on 9 Shots One-time $50 · $5.56 / shot + $8 shipping ·
+15 Shots $75 at $5.00 / shot delivered free · 15 Shots subscription $67.50 at $4.50 /
+shot · pack switch preserves purchase type · Subscribe on 9 Shots moves to 15 Shots
+with the message · 2/3/4/6 week retained · badges · sticky bar matches · cart correct
+in all three modes · collection and cross-sell cards read From $50 · Growave only,
+zero Loox elements on the page.
+
+**Fault found and fixed:** Immune Guard hardcoded pack names where Action Shot uses
+`[pack]`, and one read "Subscription available on 15 packs" when the variant is
+called **15 Shots** — inaccurate as well as brittle. Same correction Phase 1 made in
+`d839df0`.
+
+**Mobile verified on a real device**, closing the row above.
+
+### Open with the client
+
+**Stat band.** He asked to match Action Shot's height, padding, spacing, typography
+and mobile behaviour, *and* to keep the placeholder content visible. Those conflict.
+Measured: Immune Guard 229px, Action Shot 136px, padding already identical at 44/44
+on both, typography and mobile behaviour shared CSS. The whole 93px is three
+`.cro-stat-num` elements at 60px — which only render when the `number` field has a
+value. Action Shot's are empty because Phase 1 replaced its statistics with
+ingredient facts. So the height is content, not treatment. Three options put to him:
+clear the number fields, leave it, or fold the figures into the labels.
+
+**Trust row.** He asked for the literal text "Free shipping on the 15 Shots" and for
+pack names to stay dynamic. The trust block renders literal strings — `[pack]` is
+substituted in six places, none of them there, and Action Shot hardcodes its
+equivalent the same way. Either write it literally or add placeholder support, which
+is a code change.
+
+### Noted for the handover, outside this pilot
+
+- Action Shot's card label still reads "12 x Bottles", inaccurate since the product
+  starts at a 6-pack
+- The `/ shot` versus `/ bottle` distinction is deliberate per the client and must
+  not be standardised later
