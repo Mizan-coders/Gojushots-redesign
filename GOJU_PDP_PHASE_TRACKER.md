@@ -1238,3 +1238,41 @@ is a code change.
   starts at a 6-pack
 - The `/ shot` versus `/ bottle` distinction is deliberate per the client and must
   not be standardised later
+
+---
+
+## Hardcoded pack names across the range — audited 3 September 2026
+
+Found on Immune Guard during the pilot, so the other five were checked. Four carry
+the same fault; two of those state something false.
+
+| Product | Setting | Text | Verdict |
+|---|---|---|---|
+| Defend Pack | `nosub_hint` | "One-time purchase only · No subscription available" | **False** — 15 Shots subscribes at $67.50 |
+| Restore Pack | `nosub_hint` | same | **False** — same |
+| Ginger Ignition | `nosub_hint` + `nosub_upsell` | "…available on 15 packs" | Wrong name — the variant is "15 Shots" |
+| Vital Sunshine | `nosub_hint` + `nosub_upsell` | same | Wrong name |
+| Good Night | `nosub_upsell` | hardcodes "15 Shots" | Brittle, currently accurate |
+| Sample Pack | `nosub_hint` + `nosub_upsell` | refers to a "15 pack" it does not have | Inherited on copy; never renders, single variant |
+| Action Shot | `all_soldout_note` | "[product] is currently sold out." | **Not a fault** — `[product]` is substituted with the product title at line 1156 |
+
+**Invisible today, exposed by migration.** With the gate off, each page auto-jumps to
+the subscribable 15 Shots on load and the hint is hidden — verified on the live
+Defend Pack page: present in the markup, `display: none`, zero height in the settled
+state.
+
+A migrated page opens on the 9-pack and stays there, which is the point of the
+migration, so the hint renders. Confirmed by loading Defend Pack with the 9-pack
+selected: the line shows, unhidden, reading "No subscription available".
+
+So migrating Defend Pack and Restore Pack without this fix would have put a false
+statement about subscriptions on two live product pages.
+
+**Fix:** replace the fixed wording with `[pack]`, which resolves from the variant
+that actually holds the plans — the correction Phase 1 made on Action Shot in
+`d839df0` and the pilot repeated on Immune Guard. Minutes per product. To be carried
+in the rollout estimate, not treated as extra.
+
+**Why it was worth finding now.** It only surfaces by migrating one product properly
+first, which is how the client structured this phase. Two of the five would have
+failed silently.
