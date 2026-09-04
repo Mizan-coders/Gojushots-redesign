@@ -2069,6 +2069,11 @@
     // Read once and deleted immediately: a key left behind would pin the next
     // clean visit into Subscribe, which is the behaviour Phase 1 removed.
     var croModeKey = 'croPackMode-{{ section.id }}';
+    // Set while the page itself moves the customer to another pack on purpose.
+    // A label.click() produces a change event Chrome marks as trusted, so the
+    // isTrusted guard below cannot tell it apart from a real click and would
+    // overwrite the intent we just recorded.
+    var croSuppressModeCapture = false;
     var croPendingMode = null;
     try {
       croPendingMode = sessionStorage.getItem(croModeKey);
@@ -2115,6 +2120,7 @@
     document.addEventListener('change', function (e) {
       var t = e.target;
       if (!t || t.type !== 'radio' || !e.isTrusted) return;
+      if (croSuppressModeCapture) return;
       if (!t.closest('.cro-variant-row, .cro-variant-row--cards')) return;
       try { sessionStorage.setItem(croModeKey, currentMode); } catch (err) {}
     }, true);
@@ -2334,7 +2340,17 @@
           for (var i = 0; i < radios.length; i++) {
             if (radios[i].value === optionValue) {
               var lbl = document.querySelector('label[for="' + radios[i].id + '"]');
-              if (lbl) lbl.click();
+              if (lbl) {
+                // The customer clicked a link that says "Subscribe & Save", so record
+                // that intent before switching. Changing the pack reloads the page,
+                // and without this the reloaded page finds no intent and opens
+                // one-time — landing on the right pack at the wrong price with no
+                // frequency selector. The plan itself is still resolved from the
+                // variant's own allocations by initPW, never hardcoded.
+                croSuppressModeCapture = true;
+                try { sessionStorage.setItem(croModeKey, 'sub'); } catch (err) {}
+                lbl.click();
+              }
               break;
             }
           }
