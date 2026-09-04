@@ -1276,3 +1276,57 @@ in the rollout estimate, not treated as extra.
 **Why it was worth finding now.** It only surfaces by migrating one product properly
 first, which is how the client structured this phase. Two of the five would have
 failed silently.
+
+---
+
+## Immune Guard pilot — awaiting cutover approval, 4 September 2026
+
+Built on `155631714472`, unpublished. Live theme untouched. No Recharge, pricing,
+shipping or selling-plan change made or required — the client removed the 9-pack
+subscription from scope entirely.
+
+### Release method — approved in principle
+
+Copy **one file**, `templates/product.cro-immune-guard.json`, onto the live theme.
+Do not publish the pilot theme.
+
+Two independent reasons not to publish the theme whole:
+
+1. It would revert anything changed elsewhere on live since the copy was taken
+2. The pilot is **missing a Rebuy app block** from `templates/product.json`, dropped
+   when the theme was duplicated. Verified against the 2 September copy: the block
+   was on live before the pilot existed, so it was lost on push, not added later. No
+   impact today — all eight products use their own cro templates and none render
+   from `product.json` — and the client has confirmed it need not be restored.
+
+**Both of the client's conditions verified, not assumed.** All nine section types and
+every setting id referenced by the template exist in the live theme's schemas, so the
+copied page stays fully editable in the theme editor.
+
+### The whitespace trick worth knowing
+
+The grey helper was removed from the one-time state by setting `sub_switch_hint` to a
+**single space**, not by clearing it. Shopify's `default:` filter treats only nil,
+false and empty strings as absent, so a space suppresses the fallback; the surrounding
+`{%- if cro_hint != blank -%}` then treats whitespace as blank and skips the element.
+
+Net effect: the line does not render, no code changed, and the release stays a single
+template file. A code fix would have meant touching `main-product-cro.liquid`, which is
+shared with live Action Shot, and would have collapsed the approved release method.
+
+**The trap:** the field looks empty in the theme editor but is not. Clearing it fully
+brings the built-in wording back. Recorded in the Phase 2 addendum.
+
+### Rollout estimate issued
+
+| | Capped |
+|---|---|
+| Part A — Ginger Ignition, Vital Sunshine, Good Night | 9h |
+| Part B — Restore Pack, Defend Pack | 4.5h |
+| Mobile sticky Add to Cart, separate option | 2.5h |
+
+The mobile sticky bar is hidden by a shared stylesheet rule below 749px, not per
+product, so enabling it would switch it on for Action Shot too. Cannot be scoped to
+one product without additional work, which is not priced.
+
+Pilot hours reported: 5 of the 6-hour ceiling.
