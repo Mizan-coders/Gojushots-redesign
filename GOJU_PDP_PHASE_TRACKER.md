@@ -1330,3 +1330,72 @@ product, so enabling it would switch it on for Action Shot too. Cannot be scoped
 one product without additional work, which is not priced.
 
 Pilot hours reported: 5 of the 6-hour ceiling.
+
+---
+
+## Defect — the subscribe upsell link did not subscribe · 4 September 2026
+
+Found by the client on the pilot, then on live Action Shot.
+
+**Symptom.** Clicking the green "Subscribe & Save" link selected the subscribable
+pack but left the purchase type on One-time. Right pack, full price, no selling plan,
+no frequency selector, and Add to Cart offering the one-time price.
+
+Reproduced before fixing: 15 Shots · mode once · $75 · plan empty · 0 frequencies.
+
+**Cause.** The handler switched the variant but never recorded subscribe intent.
+Changing pack reloads the page, so the reloaded page found no intent and defaulted to
+one-time.
+
+**Why only the two rebuilt pages.** Where the new experience is off, `croWantsSub()`
+returns true at its first check and the page lands in subscribe regardless. The other
+four products are not working correctly — they are bypassing the logic the migrated
+pages use, and would have failed identically once migrated. The client's own
+range-wide test is what made this visible.
+
+### The part worth remembering
+
+Recording the intent was **not enough**. It was overwritten immediately.
+
+Instrumented `Storage.prototype.setItem` and logged the sequence:
+
+```
+croPackMode = "sub"      <- the fix
+croPackMode = "once"     <- overwritten
+```
+
+The Phase 1 mode-carry listener did it. **`label.click()` produces a change event
+that Chrome marks `isTrusted: true`**, so the guard meant to distinguish real
+customer clicks from programmatic ones does not. Any future code relying on
+`isTrusted` to detect synthetic interaction has the same hole.
+
+Fixed with an explicit suppression flag around the deliberate switch, rather than
+trying to make `isTrusted` mean what it does not.
+
+### Verified, both products
+
+| Check | Immune Guard | Action Shot |
+|---|---|---|
+| CTA from smaller pack | $67.50, plan set, 4 freqs | $75.60, $8.40 saving, 3 freqs |
+| Toggle from larger pack | $67.50, 4 Weeks selected | — |
+| Cart, non-default frequency | 4-week plan named, $67.50 | 4-week plan named, $75.60 |
+| Revert to One-time | $75, plan cleared | $84, plan cleared |
+| Plan resolution | dynamic — id changes with frequency | dynamic |
+| Mobile | checked on a phone | — |
+
+Action Shot was verified **without touching live**, by previewing it on the pilot
+theme. The shared fix repairs both.
+
+### Release method changed
+
+Single-file release no longer holds. Two files now:
+
+- `templates/product.cro-immune-guard.json` — the page
+- `sections/main-product-cro.liquid` — the CTA fix, **shared**
+
+Because the section is shared, deploying it repairs Action Shot at the same moment
+Immune Guard goes live. They cannot be separated without duplicating the section,
+which was advised against. The alternative offered: deploy the section alone to fix
+Action Shot now, keeping Immune Guard in preview.
+
+Rollback unchanged in shape — revert both files from theme file history.
